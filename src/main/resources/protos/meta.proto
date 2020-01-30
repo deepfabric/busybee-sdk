@@ -1,0 +1,139 @@
+syntax = "proto3";
+package metapb;
+
+option java_multiple_files = true;
+option java_package = "cn.infinivision.dataforce.busybee.pb.meta";
+option java_outer_classname = "PB";
+option objc_class_prefix = "HLW";
+
+
+// IDValue is a id value
+message IDValue {
+    string value  = 1;
+    uint32 type   = 2;
+}
+
+// Group shard group
+enum Group {
+    DefaultGroup      = 0;
+    TenantInputGroup  = 1;
+    TenantOutputGroup = 2;
+}
+
+// Workflow is process definition
+message Workflow {
+    uint64         id        = 1;
+    uint64         tenantID  = 2;
+    string         name      = 3;
+    repeated Step  steps     = 4;
+    int64          duration  = 5;
+}
+
+// WorkflowInstance workflow instance
+message WorkflowInstance {
+    Workflow snapshot    = 1;
+    bytes    crowd       = 2;
+    uint64   maxPerShard = 3;
+    int64    startedAt   = 4;
+    int64    stoppedAt   = 5;
+}
+
+// WorkflowInstanceState workflow instance state, uid in [start,end). instance : instanceState = 1 : N
+message WorkflowInstanceState {
+    uint64             tenantID   = 1;
+    uint64             workflowID = 2;
+    uint32             start      = 3;
+    uint32             end        = 4;
+    repeated StepState states     = 5;
+    uint64             version    = 6;
+    int64              stopAt     = 7;
+}
+
+// CountState step count state
+message CountState {
+    string step  = 1;
+    uint64 count = 2;
+}
+
+// InstanceCountState active instance count state
+message InstanceCountState {
+    Workflow snapshot          = 1;
+    repeated CountState states = 2;
+    uint64   total             = 3;
+}
+
+// StepState workflow step state.
+message StepState {
+    Step  step   = 1;
+    bytes crowd  = 2;
+}
+
+// Step is a step of the work flow
+message Step {
+    string    name        = 1;
+    Execution execution   = 2;
+    string    enterAction = 3;
+    string    leaveAction = 4;
+}
+
+// ExectuionType is is the type of a execution operation
+enum ExectuionType {
+    // Direct is an executable operation.
+    Direct    = 0;
+    // Timer is an timer executable.
+    Timer     = 1;
+    // Branch contains several of the operations that will be performed if certain conditions are met.
+    Branch    = 2;
+    // Parallel contains multiple sets of operations that can be executed concurrently.
+    Parallel  = 3;
+}
+
+// Execution is node operation in a seqence of executions.
+// A node may have the following roles:
+// 1. DirectExecution
+// 2. BranchExecution
+// 3. ParallelExecution
+message Execution {
+    ExectuionType               type      = 1;
+    TimerExecution              timer     = 2;
+    DirectExecution             direct    = 3;
+    repeated ConditionExecution branches  = 4;
+    ParallelExecution           parallel  = 5;
+}
+
+// TimerExecution is a timer performable operation
+message TimerExecution {
+    Expr   condition  = 1;
+    string cron       = 2;
+    string nextStep   = 3;
+}
+
+// ParallelExecution is a parallel execution
+message ParallelExecution {
+    string             nextStep  = 1;
+    repeated Execution parallels = 2;
+}
+
+// DirectExecution is a directly performable operation
+message DirectExecution {
+    string nextStep = 1;
+}
+
+// ConditionExecution is selecting multiple operations to satisfy the operation of the conditional operation
+message ConditionExecution {
+    Expr      condition = 1;
+    Execution execution = 2;
+    string    nextStep  = 3;
+}
+
+// ExprResultType expr execute type
+enum ExprResultType {
+    BoolResult = 0;
+    BMResult   = 1;
+}
+
+// Expr expr
+message Expr {
+    bytes          value = 1;
+    ExprResultType type  = 2;
+}
