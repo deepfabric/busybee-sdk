@@ -108,6 +108,14 @@ public enum Type
    * <code>GetProfile = 404;</code>
    */
   GetProfile(404),
+  /**
+   * <code>AddEvent = 405;</code>
+   */
+  AddEvent(405),
+  /**
+   * <code>FetchNotify = 406;</code>
+   */
+  FetchNotify(406),
   UNRECOGNIZED(-1),
   ;
 
@@ -211,6 +219,14 @@ public enum Type
    * <code>GetProfile = 404;</code>
    */
   public static final int GetProfile_VALUE = 404;
+  /**
+   * <code>AddEvent = 405;</code>
+   */
+  public static final int AddEvent_VALUE = 405;
+  /**
+   * <code>FetchNotify = 406;</code>
+   */
+  public static final int FetchNotify_VALUE = 406;
 
 
   public final int getNumber() {
@@ -256,6 +272,8 @@ public enum Type
       case 402: return GetMapping;
       case 403: return UpdateProfile;
       case 404: return GetProfile;
+      case 405: return AddEvent;
+      case 406: return FetchNotify;
       default: return null;
     }
   }

@@ -1,8 +1,8 @@
 package cn.infinivision.dataforce.busybee;
 
-import cn.infinivision.dataforce.busybee.pb.api.Response;
 import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
+import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -73,6 +73,15 @@ public class Result {
             throw new RuntimeException(e);
         }
         return value;
+    }
+
+    /**
+     * string response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return string
+     */
+    public String stringResponse() {
+        return new String(bytesResponse());
     }
 
     /**

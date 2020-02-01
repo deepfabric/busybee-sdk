@@ -40,6 +40,74 @@ enum Type {
     GetMapping    = 402;
     UpdateProfile = 403;
     GetProfile    = 404;
+    AddEvent      = 405;
+    FetchNotify   = 406;
+}
+
+// Event is process definition
+message Event {
+    uint32 userID     = 1;
+    uint64 tenantID   = 2;
+    uint64 workflowID = 3;
+    repeated KV data  = 4;
+}
+
+// KV custom KV data
+message KV {
+    bytes key   = 1;
+    bytes value = 2;
+}
+
+// Notify notify message
+message Notify {
+    uint32 userID     = 1;
+    bytes  crowd      = 2;
+    uint64 tenantID   = 3;
+    uint64 workflowID = 4;
+    string fromStep   = 5;
+    string fromAction = 6;
+    string toStep     = 7;
+    string toAction   = 8;
+}
+
+// Request the busybee request
+message Request {
+    uint64                    id            = 1;
+    Type                      type          = 2;
+    SetRequest                set           = 3;
+    GetRequest                get           = 4;
+    DeleteRequest             delete        = 5;
+    BMCreateRequest           bmCreate      = 6;
+    BMAddRequest              bmAdd         = 7;
+    BMRemoveRequest           bmRemove      = 8;
+    BMClearRequest            bmClear       = 9;
+    BMRangeRequest            bmRange       = 10;
+    BMCountRequest            bmCount       = 11;
+    BMContainsRequest         bmContains    = 12;
+    TenantInitRequest         tenantInit    = 13;
+    StartingInstanceRequest   startInstance = 14;
+    StopInstanceRequest       stopInstance  = 15;
+    InstanceCountStateRequest countInstance = 16;
+    InstanceCrowdStateRequest crowdInstance = 17;
+    UpdateMappingRequest      updateMapping = 18;
+    GetMappingRequest         getMapping    = 19;
+    UpdateProfileRequest      updateProfile = 20;
+    GetProfileRequest         getProfile    = 21;
+    AddEventRequest           addEvent      = 22;
+    FetchNotifyRequest        fetchNotify   = 23;
+}
+
+// Response the busybee response
+message Response {
+    uint64                    id              = 1;
+    rpcpb.Type                type            = 2;
+    ErrorResponse             error           = 3;
+    rpcpb.BytesResponse       bytesResp       = 4;
+    rpcpb.BoolResponse        boolResp        = 5;
+    rpcpb.Uint64Response      uint64Resp      = 6;
+    rpcpb.Uint32SliceResponse uint32SliceResp = 7;
+    rpcpb.BytesSliceResponse  bytesSliceResp  = 8;
+    rpcpb.StringResponse      stringResp      = 9;
 }
 
 // SetRequest set a key value pair
@@ -187,6 +255,24 @@ message GetProfileRequest {
     uint64 id     = 1;
     uint32 userID = 2;
     string field  = 3;
+}
+
+// AddEventRequest add event
+message AddEventRequest {
+    metapb.Event event = 1;
+}
+
+// FetchNotifyRequest fetch notify request
+message FetchNotifyRequest {
+    uint64 id       = 1;
+    uint64 after    = 2;
+    uint64 count    = 3;
+    string consumer = 4;
+}
+
+// ErrorResponse error response
+message ErrorResponse {
+    string error = 1;
 }
 
 // EmptyResponse empty response

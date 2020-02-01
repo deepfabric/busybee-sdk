@@ -1,6 +1,6 @@
 package cn.infinivision.dataforce.busybee;
 
-import cn.infinivision.dataforce.busybee.pb.api.Response;
+import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import com.google.protobuf.MessageLite;
 import io.aicloud.tools.netty.Codec;
 import io.netty.buffer.ByteBuf;
@@ -16,8 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author fagongzi
  */
-@Slf4j(topic = "busybee")
-class RPCCodec implements Codec<MessageLite> {
+@Slf4j(topic = "busybee") class RPCCodec implements Codec<MessageLite> {
     static final RPCCodec DEFAULT = new RPCCodec();
 
     private RPCCodec() {

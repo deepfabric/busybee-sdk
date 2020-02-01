@@ -1,7 +1,7 @@
 package cn.infinivision.dataforce.busybee;
 
-import cn.infinivision.dataforce.busybee.pb.api.Request;
-import cn.infinivision.dataforce.busybee.pb.api.Response;
+import cn.infinivision.dataforce.busybee.pb.rpc.Request;
+import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import com.google.protobuf.MessageLite;
 import io.aicloud.tools.netty.ChannelAware;
 import io.aicloud.tools.netty.Connector;
@@ -33,7 +33,8 @@ import org.apache.commons.pool2.ObjectPool;
  *
  * @author fagongzi
  */
-@Slf4j(topic = "busybee") class Transport implements ChannelAware<MessageLite> {
+@Slf4j(topic = "busybee")
+class Transport implements ChannelAware<MessageLite> {
     private AtomicBoolean running = new AtomicBoolean(false);
     private long workers;
     private AtomicLong ops = new AtomicLong(0);
@@ -99,7 +100,7 @@ import org.apache.commons.pool2.ObjectPool;
         ctx.errCB = errCB;
 
         CtxHolder.add(request.getId(), ctx, this.timeoutMS);
-        queues.get((int) (ops.incrementAndGet()%workers)).add(ctx);
+        queues.get((int) (ops.incrementAndGet() % workers)).add(ctx);
 
         log.debug("request-{} added to sent queue", request.getId());
     }
@@ -225,8 +226,6 @@ import org.apache.commons.pool2.ObjectPool;
     public static void main(String[] args) {
         Transport t = new Transport(1, 1, 10000);
         t.start();
-
-
 
     }
 }

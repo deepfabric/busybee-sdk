@@ -13,6 +13,7 @@ public class Builder {
     private Options opts = new Options();
 
     private static class Options {
+        private long fetchCount;
         private int ioWorkers;
         private int workers;
         private long rpcTimeoutMS;
@@ -29,6 +30,10 @@ public class Builder {
 
             if (workers == 0) {
                 workers = servers.size();
+            }
+
+            if (fetchCount == 0) {
+                fetchCount = 8L;
             }
         }
     }
@@ -78,6 +83,17 @@ public class Builder {
     }
 
     /**
+     * batch size that fetch the notify from busybee
+     *
+     * @param value batch size
+     * @return Builder
+     */
+    public Builder notifyFetchBatchSize(long value) {
+        this.opts.fetchCount = value;
+        return this;
+    }
+
+    /**
      * create a client
      *
      * @return client
@@ -88,6 +104,6 @@ public class Builder {
         Transport transport = new Transport(opts.workers, opts.ioWorkers, opts.rpcTimeoutMS);
         transport.start();
 
-        return new Client(transport);
+        return new Client(transport, opts.fetchCount);
     }
 }
