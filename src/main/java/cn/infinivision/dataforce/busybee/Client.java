@@ -9,6 +9,7 @@ import cn.infinivision.dataforce.busybee.pb.meta.StepState;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
 import cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest;
@@ -22,11 +23,13 @@ import cn.infinivision.dataforce.busybee.pb.rpc.GetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Request;
+import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import cn.infinivision.dataforce.busybee.pb.rpc.SetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.Type;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest;
 import com.google.protobuf.ByteString;
@@ -36,7 +39,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
@@ -54,10 +60,76 @@ public class Client {
     private Transport transport;
     private long fetchCount;
     private Map<Long, FetchWorker> fetchWorkers = new ConcurrentHashMap<>();
+    private ScheduledExecutorService schedulers;
 
-    Client(Transport transport, long fetchCount) {
+    Client(Transport transport, long fetchCount, int fetchSchedulers) {
         this.transport = transport;
         this.fetchCount = fetchCount;
+        schedulers = Executors.newScheduledThreadPool(fetchSchedulers);
+    }
+
+    /**
+     * alloc a batch uint32 id values
+     *
+     * @param key key
+     * @param batch value
+     * @return Future Result, use {@link Result#uint32RangeResponse()} to get a uint32 range response
+     */
+    public Future<Result> allocId(byte[] key, long batch) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.AllocID)
+                .setAllocID(AllocIDRequest.newBuilder()
+                    .setKey(ByteString.copyFrom(key))
+                    .setBatch(batch)
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
+    }
+
+    /**
+     * reset id generator
+     *
+     * @param key key
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> resetId(byte[] key) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.ResetID)
+                .setResetID(ResetIDRequest.newBuilder()
+                    .setKey(ByteString.copyFrom(key))
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
+    }
+
+    /**
+     * reset id generator with start value
+     *
+     * @param key key
+     * @param startWith start value
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> resetId(byte[] key, long startWith) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.ResetID)
+                .setResetID(ResetIDRequest.newBuilder()
+                    .setKey(ByteString.copyFrom(key))
+                    .setStartWith(startWith)
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
     }
 
     /**
@@ -71,6 +143,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.Set)
                 .setSet(SetRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .setValue(ByteString.copyFrom(value))
@@ -91,6 +164,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.Get)
                 .setGet(GetRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .build())
@@ -110,6 +184,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.Delete)
                 .setDelete(DeleteRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .build())
@@ -130,6 +205,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.UpdateMapping)
                 .setUpdateMapping(UpdateMappingRequest.newBuilder()
                     .setId(tenantId)
                     .addAllValues(Arrays.asList(ids))
@@ -152,6 +228,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.GetMapping)
                 .setGetMapping(GetMappingRequest.newBuilder()
                     .setId(tenantId)
                     .setFrom(from)
@@ -175,6 +252,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.UpdateProfile)
                 .setUpdateProfile(UpdateProfileRequest.newBuilder()
                     .setId(tenantId)
                     .setUserID(userId)
@@ -197,6 +275,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.GetProfile)
                 .setGetProfile(GetProfileRequest.newBuilder()
                     .setId(tenantId)
                     .setUserID(userId)
@@ -219,6 +298,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.GetProfile)
                 .setGetProfile(GetProfileRequest.newBuilder()
                     .setId(tenantId)
                     .setUserID(userId)
@@ -264,6 +344,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.BMAdd)
                 .setBmAdd(BMAddRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .addAllValue(Arrays.asList(values))
@@ -285,6 +366,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.BMRemove)
                 .setBmRemove(BMRemoveRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .addAllValue(Arrays.asList(values))
@@ -305,6 +387,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.BMClear)
                 .setBmClear(BMClearRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .build())
@@ -324,6 +407,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.BMCount)
                 .setBmCount(BMCountRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .build())
@@ -344,6 +428,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.BMContains)
                 .setBmContains(BMContainsRequest.newBuilder()
                     .setKey(ByteString.copyFrom(key))
                     .addAllValue(Arrays.asList(values))
@@ -365,6 +450,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.TenantInit)
                 .setTenantInit(TenantInitRequest.newBuilder()
                     .setId(tenantId)
                     .setInputQueuePartitions(inputPartitions)
@@ -390,6 +476,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.StartingInstance)
                 .setStartInstance(StartingInstanceRequest.newBuilder()
                     .setInstance(WorkflowInstance.newBuilder()
                         .setMaxPerShard(maxPerShard)
@@ -413,6 +500,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.StopInstance)
                 .setStopInstance(StopInstanceRequest.newBuilder()
                     .setWorkflowID(workflowId)
                     .build())
@@ -432,6 +520,7 @@ public class Client {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.InstanceCountState)
                 .setCountInstance(InstanceCountStateRequest.newBuilder()
                     .setWorkflowID(workflowId)
                     .build())
@@ -445,14 +534,17 @@ public class Client {
      * the crowd step state of the workflow, contains step and crowd users on the step.
      *
      * @param workflowId workflow id
+     * @param step step name
      * @return Future Result, use {@link Result#stepCrowdStateResponse} to get {@link StepState} response
      */
-    public Future<Result> stepCrowdState(long workflowId) {
+    public Future<Result> stepCrowdState(long workflowId, String step) {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.InstanceCrowdState)
                 .setCrowdInstance(InstanceCrowdStateRequest.newBuilder()
                     .setWorkflowID(workflowId)
+                    .setName(step)
                     .build())
                 .build();
 
@@ -473,18 +565,21 @@ public class Client {
             throw new IllegalArgumentException("data length must pow of 2, but " + data.length);
         }
 
-        Event.Builder builder = Event.newBuilder().setTenantID(tenantId).setUserID(userId);
+        Event.Builder builder = Event.newBuilder()
+            .setTenantID(tenantId)
+            .setUserID(userId);
+
         for (int i = 0; i < data.length / 2; i++) {
-            builder.setData(i,
-                KV.newBuilder()
-                    .setKey(ByteString.copyFrom(data[2 * i]))
-                    .setValue(ByteString.copyFrom(data[2 * i + 1]))
-                    .build());
+            builder.addData(KV.newBuilder()
+                .setKey(ByteString.copyFrom(data[2 * i]))
+                .setValue(ByteString.copyFrom(data[2 * i + 1]))
+                .build());
         }
 
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
+                .setType(Type.AddEvent)
                 .setAddEvent(AddEventRequest.newBuilder()
                     .setEvent(builder.build())
                     .build())
@@ -507,9 +602,9 @@ public class Client {
             return;
         }
 
-        FetchWorker w = new FetchWorker(this, tenantId, consumer, callback);
+        FetchWorker w = new FetchWorker(this, tenantId, consumer, callback, schedulers);
         fetchWorkers.putIfAbsent(tenantId, w);
-        fetchWorkers.get(tenantId).run();
+        schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
     }
 
     /**
@@ -532,28 +627,21 @@ public class Client {
     }
 
     private static class FetchWorker {
-        private AtomicBoolean running = new AtomicBoolean(false);
         private AtomicBoolean stopped = new AtomicBoolean(false);
         private Client client;
         private long tenantId;
         private long offset;
         private String consumer;
         private Consumer<Notify> callback;
+        private ScheduledExecutorService schedulers;
 
-        FetchWorker(Client client, long tenantId, String consumer, Consumer<Notify> callback) {
+        FetchWorker(Client client, long tenantId, String consumer, Consumer<Notify> callback,
+            ScheduledExecutorService schedulers) {
             this.client = client;
             this.tenantId = tenantId;
             this.consumer = consumer;
             this.callback = callback;
-        }
-
-        void run() {
-            if (!running.compareAndSet(false, true)) {
-                log.warn("tenant {} was already run", tenantId);
-                return;
-            }
-
-            doFetch();
+            this.schedulers = schedulers;
         }
 
         void stop() {
@@ -564,8 +652,11 @@ public class Client {
             log.debug("tenant {} fetch result at offset {} is {}",
                 tenantId, offset, resp);
 
+            long after = 1;
             try {
-                if (resp.hasError()) {
+                if (resp.hasError() &&
+                    null != resp.getError().getError() &&
+                    !resp.getError().getError().isEmpty()) {
                     log.error("tenant {} fetch failed at offset {} with error {}",
                         tenantId, offset, resp.getError().getError());
                 } else {
@@ -577,10 +668,11 @@ public class Client {
                             value++;
                             offset = value;
                         }
+                        after = 0;
                     }
                 }
 
-                doFetch();
+                schedulers.schedule(this::run, after, TimeUnit.SECONDS);
             } catch (Throwable cause) {
                 log.error("tenant " + tenantId + " fetch failed at offset " + offset + " failed", cause);
             }
@@ -588,10 +680,10 @@ public class Client {
 
         void onError(Throwable cause) {
             log.error("tenant " + tenantId + " fetch failed at offset " + offset + " failed", cause);
-            doFetch();
+            schedulers.schedule(this::run, 1, TimeUnit.SECONDS);
         }
 
-        void doFetch() {
+        void run() {
             if (stopped.get()) {
                 log.debug("tenant {} fetch worker stopped at offset {}", tenantId, offset);
                 return;
@@ -600,7 +692,9 @@ public class Client {
             log.debug("tenant {} fetch from offset {}", tenantId, offset);
             client.transport.sent(Request.newBuilder()
                 .setId(client.id.incrementAndGet())
+                .setType(Type.FetchNotify)
                 .setFetchNotify(FetchNotifyRequest.newBuilder()
+                    .setId(tenantId)
                     .setAfter(offset)
                     .setConsumer(consumer)
                     .setCount(client.fetchCount)

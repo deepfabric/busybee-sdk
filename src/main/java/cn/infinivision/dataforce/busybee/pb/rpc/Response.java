@@ -119,6 +119,32 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 58: {
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder subBuilder = null;
+            if (uint32Resp_ != null) {
+              subBuilder = uint32Resp_.toBuilder();
+            }
+            uint32Resp_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(uint32Resp_);
+              uint32Resp_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 66: {
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.Builder subBuilder = null;
+            if (uint32RangeResp_ != null) {
+              subBuilder = uint32RangeResp_.toBuilder();
+            }
+            uint32RangeResp_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(uint32RangeResp_);
+              uint32RangeResp_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 74: {
             cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse.Builder subBuilder = null;
             if (uint32SliceResp_ != null) {
               subBuilder = uint32SliceResp_.toBuilder();
@@ -131,7 +157,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 66: {
+          case 82: {
             cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.Builder subBuilder = null;
             if (bytesSliceResp_ != null) {
               subBuilder = bytesSliceResp_.toBuilder();
@@ -144,7 +170,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 74: {
+          case 90: {
             cn.infinivision.dataforce.busybee.pb.rpc.StringResponse.Builder subBuilder = null;
             if (stringResp_ != null) {
               subBuilder = stringResp_.toBuilder();
@@ -290,64 +316,106 @@ private static final long serialVersionUID = 0L;
     return getUint64Resp();
   }
 
-  public static final int UINT32SLICERESP_FIELD_NUMBER = 7;
+  public static final int UINT32RESP_FIELD_NUMBER = 7;
+  private cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response uint32Resp_;
+  /**
+   * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+   */
+  public boolean hasUint32Resp() {
+    return uint32Resp_ != null;
+  }
+  /**
+   * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response getUint32Resp() {
+    return uint32Resp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.getDefaultInstance() : uint32Resp_;
+  }
+  /**
+   * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder getUint32RespOrBuilder() {
+    return getUint32Resp();
+  }
+
+  public static final int UINT32RANGERESP_FIELD_NUMBER = 8;
+  private cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse uint32RangeResp_;
+  /**
+   * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+   */
+  public boolean hasUint32RangeResp() {
+    return uint32RangeResp_ != null;
+  }
+  /**
+   * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse getUint32RangeResp() {
+    return uint32RangeResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.getDefaultInstance() : uint32RangeResp_;
+  }
+  /**
+   * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponseOrBuilder getUint32RangeRespOrBuilder() {
+    return getUint32RangeResp();
+  }
+
+  public static final int UINT32SLICERESP_FIELD_NUMBER = 9;
   private cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse uint32SliceResp_;
   /**
-   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
    */
   public boolean hasUint32SliceResp() {
     return uint32SliceResp_ != null;
   }
   /**
-   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse getUint32SliceResp() {
     return uint32SliceResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse.getDefaultInstance() : uint32SliceResp_;
   }
   /**
-   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponseOrBuilder getUint32SliceRespOrBuilder() {
     return getUint32SliceResp();
   }
 
-  public static final int BYTESSLICERESP_FIELD_NUMBER = 8;
+  public static final int BYTESSLICERESP_FIELD_NUMBER = 10;
   private cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse bytesSliceResp_;
   /**
-   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
    */
   public boolean hasBytesSliceResp() {
     return bytesSliceResp_ != null;
   }
   /**
-   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse getBytesSliceResp() {
     return bytesSliceResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.getDefaultInstance() : bytesSliceResp_;
   }
   /**
-   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponseOrBuilder getBytesSliceRespOrBuilder() {
     return getBytesSliceResp();
   }
 
-  public static final int STRINGRESP_FIELD_NUMBER = 9;
+  public static final int STRINGRESP_FIELD_NUMBER = 11;
   private cn.infinivision.dataforce.busybee.pb.rpc.StringResponse stringResp_;
   /**
-   * <code>.rpcpb.StringResponse stringResp = 9;</code>
+   * <code>.rpcpb.StringResponse stringResp = 11;</code>
    */
   public boolean hasStringResp() {
     return stringResp_ != null;
   }
   /**
-   * <code>.rpcpb.StringResponse stringResp = 9;</code>
+   * <code>.rpcpb.StringResponse stringResp = 11;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.StringResponse getStringResp() {
     return stringResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.StringResponse.getDefaultInstance() : stringResp_;
   }
   /**
-   * <code>.rpcpb.StringResponse stringResp = 9;</code>
+   * <code>.rpcpb.StringResponse stringResp = 11;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.StringResponseOrBuilder getStringRespOrBuilder() {
     return getStringResp();
@@ -383,14 +451,20 @@ private static final long serialVersionUID = 0L;
     if (uint64Resp_ != null) {
       output.writeMessage(6, getUint64Resp());
     }
+    if (uint32Resp_ != null) {
+      output.writeMessage(7, getUint32Resp());
+    }
+    if (uint32RangeResp_ != null) {
+      output.writeMessage(8, getUint32RangeResp());
+    }
     if (uint32SliceResp_ != null) {
-      output.writeMessage(7, getUint32SliceResp());
+      output.writeMessage(9, getUint32SliceResp());
     }
     if (bytesSliceResp_ != null) {
-      output.writeMessage(8, getBytesSliceResp());
+      output.writeMessage(10, getBytesSliceResp());
     }
     if (stringResp_ != null) {
-      output.writeMessage(9, getStringResp());
+      output.writeMessage(11, getStringResp());
     }
     unknownFields.writeTo(output);
   }
@@ -424,17 +498,25 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(6, getUint64Resp());
     }
+    if (uint32Resp_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(7, getUint32Resp());
+    }
+    if (uint32RangeResp_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(8, getUint32RangeResp());
+    }
     if (uint32SliceResp_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(7, getUint32SliceResp());
+        .computeMessageSize(9, getUint32SliceResp());
     }
     if (bytesSliceResp_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(8, getBytesSliceResp());
+        .computeMessageSize(10, getBytesSliceResp());
     }
     if (stringResp_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(9, getStringResp());
+        .computeMessageSize(11, getStringResp());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -474,6 +556,16 @@ private static final long serialVersionUID = 0L;
     if (hasUint64Resp()) {
       result = result && getUint64Resp()
           .equals(other.getUint64Resp());
+    }
+    result = result && (hasUint32Resp() == other.hasUint32Resp());
+    if (hasUint32Resp()) {
+      result = result && getUint32Resp()
+          .equals(other.getUint32Resp());
+    }
+    result = result && (hasUint32RangeResp() == other.hasUint32RangeResp());
+    if (hasUint32RangeResp()) {
+      result = result && getUint32RangeResp()
+          .equals(other.getUint32RangeResp());
     }
     result = result && (hasUint32SliceResp() == other.hasUint32SliceResp());
     if (hasUint32SliceResp()) {
@@ -521,6 +613,14 @@ private static final long serialVersionUID = 0L;
     if (hasUint64Resp()) {
       hash = (37 * hash) + UINT64RESP_FIELD_NUMBER;
       hash = (53 * hash) + getUint64Resp().hashCode();
+    }
+    if (hasUint32Resp()) {
+      hash = (37 * hash) + UINT32RESP_FIELD_NUMBER;
+      hash = (53 * hash) + getUint32Resp().hashCode();
+    }
+    if (hasUint32RangeResp()) {
+      hash = (37 * hash) + UINT32RANGERESP_FIELD_NUMBER;
+      hash = (53 * hash) + getUint32RangeResp().hashCode();
     }
     if (hasUint32SliceResp()) {
       hash = (37 * hash) + UINT32SLICERESP_FIELD_NUMBER;
@@ -695,6 +795,18 @@ private static final long serialVersionUID = 0L;
         uint64Resp_ = null;
         uint64RespBuilder_ = null;
       }
+      if (uint32RespBuilder_ == null) {
+        uint32Resp_ = null;
+      } else {
+        uint32Resp_ = null;
+        uint32RespBuilder_ = null;
+      }
+      if (uint32RangeRespBuilder_ == null) {
+        uint32RangeResp_ = null;
+      } else {
+        uint32RangeResp_ = null;
+        uint32RangeRespBuilder_ = null;
+      }
       if (uint32SliceRespBuilder_ == null) {
         uint32SliceResp_ = null;
       } else {
@@ -756,6 +868,16 @@ private static final long serialVersionUID = 0L;
         result.uint64Resp_ = uint64Resp_;
       } else {
         result.uint64Resp_ = uint64RespBuilder_.build();
+      }
+      if (uint32RespBuilder_ == null) {
+        result.uint32Resp_ = uint32Resp_;
+      } else {
+        result.uint32Resp_ = uint32RespBuilder_.build();
+      }
+      if (uint32RangeRespBuilder_ == null) {
+        result.uint32RangeResp_ = uint32RangeResp_;
+      } else {
+        result.uint32RangeResp_ = uint32RangeRespBuilder_.build();
       }
       if (uint32SliceRespBuilder_ == null) {
         result.uint32SliceResp_ = uint32SliceResp_;
@@ -830,6 +952,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasUint64Resp()) {
         mergeUint64Resp(other.getUint64Resp());
+      }
+      if (other.hasUint32Resp()) {
+        mergeUint32Resp(other.getUint32Resp());
+      }
+      if (other.hasUint32RangeResp()) {
+        mergeUint32RangeResp(other.getUint32RangeResp());
       }
       if (other.hasUint32SliceResp()) {
         mergeUint32SliceResp(other.getUint32SliceResp());
@@ -1405,17 +1533,251 @@ private static final long serialVersionUID = 0L;
       return uint64RespBuilder_;
     }
 
+    private cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response uint32Resp_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response, cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder> uint32RespBuilder_;
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public boolean hasUint32Resp() {
+      return uint32RespBuilder_ != null || uint32Resp_ != null;
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response getUint32Resp() {
+      if (uint32RespBuilder_ == null) {
+        return uint32Resp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.getDefaultInstance() : uint32Resp_;
+      } else {
+        return uint32RespBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public Builder setUint32Resp(cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response value) {
+      if (uint32RespBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        uint32Resp_ = value;
+        onChanged();
+      } else {
+        uint32RespBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public Builder setUint32Resp(
+        cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder builderForValue) {
+      if (uint32RespBuilder_ == null) {
+        uint32Resp_ = builderForValue.build();
+        onChanged();
+      } else {
+        uint32RespBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public Builder mergeUint32Resp(cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response value) {
+      if (uint32RespBuilder_ == null) {
+        if (uint32Resp_ != null) {
+          uint32Resp_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.newBuilder(uint32Resp_).mergeFrom(value).buildPartial();
+        } else {
+          uint32Resp_ = value;
+        }
+        onChanged();
+      } else {
+        uint32RespBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public Builder clearUint32Resp() {
+      if (uint32RespBuilder_ == null) {
+        uint32Resp_ = null;
+        onChanged();
+      } else {
+        uint32Resp_ = null;
+        uint32RespBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder getUint32RespBuilder() {
+      
+      onChanged();
+      return getUint32RespFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder getUint32RespOrBuilder() {
+      if (uint32RespBuilder_ != null) {
+        return uint32RespBuilder_.getMessageOrBuilder();
+      } else {
+        return uint32Resp_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.getDefaultInstance() : uint32Resp_;
+      }
+    }
+    /**
+     * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response, cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder> 
+        getUint32RespFieldBuilder() {
+      if (uint32RespBuilder_ == null) {
+        uint32RespBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response, cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder>(
+                getUint32Resp(),
+                getParentForChildren(),
+                isClean());
+        uint32Resp_ = null;
+      }
+      return uint32RespBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse uint32RangeResp_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse, cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponseOrBuilder> uint32RangeRespBuilder_;
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public boolean hasUint32RangeResp() {
+      return uint32RangeRespBuilder_ != null || uint32RangeResp_ != null;
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse getUint32RangeResp() {
+      if (uint32RangeRespBuilder_ == null) {
+        return uint32RangeResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.getDefaultInstance() : uint32RangeResp_;
+      } else {
+        return uint32RangeRespBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public Builder setUint32RangeResp(cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse value) {
+      if (uint32RangeRespBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        uint32RangeResp_ = value;
+        onChanged();
+      } else {
+        uint32RangeRespBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public Builder setUint32RangeResp(
+        cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.Builder builderForValue) {
+      if (uint32RangeRespBuilder_ == null) {
+        uint32RangeResp_ = builderForValue.build();
+        onChanged();
+      } else {
+        uint32RangeRespBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public Builder mergeUint32RangeResp(cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse value) {
+      if (uint32RangeRespBuilder_ == null) {
+        if (uint32RangeResp_ != null) {
+          uint32RangeResp_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.newBuilder(uint32RangeResp_).mergeFrom(value).buildPartial();
+        } else {
+          uint32RangeResp_ = value;
+        }
+        onChanged();
+      } else {
+        uint32RangeRespBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public Builder clearUint32RangeResp() {
+      if (uint32RangeRespBuilder_ == null) {
+        uint32RangeResp_ = null;
+        onChanged();
+      } else {
+        uint32RangeResp_ = null;
+        uint32RangeRespBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.Builder getUint32RangeRespBuilder() {
+      
+      onChanged();
+      return getUint32RangeRespFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponseOrBuilder getUint32RangeRespOrBuilder() {
+      if (uint32RangeRespBuilder_ != null) {
+        return uint32RangeRespBuilder_.getMessageOrBuilder();
+      } else {
+        return uint32RangeResp_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.getDefaultInstance() : uint32RangeResp_;
+      }
+    }
+    /**
+     * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse, cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponseOrBuilder> 
+        getUint32RangeRespFieldBuilder() {
+      if (uint32RangeRespBuilder_ == null) {
+        uint32RangeRespBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse, cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponseOrBuilder>(
+                getUint32RangeResp(),
+                getParentForChildren(),
+                isClean());
+        uint32RangeResp_ = null;
+      }
+      return uint32RangeRespBuilder_;
+    }
+
     private cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse uint32SliceResp_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse, cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponseOrBuilder> uint32SliceRespBuilder_;
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public boolean hasUint32SliceResp() {
       return uint32SliceRespBuilder_ != null || uint32SliceResp_ != null;
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse getUint32SliceResp() {
       if (uint32SliceRespBuilder_ == null) {
@@ -1425,7 +1787,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public Builder setUint32SliceResp(cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse value) {
       if (uint32SliceRespBuilder_ == null) {
@@ -1441,7 +1803,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public Builder setUint32SliceResp(
         cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse.Builder builderForValue) {
@@ -1455,7 +1817,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public Builder mergeUint32SliceResp(cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse value) {
       if (uint32SliceRespBuilder_ == null) {
@@ -1473,7 +1835,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public Builder clearUint32SliceResp() {
       if (uint32SliceRespBuilder_ == null) {
@@ -1487,7 +1849,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse.Builder getUint32SliceRespBuilder() {
       
@@ -1495,7 +1857,7 @@ private static final long serialVersionUID = 0L;
       return getUint32SliceRespFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponseOrBuilder getUint32SliceRespOrBuilder() {
       if (uint32SliceRespBuilder_ != null) {
@@ -1506,7 +1868,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+     * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse, cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponseOrBuilder> 
@@ -1526,13 +1888,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse, cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponseOrBuilder> bytesSliceRespBuilder_;
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public boolean hasBytesSliceResp() {
       return bytesSliceRespBuilder_ != null || bytesSliceResp_ != null;
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse getBytesSliceResp() {
       if (bytesSliceRespBuilder_ == null) {
@@ -1542,7 +1904,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public Builder setBytesSliceResp(cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse value) {
       if (bytesSliceRespBuilder_ == null) {
@@ -1558,7 +1920,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public Builder setBytesSliceResp(
         cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.Builder builderForValue) {
@@ -1572,7 +1934,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public Builder mergeBytesSliceResp(cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse value) {
       if (bytesSliceRespBuilder_ == null) {
@@ -1590,7 +1952,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public Builder clearBytesSliceResp() {
       if (bytesSliceRespBuilder_ == null) {
@@ -1604,7 +1966,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.Builder getBytesSliceRespBuilder() {
       
@@ -1612,7 +1974,7 @@ private static final long serialVersionUID = 0L;
       return getBytesSliceRespFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponseOrBuilder getBytesSliceRespOrBuilder() {
       if (bytesSliceRespBuilder_ != null) {
@@ -1623,7 +1985,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+     * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse, cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponseOrBuilder> 
@@ -1643,13 +2005,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.StringResponse, cn.infinivision.dataforce.busybee.pb.rpc.StringResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.StringResponseOrBuilder> stringRespBuilder_;
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public boolean hasStringResp() {
       return stringRespBuilder_ != null || stringResp_ != null;
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StringResponse getStringResp() {
       if (stringRespBuilder_ == null) {
@@ -1659,7 +2021,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public Builder setStringResp(cn.infinivision.dataforce.busybee.pb.rpc.StringResponse value) {
       if (stringRespBuilder_ == null) {
@@ -1675,7 +2037,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public Builder setStringResp(
         cn.infinivision.dataforce.busybee.pb.rpc.StringResponse.Builder builderForValue) {
@@ -1689,7 +2051,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public Builder mergeStringResp(cn.infinivision.dataforce.busybee.pb.rpc.StringResponse value) {
       if (stringRespBuilder_ == null) {
@@ -1707,7 +2069,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public Builder clearStringResp() {
       if (stringRespBuilder_ == null) {
@@ -1721,7 +2083,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StringResponse.Builder getStringRespBuilder() {
       
@@ -1729,7 +2091,7 @@ private static final long serialVersionUID = 0L;
       return getStringRespFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StringResponseOrBuilder getStringRespOrBuilder() {
       if (stringRespBuilder_ != null) {
@@ -1740,7 +2102,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.StringResponse stringResp = 9;</code>
+     * <code>.rpcpb.StringResponse stringResp = 11;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.StringResponse, cn.infinivision.dataforce.busybee.pb.rpc.StringResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.StringResponseOrBuilder> 

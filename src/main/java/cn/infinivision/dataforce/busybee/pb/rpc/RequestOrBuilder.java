@@ -293,4 +293,30 @@ public interface RequestOrBuilder extends
    * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder getFetchNotifyOrBuilder();
+
+  /**
+   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   */
+  boolean hasAllocID();
+  /**
+   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID();
+  /**
+   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder();
+
+  /**
+   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   */
+  boolean hasResetID();
+  /**
+   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID();
+  /**
+   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder();
 }

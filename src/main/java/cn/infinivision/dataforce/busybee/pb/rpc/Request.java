@@ -339,6 +339,32 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 194: {
+            cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder subBuilder = null;
+            if (allocID_ != null) {
+              subBuilder = allocID_.toBuilder();
+            }
+            allocID_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(allocID_);
+              allocID_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 202: {
+            cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder subBuilder = null;
+            if (resetID_ != null) {
+              subBuilder = resetID_.toBuilder();
+            }
+            resetID_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(resetID_);
+              resetID_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -829,6 +855,48 @@ private static final long serialVersionUID = 0L;
     return getFetchNotify();
   }
 
+  public static final int ALLOCID_FIELD_NUMBER = 24;
+  private cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest allocID_;
+  /**
+   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   */
+  public boolean hasAllocID() {
+    return allocID_ != null;
+  }
+  /**
+   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID() {
+    return allocID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.getDefaultInstance() : allocID_;
+  }
+  /**
+   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder() {
+    return getAllocID();
+  }
+
+  public static final int RESETID_FIELD_NUMBER = 25;
+  private cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest resetID_;
+  /**
+   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   */
+  public boolean hasResetID() {
+    return resetID_ != null;
+  }
+  /**
+   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID() {
+    return resetID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.getDefaultInstance() : resetID_;
+  }
+  /**
+   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder() {
+    return getResetID();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -909,6 +977,12 @@ private static final long serialVersionUID = 0L;
     }
     if (fetchNotify_ != null) {
       output.writeMessage(23, getFetchNotify());
+    }
+    if (allocID_ != null) {
+      output.writeMessage(24, getAllocID());
+    }
+    if (resetID_ != null) {
+      output.writeMessage(25, getResetID());
     }
     unknownFields.writeTo(output);
   }
@@ -1009,6 +1083,14 @@ private static final long serialVersionUID = 0L;
     if (fetchNotify_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(23, getFetchNotify());
+    }
+    if (allocID_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(24, getAllocID());
+    }
+    if (resetID_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(25, getResetID());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1134,6 +1216,16 @@ private static final long serialVersionUID = 0L;
       result = result && getFetchNotify()
           .equals(other.getFetchNotify());
     }
+    result = result && (hasAllocID() == other.hasAllocID());
+    if (hasAllocID()) {
+      result = result && getAllocID()
+          .equals(other.getAllocID());
+    }
+    result = result && (hasResetID() == other.hasResetID());
+    if (hasResetID()) {
+      result = result && getResetID()
+          .equals(other.getResetID());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -1233,6 +1325,14 @@ private static final long serialVersionUID = 0L;
     if (hasFetchNotify()) {
       hash = (37 * hash) + FETCHNOTIFY_FIELD_NUMBER;
       hash = (53 * hash) + getFetchNotify().hashCode();
+    }
+    if (hasAllocID()) {
+      hash = (37 * hash) + ALLOCID_FIELD_NUMBER;
+      hash = (53 * hash) + getAllocID().hashCode();
+    }
+    if (hasResetID()) {
+      hash = (37 * hash) + RESETID_FIELD_NUMBER;
+      hash = (53 * hash) + getResetID().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -1497,6 +1597,18 @@ private static final long serialVersionUID = 0L;
         fetchNotify_ = null;
         fetchNotifyBuilder_ = null;
       }
+      if (allocIDBuilder_ == null) {
+        allocID_ = null;
+      } else {
+        allocID_ = null;
+        allocIDBuilder_ = null;
+      }
+      if (resetIDBuilder_ == null) {
+        resetID_ = null;
+      } else {
+        resetID_ = null;
+        resetIDBuilder_ = null;
+      }
       return this;
     }
 
@@ -1626,6 +1738,16 @@ private static final long serialVersionUID = 0L;
       } else {
         result.fetchNotify_ = fetchNotifyBuilder_.build();
       }
+      if (allocIDBuilder_ == null) {
+        result.allocID_ = allocID_;
+      } else {
+        result.allocID_ = allocIDBuilder_.build();
+      }
+      if (resetIDBuilder_ == null) {
+        result.resetID_ = resetID_;
+      } else {
+        result.resetID_ = resetIDBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -1735,6 +1857,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasFetchNotify()) {
         mergeFetchNotify(other.getFetchNotify());
+      }
+      if (other.hasAllocID()) {
+        mergeAllocID(other.getAllocID());
+      }
+      if (other.hasResetID()) {
+        mergeResetID(other.getResetID());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -4288,6 +4416,240 @@ private static final long serialVersionUID = 0L;
         fetchNotify_ = null;
       }
       return fetchNotifyBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest allocID_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder> allocIDBuilder_;
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public boolean hasAllocID() {
+      return allocIDBuilder_ != null || allocID_ != null;
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID() {
+      if (allocIDBuilder_ == null) {
+        return allocID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.getDefaultInstance() : allocID_;
+      } else {
+        return allocIDBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public Builder setAllocID(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest value) {
+      if (allocIDBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        allocID_ = value;
+        onChanged();
+      } else {
+        allocIDBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public Builder setAllocID(
+        cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder builderForValue) {
+      if (allocIDBuilder_ == null) {
+        allocID_ = builderForValue.build();
+        onChanged();
+      } else {
+        allocIDBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public Builder mergeAllocID(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest value) {
+      if (allocIDBuilder_ == null) {
+        if (allocID_ != null) {
+          allocID_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.newBuilder(allocID_).mergeFrom(value).buildPartial();
+        } else {
+          allocID_ = value;
+        }
+        onChanged();
+      } else {
+        allocIDBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public Builder clearAllocID() {
+      if (allocIDBuilder_ == null) {
+        allocID_ = null;
+        onChanged();
+      } else {
+        allocID_ = null;
+        allocIDBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder getAllocIDBuilder() {
+      
+      onChanged();
+      return getAllocIDFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder() {
+      if (allocIDBuilder_ != null) {
+        return allocIDBuilder_.getMessageOrBuilder();
+      } else {
+        return allocID_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.getDefaultInstance() : allocID_;
+      }
+    }
+    /**
+     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder> 
+        getAllocIDFieldBuilder() {
+      if (allocIDBuilder_ == null) {
+        allocIDBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder>(
+                getAllocID(),
+                getParentForChildren(),
+                isClean());
+        allocID_ = null;
+      }
+      return allocIDBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest resetID_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder> resetIDBuilder_;
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public boolean hasResetID() {
+      return resetIDBuilder_ != null || resetID_ != null;
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID() {
+      if (resetIDBuilder_ == null) {
+        return resetID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.getDefaultInstance() : resetID_;
+      } else {
+        return resetIDBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public Builder setResetID(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest value) {
+      if (resetIDBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        resetID_ = value;
+        onChanged();
+      } else {
+        resetIDBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public Builder setResetID(
+        cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder builderForValue) {
+      if (resetIDBuilder_ == null) {
+        resetID_ = builderForValue.build();
+        onChanged();
+      } else {
+        resetIDBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public Builder mergeResetID(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest value) {
+      if (resetIDBuilder_ == null) {
+        if (resetID_ != null) {
+          resetID_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.newBuilder(resetID_).mergeFrom(value).buildPartial();
+        } else {
+          resetID_ = value;
+        }
+        onChanged();
+      } else {
+        resetIDBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public Builder clearResetID() {
+      if (resetIDBuilder_ == null) {
+        resetID_ = null;
+        onChanged();
+      } else {
+        resetID_ = null;
+        resetIDBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder getResetIDBuilder() {
+      
+      onChanged();
+      return getResetIDFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder() {
+      if (resetIDBuilder_ != null) {
+        return resetIDBuilder_.getMessageOrBuilder();
+      } else {
+        return resetID_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.getDefaultInstance() : resetID_;
+      }
+    }
+    /**
+     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder> 
+        getResetIDFieldBuilder() {
+      if (resetIDBuilder_ == null) {
+        resetIDBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder>(
+                getResetID(),
+                getParentForChildren(),
+                isClean());
+        resetID_ = null;
+      }
+      return resetIDBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

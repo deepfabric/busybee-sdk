@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
     public MessageLite decode(byte[] value) {
         MessageLite message = null;
         try {
-            Response.parseFrom(value);
+            message = Response.parseFrom(value);
         } catch (Throwable e) {
             log.error("BUG: decode failed", e);
         }

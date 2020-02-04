@@ -100,6 +100,23 @@ public class Result {
     }
 
     /**
+     * uint32 range response
+     *
+     * @return [from, to] range
+     */
+    public long[] uint32RangeResponse() {
+        checkError();
+
+        if (resp.hasUint32RangeResp()) {
+            return new long[] {
+                resp.getUint32RangeResp().getFrom(),
+                resp.getUint32RangeResp().getTo()};
+        }
+
+        throw new IllegalAccessError("the response is not uint32 range response");
+    }
+
+    /**
      * long response, and throw a {@link RuntimeException} if has en error
      *
      * @return long
@@ -111,7 +128,7 @@ public class Result {
             return resp.getUint64Resp().getValue();
         }
 
-        throw new IllegalAccessError("the response is not bytes response");
+        throw new IllegalAccessError("the response is not uint64 response");
     }
 
     /**
@@ -130,7 +147,9 @@ public class Result {
     }
 
     void done(Response resp) {
-        if (resp.hasError()) {
+        if (resp.hasError() &&
+            null != resp.getError().getError() &&
+            !resp.getError().getError().isEmpty()) {
             err = new RuntimeException(resp.getError().getError());
         } else {
             this.resp = resp;

@@ -42,6 +42,9 @@ enum Type {
     GetProfile    = 404;
     AddEvent      = 405;
     FetchNotify   = 406;
+
+    AllocID       = 501;
+    ResetID       = 502;
 }
 
 // Event is process definition
@@ -95,19 +98,23 @@ message Request {
     GetProfileRequest         getProfile    = 21;
     AddEventRequest           addEvent      = 22;
     FetchNotifyRequest        fetchNotify   = 23;
+    AllocIDRequest            allocID       = 24;
+    ResetIDRequest            resetID       = 25;
 }
 
 // Response the busybee response
 message Response {
-    uint64                    id              = 1;
-    rpcpb.Type                type            = 2;
-    ErrorResponse             error           = 3;
-    rpcpb.BytesResponse       bytesResp       = 4;
-    rpcpb.BoolResponse        boolResp        = 5;
-    rpcpb.Uint64Response      uint64Resp      = 6;
-    rpcpb.Uint32SliceResponse uint32SliceResp = 7;
-    rpcpb.BytesSliceResponse  bytesSliceResp  = 8;
-    rpcpb.StringResponse      stringResp      = 9;
+    uint64              id              = 1;
+    Type                type            = 2;
+    ErrorResponse       error           = 3;
+    BytesResponse       bytesResp       = 4;
+    BoolResponse        boolResp        = 5;
+    Uint64Response      uint64Resp      = 6;
+    Uint32Response      uint32Resp      = 7;
+    Uint32RangeResponse uint32RangeResp = 8;
+    Uint32SliceResponse uint32SliceResp = 9;
+    BytesSliceResponse  bytesSliceResp  = 10;
+    StringResponse      stringResp      = 11;
 }
 
 // SetRequest set a key value pair
@@ -270,6 +277,18 @@ message FetchNotifyRequest {
     string consumer = 4;
 }
 
+// AllocIDRequest alloc id request
+message AllocIDRequest {
+    bytes  key   = 1;
+    uint64 batch = 2;
+}
+
+// ResetIDRequest reset alloc id request
+message ResetIDRequest {
+    bytes  key       = 1;
+    uint64 startWith = 2;
+}
+
 // ErrorResponse error response
 message ErrorResponse {
     string error = 1;
@@ -309,4 +328,15 @@ message Uint32SliceResponse {
 message BytesSliceResponse {
     repeated bytes items      = 1;
     uint64         lastOffset = 2;
+}
+
+// Uint32Response uint32 response
+message Uint32Response {
+    uint32 value = 1;
+}
+
+// Uint32RangeResponse uint32 range response
+message Uint32RangeResponse {
+    uint64 from = 1;
+    uint64 to   = 2;
 }

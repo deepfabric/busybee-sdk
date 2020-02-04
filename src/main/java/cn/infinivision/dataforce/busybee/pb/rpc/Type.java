@@ -116,6 +116,14 @@ public enum Type
    * <code>FetchNotify = 406;</code>
    */
   FetchNotify(406),
+  /**
+   * <code>AllocID = 501;</code>
+   */
+  AllocID(501),
+  /**
+   * <code>ResetID = 502;</code>
+   */
+  ResetID(502),
   UNRECOGNIZED(-1),
   ;
 
@@ -227,6 +235,14 @@ public enum Type
    * <code>FetchNotify = 406;</code>
    */
   public static final int FetchNotify_VALUE = 406;
+  /**
+   * <code>AllocID = 501;</code>
+   */
+  public static final int AllocID_VALUE = 501;
+  /**
+   * <code>ResetID = 502;</code>
+   */
+  public static final int ResetID_VALUE = 502;
 
 
   public final int getNumber() {
@@ -274,6 +290,8 @@ public enum Type
       case 404: return GetProfile;
       case 405: return AddEvent;
       case 406: return FetchNotify;
+      case 501: return AllocID;
+      case 502: return ResetID;
       default: return null;
     }
   }

@@ -74,41 +74,67 @@ public interface ResponseOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.rpc.Uint64ResponseOrBuilder getUint64RespOrBuilder();
 
   /**
-   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+   * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+   */
+  boolean hasUint32Resp();
+  /**
+   * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response getUint32Resp();
+  /**
+   * <code>.rpcpb.Uint32Response uint32Resp = 7;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder getUint32RespOrBuilder();
+
+  /**
+   * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+   */
+  boolean hasUint32RangeResp();
+  /**
+   * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponse getUint32RangeResp();
+  /**
+   * <code>.rpcpb.Uint32RangeResponse uint32RangeResp = 8;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.Uint32RangeResponseOrBuilder getUint32RangeRespOrBuilder();
+
+  /**
+   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
    */
   boolean hasUint32SliceResp();
   /**
-   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponse getUint32SliceResp();
   /**
-   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 7;</code>
+   * <code>.rpcpb.Uint32SliceResponse uint32SliceResp = 9;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.Uint32SliceResponseOrBuilder getUint32SliceRespOrBuilder();
 
   /**
-   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
    */
   boolean hasBytesSliceResp();
   /**
-   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse getBytesSliceResp();
   /**
-   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 8;</code>
+   * <code>.rpcpb.BytesSliceResponse bytesSliceResp = 10;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponseOrBuilder getBytesSliceRespOrBuilder();
 
   /**
-   * <code>.rpcpb.StringResponse stringResp = 9;</code>
+   * <code>.rpcpb.StringResponse stringResp = 11;</code>
    */
   boolean hasStringResp();
   /**
-   * <code>.rpcpb.StringResponse stringResp = 9;</code>
+   * <code>.rpcpb.StringResponse stringResp = 11;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.StringResponse getStringResp();
   /**
-   * <code>.rpcpb.StringResponse stringResp = 9;</code>
+   * <code>.rpcpb.StringResponse stringResp = 11;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.StringResponseOrBuilder getStringRespOrBuilder();
 }

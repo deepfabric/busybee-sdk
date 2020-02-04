@@ -17,6 +17,7 @@ public class Builder {
         private int ioWorkers;
         private int workers;
         private long rpcTimeoutMS;
+        private int fetchSchedulers;
         private List<String> servers = new ArrayList<>();
 
         private void adjust() {
@@ -34,6 +35,10 @@ public class Builder {
 
             if (fetchCount == 0) {
                 fetchCount = 8L;
+            }
+
+            if (fetchSchedulers == 0) {
+                fetchSchedulers = 1;
             }
         }
     }
@@ -94,6 +99,17 @@ public class Builder {
     }
 
     /**
+     * tenant notify queue fetch scheduler threads, default is 1
+     *
+     * @param value value
+     * @return Builder
+     */
+    public Builder fetchSchedulers(int value) {
+        this.opts.fetchSchedulers = value;
+        return this;
+    }
+
+    /**
      * create a client
      *
      * @return client
@@ -102,8 +118,9 @@ public class Builder {
         opts.adjust();
 
         Transport transport = new Transport(opts.workers, opts.ioWorkers, opts.rpcTimeoutMS);
+        opts.servers.forEach(s -> transport.addConnector(s));
         transport.start();
 
-        return new Client(transport, opts.fetchCount);
+        return new Client(transport, opts.fetchCount, opts.fetchSchedulers);
     }
 }
