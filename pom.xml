@@ -6,7 +6,7 @@
 
     <groupId>cn.infinivision.dataforce</groupId>
     <artifactId>busybee-sdk</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -195,4 +195,21 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Release Repository</name>
+            <url>
+                http://dev.nexus.infinivision.cn/repository/infinivision-releases/
+            </url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>
+                http://dev.nexus.infinivision.cn/repository/infinivision-snapshot/
+            </url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
