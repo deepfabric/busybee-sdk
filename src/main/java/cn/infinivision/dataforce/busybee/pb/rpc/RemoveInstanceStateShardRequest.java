@@ -21,8 +21,8 @@ private static final long serialVersionUID = 0L;
   }
   private RemoveInstanceStateShardRequest() {
     workflowID_ = 0L;
-    start_ = 0;
-    end_ = 0;
+    start_ = 0L;
+    end_ = 0L;
   }
 
   @java.lang.Override
@@ -63,12 +63,12 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            start_ = input.readUInt32();
+            start_ = input.readUInt64();
             break;
           }
           case 24: {
 
-            end_ = input.readUInt32();
+            end_ = input.readUInt64();
             break;
           }
         }
@@ -105,20 +105,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int START_FIELD_NUMBER = 2;
-  private int start_;
+  private long start_;
   /**
-   * <code>uint32 start = 2;</code>
+   * <code>uint64 start = 2;</code>
    */
-  public int getStart() {
+  public long getStart() {
     return start_;
   }
 
   public static final int END_FIELD_NUMBER = 3;
-  private int end_;
+  private long end_;
   /**
-   * <code>uint32 end = 3;</code>
+   * <code>uint64 end = 3;</code>
    */
-  public int getEnd() {
+  public long getEnd() {
     return end_;
   }
 
@@ -137,11 +137,11 @@ private static final long serialVersionUID = 0L;
     if (workflowID_ != 0L) {
       output.writeUInt64(1, workflowID_);
     }
-    if (start_ != 0) {
-      output.writeUInt32(2, start_);
+    if (start_ != 0L) {
+      output.writeUInt64(2, start_);
     }
-    if (end_ != 0) {
-      output.writeUInt32(3, end_);
+    if (end_ != 0L) {
+      output.writeUInt64(3, end_);
     }
     unknownFields.writeTo(output);
   }
@@ -155,13 +155,13 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(1, workflowID_);
     }
-    if (start_ != 0) {
+    if (start_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(2, start_);
+        .computeUInt64Size(2, start_);
     }
-    if (end_ != 0) {
+    if (end_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(3, end_);
+        .computeUInt64Size(3, end_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -200,9 +200,11 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getWorkflowID());
     hash = (37 * hash) + START_FIELD_NUMBER;
-    hash = (53 * hash) + getStart();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getStart());
     hash = (37 * hash) + END_FIELD_NUMBER;
-    hash = (53 * hash) + getEnd();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getEnd());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -338,9 +340,9 @@ private static final long serialVersionUID = 0L;
       super.clear();
       workflowID_ = 0L;
 
-      start_ = 0;
+      start_ = 0L;
 
-      end_ = 0;
+      end_ = 0L;
 
       return this;
     }
@@ -411,10 +413,10 @@ private static final long serialVersionUID = 0L;
       if (other.getWorkflowID() != 0L) {
         setWorkflowID(other.getWorkflowID());
       }
-      if (other.getStart() != 0) {
+      if (other.getStart() != 0L) {
         setStart(other.getStart());
       }
-      if (other.getEnd() != 0) {
+      if (other.getEnd() != 0L) {
         setEnd(other.getEnd());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -470,54 +472,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int start_ ;
+    private long start_ ;
     /**
-     * <code>uint32 start = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
-    public int getStart() {
+    public long getStart() {
       return start_;
     }
     /**
-     * <code>uint32 start = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
-    public Builder setStart(int value) {
+    public Builder setStart(long value) {
       
       start_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 start = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
     public Builder clearStart() {
       
-      start_ = 0;
+      start_ = 0L;
       onChanged();
       return this;
     }
 
-    private int end_ ;
+    private long end_ ;
     /**
-     * <code>uint32 end = 3;</code>
+     * <code>uint64 end = 3;</code>
      */
-    public int getEnd() {
+    public long getEnd() {
       return end_;
     }
     /**
-     * <code>uint32 end = 3;</code>
+     * <code>uint64 end = 3;</code>
      */
-    public Builder setEnd(int value) {
+    public Builder setEnd(long value) {
       
       end_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 end = 3;</code>
+     * <code>uint64 end = 3;</code>
      */
     public Builder clearEnd() {
       
-      end_ = 0;
+      end_ = 0L;
       onChanged();
       return this;
     }

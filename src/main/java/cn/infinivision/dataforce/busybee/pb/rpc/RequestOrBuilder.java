@@ -319,4 +319,17 @@ public interface RequestOrBuilder extends
    * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder();
+
+  /**
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   */
+  boolean hasScanMapping();
+  /**
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping();
+  /**
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder();
 }

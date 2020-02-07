@@ -13,9 +13,9 @@ public interface UpdateProfileRequestOrBuilder extends
   long getId();
 
   /**
-   * <code>uint32 userID = 2;</code>
+   * <code>uint64 userID = 2;</code>
    */
-  int getUserID();
+  long getUserID();
 
   /**
    * <code>bytes value = 3;</code>

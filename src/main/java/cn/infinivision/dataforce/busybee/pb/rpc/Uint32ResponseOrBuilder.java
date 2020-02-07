@@ -8,7 +8,7 @@ public interface Uint32ResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint32 value = 1;</code>
+   * <code>uint64 value = 1;</code>
    */
-  int getValue();
+  long getValue();
 }

@@ -5,22 +5,25 @@ package cn.infinivision.dataforce.busybee.pb.rpc;
 
 /**
  * <pre>
- * Uint32Response uint32 response
+ * ScanMappingRequest scan tenant all mappinged id values
  * </pre>
  *
- * Protobuf type {@code rpcpb.Uint32Response}
+ * Protobuf type {@code rpcpb.ScanMappingRequest}
  */
-public  final class Uint32Response extends
+public  final class ScanMappingRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rpcpb.Uint32Response)
-    Uint32ResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:rpcpb.ScanMappingRequest)
+    ScanMappingRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Uint32Response.newBuilder() to construct.
-  private Uint32Response(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use ScanMappingRequest.newBuilder() to construct.
+  private ScanMappingRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Uint32Response() {
-    value_ = 0L;
+  private ScanMappingRequest() {
+    id_ = 0L;
+    from_ = 0L;
+    to_ = 0L;
+    limit_ = 0L;
   }
 
   @java.lang.Override
@@ -28,7 +31,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Uint32Response(
+  private ScanMappingRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -56,7 +59,22 @@ private static final long serialVersionUID = 0L;
           }
           case 8: {
 
-            value_ = input.readUInt64();
+            id_ = input.readUInt64();
+            break;
+          }
+          case 16: {
+
+            from_ = input.readUInt64();
+            break;
+          }
+          case 24: {
+
+            to_ = input.readUInt64();
+            break;
+          }
+          case 32: {
+
+            limit_ = input.readUInt64();
             break;
           }
         }
@@ -73,23 +91,50 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_Uint32Response_descriptor;
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_ScanMappingRequest_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_Uint32Response_fieldAccessorTable
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_ScanMappingRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.class, cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder.class);
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder.class);
   }
 
-  public static final int VALUE_FIELD_NUMBER = 1;
-  private long value_;
+  public static final int ID_FIELD_NUMBER = 1;
+  private long id_;
   /**
-   * <code>uint64 value = 1;</code>
+   * <code>uint64 id = 1;</code>
    */
-  public long getValue() {
-    return value_;
+  public long getId() {
+    return id_;
+  }
+
+  public static final int FROM_FIELD_NUMBER = 2;
+  private long from_;
+  /**
+   * <code>uint64 from = 2;</code>
+   */
+  public long getFrom() {
+    return from_;
+  }
+
+  public static final int TO_FIELD_NUMBER = 3;
+  private long to_;
+  /**
+   * <code>uint64 to = 3;</code>
+   */
+  public long getTo() {
+    return to_;
+  }
+
+  public static final int LIMIT_FIELD_NUMBER = 4;
+  private long limit_;
+  /**
+   * <code>uint64 limit = 4;</code>
+   */
+  public long getLimit() {
+    return limit_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -104,8 +149,17 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (value_ != 0L) {
-      output.writeUInt64(1, value_);
+    if (id_ != 0L) {
+      output.writeUInt64(1, id_);
+    }
+    if (from_ != 0L) {
+      output.writeUInt64(2, from_);
+    }
+    if (to_ != 0L) {
+      output.writeUInt64(3, to_);
+    }
+    if (limit_ != 0L) {
+      output.writeUInt64(4, limit_);
     }
     unknownFields.writeTo(output);
   }
@@ -115,9 +169,21 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (value_ != 0L) {
+    if (id_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(1, value_);
+        .computeUInt64Size(1, id_);
+    }
+    if (from_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(2, from_);
+    }
+    if (to_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(3, to_);
+    }
+    if (limit_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(4, limit_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -129,14 +195,20 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response)) {
+    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest)) {
       return super.equals(obj);
     }
-    cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response other = (cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response) obj;
+    cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest) obj;
 
     boolean result = true;
-    result = result && (getValue()
-        == other.getValue());
+    result = result && (getId()
+        == other.getId());
+    result = result && (getFrom()
+        == other.getFrom());
+    result = result && (getTo()
+        == other.getTo());
+    result = result && (getLimit()
+        == other.getLimit());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -148,77 +220,86 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + VALUE_FIELD_NUMBER;
+    hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getValue());
+        getId());
+    hash = (37 * hash) + FROM_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getFrom());
+    hash = (37 * hash) + TO_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTo());
+    hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getLimit());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(byte[] data)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseDelimitedFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseDelimitedFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -230,7 +311,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response prototype) {
+  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -246,28 +327,28 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Uint32Response uint32 response
+   * ScanMappingRequest scan tenant all mappinged id values
    * </pre>
    *
-   * Protobuf type {@code rpcpb.Uint32Response}
+   * Protobuf type {@code rpcpb.ScanMappingRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rpcpb.Uint32Response)
-      cn.infinivision.dataforce.busybee.pb.rpc.Uint32ResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rpcpb.ScanMappingRequest)
+      cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_Uint32Response_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_ScanMappingRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_Uint32Response_fieldAccessorTable
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_ScanMappingRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.class, cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.Builder.class);
+              cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder.class);
     }
 
-    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.newBuilder()
+    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -284,31 +365,40 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      value_ = 0L;
+      id_ = 0L;
+
+      from_ = 0L;
+
+      to_ = 0L;
+
+      limit_ = 0L;
 
       return this;
     }
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_Uint32Response_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_ScanMappingRequest_descriptor;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response getDefaultInstanceForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.getDefaultInstance();
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getDefaultInstanceForType() {
+      return cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance();
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response build() {
-      cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response result = buildPartial();
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest build() {
+      cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response buildPartial() {
-      cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response result = new cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response(this);
-      result.value_ = value_;
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest buildPartial() {
+      cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest(this);
+      result.id_ = id_;
+      result.from_ = from_;
+      result.to_ = to_;
+      result.limit_ = limit_;
       onBuilt();
       return result;
     }
@@ -340,18 +430,27 @@ private static final long serialVersionUID = 0L;
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response) {
-        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response)other);
+      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest) {
+        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response other) {
-      if (other == cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response.getDefaultInstance()) return this;
-      if (other.getValue() != 0L) {
-        setValue(other.getValue());
+    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest other) {
+      if (other == cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance()) return this;
+      if (other.getId() != 0L) {
+        setId(other.getId());
+      }
+      if (other.getFrom() != 0L) {
+        setFrom(other.getFrom());
+      }
+      if (other.getTo() != 0L) {
+        setTo(other.getTo());
+      }
+      if (other.getLimit() != 0L) {
+        setLimit(other.getLimit());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -366,11 +465,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response parsedMessage = null;
+      cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response) e.getUnfinishedMessage();
+        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -380,28 +479,106 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long value_ ;
+    private long id_ ;
     /**
-     * <code>uint64 value = 1;</code>
+     * <code>uint64 id = 1;</code>
      */
-    public long getValue() {
-      return value_;
+    public long getId() {
+      return id_;
     }
     /**
-     * <code>uint64 value = 1;</code>
+     * <code>uint64 id = 1;</code>
      */
-    public Builder setValue(long value) {
+    public Builder setId(long value) {
       
-      value_ = value;
+      id_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 value = 1;</code>
+     * <code>uint64 id = 1;</code>
      */
-    public Builder clearValue() {
+    public Builder clearId() {
       
-      value_ = 0L;
+      id_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long from_ ;
+    /**
+     * <code>uint64 from = 2;</code>
+     */
+    public long getFrom() {
+      return from_;
+    }
+    /**
+     * <code>uint64 from = 2;</code>
+     */
+    public Builder setFrom(long value) {
+      
+      from_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 from = 2;</code>
+     */
+    public Builder clearFrom() {
+      
+      from_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long to_ ;
+    /**
+     * <code>uint64 to = 3;</code>
+     */
+    public long getTo() {
+      return to_;
+    }
+    /**
+     * <code>uint64 to = 3;</code>
+     */
+    public Builder setTo(long value) {
+      
+      to_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 to = 3;</code>
+     */
+    public Builder clearTo() {
+      
+      to_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long limit_ ;
+    /**
+     * <code>uint64 limit = 4;</code>
+     */
+    public long getLimit() {
+      return limit_;
+    }
+    /**
+     * <code>uint64 limit = 4;</code>
+     */
+    public Builder setLimit(long value) {
+      
+      limit_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 limit = 4;</code>
+     */
+    public Builder clearLimit() {
+      
+      limit_ = 0L;
       onChanged();
       return this;
     }
@@ -416,39 +593,39 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rpcpb.Uint32Response)
+    // @@protoc_insertion_point(builder_scope:rpcpb.ScanMappingRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:rpcpb.Uint32Response)
-  private static final cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rpcpb.ScanMappingRequest)
+  private static final cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response();
+    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest();
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response getDefaultInstance() {
+  public static cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Uint32Response>
-      PARSER = new com.google.protobuf.AbstractParser<Uint32Response>() {
-    public Uint32Response parsePartialFrom(
+  private static final com.google.protobuf.Parser<ScanMappingRequest>
+      PARSER = new com.google.protobuf.AbstractParser<ScanMappingRequest>() {
+    public ScanMappingRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Uint32Response(input, extensionRegistry);
+      return new ScanMappingRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Uint32Response> parser() {
+  public static com.google.protobuf.Parser<ScanMappingRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Uint32Response> getParserForType() {
+  public com.google.protobuf.Parser<ScanMappingRequest> getParserForType() {
     return PARSER;
   }
 
-  public cn.infinivision.dataforce.busybee.pb.rpc.Uint32Response getDefaultInstanceForType() {
+  public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

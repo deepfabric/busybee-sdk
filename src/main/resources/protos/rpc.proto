@@ -42,6 +42,7 @@ enum Type {
     GetProfile    = 404;
     AddEvent      = 405;
     FetchNotify   = 406;
+    ScanMapping   = 407;
 
     AllocID       = 501;
     ResetID       = 502;
@@ -49,7 +50,7 @@ enum Type {
 
 // Event is process definition
 message Event {
-    uint32 userID     = 1;
+    uint64 userID     = 1;
     uint64 tenantID   = 2;
     uint64 workflowID = 3;
     repeated KV data  = 4;
@@ -63,7 +64,7 @@ message KV {
 
 // Notify notify message
 message Notify {
-    uint32 userID     = 1;
+    uint64 userID     = 1;
     bytes  crowd      = 2;
     uint64 tenantID   = 3;
     uint64 workflowID = 4;
@@ -100,6 +101,7 @@ message Request {
     FetchNotifyRequest        fetchNotify   = 23;
     AllocIDRequest            allocID       = 24;
     ResetIDRequest            resetID       = 25;
+    ScanMappingRequest        scanMapping   = 26;
 }
 
 // Response the busybee response
@@ -136,19 +138,19 @@ message DeleteRequest {
 // BMCreateRequest create a bitmap
 message BMCreateRequest {
     bytes           key   = 1;
-    repeated uint32 value = 2;
+    repeated uint64 value = 2;
 }
 
 // BMAddRequest add some uint64 to a bitmap
 message BMAddRequest {
     bytes           key   = 1;
-    repeated uint32 value = 2;
+    repeated uint64 value = 2;
 }
 
 // BMRemoveRequest remove some uint64 from a bitmap
 message BMRemoveRequest {
     bytes           key   = 1;
-    repeated uint32 value = 2;
+    repeated uint64 value = 2;
 }
 
 // BMClearRequest clear a bitmap
@@ -159,7 +161,7 @@ message BMClearRequest {
 // BMContainsRequest check some uint64 is in a bitmap
 message BMContainsRequest {
     bytes           key   = 1;
-    repeated uint32 value = 2;
+    repeated uint64 value = 2;
 }
 
 // BMCountRequest returns the count of a bitmap
@@ -170,7 +172,7 @@ message BMCountRequest {
 // BMRangeRequest returns the limit uint64s that that >= start of a bitmap
 message BMRangeRequest {
     bytes           key   = 1;
-    uint32          start = 2;
+    uint64          start = 2;
     uint64          limit = 3;
 }
 
@@ -202,8 +204,8 @@ message UpdateInstanceStateShardRequest {
 // RemoveInstanceStateShardRequest remove a instance state
 message RemoveInstanceStateShardRequest {
     uint64 workflowID = 1;
-    uint32 start      = 2;
-    uint32 end        = 3;
+    uint64 start      = 2;
+    uint64 end        = 3;
 }
 
 // InstanceCountStateRequest instance count state
@@ -237,30 +239,39 @@ message TenantInitRequest {
     uint64 inputQueuePartitions = 2;
 }
 
+// ScanMappingRequest scan tenant all mappinged id values
+message ScanMappingRequest {
+    uint64 id    = 1;
+    uint64 from  = 2;
+    uint64 to    = 3;
+    uint64 limit = 4;
+}
+
 // UpdateMappingRequest update id mapping request
 message UpdateMappingRequest {
-    uint64                  id     = 1;
-    repeated metapb.IDValue values = 2;
+    uint64       id     = 1;
+    uint64       userID = 2;
+    metapb.IDSet set    = 3;
 }
 
 // GetMappingRequest get id mapping request
 message GetMappingRequest {
     uint64           id   = 1;
     metapb.IDValue   from = 2;
-    uint32           to   = 3;
+    uint64           to   = 3;
 }
 
 // UpdateProfileRequest update profile request
 message UpdateProfileRequest {
     uint64 id     = 1;
-    uint32 userID = 2;
+    uint64 userID = 2;
     bytes  value  = 3;
 }
 
 // GetProfileRequest get profile request
 message GetProfileRequest {
     uint64 id     = 1;
-    uint32 userID = 2;
+    uint64 userID = 2;
     string field  = 3;
 }
 
@@ -321,7 +332,7 @@ message Uint64Response {
 
 // Uint32SliceResponse response
 message Uint32SliceResponse {
-    repeated uint32 values = 1;
+    repeated uint64 values = 1;
 }
 
 // BytesSliceResponse response
@@ -332,7 +343,7 @@ message BytesSliceResponse {
 
 // Uint32Response uint32 response
 message Uint32Response {
-    uint32 value = 1;
+    uint64 value = 1;
 }
 
 // Uint32RangeResponse uint32 range response

@@ -21,7 +21,7 @@ private static final long serialVersionUID = 0L;
   }
   private GetMappingRequest() {
     id_ = 0L;
-    to_ = 0;
+    to_ = 0L;
   }
 
   @java.lang.Override
@@ -75,7 +75,7 @@ private static final long serialVersionUID = 0L;
           }
           case 24: {
 
-            to_ = input.readUInt32();
+            to_ = input.readUInt64();
             break;
           }
         }
@@ -133,11 +133,11 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TO_FIELD_NUMBER = 3;
-  private int to_;
+  private long to_;
   /**
-   * <code>uint32 to = 3;</code>
+   * <code>uint64 to = 3;</code>
    */
-  public int getTo() {
+  public long getTo() {
     return to_;
   }
 
@@ -159,8 +159,8 @@ private static final long serialVersionUID = 0L;
     if (from_ != null) {
       output.writeMessage(2, getFrom());
     }
-    if (to_ != 0) {
-      output.writeUInt32(3, to_);
+    if (to_ != 0L) {
+      output.writeUInt64(3, to_);
     }
     unknownFields.writeTo(output);
   }
@@ -178,9 +178,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, getFrom());
     }
-    if (to_ != 0) {
+    if (to_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(3, to_);
+        .computeUInt64Size(3, to_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -226,7 +226,8 @@ private static final long serialVersionUID = 0L;
       hash = (53 * hash) + getFrom().hashCode();
     }
     hash = (37 * hash) + TO_FIELD_NUMBER;
-    hash = (53 * hash) + getTo();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTo());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -368,7 +369,7 @@ private static final long serialVersionUID = 0L;
         from_ = null;
         fromBuilder_ = null;
       }
-      to_ = 0;
+      to_ = 0L;
 
       return this;
     }
@@ -446,7 +447,7 @@ private static final long serialVersionUID = 0L;
       if (other.hasFrom()) {
         mergeFrom(other.getFrom());
       }
-      if (other.getTo() != 0) {
+      if (other.getTo() != 0L) {
         setTo(other.getTo());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -619,28 +620,28 @@ private static final long serialVersionUID = 0L;
       return fromBuilder_;
     }
 
-    private int to_ ;
+    private long to_ ;
     /**
-     * <code>uint32 to = 3;</code>
+     * <code>uint64 to = 3;</code>
      */
-    public int getTo() {
+    public long getTo() {
       return to_;
     }
     /**
-     * <code>uint32 to = 3;</code>
+     * <code>uint64 to = 3;</code>
      */
-    public Builder setTo(int value) {
+    public Builder setTo(long value) {
       
       to_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 to = 3;</code>
+     * <code>uint64 to = 3;</code>
      */
     public Builder clearTo() {
       
-      to_ = 0;
+      to_ = 0L;
       onChanged();
       return this;
     }

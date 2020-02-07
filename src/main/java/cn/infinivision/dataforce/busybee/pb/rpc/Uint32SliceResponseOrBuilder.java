@@ -8,15 +8,15 @@ public interface Uint32SliceResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated uint32 values = 1;</code>
+   * <code>repeated uint64 values = 1;</code>
    */
-  java.util.List<java.lang.Integer> getValuesList();
+  java.util.List<java.lang.Long> getValuesList();
   /**
-   * <code>repeated uint32 values = 1;</code>
+   * <code>repeated uint64 values = 1;</code>
    */
   int getValuesCount();
   /**
-   * <code>repeated uint32 values = 1;</code>
+   * <code>repeated uint64 values = 1;</code>
    */
-  int getValues(int index);
+  long getValues(int index);
 }

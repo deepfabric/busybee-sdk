@@ -117,6 +117,10 @@ public enum Type
    */
   FetchNotify(406),
   /**
+   * <code>ScanMapping = 407;</code>
+   */
+  ScanMapping(407),
+  /**
    * <code>AllocID = 501;</code>
    */
   AllocID(501),
@@ -236,6 +240,10 @@ public enum Type
    */
   public static final int FetchNotify_VALUE = 406;
   /**
+   * <code>ScanMapping = 407;</code>
+   */
+  public static final int ScanMapping_VALUE = 407;
+  /**
    * <code>AllocID = 501;</code>
    */
   public static final int AllocID_VALUE = 501;
@@ -290,6 +298,7 @@ public enum Type
       case 404: return GetProfile;
       case 405: return AddEvent;
       case 406: return FetchNotify;
+      case 407: return ScanMapping;
       case 501: return AllocID;
       case 502: return ResetID;
       default: return null;

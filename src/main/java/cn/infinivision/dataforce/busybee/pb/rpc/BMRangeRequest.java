@@ -21,7 +21,7 @@ private static final long serialVersionUID = 0L;
   }
   private BMRangeRequest() {
     key_ = com.google.protobuf.ByteString.EMPTY;
-    start_ = 0;
+    start_ = 0L;
     limit_ = 0L;
   }
 
@@ -63,7 +63,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            start_ = input.readUInt32();
+            start_ = input.readUInt64();
             break;
           }
           case 24: {
@@ -105,11 +105,11 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int START_FIELD_NUMBER = 2;
-  private int start_;
+  private long start_;
   /**
-   * <code>uint32 start = 2;</code>
+   * <code>uint64 start = 2;</code>
    */
-  public int getStart() {
+  public long getStart() {
     return start_;
   }
 
@@ -137,8 +137,8 @@ private static final long serialVersionUID = 0L;
     if (!key_.isEmpty()) {
       output.writeBytes(1, key_);
     }
-    if (start_ != 0) {
-      output.writeUInt32(2, start_);
+    if (start_ != 0L) {
+      output.writeUInt64(2, start_);
     }
     if (limit_ != 0L) {
       output.writeUInt64(3, limit_);
@@ -155,9 +155,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBytesSize(1, key_);
     }
-    if (start_ != 0) {
+    if (start_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(2, start_);
+        .computeUInt64Size(2, start_);
     }
     if (limit_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
@@ -199,7 +199,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + KEY_FIELD_NUMBER;
     hash = (53 * hash) + getKey().hashCode();
     hash = (37 * hash) + START_FIELD_NUMBER;
-    hash = (53 * hash) + getStart();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getStart());
     hash = (37 * hash) + LIMIT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getLimit());
@@ -338,7 +339,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       key_ = com.google.protobuf.ByteString.EMPTY;
 
-      start_ = 0;
+      start_ = 0L;
 
       limit_ = 0L;
 
@@ -411,7 +412,7 @@ private static final long serialVersionUID = 0L;
       if (other.getKey() != com.google.protobuf.ByteString.EMPTY) {
         setKey(other.getKey());
       }
-      if (other.getStart() != 0) {
+      if (other.getStart() != 0L) {
         setStart(other.getStart());
       }
       if (other.getLimit() != 0L) {
@@ -473,28 +474,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int start_ ;
+    private long start_ ;
     /**
-     * <code>uint32 start = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
-    public int getStart() {
+    public long getStart() {
       return start_;
     }
     /**
-     * <code>uint32 start = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
-    public Builder setStart(int value) {
+    public Builder setStart(long value) {
       
       start_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 start = 2;</code>
+     * <code>uint64 start = 2;</code>
      */
     public Builder clearStart() {
       
-      start_ = 0;
+      start_ = 0L;
       onChanged();
       return this;
     }

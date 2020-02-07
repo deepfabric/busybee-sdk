@@ -13,15 +13,15 @@ public interface BMContainsRequestOrBuilder extends
   com.google.protobuf.ByteString getKey();
 
   /**
-   * <code>repeated uint32 value = 2;</code>
+   * <code>repeated uint64 value = 2;</code>
    */
-  java.util.List<java.lang.Integer> getValueList();
+  java.util.List<java.lang.Long> getValueList();
   /**
-   * <code>repeated uint32 value = 2;</code>
+   * <code>repeated uint64 value = 2;</code>
    */
   int getValueCount();
   /**
-   * <code>repeated uint32 value = 2;</code>
+   * <code>repeated uint64 value = 2;</code>
    */
-  int getValue(int index);
+  long getValue(int index);
 }

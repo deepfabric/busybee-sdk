@@ -1,10 +1,18 @@
 package cn.infinivision.dataforce.busybee;
 
+import cn.infinivision.dataforce.busybee.pb.meta.ConditionExecution;
+import cn.infinivision.dataforce.busybee.pb.meta.DirectExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.Event;
+import cn.infinivision.dataforce.busybee.pb.meta.ExectuionType;
+import cn.infinivision.dataforce.busybee.pb.meta.Execution;
+import cn.infinivision.dataforce.busybee.pb.meta.Expr;
+import cn.infinivision.dataforce.busybee.pb.meta.ExprResultType;
+import cn.infinivision.dataforce.busybee.pb.meta.IDSet;
 import cn.infinivision.dataforce.busybee.pb.meta.IDValue;
 import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
 import cn.infinivision.dataforce.busybee.pb.meta.KV;
 import cn.infinivision.dataforce.busybee.pb.meta.Notify;
+import cn.infinivision.dataforce.busybee.pb.meta.Step;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
@@ -25,6 +33,7 @@ import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Request;
 import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
+import cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.SetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest;
@@ -39,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -198,17 +208,48 @@ public class Client {
      * update the id mappings
      *
      * @param tenantId tenant id
+     * @param userId user id
      * @param ids id of different types
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> updateIDMapping(long tenantId, IDValue... ids) {
+    public Future<Result> updateIDMapping(long tenantId, long userId, IDValue... ids) {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
                 .setType(Type.UpdateMapping)
                 .setUpdateMapping(UpdateMappingRequest.newBuilder()
                     .setId(tenantId)
-                    .addAllValues(Arrays.asList(ids))
+                    .setUserID(userId)
+                    .setSet(IDSet.newBuilder()
+                        .addValues(IDValue.newBuilder().setValue(String.valueOf(userId)).build())
+                        .addAllValues(Arrays.asList(ids))
+                        .build())
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
+    }
+
+    /**
+     * scan tenant user id mapping in range [start,end)
+     *
+     * @param tenantId tenant id
+     * @param fromInclude start user id, include
+     * @param toExclude end user id, exclude
+     * @param limit limit batch size
+     * @return Future Result, use {@link Result#idSetListResponse} to get id set list response
+     */
+    public Future<Result> scanIDMapping(long tenantId, long fromInclude, long toExclude, long limit) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.ScanMapping)
+                .setScanMapping(ScanMappingRequest.newBuilder()
+                    .setId(tenantId)
+                    .setFrom(fromInclude)
+                    .setTo(toExclude)
+                    .setLimit(limit)
                     .build())
                 .build();
 
@@ -337,10 +378,10 @@ public class Client {
      * add ints to a bitmap
      *
      * @param key key
-     * @param values int array
+     * @param values uint32 array
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> addToBitmap(byte[] key, Integer... values) {
+    public Future<Result> addToBitmap(byte[] key, Long... values) {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
@@ -362,7 +403,7 @@ public class Client {
      * @param values int array
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> removeFromBitmap(byte[] key, Integer... values) {
+    public Future<Result> removeFromBitmap(byte[] key, Long... values) {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
@@ -424,7 +465,7 @@ public class Client {
      * @param values value
      * @return Future Result, use {@link Result#booleanResponse()} to get boolean result
      */
-    public Future<Result> inBitmap(byte[] key, Integer... values) {
+    public Future<Result> inBitmap(byte[] key, Long... values) {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
@@ -560,7 +601,7 @@ public class Client {
      * @param data event kv data, key1, value1, key2, value2, must pow of 2.
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> addEvent(long tenantId, int userId, byte[]... data) {
+    public Future<Result> addEvent(long tenantId, long userId, byte[]... data) {
         if (data.length % 2 != 0) {
             throw new IllegalArgumentException("data length must pow of 2, but " + data.length);
         }
@@ -701,5 +742,75 @@ public class Client {
                     .build())
                 .build(), this::onResponse, this::onError);
         }
+    }
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        Client c = new Builder().addServer("172.19.70.229:9091", "172.19.70.229:9092", "172.19.70.229:9093").build();
+        mapping(c);
+        System.exit(0);
+    }
+
+    public static void mapping(Client c) throws ExecutionException, InterruptedException {
+        long tid = 10000;
+        c.updateIDMapping(tid, 1, IDValue.newBuilder().setType(1).setValue("u1-1").build()).get().checkError();
+        c.updateIDMapping(tid, 2, IDValue.newBuilder().setType(1).setValue("u2-1").build()).get().checkError();
+
+        System.out.println(c.scanIDMapping(tid, 1, 3, 4).get().idSetListResponse());
+    }
+
+    public static void bitmap(Client c) throws ExecutionException, InterruptedException {
+        byte[] key = "key1".getBytes();
+        c.addToBitmap(key, 1L, 2L, 3L, 4L).get().checkError();
+        System.out.println(c.getBitmap(key).get().bitmapResponse().getCardinality());
+    }
+
+    public static void workflow(Client c) throws ExecutionException, InterruptedException {
+        c.initTenant(1, 2).get().checkError();
+        Thread.sleep(15000);
+        c.watchNotify(1, "c", nt -> System.out.println("*******************: " + nt));
+        Workflow wf = Workflow.newBuilder()
+            .setId(1000)
+            .setName("test")
+            .setTenantID(1)
+            .addSteps(Step.newBuilder()
+                .setName("step-0")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Branch)
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
+                            .build())
+                        .setNextStep("step_end_1"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
+                            .build())
+                        .setNextStep("step_end_2"))
+                    .build())
+                .build())
+            .addSteps(Step.newBuilder()
+                .setName("step_end_1")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_2")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .build();
+        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3), 100).get().checkError();
+        c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
+        c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
+
+        Thread.sleep(1000);
+        System.out.println(c.countState(1000).get().countStateResponse());
+        System.out.println(c.stepCrowdState(1000, "step-0").get().stepCrowdStateResponse());
+        System.out.println(c.stepCrowdState(1000, "step_end_2").get().stepCrowdStateResponse());
+        System.out.println(c.stepCrowdState(1000, "step_end_1").get().stepCrowdStateResponse());
     }
 }

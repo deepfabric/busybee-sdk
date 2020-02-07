@@ -20,7 +20,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Event() {
-    userID_ = 0;
+    userID_ = 0L;
     tenantID_ = 0L;
     workflowID_ = 0L;
     data_ = java.util.Collections.emptyList();
@@ -59,7 +59,7 @@ private static final long serialVersionUID = 0L;
           }
           case 8: {
 
-            userID_ = input.readUInt32();
+            userID_ = input.readUInt64();
             break;
           }
           case 16: {
@@ -110,11 +110,11 @@ private static final long serialVersionUID = 0L;
 
   private int bitField0_;
   public static final int USERID_FIELD_NUMBER = 1;
-  private int userID_;
+  private long userID_;
   /**
-   * <code>uint32 userID = 1;</code>
+   * <code>uint64 userID = 1;</code>
    */
-  public int getUserID() {
+  public long getUserID() {
     return userID_;
   }
 
@@ -183,8 +183,8 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (userID_ != 0) {
-      output.writeUInt32(1, userID_);
+    if (userID_ != 0L) {
+      output.writeUInt64(1, userID_);
     }
     if (tenantID_ != 0L) {
       output.writeUInt64(2, tenantID_);
@@ -203,9 +203,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (userID_ != 0) {
+    if (userID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(1, userID_);
+        .computeUInt64Size(1, userID_);
     }
     if (tenantID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
@@ -255,7 +255,8 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + USERID_FIELD_NUMBER;
-    hash = (53 * hash) + getUserID();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserID());
     hash = (37 * hash) + TENANTID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTenantID());
@@ -400,7 +401,7 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      userID_ = 0;
+      userID_ = 0L;
 
       tenantID_ = 0L;
 
@@ -490,7 +491,7 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.meta.Event other) {
       if (other == cn.infinivision.dataforce.busybee.pb.meta.Event.getDefaultInstance()) return this;
-      if (other.getUserID() != 0) {
+      if (other.getUserID() != 0L) {
         setUserID(other.getUserID());
       }
       if (other.getTenantID() != 0L) {
@@ -553,28 +554,28 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private int userID_ ;
+    private long userID_ ;
     /**
-     * <code>uint32 userID = 1;</code>
+     * <code>uint64 userID = 1;</code>
      */
-    public int getUserID() {
+    public long getUserID() {
       return userID_;
     }
     /**
-     * <code>uint32 userID = 1;</code>
+     * <code>uint64 userID = 1;</code>
      */
-    public Builder setUserID(int value) {
+    public Builder setUserID(long value) {
       
       userID_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 userID = 1;</code>
+     * <code>uint64 userID = 1;</code>
      */
     public Builder clearUserID() {
       
-      userID_ = 0;
+      userID_ = 0L;
       onChanged();
       return this;
     }

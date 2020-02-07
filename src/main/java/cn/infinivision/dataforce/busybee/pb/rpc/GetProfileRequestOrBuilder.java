@@ -13,9 +13,9 @@ public interface GetProfileRequestOrBuilder extends
   long getId();
 
   /**
-   * <code>uint32 userID = 2;</code>
+   * <code>uint64 userID = 2;</code>
    */
-  int getUserID();
+  long getUserID();
 
   /**
    * <code>string field = 3;</code>

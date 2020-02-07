@@ -1,12 +1,16 @@
 package cn.infinivision.dataforce.busybee;
 
+import cn.infinivision.dataforce.busybee.pb.meta.IDSet;
 import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import com.google.protobuf.InvalidProtocolBufferException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import lombok.extern.slf4j.Slf4j;
 import org.roaringbitmap.RoaringBitmap;
 
 /**
@@ -14,6 +18,7 @@ import org.roaringbitmap.RoaringBitmap;
  *
  * @author fagongzi
  */
+@Slf4j(topic = "busybee")
 public class Result {
     private Response resp;
     private RuntimeException err;
@@ -144,6 +149,25 @@ public class Result {
         }
 
         throw new IllegalAccessError("the response is not boolean response");
+    }
+
+    public List<IDSet> idSetListResponse() {
+        checkError();
+
+        if (resp.hasBytesSliceResp()) {
+            List<IDSet> value = new ArrayList<>(resp.getBytesSliceResp().getItemsCount());
+            resp.getBytesSliceResp().getItemsList().forEach(e -> {
+                try {
+                    value.add(IDSet.parseFrom(e));
+                } catch (InvalidProtocolBufferException e1) {
+                    log.error("parse failed", e);
+                }
+            });
+
+            return value;
+        }
+
+        throw new IllegalAccessError("the response is not idset response");
     }
 
     void done(Response resp) {

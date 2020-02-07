@@ -13,26 +13,20 @@ public interface UpdateMappingRequestOrBuilder extends
   long getId();
 
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>uint64 userID = 2;</code>
    */
-  java.util.List<cn.infinivision.dataforce.busybee.pb.meta.IDValue> 
-      getValuesList();
+  long getUserID();
+
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>.metapb.IDSet set = 3;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.meta.IDValue getValues(int index);
+  boolean hasSet();
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>.metapb.IDSet set = 3;</code>
    */
-  int getValuesCount();
+  cn.infinivision.dataforce.busybee.pb.meta.IDSet getSet();
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>.metapb.IDSet set = 3;</code>
    */
-  java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder> 
-      getValuesOrBuilderList();
-  /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
-   */
-  cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder getValuesOrBuilder(
-      int index);
+  cn.infinivision.dataforce.busybee.pb.meta.IDSetOrBuilder getSetOrBuilder();
 }

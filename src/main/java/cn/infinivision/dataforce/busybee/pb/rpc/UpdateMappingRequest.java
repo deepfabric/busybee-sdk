@@ -21,7 +21,7 @@ private static final long serialVersionUID = 0L;
   }
   private UpdateMappingRequest() {
     id_ = 0L;
-    values_ = java.util.Collections.emptyList();
+    userID_ = 0L;
   }
 
   @java.lang.Override
@@ -60,13 +60,22 @@ private static final long serialVersionUID = 0L;
             id_ = input.readUInt64();
             break;
           }
-          case 18: {
-            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-              values_ = new java.util.ArrayList<cn.infinivision.dataforce.busybee.pb.meta.IDValue>();
-              mutable_bitField0_ |= 0x00000002;
+          case 16: {
+
+            userID_ = input.readUInt64();
+            break;
+          }
+          case 26: {
+            cn.infinivision.dataforce.busybee.pb.meta.IDSet.Builder subBuilder = null;
+            if (set_ != null) {
+              subBuilder = set_.toBuilder();
             }
-            values_.add(
-                input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.IDValue.parser(), extensionRegistry));
+            set_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.IDSet.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(set_);
+              set_ = subBuilder.buildPartial();
+            }
+
             break;
           }
         }
@@ -77,9 +86,6 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-        values_ = java.util.Collections.unmodifiableList(values_);
-      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -96,7 +102,6 @@ private static final long serialVersionUID = 0L;
             cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.Builder.class);
   }
 
-  private int bitField0_;
   public static final int ID_FIELD_NUMBER = 1;
   private long id_;
   /**
@@ -106,39 +111,34 @@ private static final long serialVersionUID = 0L;
     return id_;
   }
 
-  public static final int VALUES_FIELD_NUMBER = 2;
-  private java.util.List<cn.infinivision.dataforce.busybee.pb.meta.IDValue> values_;
+  public static final int USERID_FIELD_NUMBER = 2;
+  private long userID_;
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>uint64 userID = 2;</code>
    */
-  public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.IDValue> getValuesList() {
-    return values_;
+  public long getUserID() {
+    return userID_;
+  }
+
+  public static final int SET_FIELD_NUMBER = 3;
+  private cn.infinivision.dataforce.busybee.pb.meta.IDSet set_;
+  /**
+   * <code>.metapb.IDSet set = 3;</code>
+   */
+  public boolean hasSet() {
+    return set_ != null;
   }
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>.metapb.IDSet set = 3;</code>
    */
-  public java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder> 
-      getValuesOrBuilderList() {
-    return values_;
+  public cn.infinivision.dataforce.busybee.pb.meta.IDSet getSet() {
+    return set_ == null ? cn.infinivision.dataforce.busybee.pb.meta.IDSet.getDefaultInstance() : set_;
   }
   /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
+   * <code>.metapb.IDSet set = 3;</code>
    */
-  public int getValuesCount() {
-    return values_.size();
-  }
-  /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.IDValue getValues(int index) {
-    return values_.get(index);
-  }
-  /**
-   * <code>repeated .metapb.IDValue values = 2;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder getValuesOrBuilder(
-      int index) {
-    return values_.get(index);
+  public cn.infinivision.dataforce.busybee.pb.meta.IDSetOrBuilder getSetOrBuilder() {
+    return getSet();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -156,8 +156,11 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0L) {
       output.writeUInt64(1, id_);
     }
-    for (int i = 0; i < values_.size(); i++) {
-      output.writeMessage(2, values_.get(i));
+    if (userID_ != 0L) {
+      output.writeUInt64(2, userID_);
+    }
+    if (set_ != null) {
+      output.writeMessage(3, getSet());
     }
     unknownFields.writeTo(output);
   }
@@ -171,9 +174,13 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(1, id_);
     }
-    for (int i = 0; i < values_.size(); i++) {
+    if (userID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(2, values_.get(i));
+        .computeUInt64Size(2, userID_);
+    }
+    if (set_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(3, getSet());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -193,8 +200,13 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && (getId()
         == other.getId());
-    result = result && getValuesList()
-        .equals(other.getValuesList());
+    result = result && (getUserID()
+        == other.getUserID());
+    result = result && (hasSet() == other.hasSet());
+    if (hasSet()) {
+      result = result && getSet()
+          .equals(other.getSet());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -209,9 +221,12 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getId());
-    if (getValuesCount() > 0) {
-      hash = (37 * hash) + VALUES_FIELD_NUMBER;
-      hash = (53 * hash) + getValuesList().hashCode();
+    hash = (37 * hash) + USERID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserID());
+    if (hasSet()) {
+      hash = (37 * hash) + SET_FIELD_NUMBER;
+      hash = (53 * hash) + getSet().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -342,18 +357,19 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
-        getValuesFieldBuilder();
       }
     }
     public Builder clear() {
       super.clear();
       id_ = 0L;
 
-      if (valuesBuilder_ == null) {
-        values_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000002);
+      userID_ = 0L;
+
+      if (setBuilder_ == null) {
+        set_ = null;
       } else {
-        valuesBuilder_.clear();
+        set_ = null;
+        setBuilder_ = null;
       }
       return this;
     }
@@ -377,19 +393,13 @@ private static final long serialVersionUID = 0L;
 
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest buildPartial() {
       cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest(this);
-      int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
       result.id_ = id_;
-      if (valuesBuilder_ == null) {
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          values_ = java.util.Collections.unmodifiableList(values_);
-          bitField0_ = (bitField0_ & ~0x00000002);
-        }
-        result.values_ = values_;
+      result.userID_ = userID_;
+      if (setBuilder_ == null) {
+        result.set_ = set_;
       } else {
-        result.values_ = valuesBuilder_.build();
+        result.set_ = setBuilder_.build();
       }
-      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -434,31 +444,11 @@ private static final long serialVersionUID = 0L;
       if (other.getId() != 0L) {
         setId(other.getId());
       }
-      if (valuesBuilder_ == null) {
-        if (!other.values_.isEmpty()) {
-          if (values_.isEmpty()) {
-            values_ = other.values_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-          } else {
-            ensureValuesIsMutable();
-            values_.addAll(other.values_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.values_.isEmpty()) {
-          if (valuesBuilder_.isEmpty()) {
-            valuesBuilder_.dispose();
-            valuesBuilder_ = null;
-            values_ = other.values_;
-            bitField0_ = (bitField0_ & ~0x00000002);
-            valuesBuilder_ = 
-              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getValuesFieldBuilder() : null;
-          } else {
-            valuesBuilder_.addAllMessages(other.values_);
-          }
-        }
+      if (other.getUserID() != 0L) {
+        setUserID(other.getUserID());
+      }
+      if (other.hasSet()) {
+        mergeSet(other.getSet());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -486,7 +476,6 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
-    private int bitField0_;
 
     private long id_ ;
     /**
@@ -514,244 +503,147 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<cn.infinivision.dataforce.busybee.pb.meta.IDValue> values_ =
-      java.util.Collections.emptyList();
-    private void ensureValuesIsMutable() {
-      if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-        values_ = new java.util.ArrayList<cn.infinivision.dataforce.busybee.pb.meta.IDValue>(values_);
-        bitField0_ |= 0x00000002;
-       }
+    private long userID_ ;
+    /**
+     * <code>uint64 userID = 2;</code>
+     */
+    public long getUserID() {
+      return userID_;
+    }
+    /**
+     * <code>uint64 userID = 2;</code>
+     */
+    public Builder setUserID(long value) {
+      
+      userID_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 userID = 2;</code>
+     */
+    public Builder clearUserID() {
+      
+      userID_ = 0L;
+      onChanged();
+      return this;
     }
 
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.IDValue, cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder, cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder> valuesBuilder_;
+    private cn.infinivision.dataforce.busybee.pb.meta.IDSet set_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.IDSet, cn.infinivision.dataforce.busybee.pb.meta.IDSet.Builder, cn.infinivision.dataforce.busybee.pb.meta.IDSetOrBuilder> setBuilder_;
+    /**
+     * <code>.metapb.IDSet set = 3;</code>
+     */
+    public boolean hasSet() {
+      return setBuilder_ != null || set_ != null;
+    }
+    /**
+     * <code>.metapb.IDSet set = 3;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.IDSet getSet() {
+      if (setBuilder_ == null) {
+        return set_ == null ? cn.infinivision.dataforce.busybee.pb.meta.IDSet.getDefaultInstance() : set_;
+      } else {
+        return setBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.metapb.IDSet set = 3;</code>
+     */
+    public Builder setSet(cn.infinivision.dataforce.busybee.pb.meta.IDSet value) {
+      if (setBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        set_ = value;
+        onChanged();
+      } else {
+        setBuilder_.setMessage(value);
+      }
 
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.IDValue> getValuesList() {
-      if (valuesBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(values_);
-      } else {
-        return valuesBuilder_.getMessageList();
-      }
+      return this;
     }
     /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
+     * <code>.metapb.IDSet set = 3;</code>
      */
-    public int getValuesCount() {
-      if (valuesBuilder_ == null) {
-        return values_.size();
+    public Builder setSet(
+        cn.infinivision.dataforce.busybee.pb.meta.IDSet.Builder builderForValue) {
+      if (setBuilder_ == null) {
+        set_ = builderForValue.build();
+        onChanged();
       } else {
-        return valuesBuilder_.getCount();
+        setBuilder_.setMessage(builderForValue.build());
       }
+
+      return this;
     }
     /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
+     * <code>.metapb.IDSet set = 3;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.IDValue getValues(int index) {
-      if (valuesBuilder_ == null) {
-        return values_.get(index);
-      } else {
-        return valuesBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder setValues(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.IDValue value) {
-      if (valuesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
+    public Builder mergeSet(cn.infinivision.dataforce.busybee.pb.meta.IDSet value) {
+      if (setBuilder_ == null) {
+        if (set_ != null) {
+          set_ =
+            cn.infinivision.dataforce.busybee.pb.meta.IDSet.newBuilder(set_).mergeFrom(value).buildPartial();
+        } else {
+          set_ = value;
         }
-        ensureValuesIsMutable();
-        values_.set(index, value);
         onChanged();
       } else {
-        valuesBuilder_.setMessage(index, value);
+        setBuilder_.mergeFrom(value);
       }
+
       return this;
     }
     /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
+     * <code>.metapb.IDSet set = 3;</code>
      */
-    public Builder setValues(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder builderForValue) {
-      if (valuesBuilder_ == null) {
-        ensureValuesIsMutable();
-        values_.set(index, builderForValue.build());
+    public Builder clearSet() {
+      if (setBuilder_ == null) {
+        set_ = null;
         onChanged();
       } else {
-        valuesBuilder_.setMessage(index, builderForValue.build());
+        set_ = null;
+        setBuilder_ = null;
       }
+
       return this;
     }
     /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
+     * <code>.metapb.IDSet set = 3;</code>
      */
-    public Builder addValues(cn.infinivision.dataforce.busybee.pb.meta.IDValue value) {
-      if (valuesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureValuesIsMutable();
-        values_.add(value);
-        onChanged();
+    public cn.infinivision.dataforce.busybee.pb.meta.IDSet.Builder getSetBuilder() {
+      
+      onChanged();
+      return getSetFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.metapb.IDSet set = 3;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.IDSetOrBuilder getSetOrBuilder() {
+      if (setBuilder_ != null) {
+        return setBuilder_.getMessageOrBuilder();
       } else {
-        valuesBuilder_.addMessage(value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder addValues(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.IDValue value) {
-      if (valuesBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureValuesIsMutable();
-        values_.add(index, value);
-        onChanged();
-      } else {
-        valuesBuilder_.addMessage(index, value);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder addValues(
-        cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder builderForValue) {
-      if (valuesBuilder_ == null) {
-        ensureValuesIsMutable();
-        values_.add(builderForValue.build());
-        onChanged();
-      } else {
-        valuesBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder addValues(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder builderForValue) {
-      if (valuesBuilder_ == null) {
-        ensureValuesIsMutable();
-        values_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        valuesBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder addAllValues(
-        java.lang.Iterable<? extends cn.infinivision.dataforce.busybee.pb.meta.IDValue> values) {
-      if (valuesBuilder_ == null) {
-        ensureValuesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, values_);
-        onChanged();
-      } else {
-        valuesBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder clearValues() {
-      if (valuesBuilder_ == null) {
-        values_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-      } else {
-        valuesBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public Builder removeValues(int index) {
-      if (valuesBuilder_ == null) {
-        ensureValuesIsMutable();
-        values_.remove(index);
-        onChanged();
-      } else {
-        valuesBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder getValuesBuilder(
-        int index) {
-      return getValuesFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder getValuesOrBuilder(
-        int index) {
-      if (valuesBuilder_ == null) {
-        return values_.get(index);  } else {
-        return valuesBuilder_.getMessageOrBuilder(index);
+        return set_ == null ?
+            cn.infinivision.dataforce.busybee.pb.meta.IDSet.getDefaultInstance() : set_;
       }
     }
     /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
+     * <code>.metapb.IDSet set = 3;</code>
      */
-    public java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder> 
-         getValuesOrBuilderList() {
-      if (valuesBuilder_ != null) {
-        return valuesBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(values_);
-      }
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder addValuesBuilder() {
-      return getValuesFieldBuilder().addBuilder(
-          cn.infinivision.dataforce.busybee.pb.meta.IDValue.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder addValuesBuilder(
-        int index) {
-      return getValuesFieldBuilder().addBuilder(
-          index, cn.infinivision.dataforce.busybee.pb.meta.IDValue.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .metapb.IDValue values = 2;</code>
-     */
-    public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder> 
-         getValuesBuilderList() {
-      return getValuesFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.IDValue, cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder, cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder> 
-        getValuesFieldBuilder() {
-      if (valuesBuilder_ == null) {
-        valuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.meta.IDValue, cn.infinivision.dataforce.busybee.pb.meta.IDValue.Builder, cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder>(
-                values_,
-                ((bitField0_ & 0x00000002) == 0x00000002),
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.IDSet, cn.infinivision.dataforce.busybee.pb.meta.IDSet.Builder, cn.infinivision.dataforce.busybee.pb.meta.IDSetOrBuilder> 
+        getSetFieldBuilder() {
+      if (setBuilder_ == null) {
+        setBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.meta.IDSet, cn.infinivision.dataforce.busybee.pb.meta.IDSet.Builder, cn.infinivision.dataforce.busybee.pb.meta.IDSetOrBuilder>(
+                getSet(),
                 getParentForChildren(),
                 isClean());
-        values_ = null;
+        set_ = null;
       }
-      return valuesBuilder_;
+      return setBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

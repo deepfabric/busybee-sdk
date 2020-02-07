@@ -365,6 +365,19 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 210: {
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder subBuilder = null;
+            if (scanMapping_ != null) {
+              subBuilder = scanMapping_.toBuilder();
+            }
+            scanMapping_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(scanMapping_);
+              scanMapping_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -897,6 +910,27 @@ private static final long serialVersionUID = 0L;
     return getResetID();
   }
 
+  public static final int SCANMAPPING_FIELD_NUMBER = 26;
+  private cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest scanMapping_;
+  /**
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   */
+  public boolean hasScanMapping() {
+    return scanMapping_ != null;
+  }
+  /**
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping() {
+    return scanMapping_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance() : scanMapping_;
+  }
+  /**
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder() {
+    return getScanMapping();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -983,6 +1017,9 @@ private static final long serialVersionUID = 0L;
     }
     if (resetID_ != null) {
       output.writeMessage(25, getResetID());
+    }
+    if (scanMapping_ != null) {
+      output.writeMessage(26, getScanMapping());
     }
     unknownFields.writeTo(output);
   }
@@ -1091,6 +1128,10 @@ private static final long serialVersionUID = 0L;
     if (resetID_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(25, getResetID());
+    }
+    if (scanMapping_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(26, getScanMapping());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1226,6 +1267,11 @@ private static final long serialVersionUID = 0L;
       result = result && getResetID()
           .equals(other.getResetID());
     }
+    result = result && (hasScanMapping() == other.hasScanMapping());
+    if (hasScanMapping()) {
+      result = result && getScanMapping()
+          .equals(other.getScanMapping());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -1333,6 +1379,10 @@ private static final long serialVersionUID = 0L;
     if (hasResetID()) {
       hash = (37 * hash) + RESETID_FIELD_NUMBER;
       hash = (53 * hash) + getResetID().hashCode();
+    }
+    if (hasScanMapping()) {
+      hash = (37 * hash) + SCANMAPPING_FIELD_NUMBER;
+      hash = (53 * hash) + getScanMapping().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -1609,6 +1659,12 @@ private static final long serialVersionUID = 0L;
         resetID_ = null;
         resetIDBuilder_ = null;
       }
+      if (scanMappingBuilder_ == null) {
+        scanMapping_ = null;
+      } else {
+        scanMapping_ = null;
+        scanMappingBuilder_ = null;
+      }
       return this;
     }
 
@@ -1748,6 +1804,11 @@ private static final long serialVersionUID = 0L;
       } else {
         result.resetID_ = resetIDBuilder_.build();
       }
+      if (scanMappingBuilder_ == null) {
+        result.scanMapping_ = scanMapping_;
+      } else {
+        result.scanMapping_ = scanMappingBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -1863,6 +1924,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasResetID()) {
         mergeResetID(other.getResetID());
+      }
+      if (other.hasScanMapping()) {
+        mergeScanMapping(other.getScanMapping());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -4650,6 +4714,123 @@ private static final long serialVersionUID = 0L;
         resetID_ = null;
       }
       return resetIDBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest scanMapping_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder> scanMappingBuilder_;
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public boolean hasScanMapping() {
+      return scanMappingBuilder_ != null || scanMapping_ != null;
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping() {
+      if (scanMappingBuilder_ == null) {
+        return scanMapping_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance() : scanMapping_;
+      } else {
+        return scanMappingBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public Builder setScanMapping(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest value) {
+      if (scanMappingBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        scanMapping_ = value;
+        onChanged();
+      } else {
+        scanMappingBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public Builder setScanMapping(
+        cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder builderForValue) {
+      if (scanMappingBuilder_ == null) {
+        scanMapping_ = builderForValue.build();
+        onChanged();
+      } else {
+        scanMappingBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public Builder mergeScanMapping(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest value) {
+      if (scanMappingBuilder_ == null) {
+        if (scanMapping_ != null) {
+          scanMapping_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.newBuilder(scanMapping_).mergeFrom(value).buildPartial();
+        } else {
+          scanMapping_ = value;
+        }
+        onChanged();
+      } else {
+        scanMappingBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public Builder clearScanMapping() {
+      if (scanMappingBuilder_ == null) {
+        scanMapping_ = null;
+        onChanged();
+      } else {
+        scanMapping_ = null;
+        scanMappingBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder getScanMappingBuilder() {
+      
+      onChanged();
+      return getScanMappingFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder() {
+      if (scanMappingBuilder_ != null) {
+        return scanMappingBuilder_.getMessageOrBuilder();
+      } else {
+        return scanMapping_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance() : scanMapping_;
+      }
+    }
+    /**
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder> 
+        getScanMappingFieldBuilder() {
+      if (scanMappingBuilder_ == null) {
+        scanMappingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder>(
+                getScanMapping(),
+                getParentForChildren(),
+                isClean());
+        scanMapping_ = null;
+      }
+      return scanMappingBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

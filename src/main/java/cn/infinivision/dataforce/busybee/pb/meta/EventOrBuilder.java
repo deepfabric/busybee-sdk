@@ -8,9 +8,9 @@ public interface EventOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint32 userID = 1;</code>
+   * <code>uint64 userID = 1;</code>
    */
-  int getUserID();
+  long getUserID();
 
   /**
    * <code>uint64 tenantID = 2;</code>

@@ -21,7 +21,7 @@ private static final long serialVersionUID = 0L;
   }
   private UpdateProfileRequest() {
     id_ = 0L;
-    userID_ = 0;
+    userID_ = 0L;
     value_ = com.google.protobuf.ByteString.EMPTY;
   }
 
@@ -63,7 +63,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            userID_ = input.readUInt32();
+            userID_ = input.readUInt64();
             break;
           }
           case 26: {
@@ -105,11 +105,11 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int USERID_FIELD_NUMBER = 2;
-  private int userID_;
+  private long userID_;
   /**
-   * <code>uint32 userID = 2;</code>
+   * <code>uint64 userID = 2;</code>
    */
-  public int getUserID() {
+  public long getUserID() {
     return userID_;
   }
 
@@ -137,8 +137,8 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0L) {
       output.writeUInt64(1, id_);
     }
-    if (userID_ != 0) {
-      output.writeUInt32(2, userID_);
+    if (userID_ != 0L) {
+      output.writeUInt64(2, userID_);
     }
     if (!value_.isEmpty()) {
       output.writeBytes(3, value_);
@@ -155,9 +155,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(1, id_);
     }
-    if (userID_ != 0) {
+    if (userID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(2, userID_);
+        .computeUInt64Size(2, userID_);
     }
     if (!value_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
@@ -200,7 +200,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getId());
     hash = (37 * hash) + USERID_FIELD_NUMBER;
-    hash = (53 * hash) + getUserID();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserID());
     hash = (37 * hash) + VALUE_FIELD_NUMBER;
     hash = (53 * hash) + getValue().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
@@ -338,7 +339,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = 0L;
 
-      userID_ = 0;
+      userID_ = 0L;
 
       value_ = com.google.protobuf.ByteString.EMPTY;
 
@@ -411,7 +412,7 @@ private static final long serialVersionUID = 0L;
       if (other.getId() != 0L) {
         setId(other.getId());
       }
-      if (other.getUserID() != 0) {
+      if (other.getUserID() != 0L) {
         setUserID(other.getUserID());
       }
       if (other.getValue() != com.google.protobuf.ByteString.EMPTY) {
@@ -470,28 +471,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int userID_ ;
+    private long userID_ ;
     /**
-     * <code>uint32 userID = 2;</code>
+     * <code>uint64 userID = 2;</code>
      */
-    public int getUserID() {
+    public long getUserID() {
       return userID_;
     }
     /**
-     * <code>uint32 userID = 2;</code>
+     * <code>uint64 userID = 2;</code>
      */
-    public Builder setUserID(int value) {
+    public Builder setUserID(long value) {
       
       userID_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 userID = 2;</code>
+     * <code>uint64 userID = 2;</code>
      */
     public Builder clearUserID() {
       
-      userID_ = 0;
+      userID_ = 0L;
       onChanged();
       return this;
     }

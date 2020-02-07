@@ -56,21 +56,21 @@ private static final long serialVersionUID = 0L;
           }
           case 8: {
             if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-              values_ = new java.util.ArrayList<java.lang.Integer>();
+              values_ = new java.util.ArrayList<java.lang.Long>();
               mutable_bitField0_ |= 0x00000001;
             }
-            values_.add(input.readUInt32());
+            values_.add(input.readUInt64());
             break;
           }
           case 10: {
             int length = input.readRawVarint32();
             int limit = input.pushLimit(length);
             if (!((mutable_bitField0_ & 0x00000001) == 0x00000001) && input.getBytesUntilLimit() > 0) {
-              values_ = new java.util.ArrayList<java.lang.Integer>();
+              values_ = new java.util.ArrayList<java.lang.Long>();
               mutable_bitField0_ |= 0x00000001;
             }
             while (input.getBytesUntilLimit() > 0) {
-              values_.add(input.readUInt32());
+              values_.add(input.readUInt64());
             }
             input.popLimit(limit);
             break;
@@ -103,24 +103,24 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VALUES_FIELD_NUMBER = 1;
-  private java.util.List<java.lang.Integer> values_;
+  private java.util.List<java.lang.Long> values_;
   /**
-   * <code>repeated uint32 values = 1;</code>
+   * <code>repeated uint64 values = 1;</code>
    */
-  public java.util.List<java.lang.Integer>
+  public java.util.List<java.lang.Long>
       getValuesList() {
     return values_;
   }
   /**
-   * <code>repeated uint32 values = 1;</code>
+   * <code>repeated uint64 values = 1;</code>
    */
   public int getValuesCount() {
     return values_.size();
   }
   /**
-   * <code>repeated uint32 values = 1;</code>
+   * <code>repeated uint64 values = 1;</code>
    */
-  public int getValues(int index) {
+  public long getValues(int index) {
     return values_.get(index);
   }
   private int valuesMemoizedSerializedSize = -1;
@@ -143,7 +143,7 @@ private static final long serialVersionUID = 0L;
       output.writeUInt32NoTag(valuesMemoizedSerializedSize);
     }
     for (int i = 0; i < values_.size(); i++) {
-      output.writeUInt32NoTag(values_.get(i));
+      output.writeUInt64NoTag(values_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -157,7 +157,7 @@ private static final long serialVersionUID = 0L;
       int dataSize = 0;
       for (int i = 0; i < values_.size(); i++) {
         dataSize += com.google.protobuf.CodedOutputStream
-          .computeUInt32SizeNoTag(values_.get(i));
+          .computeUInt64SizeNoTag(values_.get(i));
       }
       size += dataSize;
       if (!getValuesList().isEmpty()) {
@@ -442,56 +442,56 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<java.lang.Integer> values_ = java.util.Collections.emptyList();
+    private java.util.List<java.lang.Long> values_ = java.util.Collections.emptyList();
     private void ensureValuesIsMutable() {
       if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-        values_ = new java.util.ArrayList<java.lang.Integer>(values_);
+        values_ = new java.util.ArrayList<java.lang.Long>(values_);
         bitField0_ |= 0x00000001;
        }
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
-    public java.util.List<java.lang.Integer>
+    public java.util.List<java.lang.Long>
         getValuesList() {
       return java.util.Collections.unmodifiableList(values_);
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
     public int getValuesCount() {
       return values_.size();
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
-    public int getValues(int index) {
+    public long getValues(int index) {
       return values_.get(index);
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
     public Builder setValues(
-        int index, int value) {
+        int index, long value) {
       ensureValuesIsMutable();
       values_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
-    public Builder addValues(int value) {
+    public Builder addValues(long value) {
       ensureValuesIsMutable();
       values_.add(value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
     public Builder addAllValues(
-        java.lang.Iterable<? extends java.lang.Integer> values) {
+        java.lang.Iterable<? extends java.lang.Long> values) {
       ensureValuesIsMutable();
       com.google.protobuf.AbstractMessageLite.Builder.addAll(
           values, values_);
@@ -499,7 +499,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated uint32 values = 1;</code>
+     * <code>repeated uint64 values = 1;</code>
      */
     public Builder clearValues() {
       values_ = java.util.Collections.emptyList();
