@@ -121,6 +121,10 @@ public enum Type
    */
   ScanMapping(407),
   /**
+   * <code>GetIDSet = 408;</code>
+   */
+  GetIDSet(408),
+  /**
    * <code>AllocID = 501;</code>
    */
   AllocID(501),
@@ -244,6 +248,10 @@ public enum Type
    */
   public static final int ScanMapping_VALUE = 407;
   /**
+   * <code>GetIDSet = 408;</code>
+   */
+  public static final int GetIDSet_VALUE = 408;
+  /**
    * <code>AllocID = 501;</code>
    */
   public static final int AllocID_VALUE = 501;
@@ -299,6 +307,7 @@ public enum Type
       case 405: return AddEvent;
       case 406: return FetchNotify;
       case 407: return ScanMapping;
+      case 408: return GetIDSet;
       case 501: return AllocID;
       case 502: return ResetID;
       default: return null;

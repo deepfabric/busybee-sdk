@@ -378,6 +378,19 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 218: {
+            cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder subBuilder = null;
+            if (getIDSet_ != null) {
+              subBuilder = getIDSet_.toBuilder();
+            }
+            getIDSet_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(getIDSet_);
+              getIDSet_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -931,6 +944,27 @@ private static final long serialVersionUID = 0L;
     return getScanMapping();
   }
 
+  public static final int GETIDSET_FIELD_NUMBER = 27;
+  private cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getIDSet_;
+  /**
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   */
+  public boolean hasGetIDSet() {
+    return getIDSet_ != null;
+  }
+  /**
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet() {
+    return getIDSet_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.getDefaultInstance() : getIDSet_;
+  }
+  /**
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder() {
+    return getGetIDSet();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -1020,6 +1054,9 @@ private static final long serialVersionUID = 0L;
     }
     if (scanMapping_ != null) {
       output.writeMessage(26, getScanMapping());
+    }
+    if (getIDSet_ != null) {
+      output.writeMessage(27, getGetIDSet());
     }
     unknownFields.writeTo(output);
   }
@@ -1132,6 +1169,10 @@ private static final long serialVersionUID = 0L;
     if (scanMapping_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(26, getScanMapping());
+    }
+    if (getIDSet_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(27, getGetIDSet());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1272,6 +1313,11 @@ private static final long serialVersionUID = 0L;
       result = result && getScanMapping()
           .equals(other.getScanMapping());
     }
+    result = result && (hasGetIDSet() == other.hasGetIDSet());
+    if (hasGetIDSet()) {
+      result = result && getGetIDSet()
+          .equals(other.getGetIDSet());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -1383,6 +1429,10 @@ private static final long serialVersionUID = 0L;
     if (hasScanMapping()) {
       hash = (37 * hash) + SCANMAPPING_FIELD_NUMBER;
       hash = (53 * hash) + getScanMapping().hashCode();
+    }
+    if (hasGetIDSet()) {
+      hash = (37 * hash) + GETIDSET_FIELD_NUMBER;
+      hash = (53 * hash) + getGetIDSet().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -1665,6 +1715,12 @@ private static final long serialVersionUID = 0L;
         scanMapping_ = null;
         scanMappingBuilder_ = null;
       }
+      if (getIDSetBuilder_ == null) {
+        getIDSet_ = null;
+      } else {
+        getIDSet_ = null;
+        getIDSetBuilder_ = null;
+      }
       return this;
     }
 
@@ -1809,6 +1865,11 @@ private static final long serialVersionUID = 0L;
       } else {
         result.scanMapping_ = scanMappingBuilder_.build();
       }
+      if (getIDSetBuilder_ == null) {
+        result.getIDSet_ = getIDSet_;
+      } else {
+        result.getIDSet_ = getIDSetBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -1927,6 +1988,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasScanMapping()) {
         mergeScanMapping(other.getScanMapping());
+      }
+      if (other.hasGetIDSet()) {
+        mergeGetIDSet(other.getGetIDSet());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -4831,6 +4895,123 @@ private static final long serialVersionUID = 0L;
         scanMapping_ = null;
       }
       return scanMappingBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getIDSet_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder> getIDSetBuilder_;
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public boolean hasGetIDSet() {
+      return getIDSetBuilder_ != null || getIDSet_ != null;
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet() {
+      if (getIDSetBuilder_ == null) {
+        return getIDSet_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.getDefaultInstance() : getIDSet_;
+      } else {
+        return getIDSetBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public Builder setGetIDSet(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest value) {
+      if (getIDSetBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        getIDSet_ = value;
+        onChanged();
+      } else {
+        getIDSetBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public Builder setGetIDSet(
+        cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder builderForValue) {
+      if (getIDSetBuilder_ == null) {
+        getIDSet_ = builderForValue.build();
+        onChanged();
+      } else {
+        getIDSetBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public Builder mergeGetIDSet(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest value) {
+      if (getIDSetBuilder_ == null) {
+        if (getIDSet_ != null) {
+          getIDSet_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.newBuilder(getIDSet_).mergeFrom(value).buildPartial();
+        } else {
+          getIDSet_ = value;
+        }
+        onChanged();
+      } else {
+        getIDSetBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public Builder clearGetIDSet() {
+      if (getIDSetBuilder_ == null) {
+        getIDSet_ = null;
+        onChanged();
+      } else {
+        getIDSet_ = null;
+        getIDSetBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder getGetIDSetBuilder() {
+      
+      onChanged();
+      return getGetIDSetFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder() {
+      if (getIDSetBuilder_ != null) {
+        return getIDSetBuilder_.getMessageOrBuilder();
+      } else {
+        return getIDSet_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.getDefaultInstance() : getIDSet_;
+      }
+    }
+    /**
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder> 
+        getGetIDSetFieldBuilder() {
+      if (getIDSetBuilder_ == null) {
+        getIDSetBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder>(
+                getGetIDSet(),
+                getParentForChildren(),
+                isClean());
+        getIDSet_ = null;
+      }
+      return getIDSetBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

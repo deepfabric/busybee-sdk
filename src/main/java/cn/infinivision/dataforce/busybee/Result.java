@@ -5,6 +5,7 @@ import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import com.google.protobuf.InvalidProtocolBufferException;
+import io.aicloud.tools.netty.util.BytesUtils;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -105,11 +106,30 @@ public class Result {
     }
 
     /**
-     * uint32 range response
+     * unsigned int response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return unsigned int
+     */
+    public long unsignedIntResponse() {
+        checkError();
+
+        if (resp.hasBytesResp()) {
+            if (resp.getBytesResp().getValue().size() == 0) {
+                return 0;
+            }
+
+            return BytesUtils.byte2UnsignedInt(resp.getBytesResp().getValue().toByteArray());
+        }
+
+        throw new IllegalAccessError("the response is not unsigned int response");
+    }
+
+    /**
+     * unsigned int array response, and throw a {@link RuntimeException} if has en error
      *
      * @return [from, to] range
      */
-    public long[] uint32RangeResponse() {
+    public long[] unsignedIntRangeResponse() {
         checkError();
 
         if (resp.hasUint32RangeResp()) {
@@ -118,7 +138,7 @@ public class Result {
                 resp.getUint32RangeResp().getTo()};
         }
 
-        throw new IllegalAccessError("the response is not uint32 range response");
+        throw new IllegalAccessError("the response is not unsigned int range response");
     }
 
     /**
@@ -133,7 +153,7 @@ public class Result {
             return resp.getUint64Resp().getValue();
         }
 
-        throw new IllegalAccessError("the response is not uint64 response");
+        throw new IllegalAccessError("the response is not long response");
     }
 
     /**
@@ -151,6 +171,11 @@ public class Result {
         throw new IllegalAccessError("the response is not boolean response");
     }
 
+    /**
+     * id set list response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return id set list
+     */
     public List<IDSet> idSetListResponse() {
         checkError();
 
@@ -167,7 +192,26 @@ public class Result {
             return value;
         }
 
-        throw new IllegalAccessError("the response is not idset response");
+        throw new IllegalAccessError("the response is not id set list response");
+    }
+
+    /**
+     * id set response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return id set
+     */
+    public IDSet idSetResponse() {
+        checkError();
+
+        if (resp.hasBytesResp()) {
+            try {
+                return IDSet.parseFrom(resp.getBytesResp().getValue());
+            } catch (InvalidProtocolBufferException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        throw new IllegalAccessError("the response is not id set response");
     }
 
     void done(Response resp) {

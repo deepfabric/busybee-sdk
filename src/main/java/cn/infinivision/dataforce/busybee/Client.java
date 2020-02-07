@@ -25,6 +25,7 @@ import cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.DeleteRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetRequest;
@@ -67,23 +68,25 @@ import org.roaringbitmap.RoaringBitmap;
 @Slf4j(topic = "busybee")
 public class Client {
     private AtomicLong id = new AtomicLong(0);
+    private String rowType;
     private Transport transport;
     private long fetchCount;
     private Map<Long, FetchWorker> fetchWorkers = new ConcurrentHashMap<>();
     private ScheduledExecutorService schedulers;
 
-    Client(Transport transport, long fetchCount, int fetchSchedulers) {
+    Client(Transport transport, long fetchCount, int fetchSchedulers, String rowType) {
+        this.rowType = rowType;
         this.transport = transport;
         this.fetchCount = fetchCount;
         schedulers = Executors.newScheduledThreadPool(fetchSchedulers);
     }
 
     /**
-     * alloc a batch uint32 id values
+     * alloc a unsigned int range [from, to]
      *
      * @param key key
      * @param batch value
-     * @return Future Result, use {@link Result#uint32RangeResponse()} to get a uint32 range response
+     * @return Future Result, use {@link Result#unsignedIntRangeResponse()} to get a unsigned int range response
      */
     public Future<Result> allocId(byte[] key, long batch) {
         return CompletableFuture.supplyAsync(() -> {
@@ -118,6 +121,16 @@ public class Client {
 
             return doRequest(req);
         });
+    }
+
+    /**
+     * get current alloc value
+     *
+     * @param key key
+     * @return Future Result, use {@link Result#unsignedIntResponse()} to get a unsigned int response
+     */
+    public Future<Result> currentId(byte[] key) {
+        return get(key);
     }
 
     /**
@@ -221,9 +234,34 @@ public class Client {
                     .setId(tenantId)
                     .setUserID(userId)
                     .setSet(IDSet.newBuilder()
-                        .addValues(IDValue.newBuilder().setValue(String.valueOf(userId)).build())
+                        .addValues(IDValue.newBuilder()
+                            .setValue(String.valueOf(userId))
+                            .setType(rowType)
+                            .build())
                         .addAllValues(Arrays.asList(ids))
                         .build())
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
+    }
+
+    /**
+     * get user id set
+     *
+     * @param tenantId tenant id
+     * @param userId user id
+     * @return Future Result, use {@link Result#idSetResponse} to get id set response
+     */
+    public Future<Result> getIDSet(long tenantId, long userId) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.GetIDSet)
+                .setGetIDSet(GetIDSetRequest.newBuilder()
+                    .setId(tenantId)
+                    .setUserID(userId)
                     .build())
                 .build();
 
@@ -265,7 +303,7 @@ public class Client {
      * @param to to id type
      * @return Future Result, use {@link Result#stringResponse()} to get string result
      */
-    public Future<Result> getID(long tenantId, IDValue from, int to) {
+    public Future<Result> getID(long tenantId, IDValue from, String to) {
         return CompletableFuture.supplyAsync(() -> {
             Request req = Request.newBuilder()
                 .setId(id.incrementAndGet())
@@ -746,16 +784,28 @@ public class Client {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Client c = new Builder().addServer("172.19.70.229:9091", "172.19.70.229:9092", "172.19.70.229:9093").build();
-        mapping(c);
+        alloc(c);
         System.exit(0);
+    }
+
+    public static void alloc(Client c) throws ExecutionException, InterruptedException {
+        byte[] key = "key-id".getBytes();
+
+        System.out.println(c.currentId(key).get().unsignedIntResponse());
+        c.allocId(key, 10).get().checkError();
+        System.out.println(c.currentId(key).get().unsignedIntResponse());
+        c.resetId(key, 5).get().checkError();
+        System.out.println(c.currentId(key).get().unsignedIntResponse());
     }
 
     public static void mapping(Client c) throws ExecutionException, InterruptedException {
         long tid = 10000;
-        c.updateIDMapping(tid, 1, IDValue.newBuilder().setType(1).setValue("u1-1").build()).get().checkError();
-        c.updateIDMapping(tid, 2, IDValue.newBuilder().setType(1).setValue("u2-1").build()).get().checkError();
+        c.updateIDMapping(tid, 1, IDValue.newBuilder().setType("1").setValue("u1-1").build()).get().checkError();
+        c.updateIDMapping(tid, 2, IDValue.newBuilder().setType("1").setValue("u2-1").build()).get().checkError();
 
         System.out.println(c.scanIDMapping(tid, 1, 3, 4).get().idSetListResponse());
+        System.out.println(c.getIDSet(tid, 1).get().idSetResponse());
+        System.out.println(c.getIDSet(tid, 2).get().idSetResponse());
     }
 
     public static void bitmap(Client c) throws ExecutionException, InterruptedException {

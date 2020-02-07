@@ -43,6 +43,7 @@ enum Type {
     AddEvent      = 405;
     FetchNotify   = 406;
     ScanMapping   = 407;
+    GetIDSet      = 408;
 
     AllocID       = 501;
     ResetID       = 502;
@@ -102,6 +103,7 @@ message Request {
     AllocIDRequest            allocID       = 24;
     ResetIDRequest            resetID       = 25;
     ScanMappingRequest        scanMapping   = 26;
+    GetIDSetRequest           getIDSet      = 27;
 }
 
 // Response the busybee response
@@ -247,6 +249,12 @@ message ScanMappingRequest {
     uint64 limit = 4;
 }
 
+// GetIDSet get id set
+message GetIDSetRequest {
+    uint64 id     = 1;
+    uint64 userID = 2;
+}
+
 // UpdateMappingRequest update id mapping request
 message UpdateMappingRequest {
     uint64       id     = 1;
@@ -258,7 +266,7 @@ message UpdateMappingRequest {
 message GetMappingRequest {
     uint64           id   = 1;
     metapb.IDValue   from = 2;
-    uint64           to   = 3;
+    string           to   = 3;
 }
 
 // UpdateProfileRequest update profile request

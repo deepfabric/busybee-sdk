@@ -332,4 +332,17 @@ public interface RequestOrBuilder extends
    * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder();
+
+  /**
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   */
+  boolean hasGetIDSet();
+  /**
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet();
+  /**
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder();
 }

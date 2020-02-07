@@ -21,7 +21,7 @@ private static final long serialVersionUID = 0L;
   }
   private IDValue() {
     value_ = "";
-    type_ = 0;
+    type_ = "";
   }
 
   @java.lang.Override
@@ -61,9 +61,10 @@ private static final long serialVersionUID = 0L;
             value_ = s;
             break;
           }
-          case 16: {
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            type_ = input.readUInt32();
+            type_ = s;
             break;
           }
         }
@@ -125,12 +126,37 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TYPE_FIELD_NUMBER = 2;
-  private int type_;
+  private volatile java.lang.Object type_;
   /**
-   * <code>uint32 type = 2;</code>
+   * <code>string type = 2;</code>
    */
-  public int getType() {
-    return type_;
+  public java.lang.String getType() {
+    java.lang.Object ref = type_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      type_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string type = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getTypeBytes() {
+    java.lang.Object ref = type_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      type_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -148,8 +174,8 @@ private static final long serialVersionUID = 0L;
     if (!getValueBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, value_);
     }
-    if (type_ != 0) {
-      output.writeUInt32(2, type_);
+    if (!getTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, type_);
     }
     unknownFields.writeTo(output);
   }
@@ -162,9 +188,8 @@ private static final long serialVersionUID = 0L;
     if (!getValueBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, value_);
     }
-    if (type_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(2, type_);
+    if (!getTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -184,8 +209,8 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && getValue()
         .equals(other.getValue());
-    result = result && (getType()
-        == other.getType());
+    result = result && getType()
+        .equals(other.getType());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -200,7 +225,7 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + VALUE_FIELD_NUMBER;
     hash = (53 * hash) + getValue().hashCode();
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
-    hash = (53 * hash) + getType();
+    hash = (53 * hash) + getType().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -336,7 +361,7 @@ private static final long serialVersionUID = 0L;
       super.clear();
       value_ = "";
 
-      type_ = 0;
+      type_ = "";
 
       return this;
     }
@@ -407,8 +432,9 @@ private static final long serialVersionUID = 0L;
         value_ = other.value_;
         onChanged();
       }
-      if (other.getType() != 0) {
-        setType(other.getType());
+      if (!other.getType().isEmpty()) {
+        type_ = other.type_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -506,28 +532,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int type_ ;
+    private java.lang.Object type_ = "";
     /**
-     * <code>uint32 type = 2;</code>
+     * <code>string type = 2;</code>
      */
-    public int getType() {
-      return type_;
+    public java.lang.String getType() {
+      java.lang.Object ref = type_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        type_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>uint32 type = 2;</code>
+     * <code>string type = 2;</code>
      */
-    public Builder setType(int value) {
-      
+    public com.google.protobuf.ByteString
+        getTypeBytes() {
+      java.lang.Object ref = type_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        type_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string type = 2;</code>
+     */
+    public Builder setType(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
       type_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 type = 2;</code>
+     * <code>string type = 2;</code>
      */
     public Builder clearType() {
       
-      type_ = 0;
+      type_ = getDefaultInstance().getType();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string type = 2;</code>
+     */
+    public Builder setTypeBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      type_ = value;
       onChanged();
       return this;
     }

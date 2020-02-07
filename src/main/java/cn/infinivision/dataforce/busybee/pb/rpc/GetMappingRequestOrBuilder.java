@@ -26,7 +26,12 @@ public interface GetMappingRequestOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.meta.IDValueOrBuilder getFromOrBuilder();
 
   /**
-   * <code>uint64 to = 3;</code>
+   * <code>string to = 3;</code>
    */
-  long getTo();
+  java.lang.String getTo();
+  /**
+   * <code>string to = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getToBytes();
 }

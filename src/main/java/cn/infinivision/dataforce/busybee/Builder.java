@@ -18,6 +18,7 @@ public class Builder {
         private int workers;
         private long rpcTimeoutMS;
         private int fetchSchedulers;
+        private String defaultMappingType;
         private List<String> servers = new ArrayList<>();
 
         private void adjust() {
@@ -39,6 +40,10 @@ public class Builder {
 
             if (fetchSchedulers == 0) {
                 fetchSchedulers = 1;
+            }
+
+            if (defaultMappingType == null) {
+                defaultMappingType = "row_id";
             }
         }
     }
@@ -110,6 +115,17 @@ public class Builder {
     }
 
     /**
+     * set default id mapping row id type, default is row_id
+     *
+     * @param value value
+     * @return Builder
+     */
+    public Builder defaultMappingType(String value) {
+        this.opts.defaultMappingType = value;
+        return this;
+    }
+
+    /**
      * create a client
      *
      * @return client
@@ -121,6 +137,6 @@ public class Builder {
         opts.servers.forEach(s -> transport.addConnector(s));
         transport.start();
 
-        return new Client(transport, opts.fetchCount, opts.fetchSchedulers);
+        return new Client(transport, opts.fetchCount, opts.fetchSchedulers, opts.defaultMappingType);
     }
 }

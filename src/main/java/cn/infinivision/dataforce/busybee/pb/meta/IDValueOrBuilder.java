@@ -18,7 +18,12 @@ public interface IDValueOrBuilder extends
       getValueBytes();
 
   /**
-   * <code>uint32 type = 2;</code>
+   * <code>string type = 2;</code>
    */
-  int getType();
+  java.lang.String getType();
+  /**
+   * <code>string type = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getTypeBytes();
 }
