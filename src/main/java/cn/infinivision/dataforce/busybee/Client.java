@@ -68,17 +68,15 @@ import org.roaringbitmap.RoaringBitmap;
 @Slf4j(topic = "busybee")
 public class Client {
     private AtomicLong id = new AtomicLong(0);
-    private String rowType;
     private Transport transport;
-    private long fetchCount;
+    private Options opts;
     private Map<Long, FetchWorker> fetchWorkers = new ConcurrentHashMap<>();
     private ScheduledExecutorService schedulers;
 
-    Client(Transport transport, long fetchCount, int fetchSchedulers, String rowType) {
-        this.rowType = rowType;
+    Client(Transport transport, Options opts) {
         this.transport = transport;
-        this.fetchCount = fetchCount;
-        schedulers = Executors.newScheduledThreadPool(fetchSchedulers);
+        this.opts = opts;
+        schedulers = Executors.newScheduledThreadPool(opts.fetchSchedulers);
     }
 
     /**
@@ -236,7 +234,7 @@ public class Client {
                     .setSet(IDSet.newBuilder()
                         .addValues(IDValue.newBuilder()
                             .setValue(String.valueOf(userId))
-                            .setType(rowType)
+                            .setType(opts.defaultMappingType)
                             .build())
                         .addAllValues(Arrays.asList(ids))
                         .build())
@@ -774,9 +772,10 @@ public class Client {
                 .setType(Type.FetchNotify)
                 .setFetchNotify(FetchNotifyRequest.newBuilder()
                     .setId(tenantId)
-                    .setAfter(offset)
+                    .setCompletedOffset(offset)
                     .setConsumer(consumer)
-                    .setCount(client.fetchCount)
+                    .setCount(client.opts.fetchCount)
+                    .setConcurrency(client.opts.consumerConcurrency)
                     .build())
                 .build(), this::onResponse, this::onError);
         }

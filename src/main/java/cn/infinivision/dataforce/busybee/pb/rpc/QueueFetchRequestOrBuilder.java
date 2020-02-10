@@ -18,12 +18,17 @@ public interface QueueFetchRequestOrBuilder extends
   com.google.protobuf.ByteString getConsumer();
 
   /**
-   * <code>uint64 afterOffset = 3;</code>
+   * <code>uint64 completedOffset = 3;</code>
    */
-  long getAfterOffset();
+  long getCompletedOffset();
 
   /**
    * <code>uint64 count = 4;</code>
    */
   long getCount();
+
+  /**
+   * <code>uint64 concurrency = 5;</code>
+   */
+  long getConcurrency();
 }

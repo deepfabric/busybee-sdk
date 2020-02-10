@@ -1,8 +1,6 @@
 package cn.infinivision.dataforce.busybee;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Busybee client builder
@@ -11,42 +9,6 @@ import java.util.List;
  */
 public class Builder {
     private Options opts = new Options();
-
-    private static class Options {
-        private long fetchCount;
-        private int ioWorkers;
-        private int workers;
-        private long rpcTimeoutMS;
-        private int fetchSchedulers;
-        private String defaultMappingType;
-        private List<String> servers = new ArrayList<>();
-
-        private void adjust() {
-            if (rpcTimeoutMS == 0) {
-                rpcTimeoutMS = 30000;
-            }
-
-            if (ioWorkers == 0) {
-                ioWorkers = 1;
-            }
-
-            if (workers == 0) {
-                workers = servers.size();
-            }
-
-            if (fetchCount == 0) {
-                fetchCount = 8L;
-            }
-
-            if (fetchSchedulers == 0) {
-                fetchSchedulers = 1;
-            }
-
-            if (defaultMappingType == null) {
-                defaultMappingType = "row_id";
-            }
-        }
-    }
 
     /**
      * response timeout, default is 30 seconds
@@ -104,6 +66,19 @@ public class Builder {
     }
 
     /**
+     * how many processor can concurrency consumer the notifies.
+     * If we fetch 100 notifies, and this value is 10, so 10 process
+     * can concurrent execute, and 10 notifies per process
+     *
+     * @param value batch size
+     * @return Builder
+     */
+    public Builder consumerConcurrency(long value) {
+        this.opts.consumerConcurrency = value;
+        return this;
+    }
+
+    /**
      * tenant notify queue fetch scheduler threads, default is 1
      *
      * @param value value
@@ -137,6 +112,6 @@ public class Builder {
         opts.servers.forEach(s -> transport.addConnector(s));
         transport.start();
 
-        return new Client(transport, opts.fetchCount, opts.fetchSchedulers, opts.defaultMappingType);
+        return new Client(transport, opts);
     }
 }

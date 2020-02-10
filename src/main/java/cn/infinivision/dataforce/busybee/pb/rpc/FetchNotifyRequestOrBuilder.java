@@ -13,9 +13,9 @@ public interface FetchNotifyRequestOrBuilder extends
   long getId();
 
   /**
-   * <code>uint64 after = 2;</code>
+   * <code>uint64 completedOffset = 2;</code>
    */
-  long getAfter();
+  long getCompletedOffset();
 
   /**
    * <code>uint64 count = 3;</code>
@@ -31,4 +31,9 @@ public interface FetchNotifyRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getConsumerBytes();
+
+  /**
+   * <code>uint64 concurrency = 5;</code>
+   */
+  long getConcurrency();
 }

@@ -21,9 +21,10 @@ private static final long serialVersionUID = 0L;
   }
   private FetchNotifyRequest() {
     id_ = 0L;
-    after_ = 0L;
+    completedOffset_ = 0L;
     count_ = 0L;
     consumer_ = "";
+    concurrency_ = 0L;
   }
 
   @java.lang.Override
@@ -64,7 +65,7 @@ private static final long serialVersionUID = 0L;
           }
           case 16: {
 
-            after_ = input.readUInt64();
+            completedOffset_ = input.readUInt64();
             break;
           }
           case 24: {
@@ -76,6 +77,11 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             consumer_ = s;
+            break;
+          }
+          case 40: {
+
+            concurrency_ = input.readUInt64();
             break;
           }
         }
@@ -111,13 +117,13 @@ private static final long serialVersionUID = 0L;
     return id_;
   }
 
-  public static final int AFTER_FIELD_NUMBER = 2;
-  private long after_;
+  public static final int COMPLETEDOFFSET_FIELD_NUMBER = 2;
+  private long completedOffset_;
   /**
-   * <code>uint64 after = 2;</code>
+   * <code>uint64 completedOffset = 2;</code>
    */
-  public long getAfter() {
-    return after_;
+  public long getCompletedOffset() {
+    return completedOffset_;
   }
 
   public static final int COUNT_FIELD_NUMBER = 3;
@@ -163,6 +169,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int CONCURRENCY_FIELD_NUMBER = 5;
+  private long concurrency_;
+  /**
+   * <code>uint64 concurrency = 5;</code>
+   */
+  public long getConcurrency() {
+    return concurrency_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -178,14 +193,17 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0L) {
       output.writeUInt64(1, id_);
     }
-    if (after_ != 0L) {
-      output.writeUInt64(2, after_);
+    if (completedOffset_ != 0L) {
+      output.writeUInt64(2, completedOffset_);
     }
     if (count_ != 0L) {
       output.writeUInt64(3, count_);
     }
     if (!getConsumerBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, consumer_);
+    }
+    if (concurrency_ != 0L) {
+      output.writeUInt64(5, concurrency_);
     }
     unknownFields.writeTo(output);
   }
@@ -199,9 +217,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(1, id_);
     }
-    if (after_ != 0L) {
+    if (completedOffset_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(2, after_);
+        .computeUInt64Size(2, completedOffset_);
     }
     if (count_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
@@ -209,6 +227,10 @@ private static final long serialVersionUID = 0L;
     }
     if (!getConsumerBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, consumer_);
+    }
+    if (concurrency_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(5, concurrency_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -228,12 +250,14 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && (getId()
         == other.getId());
-    result = result && (getAfter()
-        == other.getAfter());
+    result = result && (getCompletedOffset()
+        == other.getCompletedOffset());
     result = result && (getCount()
         == other.getCount());
     result = result && getConsumer()
         .equals(other.getConsumer());
+    result = result && (getConcurrency()
+        == other.getConcurrency());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -248,14 +272,17 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getId());
-    hash = (37 * hash) + AFTER_FIELD_NUMBER;
+    hash = (37 * hash) + COMPLETEDOFFSET_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getAfter());
+        getCompletedOffset());
     hash = (37 * hash) + COUNT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getCount());
     hash = (37 * hash) + CONSUMER_FIELD_NUMBER;
     hash = (53 * hash) + getConsumer().hashCode();
+    hash = (37 * hash) + CONCURRENCY_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getConcurrency());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -391,11 +418,13 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = 0L;
 
-      after_ = 0L;
+      completedOffset_ = 0L;
 
       count_ = 0L;
 
       consumer_ = "";
+
+      concurrency_ = 0L;
 
       return this;
     }
@@ -420,9 +449,10 @@ private static final long serialVersionUID = 0L;
     public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest buildPartial() {
       cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest(this);
       result.id_ = id_;
-      result.after_ = after_;
+      result.completedOffset_ = completedOffset_;
       result.count_ = count_;
       result.consumer_ = consumer_;
+      result.concurrency_ = concurrency_;
       onBuilt();
       return result;
     }
@@ -467,8 +497,8 @@ private static final long serialVersionUID = 0L;
       if (other.getId() != 0L) {
         setId(other.getId());
       }
-      if (other.getAfter() != 0L) {
-        setAfter(other.getAfter());
+      if (other.getCompletedOffset() != 0L) {
+        setCompletedOffset(other.getCompletedOffset());
       }
       if (other.getCount() != 0L) {
         setCount(other.getCount());
@@ -476,6 +506,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getConsumer().isEmpty()) {
         consumer_ = other.consumer_;
         onChanged();
+      }
+      if (other.getConcurrency() != 0L) {
+        setConcurrency(other.getConcurrency());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -530,28 +563,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long after_ ;
+    private long completedOffset_ ;
     /**
-     * <code>uint64 after = 2;</code>
+     * <code>uint64 completedOffset = 2;</code>
      */
-    public long getAfter() {
-      return after_;
+    public long getCompletedOffset() {
+      return completedOffset_;
     }
     /**
-     * <code>uint64 after = 2;</code>
+     * <code>uint64 completedOffset = 2;</code>
      */
-    public Builder setAfter(long value) {
+    public Builder setCompletedOffset(long value) {
       
-      after_ = value;
+      completedOffset_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 after = 2;</code>
+     * <code>uint64 completedOffset = 2;</code>
      */
-    public Builder clearAfter() {
+    public Builder clearCompletedOffset() {
       
-      after_ = 0L;
+      completedOffset_ = 0L;
       onChanged();
       return this;
     }
@@ -647,6 +680,32 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       consumer_ = value;
+      onChanged();
+      return this;
+    }
+
+    private long concurrency_ ;
+    /**
+     * <code>uint64 concurrency = 5;</code>
+     */
+    public long getConcurrency() {
+      return concurrency_;
+    }
+    /**
+     * <code>uint64 concurrency = 5;</code>
+     */
+    public Builder setConcurrency(long value) {
+      
+      concurrency_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 concurrency = 5;</code>
+     */
+    public Builder clearConcurrency() {
+      
+      concurrency_ = 0L;
       onChanged();
       return this;
     }
