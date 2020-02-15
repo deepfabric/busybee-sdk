@@ -5,7 +5,7 @@ package cn.infinivision.dataforce.busybee.pb.meta;
 
 /**
  * <pre>
- * Event is process definition
+ * Event tenant event
  * </pre>
  *
  * Protobuf type {@code metapb.Event}
@@ -20,10 +20,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Event() {
-    userID_ = 0L;
-    tenantID_ = 0L;
-    workflowID_ = 0L;
-    data_ = java.util.Collections.emptyList();
+    type_ = 0;
   }
 
   @java.lang.Override
@@ -58,27 +55,35 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 8: {
+            int rawValue = input.readEnum();
 
-            userID_ = input.readUInt64();
+            type_ = rawValue;
             break;
           }
-          case 16: {
-
-            tenantID_ = input.readUInt64();
-            break;
-          }
-          case 24: {
-
-            workflowID_ = input.readUInt64();
-            break;
-          }
-          case 34: {
-            if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-              data_ = new java.util.ArrayList<cn.infinivision.dataforce.busybee.pb.meta.KV>();
-              mutable_bitField0_ |= 0x00000008;
+          case 18: {
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder subBuilder = null;
+            if (user_ != null) {
+              subBuilder = user_.toBuilder();
             }
-            data_.add(
-                input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.KV.parser(), extensionRegistry));
+            user_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.UserEvent.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(user_);
+              user_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 26: {
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.Builder subBuilder = null;
+            if (updateCrowd_ != null) {
+              subBuilder = updateCrowd_.toBuilder();
+            }
+            updateCrowd_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(updateCrowd_);
+              updateCrowd_ = subBuilder.buildPartial();
+            }
+
             break;
           }
         }
@@ -89,9 +94,6 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-        data_ = java.util.Collections.unmodifiableList(data_);
-      }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
     }
@@ -108,67 +110,62 @@ private static final long serialVersionUID = 0L;
             cn.infinivision.dataforce.busybee.pb.meta.Event.class, cn.infinivision.dataforce.busybee.pb.meta.Event.Builder.class);
   }
 
-  private int bitField0_;
-  public static final int USERID_FIELD_NUMBER = 1;
-  private long userID_;
+  public static final int TYPE_FIELD_NUMBER = 1;
+  private int type_;
   /**
-   * <code>uint64 userID = 1;</code>
+   * <code>.metapb.EventType type = 1;</code>
    */
-  public long getUserID() {
-    return userID_;
+  public int getTypeValue() {
+    return type_;
+  }
+  /**
+   * <code>.metapb.EventType type = 1;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.EventType getType() {
+    cn.infinivision.dataforce.busybee.pb.meta.EventType result = cn.infinivision.dataforce.busybee.pb.meta.EventType.valueOf(type_);
+    return result == null ? cn.infinivision.dataforce.busybee.pb.meta.EventType.UNRECOGNIZED : result;
   }
 
-  public static final int TENANTID_FIELD_NUMBER = 2;
-  private long tenantID_;
+  public static final int USER_FIELD_NUMBER = 2;
+  private cn.infinivision.dataforce.busybee.pb.meta.UserEvent user_;
   /**
-   * <code>uint64 tenantID = 2;</code>
+   * <code>.metapb.UserEvent user = 2;</code>
    */
-  public long getTenantID() {
-    return tenantID_;
+  public boolean hasUser() {
+    return user_ != null;
+  }
+  /**
+   * <code>.metapb.UserEvent user = 2;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.UserEvent getUser() {
+    return user_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UserEvent.getDefaultInstance() : user_;
+  }
+  /**
+   * <code>.metapb.UserEvent user = 2;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder getUserOrBuilder() {
+    return getUser();
   }
 
-  public static final int WORKFLOWID_FIELD_NUMBER = 3;
-  private long workflowID_;
+  public static final int UPDATECROWD_FIELD_NUMBER = 3;
+  private cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent updateCrowd_;
   /**
-   * <code>uint64 workflowID = 3;</code>
+   * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
-  public long getWorkflowID() {
-    return workflowID_;
-  }
-
-  public static final int DATA_FIELD_NUMBER = 4;
-  private java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> data_;
-  /**
-   * <code>repeated .metapb.KV data = 4;</code>
-   */
-  public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> getDataList() {
-    return data_;
+  public boolean hasUpdateCrowd() {
+    return updateCrowd_ != null;
   }
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
-  public java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> 
-      getDataOrBuilderList() {
-    return data_;
+  public cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent getUpdateCrowd() {
+    return updateCrowd_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.getDefaultInstance() : updateCrowd_;
   }
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
-  public int getDataCount() {
-    return data_.size();
-  }
-  /**
-   * <code>repeated .metapb.KV data = 4;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.KV getData(int index) {
-    return data_.get(index);
-  }
-  /**
-   * <code>repeated .metapb.KV data = 4;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder getDataOrBuilder(
-      int index) {
-    return data_.get(index);
+  public cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder getUpdateCrowdOrBuilder() {
+    return getUpdateCrowd();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -183,17 +180,14 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (userID_ != 0L) {
-      output.writeUInt64(1, userID_);
+    if (type_ != cn.infinivision.dataforce.busybee.pb.meta.EventType.UserType.getNumber()) {
+      output.writeEnum(1, type_);
     }
-    if (tenantID_ != 0L) {
-      output.writeUInt64(2, tenantID_);
+    if (user_ != null) {
+      output.writeMessage(2, getUser());
     }
-    if (workflowID_ != 0L) {
-      output.writeUInt64(3, workflowID_);
-    }
-    for (int i = 0; i < data_.size(); i++) {
-      output.writeMessage(4, data_.get(i));
+    if (updateCrowd_ != null) {
+      output.writeMessage(3, getUpdateCrowd());
     }
     unknownFields.writeTo(output);
   }
@@ -203,21 +197,17 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (userID_ != 0L) {
+    if (type_ != cn.infinivision.dataforce.busybee.pb.meta.EventType.UserType.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(1, userID_);
+        .computeEnumSize(1, type_);
     }
-    if (tenantID_ != 0L) {
+    if (user_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(2, tenantID_);
+        .computeMessageSize(2, getUser());
     }
-    if (workflowID_ != 0L) {
+    if (updateCrowd_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(3, workflowID_);
-    }
-    for (int i = 0; i < data_.size(); i++) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(4, data_.get(i));
+        .computeMessageSize(3, getUpdateCrowd());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -235,14 +225,17 @@ private static final long serialVersionUID = 0L;
     cn.infinivision.dataforce.busybee.pb.meta.Event other = (cn.infinivision.dataforce.busybee.pb.meta.Event) obj;
 
     boolean result = true;
-    result = result && (getUserID()
-        == other.getUserID());
-    result = result && (getTenantID()
-        == other.getTenantID());
-    result = result && (getWorkflowID()
-        == other.getWorkflowID());
-    result = result && getDataList()
-        .equals(other.getDataList());
+    result = result && type_ == other.type_;
+    result = result && (hasUser() == other.hasUser());
+    if (hasUser()) {
+      result = result && getUser()
+          .equals(other.getUser());
+    }
+    result = result && (hasUpdateCrowd() == other.hasUpdateCrowd());
+    if (hasUpdateCrowd()) {
+      result = result && getUpdateCrowd()
+          .equals(other.getUpdateCrowd());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -254,18 +247,15 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + USERID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getUserID());
-    hash = (37 * hash) + TENANTID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getTenantID());
-    hash = (37 * hash) + WORKFLOWID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getWorkflowID());
-    if (getDataCount() > 0) {
-      hash = (37 * hash) + DATA_FIELD_NUMBER;
-      hash = (53 * hash) + getDataList().hashCode();
+    hash = (37 * hash) + TYPE_FIELD_NUMBER;
+    hash = (53 * hash) + type_;
+    if (hasUser()) {
+      hash = (37 * hash) + USER_FIELD_NUMBER;
+      hash = (53 * hash) + getUser().hashCode();
+    }
+    if (hasUpdateCrowd()) {
+      hash = (37 * hash) + UPDATECROWD_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdateCrowd().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -362,7 +352,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Event is process definition
+   * Event tenant event
    * </pre>
    *
    * Protobuf type {@code metapb.Event}
@@ -396,22 +386,23 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
-        getDataFieldBuilder();
       }
     }
     public Builder clear() {
       super.clear();
-      userID_ = 0L;
+      type_ = 0;
 
-      tenantID_ = 0L;
-
-      workflowID_ = 0L;
-
-      if (dataBuilder_ == null) {
-        data_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
+      if (userBuilder_ == null) {
+        user_ = null;
       } else {
-        dataBuilder_.clear();
+        user_ = null;
+        userBuilder_ = null;
+      }
+      if (updateCrowdBuilder_ == null) {
+        updateCrowd_ = null;
+      } else {
+        updateCrowd_ = null;
+        updateCrowdBuilder_ = null;
       }
       return this;
     }
@@ -435,21 +426,17 @@ private static final long serialVersionUID = 0L;
 
     public cn.infinivision.dataforce.busybee.pb.meta.Event buildPartial() {
       cn.infinivision.dataforce.busybee.pb.meta.Event result = new cn.infinivision.dataforce.busybee.pb.meta.Event(this);
-      int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
-      result.userID_ = userID_;
-      result.tenantID_ = tenantID_;
-      result.workflowID_ = workflowID_;
-      if (dataBuilder_ == null) {
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          data_ = java.util.Collections.unmodifiableList(data_);
-          bitField0_ = (bitField0_ & ~0x00000008);
-        }
-        result.data_ = data_;
+      result.type_ = type_;
+      if (userBuilder_ == null) {
+        result.user_ = user_;
       } else {
-        result.data_ = dataBuilder_.build();
+        result.user_ = userBuilder_.build();
       }
-      result.bitField0_ = to_bitField0_;
+      if (updateCrowdBuilder_ == null) {
+        result.updateCrowd_ = updateCrowd_;
+      } else {
+        result.updateCrowd_ = updateCrowdBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -491,40 +478,14 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.meta.Event other) {
       if (other == cn.infinivision.dataforce.busybee.pb.meta.Event.getDefaultInstance()) return this;
-      if (other.getUserID() != 0L) {
-        setUserID(other.getUserID());
+      if (other.type_ != 0) {
+        setTypeValue(other.getTypeValue());
       }
-      if (other.getTenantID() != 0L) {
-        setTenantID(other.getTenantID());
+      if (other.hasUser()) {
+        mergeUser(other.getUser());
       }
-      if (other.getWorkflowID() != 0L) {
-        setWorkflowID(other.getWorkflowID());
-      }
-      if (dataBuilder_ == null) {
-        if (!other.data_.isEmpty()) {
-          if (data_.isEmpty()) {
-            data_ = other.data_;
-            bitField0_ = (bitField0_ & ~0x00000008);
-          } else {
-            ensureDataIsMutable();
-            data_.addAll(other.data_);
-          }
-          onChanged();
-        }
-      } else {
-        if (!other.data_.isEmpty()) {
-          if (dataBuilder_.isEmpty()) {
-            dataBuilder_.dispose();
-            dataBuilder_ = null;
-            data_ = other.data_;
-            bitField0_ = (bitField0_ & ~0x00000008);
-            dataBuilder_ = 
-              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getDataFieldBuilder() : null;
-          } else {
-            dataBuilder_.addAllMessages(other.data_);
-          }
-        }
+      if (other.hasUpdateCrowd()) {
+        mergeUpdateCrowd(other.getUpdateCrowd());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -552,324 +513,283 @@ private static final long serialVersionUID = 0L;
       }
       return this;
     }
-    private int bitField0_;
 
-    private long userID_ ;
+    private int type_ = 0;
     /**
-     * <code>uint64 userID = 1;</code>
+     * <code>.metapb.EventType type = 1;</code>
      */
-    public long getUserID() {
-      return userID_;
+    public int getTypeValue() {
+      return type_;
     }
     /**
-     * <code>uint64 userID = 1;</code>
+     * <code>.metapb.EventType type = 1;</code>
      */
-    public Builder setUserID(long value) {
-      
-      userID_ = value;
+    public Builder setTypeValue(int value) {
+      type_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 userID = 1;</code>
+     * <code>.metapb.EventType type = 1;</code>
      */
-    public Builder clearUserID() {
-      
-      userID_ = 0L;
-      onChanged();
-      return this;
-    }
-
-    private long tenantID_ ;
-    /**
-     * <code>uint64 tenantID = 2;</code>
-     */
-    public long getTenantID() {
-      return tenantID_;
+    public cn.infinivision.dataforce.busybee.pb.meta.EventType getType() {
+      cn.infinivision.dataforce.busybee.pb.meta.EventType result = cn.infinivision.dataforce.busybee.pb.meta.EventType.valueOf(type_);
+      return result == null ? cn.infinivision.dataforce.busybee.pb.meta.EventType.UNRECOGNIZED : result;
     }
     /**
-     * <code>uint64 tenantID = 2;</code>
+     * <code>.metapb.EventType type = 1;</code>
      */
-    public Builder setTenantID(long value) {
+    public Builder setType(cn.infinivision.dataforce.busybee.pb.meta.EventType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
       
-      tenantID_ = value;
+      type_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 tenantID = 2;</code>
+     * <code>.metapb.EventType type = 1;</code>
      */
-    public Builder clearTenantID() {
+    public Builder clearType() {
       
-      tenantID_ = 0L;
+      type_ = 0;
       onChanged();
       return this;
     }
 
-    private long workflowID_ ;
+    private cn.infinivision.dataforce.busybee.pb.meta.UserEvent user_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.UserEvent, cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder> userBuilder_;
     /**
-     * <code>uint64 workflowID = 3;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public long getWorkflowID() {
-      return workflowID_;
+    public boolean hasUser() {
+      return userBuilder_ != null || user_ != null;
     }
     /**
-     * <code>uint64 workflowID = 3;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public Builder setWorkflowID(long value) {
-      
-      workflowID_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>uint64 workflowID = 3;</code>
-     */
-    public Builder clearWorkflowID() {
-      
-      workflowID_ = 0L;
-      onChanged();
-      return this;
-    }
-
-    private java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> data_ =
-      java.util.Collections.emptyList();
-    private void ensureDataIsMutable() {
-      if (!((bitField0_ & 0x00000008) == 0x00000008)) {
-        data_ = new java.util.ArrayList<cn.infinivision.dataforce.busybee.pb.meta.KV>(data_);
-        bitField0_ |= 0x00000008;
-       }
-    }
-
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.KV, cn.infinivision.dataforce.busybee.pb.meta.KV.Builder, cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> dataBuilder_;
-
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> getDataList() {
-      if (dataBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(data_);
+    public cn.infinivision.dataforce.busybee.pb.meta.UserEvent getUser() {
+      if (userBuilder_ == null) {
+        return user_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UserEvent.getDefaultInstance() : user_;
       } else {
-        return dataBuilder_.getMessageList();
+        return userBuilder_.getMessage();
       }
     }
     /**
-     * <code>repeated .metapb.KV data = 4;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public int getDataCount() {
-      if (dataBuilder_ == null) {
-        return data_.size();
-      } else {
-        return dataBuilder_.getCount();
-      }
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.KV getData(int index) {
-      if (dataBuilder_ == null) {
-        return data_.get(index);
-      } else {
-        return dataBuilder_.getMessage(index);
-      }
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public Builder setData(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.KV value) {
-      if (dataBuilder_ == null) {
+    public Builder setUser(cn.infinivision.dataforce.busybee.pb.meta.UserEvent value) {
+      if (userBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensureDataIsMutable();
-        data_.set(index, value);
+        user_ = value;
         onChanged();
       } else {
-        dataBuilder_.setMessage(index, value);
+        userBuilder_.setMessage(value);
       }
+
       return this;
     }
     /**
-     * <code>repeated .metapb.KV data = 4;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public Builder setData(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.KV.Builder builderForValue) {
-      if (dataBuilder_ == null) {
-        ensureDataIsMutable();
-        data_.set(index, builderForValue.build());
+    public Builder setUser(
+        cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder builderForValue) {
+      if (userBuilder_ == null) {
+        user_ = builderForValue.build();
         onChanged();
       } else {
-        dataBuilder_.setMessage(index, builderForValue.build());
+        userBuilder_.setMessage(builderForValue.build());
       }
+
       return this;
     }
     /**
-     * <code>repeated .metapb.KV data = 4;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public Builder addData(cn.infinivision.dataforce.busybee.pb.meta.KV value) {
-      if (dataBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
+    public Builder mergeUser(cn.infinivision.dataforce.busybee.pb.meta.UserEvent value) {
+      if (userBuilder_ == null) {
+        if (user_ != null) {
+          user_ =
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent.newBuilder(user_).mergeFrom(value).buildPartial();
+        } else {
+          user_ = value;
         }
-        ensureDataIsMutable();
-        data_.add(value);
         onChanged();
       } else {
-        dataBuilder_.addMessage(value);
+        userBuilder_.mergeFrom(value);
       }
+
       return this;
     }
     /**
-     * <code>repeated .metapb.KV data = 4;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public Builder addData(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.KV value) {
-      if (dataBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        ensureDataIsMutable();
-        data_.add(index, value);
+    public Builder clearUser() {
+      if (userBuilder_ == null) {
+        user_ = null;
         onChanged();
       } else {
-        dataBuilder_.addMessage(index, value);
+        user_ = null;
+        userBuilder_ = null;
       }
+
       return this;
     }
     /**
-     * <code>repeated .metapb.KV data = 4;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public Builder addData(
-        cn.infinivision.dataforce.busybee.pb.meta.KV.Builder builderForValue) {
-      if (dataBuilder_ == null) {
-        ensureDataIsMutable();
-        data_.add(builderForValue.build());
-        onChanged();
+    public cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder getUserBuilder() {
+      
+      onChanged();
+      return getUserFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.metapb.UserEvent user = 2;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder getUserOrBuilder() {
+      if (userBuilder_ != null) {
+        return userBuilder_.getMessageOrBuilder();
       } else {
-        dataBuilder_.addMessage(builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public Builder addData(
-        int index, cn.infinivision.dataforce.busybee.pb.meta.KV.Builder builderForValue) {
-      if (dataBuilder_ == null) {
-        ensureDataIsMutable();
-        data_.add(index, builderForValue.build());
-        onChanged();
-      } else {
-        dataBuilder_.addMessage(index, builderForValue.build());
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public Builder addAllData(
-        java.lang.Iterable<? extends cn.infinivision.dataforce.busybee.pb.meta.KV> values) {
-      if (dataBuilder_ == null) {
-        ensureDataIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, data_);
-        onChanged();
-      } else {
-        dataBuilder_.addAllMessages(values);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public Builder clearData() {
-      if (dataBuilder_ == null) {
-        data_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
-        onChanged();
-      } else {
-        dataBuilder_.clear();
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public Builder removeData(int index) {
-      if (dataBuilder_ == null) {
-        ensureDataIsMutable();
-        data_.remove(index);
-        onChanged();
-      } else {
-        dataBuilder_.remove(index);
-      }
-      return this;
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.KV.Builder getDataBuilder(
-        int index) {
-      return getDataFieldBuilder().getBuilder(index);
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder getDataOrBuilder(
-        int index) {
-      if (dataBuilder_ == null) {
-        return data_.get(index);  } else {
-        return dataBuilder_.getMessageOrBuilder(index);
+        return user_ == null ?
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent.getDefaultInstance() : user_;
       }
     }
     /**
-     * <code>repeated .metapb.KV data = 4;</code>
+     * <code>.metapb.UserEvent user = 2;</code>
      */
-    public java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> 
-         getDataOrBuilderList() {
-      if (dataBuilder_ != null) {
-        return dataBuilder_.getMessageOrBuilderList();
-      } else {
-        return java.util.Collections.unmodifiableList(data_);
-      }
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.KV.Builder addDataBuilder() {
-      return getDataFieldBuilder().addBuilder(
-          cn.infinivision.dataforce.busybee.pb.meta.KV.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.KV.Builder addDataBuilder(
-        int index) {
-      return getDataFieldBuilder().addBuilder(
-          index, cn.infinivision.dataforce.busybee.pb.meta.KV.getDefaultInstance());
-    }
-    /**
-     * <code>repeated .metapb.KV data = 4;</code>
-     */
-    public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV.Builder> 
-         getDataBuilderList() {
-      return getDataFieldBuilder().getBuilderList();
-    }
-    private com.google.protobuf.RepeatedFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.KV, cn.infinivision.dataforce.busybee.pb.meta.KV.Builder, cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> 
-        getDataFieldBuilder() {
-      if (dataBuilder_ == null) {
-        dataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.meta.KV, cn.infinivision.dataforce.busybee.pb.meta.KV.Builder, cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder>(
-                data_,
-                ((bitField0_ & 0x00000008) == 0x00000008),
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.UserEvent, cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder> 
+        getUserFieldBuilder() {
+      if (userBuilder_ == null) {
+        userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent, cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder>(
+                getUser(),
                 getParentForChildren(),
                 isClean());
-        data_ = null;
+        user_ = null;
       }
-      return dataBuilder_;
+      return userBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent updateCrowd_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent, cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder> updateCrowdBuilder_;
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public boolean hasUpdateCrowd() {
+      return updateCrowdBuilder_ != null || updateCrowd_ != null;
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent getUpdateCrowd() {
+      if (updateCrowdBuilder_ == null) {
+        return updateCrowd_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.getDefaultInstance() : updateCrowd_;
+      } else {
+        return updateCrowdBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public Builder setUpdateCrowd(cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent value) {
+      if (updateCrowdBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        updateCrowd_ = value;
+        onChanged();
+      } else {
+        updateCrowdBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public Builder setUpdateCrowd(
+        cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.Builder builderForValue) {
+      if (updateCrowdBuilder_ == null) {
+        updateCrowd_ = builderForValue.build();
+        onChanged();
+      } else {
+        updateCrowdBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public Builder mergeUpdateCrowd(cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent value) {
+      if (updateCrowdBuilder_ == null) {
+        if (updateCrowd_ != null) {
+          updateCrowd_ =
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.newBuilder(updateCrowd_).mergeFrom(value).buildPartial();
+        } else {
+          updateCrowd_ = value;
+        }
+        onChanged();
+      } else {
+        updateCrowdBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public Builder clearUpdateCrowd() {
+      if (updateCrowdBuilder_ == null) {
+        updateCrowd_ = null;
+        onChanged();
+      } else {
+        updateCrowd_ = null;
+        updateCrowdBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.Builder getUpdateCrowdBuilder() {
+      
+      onChanged();
+      return getUpdateCrowdFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder getUpdateCrowdOrBuilder() {
+      if (updateCrowdBuilder_ != null) {
+        return updateCrowdBuilder_.getMessageOrBuilder();
+      } else {
+        return updateCrowd_ == null ?
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.getDefaultInstance() : updateCrowd_;
+      }
+    }
+    /**
+     * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent, cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder> 
+        getUpdateCrowdFieldBuilder() {
+      if (updateCrowdBuilder_ == null) {
+        updateCrowdBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent, cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder>(
+                getUpdateCrowd(),
+                getParentForChildren(),
+                isClean());
+        updateCrowd_ = null;
+      }
+      return updateCrowdBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

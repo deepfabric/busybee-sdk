@@ -54,11 +54,11 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 10: {
-            cn.infinivision.dataforce.busybee.pb.meta.Event.Builder subBuilder = null;
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder subBuilder = null;
             if (event_ != null) {
               subBuilder = event_.toBuilder();
             }
-            event_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.Event.parser(), extensionRegistry);
+            event_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.UserEvent.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(event_);
               event_ = subBuilder.buildPartial();
@@ -91,23 +91,23 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int EVENT_FIELD_NUMBER = 1;
-  private cn.infinivision.dataforce.busybee.pb.meta.Event event_;
+  private cn.infinivision.dataforce.busybee.pb.meta.UserEvent event_;
   /**
-   * <code>.metapb.Event event = 1;</code>
+   * <code>.metapb.UserEvent event = 1;</code>
    */
   public boolean hasEvent() {
     return event_ != null;
   }
   /**
-   * <code>.metapb.Event event = 1;</code>
+   * <code>.metapb.UserEvent event = 1;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.meta.Event getEvent() {
-    return event_ == null ? cn.infinivision.dataforce.busybee.pb.meta.Event.getDefaultInstance() : event_;
+  public cn.infinivision.dataforce.busybee.pb.meta.UserEvent getEvent() {
+    return event_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UserEvent.getDefaultInstance() : event_;
   }
   /**
-   * <code>.metapb.Event event = 1;</code>
+   * <code>.metapb.UserEvent event = 1;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.meta.EventOrBuilder getEventOrBuilder() {
+  public cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder getEventOrBuilder() {
     return getEvent();
   }
 
@@ -411,29 +411,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private cn.infinivision.dataforce.busybee.pb.meta.Event event_ = null;
+    private cn.infinivision.dataforce.busybee.pb.meta.UserEvent event_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.Event, cn.infinivision.dataforce.busybee.pb.meta.Event.Builder, cn.infinivision.dataforce.busybee.pb.meta.EventOrBuilder> eventBuilder_;
+        cn.infinivision.dataforce.busybee.pb.meta.UserEvent, cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder> eventBuilder_;
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
     public boolean hasEvent() {
       return eventBuilder_ != null || event_ != null;
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.Event getEvent() {
+    public cn.infinivision.dataforce.busybee.pb.meta.UserEvent getEvent() {
       if (eventBuilder_ == null) {
-        return event_ == null ? cn.infinivision.dataforce.busybee.pb.meta.Event.getDefaultInstance() : event_;
+        return event_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UserEvent.getDefaultInstance() : event_;
       } else {
         return eventBuilder_.getMessage();
       }
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
-    public Builder setEvent(cn.infinivision.dataforce.busybee.pb.meta.Event value) {
+    public Builder setEvent(cn.infinivision.dataforce.busybee.pb.meta.UserEvent value) {
       if (eventBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -447,10 +447,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
     public Builder setEvent(
-        cn.infinivision.dataforce.busybee.pb.meta.Event.Builder builderForValue) {
+        cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder builderForValue) {
       if (eventBuilder_ == null) {
         event_ = builderForValue.build();
         onChanged();
@@ -461,13 +461,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
-    public Builder mergeEvent(cn.infinivision.dataforce.busybee.pb.meta.Event value) {
+    public Builder mergeEvent(cn.infinivision.dataforce.busybee.pb.meta.UserEvent value) {
       if (eventBuilder_ == null) {
         if (event_ != null) {
           event_ =
-            cn.infinivision.dataforce.busybee.pb.meta.Event.newBuilder(event_).mergeFrom(value).buildPartial();
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent.newBuilder(event_).mergeFrom(value).buildPartial();
         } else {
           event_ = value;
         }
@@ -479,7 +479,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
     public Builder clearEvent() {
       if (eventBuilder_ == null) {
@@ -493,33 +493,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.Event.Builder getEventBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder getEventBuilder() {
       
       onChanged();
       return getEventFieldBuilder().getBuilder();
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.EventOrBuilder getEventOrBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder getEventOrBuilder() {
       if (eventBuilder_ != null) {
         return eventBuilder_.getMessageOrBuilder();
       } else {
         return event_ == null ?
-            cn.infinivision.dataforce.busybee.pb.meta.Event.getDefaultInstance() : event_;
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent.getDefaultInstance() : event_;
       }
     }
     /**
-     * <code>.metapb.Event event = 1;</code>
+     * <code>.metapb.UserEvent event = 1;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.Event, cn.infinivision.dataforce.busybee.pb.meta.Event.Builder, cn.infinivision.dataforce.busybee.pb.meta.EventOrBuilder> 
+        cn.infinivision.dataforce.busybee.pb.meta.UserEvent, cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder> 
         getEventFieldBuilder() {
       if (eventBuilder_ == null) {
         eventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.meta.Event, cn.infinivision.dataforce.busybee.pb.meta.Event.Builder, cn.infinivision.dataforce.busybee.pb.meta.EventOrBuilder>(
+            cn.infinivision.dataforce.busybee.pb.meta.UserEvent, cn.infinivision.dataforce.busybee.pb.meta.UserEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder>(
                 getEvent(),
                 getParentForChildren(),
                 isClean());

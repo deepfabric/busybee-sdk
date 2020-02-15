@@ -21,6 +21,10 @@ public enum Type
    */
   Delete(2),
   /**
+   * <code>Scan = 3;</code>
+   */
+  Scan(3),
+  /**
    * <code>BMCreate = 100;</code>
    */
   BMCreate(100),
@@ -147,6 +151,10 @@ public enum Type
    * <code>Delete = 2;</code>
    */
   public static final int Delete_VALUE = 2;
+  /**
+   * <code>Scan = 3;</code>
+   */
+  public static final int Scan_VALUE = 3;
   /**
    * <code>BMCreate = 100;</code>
    */
@@ -282,6 +290,7 @@ public enum Type
       case 0: return Set;
       case 1: return Get;
       case 2: return Delete;
+      case 3: return Scan;
       case 100: return BMCreate;
       case 101: return BMAdd;
       case 102: return BMRemove;

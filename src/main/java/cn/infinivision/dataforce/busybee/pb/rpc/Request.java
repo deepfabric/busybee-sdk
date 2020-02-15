@@ -106,6 +106,19 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 50: {
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.Builder subBuilder = null;
+            if (scan_ != null) {
+              subBuilder = scan_.toBuilder();
+            }
+            scan_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(scan_);
+              scan_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 58: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest.Builder subBuilder = null;
             if (bmCreate_ != null) {
               subBuilder = bmCreate_.toBuilder();
@@ -118,7 +131,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 58: {
+          case 66: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest.Builder subBuilder = null;
             if (bmAdd_ != null) {
               subBuilder = bmAdd_.toBuilder();
@@ -131,7 +144,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 66: {
+          case 74: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest.Builder subBuilder = null;
             if (bmRemove_ != null) {
               subBuilder = bmRemove_.toBuilder();
@@ -144,7 +157,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 74: {
+          case 82: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest.Builder subBuilder = null;
             if (bmClear_ != null) {
               subBuilder = bmClear_.toBuilder();
@@ -157,7 +170,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 82: {
+          case 90: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest.Builder subBuilder = null;
             if (bmRange_ != null) {
               subBuilder = bmRange_.toBuilder();
@@ -170,7 +183,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 90: {
+          case 98: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest.Builder subBuilder = null;
             if (bmCount_ != null) {
               subBuilder = bmCount_.toBuilder();
@@ -183,7 +196,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 98: {
+          case 106: {
             cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest.Builder subBuilder = null;
             if (bmContains_ != null) {
               subBuilder = bmContains_.toBuilder();
@@ -196,7 +209,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 106: {
+          case 114: {
             cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.Builder subBuilder = null;
             if (tenantInit_ != null) {
               subBuilder = tenantInit_.toBuilder();
@@ -209,7 +222,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 114: {
+          case 122: {
             cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder subBuilder = null;
             if (startInstance_ != null) {
               subBuilder = startInstance_.toBuilder();
@@ -222,7 +235,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 122: {
+          case 130: {
             cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest.Builder subBuilder = null;
             if (stopInstance_ != null) {
               subBuilder = stopInstance_.toBuilder();
@@ -235,7 +248,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 130: {
+          case 138: {
             cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest.Builder subBuilder = null;
             if (countInstance_ != null) {
               subBuilder = countInstance_.toBuilder();
@@ -248,7 +261,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 138: {
+          case 146: {
             cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest.Builder subBuilder = null;
             if (crowdInstance_ != null) {
               subBuilder = crowdInstance_.toBuilder();
@@ -261,7 +274,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 146: {
+          case 154: {
             cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.Builder subBuilder = null;
             if (updateMapping_ != null) {
               subBuilder = updateMapping_.toBuilder();
@@ -274,7 +287,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 154: {
+          case 162: {
             cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest.Builder subBuilder = null;
             if (getMapping_ != null) {
               subBuilder = getMapping_.toBuilder();
@@ -287,7 +300,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 162: {
+          case 170: {
             cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest.Builder subBuilder = null;
             if (updateProfile_ != null) {
               subBuilder = updateProfile_.toBuilder();
@@ -300,7 +313,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 170: {
+          case 178: {
             cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest.Builder subBuilder = null;
             if (getProfile_ != null) {
               subBuilder = getProfile_.toBuilder();
@@ -313,7 +326,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 178: {
+          case 186: {
             cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest.Builder subBuilder = null;
             if (addEvent_ != null) {
               subBuilder = addEvent_.toBuilder();
@@ -326,7 +339,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 186: {
+          case 194: {
             cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder subBuilder = null;
             if (fetchNotify_ != null) {
               subBuilder = fetchNotify_.toBuilder();
@@ -339,7 +352,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 194: {
+          case 202: {
             cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder subBuilder = null;
             if (allocID_ != null) {
               subBuilder = allocID_.toBuilder();
@@ -352,7 +365,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 202: {
+          case 210: {
             cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder subBuilder = null;
             if (resetID_ != null) {
               subBuilder = resetID_.toBuilder();
@@ -365,7 +378,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 210: {
+          case 218: {
             cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder subBuilder = null;
             if (scanMapping_ != null) {
               subBuilder = scanMapping_.toBuilder();
@@ -378,7 +391,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 218: {
+          case 226: {
             cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder subBuilder = null;
             if (getIDSet_ != null) {
               subBuilder = getIDSet_.toBuilder();
@@ -503,463 +516,484 @@ private static final long serialVersionUID = 0L;
     return getDelete();
   }
 
-  public static final int BMCREATE_FIELD_NUMBER = 6;
+  public static final int SCAN_FIELD_NUMBER = 6;
+  private cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest scan_;
+  /**
+   * <code>.rpcpb.ScanRequest scan = 6;</code>
+   */
+  public boolean hasScan() {
+    return scan_ != null;
+  }
+  /**
+   * <code>.rpcpb.ScanRequest scan = 6;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest getScan() {
+    return scan_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.getDefaultInstance() : scan_;
+  }
+  /**
+   * <code>.rpcpb.ScanRequest scan = 6;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ScanRequestOrBuilder getScanOrBuilder() {
+    return getScan();
+  }
+
+  public static final int BMCREATE_FIELD_NUMBER = 7;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest bmCreate_;
   /**
-   * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+   * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
    */
   public boolean hasBmCreate() {
     return bmCreate_ != null;
   }
   /**
-   * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+   * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest getBmCreate() {
     return bmCreate_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest.getDefaultInstance() : bmCreate_;
   }
   /**
-   * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+   * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequestOrBuilder getBmCreateOrBuilder() {
     return getBmCreate();
   }
 
-  public static final int BMADD_FIELD_NUMBER = 7;
+  public static final int BMADD_FIELD_NUMBER = 8;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest bmAdd_;
   /**
-   * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+   * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
    */
   public boolean hasBmAdd() {
     return bmAdd_ != null;
   }
   /**
-   * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+   * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest getBmAdd() {
     return bmAdd_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest.getDefaultInstance() : bmAdd_;
   }
   /**
-   * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+   * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequestOrBuilder getBmAddOrBuilder() {
     return getBmAdd();
   }
 
-  public static final int BMREMOVE_FIELD_NUMBER = 8;
+  public static final int BMREMOVE_FIELD_NUMBER = 9;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest bmRemove_;
   /**
-   * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+   * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
    */
   public boolean hasBmRemove() {
     return bmRemove_ != null;
   }
   /**
-   * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+   * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest getBmRemove() {
     return bmRemove_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest.getDefaultInstance() : bmRemove_;
   }
   /**
-   * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+   * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequestOrBuilder getBmRemoveOrBuilder() {
     return getBmRemove();
   }
 
-  public static final int BMCLEAR_FIELD_NUMBER = 9;
+  public static final int BMCLEAR_FIELD_NUMBER = 10;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest bmClear_;
   /**
-   * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+   * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
    */
   public boolean hasBmClear() {
     return bmClear_ != null;
   }
   /**
-   * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+   * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest getBmClear() {
     return bmClear_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest.getDefaultInstance() : bmClear_;
   }
   /**
-   * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+   * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequestOrBuilder getBmClearOrBuilder() {
     return getBmClear();
   }
 
-  public static final int BMRANGE_FIELD_NUMBER = 10;
+  public static final int BMRANGE_FIELD_NUMBER = 11;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest bmRange_;
   /**
-   * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+   * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
    */
   public boolean hasBmRange() {
     return bmRange_ != null;
   }
   /**
-   * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+   * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest getBmRange() {
     return bmRange_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest.getDefaultInstance() : bmRange_;
   }
   /**
-   * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+   * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequestOrBuilder getBmRangeOrBuilder() {
     return getBmRange();
   }
 
-  public static final int BMCOUNT_FIELD_NUMBER = 11;
+  public static final int BMCOUNT_FIELD_NUMBER = 12;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest bmCount_;
   /**
-   * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+   * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
    */
   public boolean hasBmCount() {
     return bmCount_ != null;
   }
   /**
-   * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+   * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest getBmCount() {
     return bmCount_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest.getDefaultInstance() : bmCount_;
   }
   /**
-   * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+   * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequestOrBuilder getBmCountOrBuilder() {
     return getBmCount();
   }
 
-  public static final int BMCONTAINS_FIELD_NUMBER = 12;
+  public static final int BMCONTAINS_FIELD_NUMBER = 13;
   private cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest bmContains_;
   /**
-   * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+   * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
    */
   public boolean hasBmContains() {
     return bmContains_ != null;
   }
   /**
-   * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+   * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest getBmContains() {
     return bmContains_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest.getDefaultInstance() : bmContains_;
   }
   /**
-   * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+   * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequestOrBuilder getBmContainsOrBuilder() {
     return getBmContains();
   }
 
-  public static final int TENANTINIT_FIELD_NUMBER = 13;
+  public static final int TENANTINIT_FIELD_NUMBER = 14;
   private cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest tenantInit_;
   /**
-   * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+   * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
    */
   public boolean hasTenantInit() {
     return tenantInit_ != null;
   }
   /**
-   * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+   * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest getTenantInit() {
     return tenantInit_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.getDefaultInstance() : tenantInit_;
   }
   /**
-   * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+   * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequestOrBuilder getTenantInitOrBuilder() {
     return getTenantInit();
   }
 
-  public static final int STARTINSTANCE_FIELD_NUMBER = 14;
+  public static final int STARTINSTANCE_FIELD_NUMBER = 15;
   private cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest startInstance_;
   /**
-   * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+   * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
    */
   public boolean hasStartInstance() {
     return startInstance_ != null;
   }
   /**
-   * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+   * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest getStartInstance() {
     return startInstance_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.getDefaultInstance() : startInstance_;
   }
   /**
-   * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+   * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequestOrBuilder getStartInstanceOrBuilder() {
     return getStartInstance();
   }
 
-  public static final int STOPINSTANCE_FIELD_NUMBER = 15;
+  public static final int STOPINSTANCE_FIELD_NUMBER = 16;
   private cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest stopInstance_;
   /**
-   * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+   * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
    */
   public boolean hasStopInstance() {
     return stopInstance_ != null;
   }
   /**
-   * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+   * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest getStopInstance() {
     return stopInstance_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest.getDefaultInstance() : stopInstance_;
   }
   /**
-   * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+   * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequestOrBuilder getStopInstanceOrBuilder() {
     return getStopInstance();
   }
 
-  public static final int COUNTINSTANCE_FIELD_NUMBER = 16;
+  public static final int COUNTINSTANCE_FIELD_NUMBER = 17;
   private cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest countInstance_;
   /**
-   * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+   * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
    */
   public boolean hasCountInstance() {
     return countInstance_ != null;
   }
   /**
-   * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+   * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest getCountInstance() {
     return countInstance_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest.getDefaultInstance() : countInstance_;
   }
   /**
-   * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+   * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequestOrBuilder getCountInstanceOrBuilder() {
     return getCountInstance();
   }
 
-  public static final int CROWDINSTANCE_FIELD_NUMBER = 17;
+  public static final int CROWDINSTANCE_FIELD_NUMBER = 18;
   private cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest crowdInstance_;
   /**
-   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
    */
   public boolean hasCrowdInstance() {
     return crowdInstance_ != null;
   }
   /**
-   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest getCrowdInstance() {
     return crowdInstance_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest.getDefaultInstance() : crowdInstance_;
   }
   /**
-   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequestOrBuilder getCrowdInstanceOrBuilder() {
     return getCrowdInstance();
   }
 
-  public static final int UPDATEMAPPING_FIELD_NUMBER = 18;
+  public static final int UPDATEMAPPING_FIELD_NUMBER = 19;
   private cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest updateMapping_;
   /**
-   * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+   * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
    */
   public boolean hasUpdateMapping() {
     return updateMapping_ != null;
   }
   /**
-   * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+   * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest getUpdateMapping() {
     return updateMapping_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.getDefaultInstance() : updateMapping_;
   }
   /**
-   * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+   * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequestOrBuilder getUpdateMappingOrBuilder() {
     return getUpdateMapping();
   }
 
-  public static final int GETMAPPING_FIELD_NUMBER = 19;
+  public static final int GETMAPPING_FIELD_NUMBER = 20;
   private cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest getMapping_;
   /**
-   * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+   * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
    */
   public boolean hasGetMapping() {
     return getMapping_ != null;
   }
   /**
-   * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+   * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest getGetMapping() {
     return getMapping_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest.getDefaultInstance() : getMapping_;
   }
   /**
-   * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+   * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequestOrBuilder getGetMappingOrBuilder() {
     return getGetMapping();
   }
 
-  public static final int UPDATEPROFILE_FIELD_NUMBER = 20;
+  public static final int UPDATEPROFILE_FIELD_NUMBER = 21;
   private cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest updateProfile_;
   /**
-   * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+   * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
    */
   public boolean hasUpdateProfile() {
     return updateProfile_ != null;
   }
   /**
-   * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+   * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest getUpdateProfile() {
     return updateProfile_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest.getDefaultInstance() : updateProfile_;
   }
   /**
-   * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+   * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequestOrBuilder getUpdateProfileOrBuilder() {
     return getUpdateProfile();
   }
 
-  public static final int GETPROFILE_FIELD_NUMBER = 21;
+  public static final int GETPROFILE_FIELD_NUMBER = 22;
   private cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest getProfile_;
   /**
-   * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+   * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
    */
   public boolean hasGetProfile() {
     return getProfile_ != null;
   }
   /**
-   * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+   * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest getGetProfile() {
     return getProfile_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest.getDefaultInstance() : getProfile_;
   }
   /**
-   * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+   * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequestOrBuilder getGetProfileOrBuilder() {
     return getGetProfile();
   }
 
-  public static final int ADDEVENT_FIELD_NUMBER = 22;
+  public static final int ADDEVENT_FIELD_NUMBER = 23;
   private cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest addEvent_;
   /**
-   * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+   * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
    */
   public boolean hasAddEvent() {
     return addEvent_ != null;
   }
   /**
-   * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+   * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest getAddEvent() {
     return addEvent_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest.getDefaultInstance() : addEvent_;
   }
   /**
-   * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+   * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequestOrBuilder getAddEventOrBuilder() {
     return getAddEvent();
   }
 
-  public static final int FETCHNOTIFY_FIELD_NUMBER = 23;
+  public static final int FETCHNOTIFY_FIELD_NUMBER = 24;
   private cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest fetchNotify_;
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
    */
   public boolean hasFetchNotify() {
     return fetchNotify_ != null;
   }
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest getFetchNotify() {
     return fetchNotify_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.getDefaultInstance() : fetchNotify_;
   }
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder getFetchNotifyOrBuilder() {
     return getFetchNotify();
   }
 
-  public static final int ALLOCID_FIELD_NUMBER = 24;
+  public static final int ALLOCID_FIELD_NUMBER = 25;
   private cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest allocID_;
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
    */
   public boolean hasAllocID() {
     return allocID_ != null;
   }
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID() {
     return allocID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.getDefaultInstance() : allocID_;
   }
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder() {
     return getAllocID();
   }
 
-  public static final int RESETID_FIELD_NUMBER = 25;
+  public static final int RESETID_FIELD_NUMBER = 26;
   private cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest resetID_;
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
    */
   public boolean hasResetID() {
     return resetID_ != null;
   }
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID() {
     return resetID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.getDefaultInstance() : resetID_;
   }
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder() {
     return getResetID();
   }
 
-  public static final int SCANMAPPING_FIELD_NUMBER = 26;
+  public static final int SCANMAPPING_FIELD_NUMBER = 27;
   private cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest scanMapping_;
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
    */
   public boolean hasScanMapping() {
     return scanMapping_ != null;
   }
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping() {
     return scanMapping_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance() : scanMapping_;
   }
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder() {
     return getScanMapping();
   }
 
-  public static final int GETIDSET_FIELD_NUMBER = 27;
+  public static final int GETIDSET_FIELD_NUMBER = 28;
   private cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getIDSet_;
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
    */
   public boolean hasGetIDSet() {
     return getIDSet_ != null;
   }
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet() {
     return getIDSet_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.getDefaultInstance() : getIDSet_;
   }
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder() {
     return getGetIDSet();
@@ -992,71 +1026,74 @@ private static final long serialVersionUID = 0L;
     if (delete_ != null) {
       output.writeMessage(5, getDelete());
     }
+    if (scan_ != null) {
+      output.writeMessage(6, getScan());
+    }
     if (bmCreate_ != null) {
-      output.writeMessage(6, getBmCreate());
+      output.writeMessage(7, getBmCreate());
     }
     if (bmAdd_ != null) {
-      output.writeMessage(7, getBmAdd());
+      output.writeMessage(8, getBmAdd());
     }
     if (bmRemove_ != null) {
-      output.writeMessage(8, getBmRemove());
+      output.writeMessage(9, getBmRemove());
     }
     if (bmClear_ != null) {
-      output.writeMessage(9, getBmClear());
+      output.writeMessage(10, getBmClear());
     }
     if (bmRange_ != null) {
-      output.writeMessage(10, getBmRange());
+      output.writeMessage(11, getBmRange());
     }
     if (bmCount_ != null) {
-      output.writeMessage(11, getBmCount());
+      output.writeMessage(12, getBmCount());
     }
     if (bmContains_ != null) {
-      output.writeMessage(12, getBmContains());
+      output.writeMessage(13, getBmContains());
     }
     if (tenantInit_ != null) {
-      output.writeMessage(13, getTenantInit());
+      output.writeMessage(14, getTenantInit());
     }
     if (startInstance_ != null) {
-      output.writeMessage(14, getStartInstance());
+      output.writeMessage(15, getStartInstance());
     }
     if (stopInstance_ != null) {
-      output.writeMessage(15, getStopInstance());
+      output.writeMessage(16, getStopInstance());
     }
     if (countInstance_ != null) {
-      output.writeMessage(16, getCountInstance());
+      output.writeMessage(17, getCountInstance());
     }
     if (crowdInstance_ != null) {
-      output.writeMessage(17, getCrowdInstance());
+      output.writeMessage(18, getCrowdInstance());
     }
     if (updateMapping_ != null) {
-      output.writeMessage(18, getUpdateMapping());
+      output.writeMessage(19, getUpdateMapping());
     }
     if (getMapping_ != null) {
-      output.writeMessage(19, getGetMapping());
+      output.writeMessage(20, getGetMapping());
     }
     if (updateProfile_ != null) {
-      output.writeMessage(20, getUpdateProfile());
+      output.writeMessage(21, getUpdateProfile());
     }
     if (getProfile_ != null) {
-      output.writeMessage(21, getGetProfile());
+      output.writeMessage(22, getGetProfile());
     }
     if (addEvent_ != null) {
-      output.writeMessage(22, getAddEvent());
+      output.writeMessage(23, getAddEvent());
     }
     if (fetchNotify_ != null) {
-      output.writeMessage(23, getFetchNotify());
+      output.writeMessage(24, getFetchNotify());
     }
     if (allocID_ != null) {
-      output.writeMessage(24, getAllocID());
+      output.writeMessage(25, getAllocID());
     }
     if (resetID_ != null) {
-      output.writeMessage(25, getResetID());
+      output.writeMessage(26, getResetID());
     }
     if (scanMapping_ != null) {
-      output.writeMessage(26, getScanMapping());
+      output.writeMessage(27, getScanMapping());
     }
     if (getIDSet_ != null) {
-      output.writeMessage(27, getGetIDSet());
+      output.writeMessage(28, getGetIDSet());
     }
     unknownFields.writeTo(output);
   }
@@ -1086,93 +1123,97 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(5, getDelete());
     }
+    if (scan_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(6, getScan());
+    }
     if (bmCreate_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(6, getBmCreate());
+        .computeMessageSize(7, getBmCreate());
     }
     if (bmAdd_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(7, getBmAdd());
+        .computeMessageSize(8, getBmAdd());
     }
     if (bmRemove_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(8, getBmRemove());
+        .computeMessageSize(9, getBmRemove());
     }
     if (bmClear_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(9, getBmClear());
+        .computeMessageSize(10, getBmClear());
     }
     if (bmRange_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(10, getBmRange());
+        .computeMessageSize(11, getBmRange());
     }
     if (bmCount_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(11, getBmCount());
+        .computeMessageSize(12, getBmCount());
     }
     if (bmContains_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(12, getBmContains());
+        .computeMessageSize(13, getBmContains());
     }
     if (tenantInit_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(13, getTenantInit());
+        .computeMessageSize(14, getTenantInit());
     }
     if (startInstance_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(14, getStartInstance());
+        .computeMessageSize(15, getStartInstance());
     }
     if (stopInstance_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(15, getStopInstance());
+        .computeMessageSize(16, getStopInstance());
     }
     if (countInstance_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(16, getCountInstance());
+        .computeMessageSize(17, getCountInstance());
     }
     if (crowdInstance_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(17, getCrowdInstance());
+        .computeMessageSize(18, getCrowdInstance());
     }
     if (updateMapping_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(18, getUpdateMapping());
+        .computeMessageSize(19, getUpdateMapping());
     }
     if (getMapping_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(19, getGetMapping());
+        .computeMessageSize(20, getGetMapping());
     }
     if (updateProfile_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(20, getUpdateProfile());
+        .computeMessageSize(21, getUpdateProfile());
     }
     if (getProfile_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(21, getGetProfile());
+        .computeMessageSize(22, getGetProfile());
     }
     if (addEvent_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(22, getAddEvent());
+        .computeMessageSize(23, getAddEvent());
     }
     if (fetchNotify_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(23, getFetchNotify());
+        .computeMessageSize(24, getFetchNotify());
     }
     if (allocID_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(24, getAllocID());
+        .computeMessageSize(25, getAllocID());
     }
     if (resetID_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(25, getResetID());
+        .computeMessageSize(26, getResetID());
     }
     if (scanMapping_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(26, getScanMapping());
+        .computeMessageSize(27, getScanMapping());
     }
     if (getIDSet_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(27, getGetIDSet());
+        .computeMessageSize(28, getGetIDSet());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1207,6 +1248,11 @@ private static final long serialVersionUID = 0L;
     if (hasDelete()) {
       result = result && getDelete()
           .equals(other.getDelete());
+    }
+    result = result && (hasScan() == other.hasScan());
+    if (hasScan()) {
+      result = result && getScan()
+          .equals(other.getScan());
     }
     result = result && (hasBmCreate() == other.hasBmCreate());
     if (hasBmCreate()) {
@@ -1345,6 +1391,10 @@ private static final long serialVersionUID = 0L;
     if (hasDelete()) {
       hash = (37 * hash) + DELETE_FIELD_NUMBER;
       hash = (53 * hash) + getDelete().hashCode();
+    }
+    if (hasScan()) {
+      hash = (37 * hash) + SCAN_FIELD_NUMBER;
+      hash = (53 * hash) + getScan().hashCode();
     }
     if (hasBmCreate()) {
       hash = (37 * hash) + BMCREATE_FIELD_NUMBER;
@@ -1589,6 +1639,12 @@ private static final long serialVersionUID = 0L;
         delete_ = null;
         deleteBuilder_ = null;
       }
+      if (scanBuilder_ == null) {
+        scan_ = null;
+      } else {
+        scan_ = null;
+        scanBuilder_ = null;
+      }
       if (bmCreateBuilder_ == null) {
         bmCreate_ = null;
       } else {
@@ -1760,6 +1816,11 @@ private static final long serialVersionUID = 0L;
       } else {
         result.delete_ = deleteBuilder_.build();
       }
+      if (scanBuilder_ == null) {
+        result.scan_ = scan_;
+      } else {
+        result.scan_ = scanBuilder_.build();
+      }
       if (bmCreateBuilder_ == null) {
         result.bmCreate_ = bmCreate_;
       } else {
@@ -1925,6 +1986,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasDelete()) {
         mergeDelete(other.getDelete());
+      }
+      if (other.hasScan()) {
+        mergeScan(other.getScan());
       }
       if (other.hasBmCreate()) {
         mergeBmCreate(other.getBmCreate());
@@ -2440,17 +2504,134 @@ private static final long serialVersionUID = 0L;
       return deleteBuilder_;
     }
 
+    private cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest scan_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanRequestOrBuilder> scanBuilder_;
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public boolean hasScan() {
+      return scanBuilder_ != null || scan_ != null;
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest getScan() {
+      if (scanBuilder_ == null) {
+        return scan_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.getDefaultInstance() : scan_;
+      } else {
+        return scanBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public Builder setScan(cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest value) {
+      if (scanBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        scan_ = value;
+        onChanged();
+      } else {
+        scanBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public Builder setScan(
+        cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.Builder builderForValue) {
+      if (scanBuilder_ == null) {
+        scan_ = builderForValue.build();
+        onChanged();
+      } else {
+        scanBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public Builder mergeScan(cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest value) {
+      if (scanBuilder_ == null) {
+        if (scan_ != null) {
+          scan_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.newBuilder(scan_).mergeFrom(value).buildPartial();
+        } else {
+          scan_ = value;
+        }
+        onChanged();
+      } else {
+        scanBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public Builder clearScan() {
+      if (scanBuilder_ == null) {
+        scan_ = null;
+        onChanged();
+      } else {
+        scan_ = null;
+        scanBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.Builder getScanBuilder() {
+      
+      onChanged();
+      return getScanFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ScanRequestOrBuilder getScanOrBuilder() {
+      if (scanBuilder_ != null) {
+        return scanBuilder_.getMessageOrBuilder();
+      } else {
+        return scan_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.getDefaultInstance() : scan_;
+      }
+    }
+    /**
+     * <code>.rpcpb.ScanRequest scan = 6;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanRequestOrBuilder> 
+        getScanFieldBuilder() {
+      if (scanBuilder_ == null) {
+        scanBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanRequestOrBuilder>(
+                getScan(),
+                getParentForChildren(),
+                isClean());
+        scan_ = null;
+      }
+      return scanBuilder_;
+    }
+
     private cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest bmCreate_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequestOrBuilder> bmCreateBuilder_;
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public boolean hasBmCreate() {
       return bmCreateBuilder_ != null || bmCreate_ != null;
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest getBmCreate() {
       if (bmCreateBuilder_ == null) {
@@ -2460,7 +2641,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public Builder setBmCreate(cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest value) {
       if (bmCreateBuilder_ == null) {
@@ -2476,7 +2657,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public Builder setBmCreate(
         cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest.Builder builderForValue) {
@@ -2490,7 +2671,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public Builder mergeBmCreate(cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest value) {
       if (bmCreateBuilder_ == null) {
@@ -2508,7 +2689,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public Builder clearBmCreate() {
       if (bmCreateBuilder_ == null) {
@@ -2522,7 +2703,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest.Builder getBmCreateBuilder() {
       
@@ -2530,7 +2711,7 @@ private static final long serialVersionUID = 0L;
       return getBmCreateFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequestOrBuilder getBmCreateOrBuilder() {
       if (bmCreateBuilder_ != null) {
@@ -2541,7 +2722,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMCreateRequest bmCreate = 6;</code>
+     * <code>.rpcpb.BMCreateRequest bmCreate = 7;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequestOrBuilder> 
@@ -2561,13 +2742,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequestOrBuilder> bmAddBuilder_;
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public boolean hasBmAdd() {
       return bmAddBuilder_ != null || bmAdd_ != null;
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest getBmAdd() {
       if (bmAddBuilder_ == null) {
@@ -2577,7 +2758,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public Builder setBmAdd(cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest value) {
       if (bmAddBuilder_ == null) {
@@ -2593,7 +2774,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public Builder setBmAdd(
         cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest.Builder builderForValue) {
@@ -2607,7 +2788,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public Builder mergeBmAdd(cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest value) {
       if (bmAddBuilder_ == null) {
@@ -2625,7 +2806,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public Builder clearBmAdd() {
       if (bmAddBuilder_ == null) {
@@ -2639,7 +2820,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest.Builder getBmAddBuilder() {
       
@@ -2647,7 +2828,7 @@ private static final long serialVersionUID = 0L;
       return getBmAddFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequestOrBuilder getBmAddOrBuilder() {
       if (bmAddBuilder_ != null) {
@@ -2658,7 +2839,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMAddRequest bmAdd = 7;</code>
+     * <code>.rpcpb.BMAddRequest bmAdd = 8;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequestOrBuilder> 
@@ -2678,13 +2859,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequestOrBuilder> bmRemoveBuilder_;
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public boolean hasBmRemove() {
       return bmRemoveBuilder_ != null || bmRemove_ != null;
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest getBmRemove() {
       if (bmRemoveBuilder_ == null) {
@@ -2694,7 +2875,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public Builder setBmRemove(cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest value) {
       if (bmRemoveBuilder_ == null) {
@@ -2710,7 +2891,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public Builder setBmRemove(
         cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest.Builder builderForValue) {
@@ -2724,7 +2905,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public Builder mergeBmRemove(cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest value) {
       if (bmRemoveBuilder_ == null) {
@@ -2742,7 +2923,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public Builder clearBmRemove() {
       if (bmRemoveBuilder_ == null) {
@@ -2756,7 +2937,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest.Builder getBmRemoveBuilder() {
       
@@ -2764,7 +2945,7 @@ private static final long serialVersionUID = 0L;
       return getBmRemoveFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequestOrBuilder getBmRemoveOrBuilder() {
       if (bmRemoveBuilder_ != null) {
@@ -2775,7 +2956,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMRemoveRequest bmRemove = 8;</code>
+     * <code>.rpcpb.BMRemoveRequest bmRemove = 9;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequestOrBuilder> 
@@ -2795,13 +2976,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequestOrBuilder> bmClearBuilder_;
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public boolean hasBmClear() {
       return bmClearBuilder_ != null || bmClear_ != null;
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest getBmClear() {
       if (bmClearBuilder_ == null) {
@@ -2811,7 +2992,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public Builder setBmClear(cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest value) {
       if (bmClearBuilder_ == null) {
@@ -2827,7 +3008,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public Builder setBmClear(
         cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest.Builder builderForValue) {
@@ -2841,7 +3022,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public Builder mergeBmClear(cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest value) {
       if (bmClearBuilder_ == null) {
@@ -2859,7 +3040,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public Builder clearBmClear() {
       if (bmClearBuilder_ == null) {
@@ -2873,7 +3054,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest.Builder getBmClearBuilder() {
       
@@ -2881,7 +3062,7 @@ private static final long serialVersionUID = 0L;
       return getBmClearFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequestOrBuilder getBmClearOrBuilder() {
       if (bmClearBuilder_ != null) {
@@ -2892,7 +3073,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMClearRequest bmClear = 9;</code>
+     * <code>.rpcpb.BMClearRequest bmClear = 10;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequestOrBuilder> 
@@ -2912,13 +3093,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequestOrBuilder> bmRangeBuilder_;
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public boolean hasBmRange() {
       return bmRangeBuilder_ != null || bmRange_ != null;
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest getBmRange() {
       if (bmRangeBuilder_ == null) {
@@ -2928,7 +3109,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public Builder setBmRange(cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest value) {
       if (bmRangeBuilder_ == null) {
@@ -2944,7 +3125,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public Builder setBmRange(
         cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest.Builder builderForValue) {
@@ -2958,7 +3139,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public Builder mergeBmRange(cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest value) {
       if (bmRangeBuilder_ == null) {
@@ -2976,7 +3157,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public Builder clearBmRange() {
       if (bmRangeBuilder_ == null) {
@@ -2990,7 +3171,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest.Builder getBmRangeBuilder() {
       
@@ -2998,7 +3179,7 @@ private static final long serialVersionUID = 0L;
       return getBmRangeFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequestOrBuilder getBmRangeOrBuilder() {
       if (bmRangeBuilder_ != null) {
@@ -3009,7 +3190,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMRangeRequest bmRange = 10;</code>
+     * <code>.rpcpb.BMRangeRequest bmRange = 11;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMRangeRequestOrBuilder> 
@@ -3029,13 +3210,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequestOrBuilder> bmCountBuilder_;
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public boolean hasBmCount() {
       return bmCountBuilder_ != null || bmCount_ != null;
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest getBmCount() {
       if (bmCountBuilder_ == null) {
@@ -3045,7 +3226,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public Builder setBmCount(cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest value) {
       if (bmCountBuilder_ == null) {
@@ -3061,7 +3242,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public Builder setBmCount(
         cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest.Builder builderForValue) {
@@ -3075,7 +3256,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public Builder mergeBmCount(cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest value) {
       if (bmCountBuilder_ == null) {
@@ -3093,7 +3274,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public Builder clearBmCount() {
       if (bmCountBuilder_ == null) {
@@ -3107,7 +3288,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest.Builder getBmCountBuilder() {
       
@@ -3115,7 +3296,7 @@ private static final long serialVersionUID = 0L;
       return getBmCountFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequestOrBuilder getBmCountOrBuilder() {
       if (bmCountBuilder_ != null) {
@@ -3126,7 +3307,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMCountRequest bmCount = 11;</code>
+     * <code>.rpcpb.BMCountRequest bmCount = 12;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequestOrBuilder> 
@@ -3146,13 +3327,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequestOrBuilder> bmContainsBuilder_;
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public boolean hasBmContains() {
       return bmContainsBuilder_ != null || bmContains_ != null;
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest getBmContains() {
       if (bmContainsBuilder_ == null) {
@@ -3162,7 +3343,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public Builder setBmContains(cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest value) {
       if (bmContainsBuilder_ == null) {
@@ -3178,7 +3359,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public Builder setBmContains(
         cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest.Builder builderForValue) {
@@ -3192,7 +3373,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public Builder mergeBmContains(cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest value) {
       if (bmContainsBuilder_ == null) {
@@ -3210,7 +3391,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public Builder clearBmContains() {
       if (bmContainsBuilder_ == null) {
@@ -3224,7 +3405,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest.Builder getBmContainsBuilder() {
       
@@ -3232,7 +3413,7 @@ private static final long serialVersionUID = 0L;
       return getBmContainsFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequestOrBuilder getBmContainsOrBuilder() {
       if (bmContainsBuilder_ != null) {
@@ -3243,7 +3424,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.BMContainsRequest bmContains = 12;</code>
+     * <code>.rpcpb.BMContainsRequest bmContains = 13;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest, cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequestOrBuilder> 
@@ -3263,13 +3444,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest, cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequestOrBuilder> tenantInitBuilder_;
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public boolean hasTenantInit() {
       return tenantInitBuilder_ != null || tenantInit_ != null;
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest getTenantInit() {
       if (tenantInitBuilder_ == null) {
@@ -3279,7 +3460,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public Builder setTenantInit(cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest value) {
       if (tenantInitBuilder_ == null) {
@@ -3295,7 +3476,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public Builder setTenantInit(
         cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.Builder builderForValue) {
@@ -3309,7 +3490,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public Builder mergeTenantInit(cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest value) {
       if (tenantInitBuilder_ == null) {
@@ -3327,7 +3508,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public Builder clearTenantInit() {
       if (tenantInitBuilder_ == null) {
@@ -3341,7 +3522,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.Builder getTenantInitBuilder() {
       
@@ -3349,7 +3530,7 @@ private static final long serialVersionUID = 0L;
       return getTenantInitFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequestOrBuilder getTenantInitOrBuilder() {
       if (tenantInitBuilder_ != null) {
@@ -3360,7 +3541,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.TenantInitRequest tenantInit = 13;</code>
+     * <code>.rpcpb.TenantInitRequest tenantInit = 14;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest, cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequestOrBuilder> 
@@ -3380,13 +3561,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest, cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequestOrBuilder> startInstanceBuilder_;
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public boolean hasStartInstance() {
       return startInstanceBuilder_ != null || startInstance_ != null;
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest getStartInstance() {
       if (startInstanceBuilder_ == null) {
@@ -3396,7 +3577,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public Builder setStartInstance(cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest value) {
       if (startInstanceBuilder_ == null) {
@@ -3412,7 +3593,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public Builder setStartInstance(
         cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder builderForValue) {
@@ -3426,7 +3607,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public Builder mergeStartInstance(cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest value) {
       if (startInstanceBuilder_ == null) {
@@ -3444,7 +3625,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public Builder clearStartInstance() {
       if (startInstanceBuilder_ == null) {
@@ -3458,7 +3639,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder getStartInstanceBuilder() {
       
@@ -3466,7 +3647,7 @@ private static final long serialVersionUID = 0L;
       return getStartInstanceFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequestOrBuilder getStartInstanceOrBuilder() {
       if (startInstanceBuilder_ != null) {
@@ -3477,7 +3658,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.StartingInstanceRequest startInstance = 14;</code>
+     * <code>.rpcpb.StartingInstanceRequest startInstance = 15;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest, cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequestOrBuilder> 
@@ -3497,13 +3678,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest, cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequestOrBuilder> stopInstanceBuilder_;
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public boolean hasStopInstance() {
       return stopInstanceBuilder_ != null || stopInstance_ != null;
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest getStopInstance() {
       if (stopInstanceBuilder_ == null) {
@@ -3513,7 +3694,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public Builder setStopInstance(cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest value) {
       if (stopInstanceBuilder_ == null) {
@@ -3529,7 +3710,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public Builder setStopInstance(
         cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest.Builder builderForValue) {
@@ -3543,7 +3724,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public Builder mergeStopInstance(cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest value) {
       if (stopInstanceBuilder_ == null) {
@@ -3561,7 +3742,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public Builder clearStopInstance() {
       if (stopInstanceBuilder_ == null) {
@@ -3575,7 +3756,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest.Builder getStopInstanceBuilder() {
       
@@ -3583,7 +3764,7 @@ private static final long serialVersionUID = 0L;
       return getStopInstanceFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequestOrBuilder getStopInstanceOrBuilder() {
       if (stopInstanceBuilder_ != null) {
@@ -3594,7 +3775,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.StopInstanceRequest stopInstance = 15;</code>
+     * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest, cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequestOrBuilder> 
@@ -3614,13 +3795,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequestOrBuilder> countInstanceBuilder_;
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public boolean hasCountInstance() {
       return countInstanceBuilder_ != null || countInstance_ != null;
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest getCountInstance() {
       if (countInstanceBuilder_ == null) {
@@ -3630,7 +3811,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public Builder setCountInstance(cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest value) {
       if (countInstanceBuilder_ == null) {
@@ -3646,7 +3827,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public Builder setCountInstance(
         cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest.Builder builderForValue) {
@@ -3660,7 +3841,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public Builder mergeCountInstance(cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest value) {
       if (countInstanceBuilder_ == null) {
@@ -3678,7 +3859,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public Builder clearCountInstance() {
       if (countInstanceBuilder_ == null) {
@@ -3692,7 +3873,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest.Builder getCountInstanceBuilder() {
       
@@ -3700,7 +3881,7 @@ private static final long serialVersionUID = 0L;
       return getCountInstanceFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequestOrBuilder getCountInstanceOrBuilder() {
       if (countInstanceBuilder_ != null) {
@@ -3711,7 +3892,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.InstanceCountStateRequest countInstance = 16;</code>
+     * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequestOrBuilder> 
@@ -3731,13 +3912,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequestOrBuilder> crowdInstanceBuilder_;
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public boolean hasCrowdInstance() {
       return crowdInstanceBuilder_ != null || crowdInstance_ != null;
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest getCrowdInstance() {
       if (crowdInstanceBuilder_ == null) {
@@ -3747,7 +3928,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public Builder setCrowdInstance(cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest value) {
       if (crowdInstanceBuilder_ == null) {
@@ -3763,7 +3944,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public Builder setCrowdInstance(
         cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest.Builder builderForValue) {
@@ -3777,7 +3958,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public Builder mergeCrowdInstance(cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest value) {
       if (crowdInstanceBuilder_ == null) {
@@ -3795,7 +3976,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public Builder clearCrowdInstance() {
       if (crowdInstanceBuilder_ == null) {
@@ -3809,7 +3990,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest.Builder getCrowdInstanceBuilder() {
       
@@ -3817,7 +3998,7 @@ private static final long serialVersionUID = 0L;
       return getCrowdInstanceFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequestOrBuilder getCrowdInstanceOrBuilder() {
       if (crowdInstanceBuilder_ != null) {
@@ -3828,7 +4009,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 17;</code>
+     * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequestOrBuilder> 
@@ -3848,13 +4029,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequestOrBuilder> updateMappingBuilder_;
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public boolean hasUpdateMapping() {
       return updateMappingBuilder_ != null || updateMapping_ != null;
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest getUpdateMapping() {
       if (updateMappingBuilder_ == null) {
@@ -3864,7 +4045,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public Builder setUpdateMapping(cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest value) {
       if (updateMappingBuilder_ == null) {
@@ -3880,7 +4061,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public Builder setUpdateMapping(
         cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.Builder builderForValue) {
@@ -3894,7 +4075,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public Builder mergeUpdateMapping(cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest value) {
       if (updateMappingBuilder_ == null) {
@@ -3912,7 +4093,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public Builder clearUpdateMapping() {
       if (updateMappingBuilder_ == null) {
@@ -3926,7 +4107,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.Builder getUpdateMappingBuilder() {
       
@@ -3934,7 +4115,7 @@ private static final long serialVersionUID = 0L;
       return getUpdateMappingFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequestOrBuilder getUpdateMappingOrBuilder() {
       if (updateMappingBuilder_ != null) {
@@ -3945,7 +4126,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.UpdateMappingRequest updateMapping = 18;</code>
+     * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequestOrBuilder> 
@@ -3965,13 +4146,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequestOrBuilder> getMappingBuilder_;
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public boolean hasGetMapping() {
       return getMappingBuilder_ != null || getMapping_ != null;
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest getGetMapping() {
       if (getMappingBuilder_ == null) {
@@ -3981,7 +4162,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public Builder setGetMapping(cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest value) {
       if (getMappingBuilder_ == null) {
@@ -3997,7 +4178,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public Builder setGetMapping(
         cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest.Builder builderForValue) {
@@ -4011,7 +4192,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public Builder mergeGetMapping(cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest value) {
       if (getMappingBuilder_ == null) {
@@ -4029,7 +4210,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public Builder clearGetMapping() {
       if (getMappingBuilder_ == null) {
@@ -4043,7 +4224,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest.Builder getGetMappingBuilder() {
       
@@ -4051,7 +4232,7 @@ private static final long serialVersionUID = 0L;
       return getGetMappingFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequestOrBuilder getGetMappingOrBuilder() {
       if (getMappingBuilder_ != null) {
@@ -4062,7 +4243,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetMappingRequest getMapping = 19;</code>
+     * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequestOrBuilder> 
@@ -4082,13 +4263,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest, cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequestOrBuilder> updateProfileBuilder_;
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public boolean hasUpdateProfile() {
       return updateProfileBuilder_ != null || updateProfile_ != null;
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest getUpdateProfile() {
       if (updateProfileBuilder_ == null) {
@@ -4098,7 +4279,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public Builder setUpdateProfile(cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest value) {
       if (updateProfileBuilder_ == null) {
@@ -4114,7 +4295,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public Builder setUpdateProfile(
         cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest.Builder builderForValue) {
@@ -4128,7 +4309,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public Builder mergeUpdateProfile(cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest value) {
       if (updateProfileBuilder_ == null) {
@@ -4146,7 +4327,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public Builder clearUpdateProfile() {
       if (updateProfileBuilder_ == null) {
@@ -4160,7 +4341,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest.Builder getUpdateProfileBuilder() {
       
@@ -4168,7 +4349,7 @@ private static final long serialVersionUID = 0L;
       return getUpdateProfileFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequestOrBuilder getUpdateProfileOrBuilder() {
       if (updateProfileBuilder_ != null) {
@@ -4179,7 +4360,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.UpdateProfileRequest updateProfile = 20;</code>
+     * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest, cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequestOrBuilder> 
@@ -4199,13 +4380,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequestOrBuilder> getProfileBuilder_;
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public boolean hasGetProfile() {
       return getProfileBuilder_ != null || getProfile_ != null;
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest getGetProfile() {
       if (getProfileBuilder_ == null) {
@@ -4215,7 +4396,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public Builder setGetProfile(cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest value) {
       if (getProfileBuilder_ == null) {
@@ -4231,7 +4412,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public Builder setGetProfile(
         cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest.Builder builderForValue) {
@@ -4245,7 +4426,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public Builder mergeGetProfile(cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest value) {
       if (getProfileBuilder_ == null) {
@@ -4263,7 +4444,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public Builder clearGetProfile() {
       if (getProfileBuilder_ == null) {
@@ -4277,7 +4458,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest.Builder getGetProfileBuilder() {
       
@@ -4285,7 +4466,7 @@ private static final long serialVersionUID = 0L;
       return getGetProfileFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequestOrBuilder getGetProfileOrBuilder() {
       if (getProfileBuilder_ != null) {
@@ -4296,7 +4477,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetProfileRequest getProfile = 21;</code>
+     * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequestOrBuilder> 
@@ -4316,13 +4497,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest, cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequestOrBuilder> addEventBuilder_;
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public boolean hasAddEvent() {
       return addEventBuilder_ != null || addEvent_ != null;
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest getAddEvent() {
       if (addEventBuilder_ == null) {
@@ -4332,7 +4513,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public Builder setAddEvent(cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest value) {
       if (addEventBuilder_ == null) {
@@ -4348,7 +4529,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public Builder setAddEvent(
         cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest.Builder builderForValue) {
@@ -4362,7 +4543,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public Builder mergeAddEvent(cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest value) {
       if (addEventBuilder_ == null) {
@@ -4380,7 +4561,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public Builder clearAddEvent() {
       if (addEventBuilder_ == null) {
@@ -4394,7 +4575,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest.Builder getAddEventBuilder() {
       
@@ -4402,7 +4583,7 @@ private static final long serialVersionUID = 0L;
       return getAddEventFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequestOrBuilder getAddEventOrBuilder() {
       if (addEventBuilder_ != null) {
@@ -4413,7 +4594,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.AddEventRequest addEvent = 22;</code>
+     * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest, cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequestOrBuilder> 
@@ -4433,13 +4614,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder> fetchNotifyBuilder_;
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public boolean hasFetchNotify() {
       return fetchNotifyBuilder_ != null || fetchNotify_ != null;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest getFetchNotify() {
       if (fetchNotifyBuilder_ == null) {
@@ -4449,7 +4630,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public Builder setFetchNotify(cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest value) {
       if (fetchNotifyBuilder_ == null) {
@@ -4465,7 +4646,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public Builder setFetchNotify(
         cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder builderForValue) {
@@ -4479,7 +4660,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public Builder mergeFetchNotify(cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest value) {
       if (fetchNotifyBuilder_ == null) {
@@ -4497,7 +4678,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public Builder clearFetchNotify() {
       if (fetchNotifyBuilder_ == null) {
@@ -4511,7 +4692,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder getFetchNotifyBuilder() {
       
@@ -4519,7 +4700,7 @@ private static final long serialVersionUID = 0L;
       return getFetchNotifyFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder getFetchNotifyOrBuilder() {
       if (fetchNotifyBuilder_ != null) {
@@ -4530,7 +4711,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 23;</code>
+     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder> 
@@ -4550,13 +4731,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder> allocIDBuilder_;
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public boolean hasAllocID() {
       return allocIDBuilder_ != null || allocID_ != null;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID() {
       if (allocIDBuilder_ == null) {
@@ -4566,7 +4747,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public Builder setAllocID(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest value) {
       if (allocIDBuilder_ == null) {
@@ -4582,7 +4763,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public Builder setAllocID(
         cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder builderForValue) {
@@ -4596,7 +4777,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public Builder mergeAllocID(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest value) {
       if (allocIDBuilder_ == null) {
@@ -4614,7 +4795,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public Builder clearAllocID() {
       if (allocIDBuilder_ == null) {
@@ -4628,7 +4809,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder getAllocIDBuilder() {
       
@@ -4636,7 +4817,7 @@ private static final long serialVersionUID = 0L;
       return getAllocIDFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder() {
       if (allocIDBuilder_ != null) {
@@ -4647,7 +4828,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 24;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder> 
@@ -4667,13 +4848,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder> resetIDBuilder_;
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public boolean hasResetID() {
       return resetIDBuilder_ != null || resetID_ != null;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID() {
       if (resetIDBuilder_ == null) {
@@ -4683,7 +4864,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public Builder setResetID(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest value) {
       if (resetIDBuilder_ == null) {
@@ -4699,7 +4880,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public Builder setResetID(
         cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder builderForValue) {
@@ -4713,7 +4894,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public Builder mergeResetID(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest value) {
       if (resetIDBuilder_ == null) {
@@ -4731,7 +4912,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public Builder clearResetID() {
       if (resetIDBuilder_ == null) {
@@ -4745,7 +4926,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder getResetIDBuilder() {
       
@@ -4753,7 +4934,7 @@ private static final long serialVersionUID = 0L;
       return getResetIDFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder() {
       if (resetIDBuilder_ != null) {
@@ -4764,7 +4945,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 25;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder> 
@@ -4784,13 +4965,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder> scanMappingBuilder_;
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public boolean hasScanMapping() {
       return scanMappingBuilder_ != null || scanMapping_ != null;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping() {
       if (scanMappingBuilder_ == null) {
@@ -4800,7 +4981,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public Builder setScanMapping(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest value) {
       if (scanMappingBuilder_ == null) {
@@ -4816,7 +4997,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public Builder setScanMapping(
         cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder builderForValue) {
@@ -4830,7 +5011,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public Builder mergeScanMapping(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest value) {
       if (scanMappingBuilder_ == null) {
@@ -4848,7 +5029,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public Builder clearScanMapping() {
       if (scanMappingBuilder_ == null) {
@@ -4862,7 +5043,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder getScanMappingBuilder() {
       
@@ -4870,7 +5051,7 @@ private static final long serialVersionUID = 0L;
       return getScanMappingFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder() {
       if (scanMappingBuilder_ != null) {
@@ -4881,7 +5062,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 26;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder> 
@@ -4901,13 +5082,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder> getIDSetBuilder_;
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public boolean hasGetIDSet() {
       return getIDSetBuilder_ != null || getIDSet_ != null;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet() {
       if (getIDSetBuilder_ == null) {
@@ -4917,7 +5098,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public Builder setGetIDSet(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest value) {
       if (getIDSetBuilder_ == null) {
@@ -4933,7 +5114,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public Builder setGetIDSet(
         cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder builderForValue) {
@@ -4947,7 +5128,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public Builder mergeGetIDSet(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest value) {
       if (getIDSetBuilder_ == null) {
@@ -4965,7 +5146,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public Builder clearGetIDSet() {
       if (getIDSetBuilder_ == null) {
@@ -4979,7 +5160,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder getGetIDSetBuilder() {
       
@@ -4987,7 +5168,7 @@ private static final long serialVersionUID = 0L;
       return getGetIDSetFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder() {
       if (getIDSetBuilder_ != null) {
@@ -4998,7 +5179,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 27;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder> 

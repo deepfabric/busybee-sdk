@@ -8,41 +8,37 @@ public interface EventOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint64 userID = 1;</code>
+   * <code>.metapb.EventType type = 1;</code>
    */
-  long getUserID();
+  int getTypeValue();
+  /**
+   * <code>.metapb.EventType type = 1;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.EventType getType();
 
   /**
-   * <code>uint64 tenantID = 2;</code>
+   * <code>.metapb.UserEvent user = 2;</code>
    */
-  long getTenantID();
+  boolean hasUser();
+  /**
+   * <code>.metapb.UserEvent user = 2;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.UserEvent getUser();
+  /**
+   * <code>.metapb.UserEvent user = 2;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder getUserOrBuilder();
 
   /**
-   * <code>uint64 workflowID = 3;</code>
+   * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
-  long getWorkflowID();
-
+  boolean hasUpdateCrowd();
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
-  java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> 
-      getDataList();
+  cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEvent getUpdateCrowd();
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.meta.KV getData(int index);
-  /**
-   * <code>repeated .metapb.KV data = 4;</code>
-   */
-  int getDataCount();
-  /**
-   * <code>repeated .metapb.KV data = 4;</code>
-   */
-  java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> 
-      getDataOrBuilderList();
-  /**
-   * <code>repeated .metapb.KV data = 4;</code>
-   */
-  cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder getDataOrBuilder(
-      int index);
+  cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder getUpdateCrowdOrBuilder();
 }

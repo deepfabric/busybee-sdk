@@ -193,7 +193,7 @@ class Transport implements ChannelAware<MessageLite> {
 
     @Override
     public void onChannelException(Channel channel, Throwable cause) {
-        log.error("{} failed with {}", channel, cause);
+        log.error("{} failed", channel, cause);
     }
 
     @Override
@@ -203,7 +203,7 @@ class Transport implements ChannelAware<MessageLite> {
 
     @Override
     public void onChannelConnected(Channel channel) {
-        log.error("{} connected", channel);
+        log.info("{} connected", channel);
     }
 
     @Getter

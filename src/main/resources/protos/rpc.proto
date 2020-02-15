@@ -14,6 +14,7 @@ enum Type {
     Set           = 0;
     Get           = 1;
     Delete        = 2;
+    Scan          = 3;
 
     BMCreate      = 100;
     BMAdd         = 101;
@@ -82,28 +83,30 @@ message Request {
     SetRequest                set           = 3;
     GetRequest                get           = 4;
     DeleteRequest             delete        = 5;
-    BMCreateRequest           bmCreate      = 6;
-    BMAddRequest              bmAdd         = 7;
-    BMRemoveRequest           bmRemove      = 8;
-    BMClearRequest            bmClear       = 9;
-    BMRangeRequest            bmRange       = 10;
-    BMCountRequest            bmCount       = 11;
-    BMContainsRequest         bmContains    = 12;
-    TenantInitRequest         tenantInit    = 13;
-    StartingInstanceRequest   startInstance = 14;
-    StopInstanceRequest       stopInstance  = 15;
-    InstanceCountStateRequest countInstance = 16;
-    InstanceCrowdStateRequest crowdInstance = 17;
-    UpdateMappingRequest      updateMapping = 18;
-    GetMappingRequest         getMapping    = 19;
-    UpdateProfileRequest      updateProfile = 20;
-    GetProfileRequest         getProfile    = 21;
-    AddEventRequest           addEvent      = 22;
-    FetchNotifyRequest        fetchNotify   = 23;
-    AllocIDRequest            allocID       = 24;
-    ResetIDRequest            resetID       = 25;
-    ScanMappingRequest        scanMapping   = 26;
-    GetIDSetRequest           getIDSet      = 27;
+    ScanRequest               scan          = 6;
+    BMCreateRequest           bmCreate      = 7;
+    BMAddRequest              bmAdd         = 8;
+    BMRemoveRequest           bmRemove      = 9;
+    BMClearRequest            bmClear       = 10;
+    BMRangeRequest            bmRange       = 11;
+    BMCountRequest            bmCount       = 12;
+    BMContainsRequest         bmContains    = 13;
+    TenantInitRequest         tenantInit    = 14;
+    StartingInstanceRequest   startInstance = 15;
+    StopInstanceRequest       stopInstance  = 16;
+    InstanceCountStateRequest countInstance = 17;
+    InstanceCrowdStateRequest crowdInstance = 18;
+    UpdateMappingRequest      updateMapping = 19;
+    GetMappingRequest         getMapping    = 20;
+    UpdateProfileRequest      updateProfile = 21;
+    GetProfileRequest         getProfile    = 22;
+    AddEventRequest           addEvent      = 23;
+    FetchNotifyRequest        fetchNotify   = 24;
+    AllocIDRequest            allocID       = 25;
+    ResetIDRequest            resetID       = 26;
+    ScanMappingRequest        scanMapping   = 27;
+    GetIDSetRequest           getIDSet      = 28;
+
 }
 
 // Response the busybee response
@@ -206,8 +209,7 @@ message UpdateInstanceStateShardRequest {
 // RemoveInstanceStateShardRequest remove a instance state
 message RemoveInstanceStateShardRequest {
     uint64 workflowID = 1;
-    uint64 start      = 2;
-    uint64 end        = 3;
+    uint32 index      = 2;
 }
 
 // InstanceCountStateRequest instance count state
@@ -286,7 +288,7 @@ message GetProfileRequest {
 
 // AddEventRequest add event
 message AddEventRequest {
-    metapb.Event event = 1;
+    metapb.UserEvent event = 1;
 }
 
 // FetchNotifyRequest fetch notify request
@@ -308,6 +310,15 @@ message AllocIDRequest {
 message ResetIDRequest {
     bytes  key       = 1;
     uint64 startWith = 2;
+}
+
+// ScanRequest scan request
+message ScanRequest {
+    bytes  start       = 1;
+    bytes  end         = 2;
+    uint64 limit       = 3;
+    int32  skip        = 4;
+    metapb.Group group = 5;
 }
 
 // ErrorResponse error response

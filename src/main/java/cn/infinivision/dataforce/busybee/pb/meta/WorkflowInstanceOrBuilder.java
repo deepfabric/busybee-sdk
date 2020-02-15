@@ -26,9 +26,9 @@ public interface WorkflowInstanceOrBuilder extends
   com.google.protobuf.ByteString getCrowd();
 
   /**
-   * <code>uint64 maxPerShard = 3;</code>
+   * <code>uint64 workers = 3;</code>
    */
-  long getMaxPerShard();
+  long getWorkers();
 
   /**
    * <code>int64 startedAt = 4;</code>

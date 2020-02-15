@@ -8,15 +8,15 @@ public interface AddEventRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.metapb.Event event = 1;</code>
+   * <code>.metapb.UserEvent event = 1;</code>
    */
   boolean hasEvent();
   /**
-   * <code>.metapb.Event event = 1;</code>
+   * <code>.metapb.UserEvent event = 1;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.meta.Event getEvent();
+  cn.infinivision.dataforce.busybee.pb.meta.UserEvent getEvent();
   /**
-   * <code>.metapb.Event event = 1;</code>
+   * <code>.metapb.UserEvent event = 1;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.meta.EventOrBuilder getEventOrBuilder();
+  cn.infinivision.dataforce.busybee.pb.meta.UserEventOrBuilder getEventOrBuilder();
 }

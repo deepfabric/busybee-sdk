@@ -21,7 +21,7 @@ private static final long serialVersionUID = 0L;
   }
   private WorkflowInstance() {
     crowd_ = com.google.protobuf.ByteString.EMPTY;
-    maxPerShard_ = 0L;
+    workers_ = 0L;
     startedAt_ = 0L;
     stoppedAt_ = 0L;
   }
@@ -77,7 +77,7 @@ private static final long serialVersionUID = 0L;
           }
           case 24: {
 
-            maxPerShard_ = input.readUInt64();
+            workers_ = input.readUInt64();
             break;
           }
           case 32: {
@@ -144,13 +144,13 @@ private static final long serialVersionUID = 0L;
     return crowd_;
   }
 
-  public static final int MAXPERSHARD_FIELD_NUMBER = 3;
-  private long maxPerShard_;
+  public static final int WORKERS_FIELD_NUMBER = 3;
+  private long workers_;
   /**
-   * <code>uint64 maxPerShard = 3;</code>
+   * <code>uint64 workers = 3;</code>
    */
-  public long getMaxPerShard() {
-    return maxPerShard_;
+  public long getWorkers() {
+    return workers_;
   }
 
   public static final int STARTEDAT_FIELD_NUMBER = 4;
@@ -189,8 +189,8 @@ private static final long serialVersionUID = 0L;
     if (!crowd_.isEmpty()) {
       output.writeBytes(2, crowd_);
     }
-    if (maxPerShard_ != 0L) {
-      output.writeUInt64(3, maxPerShard_);
+    if (workers_ != 0L) {
+      output.writeUInt64(3, workers_);
     }
     if (startedAt_ != 0L) {
       output.writeInt64(4, startedAt_);
@@ -214,9 +214,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBytesSize(2, crowd_);
     }
-    if (maxPerShard_ != 0L) {
+    if (workers_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(3, maxPerShard_);
+        .computeUInt64Size(3, workers_);
     }
     if (startedAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
@@ -249,8 +249,8 @@ private static final long serialVersionUID = 0L;
     }
     result = result && getCrowd()
         .equals(other.getCrowd());
-    result = result && (getMaxPerShard()
-        == other.getMaxPerShard());
+    result = result && (getWorkers()
+        == other.getWorkers());
     result = result && (getStartedAt()
         == other.getStartedAt());
     result = result && (getStoppedAt()
@@ -272,9 +272,9 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + CROWD_FIELD_NUMBER;
     hash = (53 * hash) + getCrowd().hashCode();
-    hash = (37 * hash) + MAXPERSHARD_FIELD_NUMBER;
+    hash = (37 * hash) + WORKERS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getMaxPerShard());
+        getWorkers());
     hash = (37 * hash) + STARTEDAT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getStartedAt());
@@ -422,7 +422,7 @@ private static final long serialVersionUID = 0L;
       }
       crowd_ = com.google.protobuf.ByteString.EMPTY;
 
-      maxPerShard_ = 0L;
+      workers_ = 0L;
 
       startedAt_ = 0L;
 
@@ -456,7 +456,7 @@ private static final long serialVersionUID = 0L;
         result.snapshot_ = snapshotBuilder_.build();
       }
       result.crowd_ = crowd_;
-      result.maxPerShard_ = maxPerShard_;
+      result.workers_ = workers_;
       result.startedAt_ = startedAt_;
       result.stoppedAt_ = stoppedAt_;
       onBuilt();
@@ -506,8 +506,8 @@ private static final long serialVersionUID = 0L;
       if (other.getCrowd() != com.google.protobuf.ByteString.EMPTY) {
         setCrowd(other.getCrowd());
       }
-      if (other.getMaxPerShard() != 0L) {
-        setMaxPerShard(other.getMaxPerShard());
+      if (other.getWorkers() != 0L) {
+        setWorkers(other.getWorkers());
       }
       if (other.getStartedAt() != 0L) {
         setStartedAt(other.getStartedAt());
@@ -688,28 +688,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long maxPerShard_ ;
+    private long workers_ ;
     /**
-     * <code>uint64 maxPerShard = 3;</code>
+     * <code>uint64 workers = 3;</code>
      */
-    public long getMaxPerShard() {
-      return maxPerShard_;
+    public long getWorkers() {
+      return workers_;
     }
     /**
-     * <code>uint64 maxPerShard = 3;</code>
+     * <code>uint64 workers = 3;</code>
      */
-    public Builder setMaxPerShard(long value) {
+    public Builder setWorkers(long value) {
       
-      maxPerShard_ = value;
+      workers_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 maxPerShard = 3;</code>
+     * <code>uint64 workers = 3;</code>
      */
-    public Builder clearMaxPerShard() {
+    public Builder clearWorkers() {
       
-      maxPerShard_ = 0L;
+      workers_ = 0L;
       onChanged();
       return this;
     }

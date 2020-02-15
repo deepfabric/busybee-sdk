@@ -11,6 +11,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.roaringbitmap.RoaringBitmap;
 
@@ -103,6 +104,23 @@ public class Result {
         }
 
         throw new IllegalAccessError("the response is not bytes response");
+    }
+
+    /**
+     * byte array slice response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return byte string array
+     */
+    public List<byte[]> bytesListResponse() {
+        checkError();
+
+        if (resp.hasBytesSliceResp()) {
+            return resp.getBytesSliceResp().getItemsList().stream()
+                .map(e -> e.toByteArray())
+                .collect(Collectors.toList());
+        }
+
+        throw new IllegalAccessError("the response is not bytes slice response");
     }
 
     /**

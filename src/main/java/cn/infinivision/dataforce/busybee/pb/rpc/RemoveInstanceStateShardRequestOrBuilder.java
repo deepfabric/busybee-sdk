@@ -13,12 +13,7 @@ public interface RemoveInstanceStateShardRequestOrBuilder extends
   long getWorkflowID();
 
   /**
-   * <code>uint64 start = 2;</code>
+   * <code>uint32 index = 2;</code>
    */
-  long getStart();
-
-  /**
-   * <code>uint64 end = 3;</code>
-   */
-  long getEnd();
+  int getIndex();
 }

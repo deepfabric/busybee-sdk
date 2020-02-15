@@ -2,11 +2,11 @@ package cn.infinivision.dataforce.busybee;
 
 import cn.infinivision.dataforce.busybee.pb.meta.ConditionExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.DirectExecution;
-import cn.infinivision.dataforce.busybee.pb.meta.Event;
 import cn.infinivision.dataforce.busybee.pb.meta.ExectuionType;
 import cn.infinivision.dataforce.busybee.pb.meta.Execution;
 import cn.infinivision.dataforce.busybee.pb.meta.Expr;
 import cn.infinivision.dataforce.busybee.pb.meta.ExprResultType;
+import cn.infinivision.dataforce.busybee.pb.meta.Group;
 import cn.infinivision.dataforce.busybee.pb.meta.IDSet;
 import cn.infinivision.dataforce.busybee.pb.meta.IDValue;
 import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
@@ -14,6 +14,7 @@ import cn.infinivision.dataforce.busybee.pb.meta.KV;
 import cn.infinivision.dataforce.busybee.pb.meta.Notify;
 import cn.infinivision.dataforce.busybee.pb.meta.Step;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
+import cn.infinivision.dataforce.busybee.pb.meta.UserEvent;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
 import cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest;
@@ -35,6 +36,7 @@ import cn.infinivision.dataforce.busybee.pb.rpc.Request;
 import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.SetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest;
@@ -216,6 +218,18 @@ public class Client {
     }
 
     /**
+     * scanKeys scan keys in range [start,end)
+     *
+     * @param starInclude start key, include
+     * @param endExclude end key, exclude
+     * @param limit limit batch size
+     * @return Future Result, use {@link Result#bytesListResponse} to get bytes list response
+     */
+    public Future<Result> scanKeys(byte[] starInclude, byte[] endExclude, long limit) {
+        return scan(starInclude, endExclude, limit, 1, Group.DefaultGroup);
+    }
+
+    /**
      * update the id mappings
      *
      * @param tenantId tenant id
@@ -274,7 +288,7 @@ public class Client {
      * @param fromInclude start user id, include
      * @param toExclude end user id, exclude
      * @param limit limit batch size
-     * @return Future Result, use {@link Result#idSetListResponse} to get id set list response
+     * @return Future Result, use {@link Result#bytesListResponse} to get bytes list response
      */
     public Future<Result> scanIDMapping(long tenantId, long fromInclude, long toExclude, long limit) {
         return CompletableFuture.supplyAsync(() -> {
@@ -543,10 +557,10 @@ public class Client {
      *
      * @param wf workflow
      * @param bm crowd bitmap
-     * @param maxPerShard max users per shard
+     * @param workers number of workers to run this workflow
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> startInstance(Workflow wf, RoaringBitmap bm, long maxPerShard) {
+    public Future<Result> startInstance(Workflow wf, RoaringBitmap bm, long workers) {
         byte[] value = new byte[bm.serializedSizeInBytes()];
         bm.serialize(ByteBuffer.wrap(value));
 
@@ -556,7 +570,7 @@ public class Client {
                 .setType(Type.StartingInstance)
                 .setStartInstance(StartingInstanceRequest.newBuilder()
                     .setInstance(WorkflowInstance.newBuilder()
-                        .setMaxPerShard(maxPerShard)
+                        .setWorkers(workers)
                         .setSnapshot(wf)
                         .setCrowd(ByteString.copyFrom(value))
                         .build())
@@ -642,7 +656,7 @@ public class Client {
             throw new IllegalArgumentException("data length must pow of 2, but " + data.length);
         }
 
-        Event.Builder builder = Event.newBuilder()
+        UserEvent.Builder builder = UserEvent.newBuilder()
             .setTenantID(tenantId)
             .setUserID(userId);
 
@@ -694,6 +708,24 @@ public class Client {
         if (w != null) {
             w.stop();
         }
+    }
+
+    private Future<Result> scan(byte[] starInclude, byte[] endExclude, long limit, int skipValuePrefix, Group group) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.Scan)
+                .setScan(ScanRequest.newBuilder()
+                    .setStart(ByteString.copyFrom(starInclude))
+                    .setEnd(ByteString.copyFrom(endExclude))
+                    .setLimit(limit)
+                    .setSkip(skipValuePrefix)
+                    .setGroup(group)
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
     }
 
     private Result doRequest(Request req) {
@@ -782,9 +814,17 @@ public class Client {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().addServer("172.19.70.229:9091", "172.19.70.229:9092", "172.19.70.229:9093").build();
-        alloc(c);
+        Client c = new Builder().addServer("172.24.53.191:9091", "172.24.53.191:9092", "172.24.53.191:9093").build();
+        keys(c);
         System.exit(0);
+    }
+
+    public static void keys(Client c) throws ExecutionException, InterruptedException {
+        for (int i = 0; i < 10; i++) {
+            c.set(("key0" + i).getBytes(), ("value" + i).getBytes()).get().checkError();
+        }
+
+        System.out.println(c.scanKeys("key0".getBytes(), "key1".getBytes(), 10).get().bytesListResponse());
     }
 
     public static void alloc(Client c) throws ExecutionException, InterruptedException {

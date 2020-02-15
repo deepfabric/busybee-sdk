@@ -5,40 +5,32 @@ package cn.infinivision.dataforce.busybee.pb.meta;
 
 /**
  * <pre>
- * Group shard group
+ * EventType tenant input event type
  * </pre>
  *
- * Protobuf enum {@code metapb.Group}
+ * Protobuf enum {@code metapb.EventType}
  */
-public enum Group
+public enum EventType
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
-   * <code>DefaultGroup = 0;</code>
+   * <code>UserType = 0;</code>
    */
-  DefaultGroup(0),
+  UserType(0),
   /**
-   * <code>TenantInputGroup = 1;</code>
+   * <code>UpdateCrowdType = 1;</code>
    */
-  TenantInputGroup(1),
-  /**
-   * <code>TenantOutputGroup = 2;</code>
-   */
-  TenantOutputGroup(2),
+  UpdateCrowdType(1),
   UNRECOGNIZED(-1),
   ;
 
   /**
-   * <code>DefaultGroup = 0;</code>
+   * <code>UserType = 0;</code>
    */
-  public static final int DefaultGroup_VALUE = 0;
+  public static final int UserType_VALUE = 0;
   /**
-   * <code>TenantInputGroup = 1;</code>
+   * <code>UpdateCrowdType = 1;</code>
    */
-  public static final int TenantInputGroup_VALUE = 1;
-  /**
-   * <code>TenantOutputGroup = 2;</code>
-   */
-  public static final int TenantOutputGroup_VALUE = 2;
+  public static final int UpdateCrowdType_VALUE = 1;
 
 
   public final int getNumber() {
@@ -53,28 +45,27 @@ public enum Group
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
-  public static Group valueOf(int value) {
+  public static EventType valueOf(int value) {
     return forNumber(value);
   }
 
-  public static Group forNumber(int value) {
+  public static EventType forNumber(int value) {
     switch (value) {
-      case 0: return DefaultGroup;
-      case 1: return TenantInputGroup;
-      case 2: return TenantOutputGroup;
+      case 0: return UserType;
+      case 1: return UpdateCrowdType;
       default: return null;
     }
   }
 
-  public static com.google.protobuf.Internal.EnumLiteMap<Group>
+  public static com.google.protobuf.Internal.EnumLiteMap<EventType>
       internalGetValueMap() {
     return internalValueMap;
   }
   private static final com.google.protobuf.Internal.EnumLiteMap<
-      Group> internalValueMap =
-        new com.google.protobuf.Internal.EnumLiteMap<Group>() {
-          public Group findValueByNumber(int number) {
-            return Group.forNumber(number);
+      EventType> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<EventType>() {
+          public EventType findValueByNumber(int number) {
+            return EventType.forNumber(number);
           }
         };
 
@@ -88,12 +79,12 @@ public enum Group
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(1);
+    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(0);
   }
 
-  private static final Group[] VALUES = values();
+  private static final EventType[] VALUES = values();
 
-  public static Group valueOf(
+  public static EventType valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
       throw new java.lang.IllegalArgumentException(
@@ -107,10 +98,10 @@ public enum Group
 
   private final int value;
 
-  private Group(int value) {
+  private EventType(int value) {
     this.value = value;
   }
 
-  // @@protoc_insertion_point(enum_scope:metapb.Group)
+  // @@protoc_insertion_point(enum_scope:metapb.EventType)
 }
 
