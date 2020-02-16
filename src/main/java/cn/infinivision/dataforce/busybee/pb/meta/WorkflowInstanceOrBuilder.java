@@ -39,4 +39,9 @@ public interface WorkflowInstanceOrBuilder extends
    * <code>int64 stoppedAt = 5;</code>
    */
   long getStoppedAt();
+
+  /**
+   * <code>uint64 version = 6;</code>
+   */
+  long getVersion();
 }

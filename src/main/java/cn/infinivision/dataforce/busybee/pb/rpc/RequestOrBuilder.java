@@ -191,171 +191,197 @@ public interface RequestOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequestOrBuilder getStartInstanceOrBuilder();
 
   /**
-   * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
+   * <code>.rpcpb.UpdateCrowdRequest updateCrowd = 16;</code>
+   */
+  boolean hasUpdateCrowd();
+  /**
+   * <code>.rpcpb.UpdateCrowdRequest updateCrowd = 16;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest getUpdateCrowd();
+  /**
+   * <code>.rpcpb.UpdateCrowdRequest updateCrowd = 16;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequestOrBuilder getUpdateCrowdOrBuilder();
+
+  /**
+   * <code>.rpcpb.UpdateWorkflowRequest updateWorkflow = 17;</code>
+   */
+  boolean hasUpdateWorkflow();
+  /**
+   * <code>.rpcpb.UpdateWorkflowRequest updateWorkflow = 17;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.UpdateWorkflowRequest getUpdateWorkflow();
+  /**
+   * <code>.rpcpb.UpdateWorkflowRequest updateWorkflow = 17;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.UpdateWorkflowRequestOrBuilder getUpdateWorkflowOrBuilder();
+
+  /**
+   * <code>.rpcpb.StopInstanceRequest stopInstance = 18;</code>
    */
   boolean hasStopInstance();
   /**
-   * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
+   * <code>.rpcpb.StopInstanceRequest stopInstance = 18;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest getStopInstance();
   /**
-   * <code>.rpcpb.StopInstanceRequest stopInstance = 16;</code>
+   * <code>.rpcpb.StopInstanceRequest stopInstance = 18;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequestOrBuilder getStopInstanceOrBuilder();
 
   /**
-   * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
+   * <code>.rpcpb.InstanceCountStateRequest countInstance = 19;</code>
    */
   boolean hasCountInstance();
   /**
-   * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
+   * <code>.rpcpb.InstanceCountStateRequest countInstance = 19;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest getCountInstance();
   /**
-   * <code>.rpcpb.InstanceCountStateRequest countInstance = 17;</code>
+   * <code>.rpcpb.InstanceCountStateRequest countInstance = 19;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequestOrBuilder getCountInstanceOrBuilder();
 
   /**
-   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
+   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 20;</code>
    */
   boolean hasCrowdInstance();
   /**
-   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
+   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 20;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest getCrowdInstance();
   /**
-   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 18;</code>
+   * <code>.rpcpb.InstanceCrowdStateRequest crowdInstance = 20;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequestOrBuilder getCrowdInstanceOrBuilder();
 
   /**
-   * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
+   * <code>.rpcpb.UpdateMappingRequest updateMapping = 21;</code>
    */
   boolean hasUpdateMapping();
   /**
-   * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
+   * <code>.rpcpb.UpdateMappingRequest updateMapping = 21;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest getUpdateMapping();
   /**
-   * <code>.rpcpb.UpdateMappingRequest updateMapping = 19;</code>
+   * <code>.rpcpb.UpdateMappingRequest updateMapping = 21;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequestOrBuilder getUpdateMappingOrBuilder();
 
   /**
-   * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
+   * <code>.rpcpb.GetMappingRequest getMapping = 22;</code>
    */
   boolean hasGetMapping();
   /**
-   * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
+   * <code>.rpcpb.GetMappingRequest getMapping = 22;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest getGetMapping();
   /**
-   * <code>.rpcpb.GetMappingRequest getMapping = 20;</code>
+   * <code>.rpcpb.GetMappingRequest getMapping = 22;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequestOrBuilder getGetMappingOrBuilder();
 
   /**
-   * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
+   * <code>.rpcpb.UpdateProfileRequest updateProfile = 23;</code>
    */
   boolean hasUpdateProfile();
   /**
-   * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
+   * <code>.rpcpb.UpdateProfileRequest updateProfile = 23;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest getUpdateProfile();
   /**
-   * <code>.rpcpb.UpdateProfileRequest updateProfile = 21;</code>
+   * <code>.rpcpb.UpdateProfileRequest updateProfile = 23;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequestOrBuilder getUpdateProfileOrBuilder();
 
   /**
-   * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
+   * <code>.rpcpb.GetProfileRequest getProfile = 24;</code>
    */
   boolean hasGetProfile();
   /**
-   * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
+   * <code>.rpcpb.GetProfileRequest getProfile = 24;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest getGetProfile();
   /**
-   * <code>.rpcpb.GetProfileRequest getProfile = 22;</code>
+   * <code>.rpcpb.GetProfileRequest getProfile = 24;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequestOrBuilder getGetProfileOrBuilder();
 
   /**
-   * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
+   * <code>.rpcpb.AddEventRequest addEvent = 25;</code>
    */
   boolean hasAddEvent();
   /**
-   * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
+   * <code>.rpcpb.AddEventRequest addEvent = 25;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest getAddEvent();
   /**
-   * <code>.rpcpb.AddEventRequest addEvent = 23;</code>
+   * <code>.rpcpb.AddEventRequest addEvent = 25;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequestOrBuilder getAddEventOrBuilder();
 
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
+   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 26;</code>
    */
   boolean hasFetchNotify();
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
+   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 26;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest getFetchNotify();
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 24;</code>
+   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 26;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder getFetchNotifyOrBuilder();
 
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 27;</code>
    */
   boolean hasAllocID();
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 27;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID();
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 25;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 27;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder();
 
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 28;</code>
    */
   boolean hasResetID();
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 28;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID();
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 26;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 28;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder();
 
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 29;</code>
    */
   boolean hasScanMapping();
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 29;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping();
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 27;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 29;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder();
 
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 30;</code>
    */
   boolean hasGetIDSet();
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 30;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet();
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 28;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 30;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder();
 }

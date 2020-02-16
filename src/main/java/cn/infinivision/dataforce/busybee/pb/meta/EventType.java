@@ -20,6 +20,10 @@ public enum EventType
    * <code>UpdateCrowdType = 1;</code>
    */
   UpdateCrowdType(1),
+  /**
+   * <code>UpdateWorkflowType = 2;</code>
+   */
+  UpdateWorkflowType(2),
   UNRECOGNIZED(-1),
   ;
 
@@ -31,6 +35,10 @@ public enum EventType
    * <code>UpdateCrowdType = 1;</code>
    */
   public static final int UpdateCrowdType_VALUE = 1;
+  /**
+   * <code>UpdateWorkflowType = 2;</code>
+   */
+  public static final int UpdateWorkflowType_VALUE = 2;
 
 
   public final int getNumber() {
@@ -53,6 +61,7 @@ public enum EventType
     switch (value) {
       case 0: return UserType;
       case 1: return UpdateCrowdType;
+      case 2: return UpdateWorkflowType;
       default: return null;
     }
   }

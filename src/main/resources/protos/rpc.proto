@@ -25,13 +25,16 @@ enum Type {
     BMRange       = 106;
 
     StartingInstance         = 200;
-    StartedInstance          = 201;
-    StopInstance             = 202;
-    CreateInstanceStateShard = 203;
-    UpdateInstanceStateShard = 204;
-    RemoveInstanceStateShard = 205;
-    InstanceCountState       = 206;
-    InstanceCrowdState       = 207;
+    UpdateWorkflow           = 201;
+    UpdateCrowd              = 202;
+    UpdateInstance           = 203;
+    StartedInstance          = 204;
+    StopInstance             = 205;
+    CreateInstanceStateShard = 206;
+    UpdateInstanceStateShard = 207;
+    RemoveInstanceStateShard = 208;
+    InstanceCountState       = 209;
+    InstanceCrowdState       = 210;
 
     QueueAdd      = 300;
     QueueFetch    = 301;
@@ -78,35 +81,36 @@ message Notify {
 
 // Request the busybee request
 message Request {
-    uint64                    id            = 1;
-    Type                      type          = 2;
-    SetRequest                set           = 3;
-    GetRequest                get           = 4;
-    DeleteRequest             delete        = 5;
-    ScanRequest               scan          = 6;
-    BMCreateRequest           bmCreate      = 7;
-    BMAddRequest              bmAdd         = 8;
-    BMRemoveRequest           bmRemove      = 9;
-    BMClearRequest            bmClear       = 10;
-    BMRangeRequest            bmRange       = 11;
-    BMCountRequest            bmCount       = 12;
-    BMContainsRequest         bmContains    = 13;
-    TenantInitRequest         tenantInit    = 14;
-    StartingInstanceRequest   startInstance = 15;
-    StopInstanceRequest       stopInstance  = 16;
-    InstanceCountStateRequest countInstance = 17;
-    InstanceCrowdStateRequest crowdInstance = 18;
-    UpdateMappingRequest      updateMapping = 19;
-    GetMappingRequest         getMapping    = 20;
-    UpdateProfileRequest      updateProfile = 21;
-    GetProfileRequest         getProfile    = 22;
-    AddEventRequest           addEvent      = 23;
-    FetchNotifyRequest        fetchNotify   = 24;
-    AllocIDRequest            allocID       = 25;
-    ResetIDRequest            resetID       = 26;
-    ScanMappingRequest        scanMapping   = 27;
-    GetIDSetRequest           getIDSet      = 28;
-
+    uint64                     id             = 1;
+    Type                       type           = 2;
+    SetRequest                 set            = 3;
+    GetRequest                 get            = 4;
+    DeleteRequest              delete         = 5;
+    ScanRequest                scan           = 6;
+    BMCreateRequest            bmCreate       = 7;
+    BMAddRequest               bmAdd          = 8;
+    BMRemoveRequest            bmRemove       = 9;
+    BMClearRequest             bmClear        = 10;
+    BMRangeRequest             bmRange        = 11;
+    BMCountRequest             bmCount        = 12;
+    BMContainsRequest          bmContains     = 13;
+    TenantInitRequest          tenantInit     = 14;
+    StartingInstanceRequest    startInstance  = 15;
+    UpdateCrowdRequest         updateCrowd    = 16;
+    UpdateWorkflowRequest      updateWorkflow = 17;
+    StopInstanceRequest        stopInstance   = 18;
+    InstanceCountStateRequest  countInstance  = 19;
+    InstanceCrowdStateRequest  crowdInstance  = 20;
+    UpdateMappingRequest       updateMapping  = 21;
+    GetMappingRequest          getMapping     = 22;
+    UpdateProfileRequest       updateProfile  = 23;
+    GetProfileRequest          getProfile     = 24;
+    AddEventRequest            addEvent       = 25;
+    FetchNotifyRequest         fetchNotify    = 26;
+    AllocIDRequest             allocID        = 27;
+    ResetIDRequest             resetID        = 28;
+    ScanMappingRequest         scanMapping    = 29;
+    GetIDSetRequest            getIDSet       = 30;
 }
 
 // Response the busybee response
@@ -181,9 +185,25 @@ message BMRangeRequest {
     uint64          limit = 3;
 }
 
-// StartingInstanceRequest start a workflow
+// StartingInstanceRequest start a workflow instance
 message StartingInstanceRequest {
     metapb.WorkflowInstance instance  = 1;
+}
+
+// UpdateInstanceRequest update a workflow
+message UpdateInstanceRequest {
+    metapb.WorkflowInstance instance  = 1;
+}
+
+// UpdateCrowdRequest update crowd request
+message UpdateCrowdRequest {
+    uint64 id    = 1;
+    bytes  crowd = 2;
+}
+
+// UpdateWorkflowRequest update instance request
+message  UpdateWorkflowRequest {
+    metapb.Workflow workflow  = 1;
 }
 
 // StartedInstanceRequest remove a workflow

@@ -8,16 +8,18 @@ option objc_class_prefix = "HLW";
 
 // EventType tenant input event type
 enum EventType {
-    UserType        = 0;
-    UpdateCrowdType = 1;
+    UserType           = 0;
+    UpdateCrowdType    = 1;
+    UpdateWorkflowType = 2;
 }
 
 
 // Event tenant event
 message Event {
-    EventType         type         = 1;
-    UserEvent         user         = 2;
-    UpdateCrowdEvent  updateCrowd  = 3;
+    EventType           type           = 1;
+    UserEvent           user           = 2;
+    UpdateCrowdEvent    updateCrowd    = 3;
+    UpdateWorkflowEvent updateWorkflow = 4;
 }
 
 // UpdateCrowdEvent update crowd event
@@ -26,6 +28,12 @@ message UpdateCrowdEvent {
     uint32 index      = 2;
     bytes  crowd      = 3;
 }
+
+// UpdateWorkflowEvent update crowd event
+message UpdateWorkflowEvent {
+    metapb.Workflow workflow = 1;
+}
+
 
 // UserEvent is process definition
 message UserEvent {
@@ -87,6 +95,7 @@ message WorkflowInstance {
     uint64   workers     = 3;
     int64    startedAt   = 4;
     int64    stoppedAt   = 5;
+    uint64   version     = 6;
 }
 
 // WorkflowInstanceState workflow instance state, uid in [start,end). instance : instanceState = 1 : N

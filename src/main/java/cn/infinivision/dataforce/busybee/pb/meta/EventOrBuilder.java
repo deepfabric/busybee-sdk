@@ -41,4 +41,17 @@ public interface EventOrBuilder extends
    * <code>.metapb.UpdateCrowdEvent updateCrowd = 3;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.UpdateCrowdEventOrBuilder getUpdateCrowdOrBuilder();
+
+  /**
+   * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+   */
+  boolean hasUpdateWorkflow();
+  /**
+   * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent getUpdateWorkflow();
+  /**
+   * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEventOrBuilder getUpdateWorkflowOrBuilder();
 }

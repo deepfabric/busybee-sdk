@@ -42,8 +42,10 @@ import cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Type;
+import cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.UpdateWorkflowRequest;
 import com.google.protobuf.ByteString;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -582,6 +584,51 @@ public class Client {
     }
 
     /**
+     * update the workflow definition
+     *
+     * @param wf workflow definition
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> updateWorkflow(Workflow wf) {
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.UpdateWorkflow)
+                .setUpdateWorkflow(UpdateWorkflowRequest.newBuilder()
+                    .setWorkflow(wf)
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
+    }
+
+    /**
+     * update the workflow crowd
+     *
+     * @param workflowId workflow id
+     * @param bm crowd bitmap
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> updateWorkflowCrowd(long workflowId, RoaringBitmap bm) {
+        byte[] value = new byte[bm.serializedSizeInBytes()];
+        bm.serialize(ByteBuffer.wrap(value));
+
+        return CompletableFuture.supplyAsync(() -> {
+            Request req = Request.newBuilder()
+                .setId(id.incrementAndGet())
+                .setType(Type.UpdateCrowd)
+                .setUpdateCrowd(UpdateCrowdRequest.newBuilder()
+                    .setId(workflowId)
+                    .setCrowd(ByteString.copyFrom(value))
+                    .build())
+                .build();
+
+            return doRequest(req);
+        });
+    }
+
+    /**
      * stop the workflow
      *
      * @param workflowId workflow id
@@ -815,7 +862,7 @@ public class Client {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         Client c = new Builder().addServer("172.24.53.191:9091", "172.24.53.191:9092", "172.24.53.191:9093").build();
-        keys(c);
+        workflow(c);
         System.exit(0);
     }
 
@@ -877,6 +924,18 @@ public class Client {
                             .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
                             .build())
                         .setNextStep("step_end_2"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
+                            .build())
+                        .setNextStep("step_end_3"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
+                            .build())
+                        .setNextStep("step_end_4"))
                     .build())
                 .build())
             .addSteps(Step.newBuilder()
@@ -891,15 +950,82 @@ public class Client {
                     .setType(ExectuionType.Direct)
                     .setDirect(DirectExecution.newBuilder().build())
                     .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_3")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_4")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
             .build();
-        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3), 100).get().checkError();
+        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3), 4).get().checkError();
         c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
         c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
+        c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
 
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         System.out.println(c.countState(1000).get().countStateResponse());
-        System.out.println(c.stepCrowdState(1000, "step-0").get().stepCrowdStateResponse());
-        System.out.println(c.stepCrowdState(1000, "step_end_2").get().stepCrowdStateResponse());
-        System.out.println(c.stepCrowdState(1000, "step_end_1").get().stepCrowdStateResponse());
+
+        c.updateWorkflowCrowd(1000, RoaringBitmap.bitmapOf(1, 2, 3, 4)).get().checkError();
+        Thread.sleep(2000);
+        c.addEvent(1, 4, "uid".getBytes(), "4".getBytes()).get().checkError();
+        Thread.sleep(2000);
+        System.out.println(c.countState(1000).get().countStateResponse());
+
+        c.updateWorkflow(Workflow.newBuilder()
+            .setId(1000)
+            .setName("test")
+            .setTenantID(1)
+            .addSteps(Step.newBuilder()
+                .setName("step-0")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Branch)
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
+                            .build())
+                        .setNextStep("step_end_1"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
+                            .build())
+                        .setNextStep("step_end_2"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
+                            .build())
+                        .setNextStep("step_end_3"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
+                            .build())
+                        .setNextStep("step_end_4"))
+                    .build())
+                .build())
+            .addSteps(Step.newBuilder()
+                .setName("step_end_1")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_4")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .build()).get().checkError();
+
+        Thread.sleep(2000);
+        System.out.println(c.countState(1000).get().countStateResponse());
     }
 }

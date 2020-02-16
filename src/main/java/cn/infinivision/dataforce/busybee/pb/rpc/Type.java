@@ -57,33 +57,45 @@ public enum Type
    */
   StartingInstance(200),
   /**
-   * <code>StartedInstance = 201;</code>
+   * <code>UpdateWorkflow = 201;</code>
    */
-  StartedInstance(201),
+  UpdateWorkflow(201),
   /**
-   * <code>StopInstance = 202;</code>
+   * <code>UpdateCrowd = 202;</code>
    */
-  StopInstance(202),
+  UpdateCrowd(202),
   /**
-   * <code>CreateInstanceStateShard = 203;</code>
+   * <code>UpdateInstance = 203;</code>
    */
-  CreateInstanceStateShard(203),
+  UpdateInstance(203),
   /**
-   * <code>UpdateInstanceStateShard = 204;</code>
+   * <code>StartedInstance = 204;</code>
    */
-  UpdateInstanceStateShard(204),
+  StartedInstance(204),
   /**
-   * <code>RemoveInstanceStateShard = 205;</code>
+   * <code>StopInstance = 205;</code>
    */
-  RemoveInstanceStateShard(205),
+  StopInstance(205),
   /**
-   * <code>InstanceCountState = 206;</code>
+   * <code>CreateInstanceStateShard = 206;</code>
    */
-  InstanceCountState(206),
+  CreateInstanceStateShard(206),
   /**
-   * <code>InstanceCrowdState = 207;</code>
+   * <code>UpdateInstanceStateShard = 207;</code>
    */
-  InstanceCrowdState(207),
+  UpdateInstanceStateShard(207),
+  /**
+   * <code>RemoveInstanceStateShard = 208;</code>
+   */
+  RemoveInstanceStateShard(208),
+  /**
+   * <code>InstanceCountState = 209;</code>
+   */
+  InstanceCountState(209),
+  /**
+   * <code>InstanceCrowdState = 210;</code>
+   */
+  InstanceCrowdState(210),
   /**
    * <code>QueueAdd = 300;</code>
    */
@@ -188,33 +200,45 @@ public enum Type
    */
   public static final int StartingInstance_VALUE = 200;
   /**
-   * <code>StartedInstance = 201;</code>
+   * <code>UpdateWorkflow = 201;</code>
    */
-  public static final int StartedInstance_VALUE = 201;
+  public static final int UpdateWorkflow_VALUE = 201;
   /**
-   * <code>StopInstance = 202;</code>
+   * <code>UpdateCrowd = 202;</code>
    */
-  public static final int StopInstance_VALUE = 202;
+  public static final int UpdateCrowd_VALUE = 202;
   /**
-   * <code>CreateInstanceStateShard = 203;</code>
+   * <code>UpdateInstance = 203;</code>
    */
-  public static final int CreateInstanceStateShard_VALUE = 203;
+  public static final int UpdateInstance_VALUE = 203;
   /**
-   * <code>UpdateInstanceStateShard = 204;</code>
+   * <code>StartedInstance = 204;</code>
    */
-  public static final int UpdateInstanceStateShard_VALUE = 204;
+  public static final int StartedInstance_VALUE = 204;
   /**
-   * <code>RemoveInstanceStateShard = 205;</code>
+   * <code>StopInstance = 205;</code>
    */
-  public static final int RemoveInstanceStateShard_VALUE = 205;
+  public static final int StopInstance_VALUE = 205;
   /**
-   * <code>InstanceCountState = 206;</code>
+   * <code>CreateInstanceStateShard = 206;</code>
    */
-  public static final int InstanceCountState_VALUE = 206;
+  public static final int CreateInstanceStateShard_VALUE = 206;
   /**
-   * <code>InstanceCrowdState = 207;</code>
+   * <code>UpdateInstanceStateShard = 207;</code>
    */
-  public static final int InstanceCrowdState_VALUE = 207;
+  public static final int UpdateInstanceStateShard_VALUE = 207;
+  /**
+   * <code>RemoveInstanceStateShard = 208;</code>
+   */
+  public static final int RemoveInstanceStateShard_VALUE = 208;
+  /**
+   * <code>InstanceCountState = 209;</code>
+   */
+  public static final int InstanceCountState_VALUE = 209;
+  /**
+   * <code>InstanceCrowdState = 210;</code>
+   */
+  public static final int InstanceCrowdState_VALUE = 210;
   /**
    * <code>QueueAdd = 300;</code>
    */
@@ -299,13 +323,16 @@ public enum Type
       case 105: return BMCount;
       case 106: return BMRange;
       case 200: return StartingInstance;
-      case 201: return StartedInstance;
-      case 202: return StopInstance;
-      case 203: return CreateInstanceStateShard;
-      case 204: return UpdateInstanceStateShard;
-      case 205: return RemoveInstanceStateShard;
-      case 206: return InstanceCountState;
-      case 207: return InstanceCrowdState;
+      case 201: return UpdateWorkflow;
+      case 202: return UpdateCrowd;
+      case 203: return UpdateInstance;
+      case 204: return StartedInstance;
+      case 205: return StopInstance;
+      case 206: return CreateInstanceStateShard;
+      case 207: return UpdateInstanceStateShard;
+      case 208: return RemoveInstanceStateShard;
+      case 209: return InstanceCountState;
+      case 210: return InstanceCrowdState;
       case 300: return QueueAdd;
       case 301: return QueueFetch;
       case 400: return TenantInit;

@@ -86,6 +86,19 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.Builder subBuilder = null;
+            if (updateWorkflow_ != null) {
+              subBuilder = updateWorkflow_.toBuilder();
+            }
+            updateWorkflow_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(updateWorkflow_);
+              updateWorkflow_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -168,6 +181,27 @@ private static final long serialVersionUID = 0L;
     return getUpdateCrowd();
   }
 
+  public static final int UPDATEWORKFLOW_FIELD_NUMBER = 4;
+  private cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent updateWorkflow_;
+  /**
+   * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+   */
+  public boolean hasUpdateWorkflow() {
+    return updateWorkflow_ != null;
+  }
+  /**
+   * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent getUpdateWorkflow() {
+    return updateWorkflow_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.getDefaultInstance() : updateWorkflow_;
+  }
+  /**
+   * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEventOrBuilder getUpdateWorkflowOrBuilder() {
+    return getUpdateWorkflow();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -189,6 +223,9 @@ private static final long serialVersionUID = 0L;
     if (updateCrowd_ != null) {
       output.writeMessage(3, getUpdateCrowd());
     }
+    if (updateWorkflow_ != null) {
+      output.writeMessage(4, getUpdateWorkflow());
+    }
     unknownFields.writeTo(output);
   }
 
@@ -208,6 +245,10 @@ private static final long serialVersionUID = 0L;
     if (updateCrowd_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getUpdateCrowd());
+    }
+    if (updateWorkflow_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getUpdateWorkflow());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -236,6 +277,11 @@ private static final long serialVersionUID = 0L;
       result = result && getUpdateCrowd()
           .equals(other.getUpdateCrowd());
     }
+    result = result && (hasUpdateWorkflow() == other.hasUpdateWorkflow());
+    if (hasUpdateWorkflow()) {
+      result = result && getUpdateWorkflow()
+          .equals(other.getUpdateWorkflow());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -256,6 +302,10 @@ private static final long serialVersionUID = 0L;
     if (hasUpdateCrowd()) {
       hash = (37 * hash) + UPDATECROWD_FIELD_NUMBER;
       hash = (53 * hash) + getUpdateCrowd().hashCode();
+    }
+    if (hasUpdateWorkflow()) {
+      hash = (37 * hash) + UPDATEWORKFLOW_FIELD_NUMBER;
+      hash = (53 * hash) + getUpdateWorkflow().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -404,6 +454,12 @@ private static final long serialVersionUID = 0L;
         updateCrowd_ = null;
         updateCrowdBuilder_ = null;
       }
+      if (updateWorkflowBuilder_ == null) {
+        updateWorkflow_ = null;
+      } else {
+        updateWorkflow_ = null;
+        updateWorkflowBuilder_ = null;
+      }
       return this;
     }
 
@@ -436,6 +492,11 @@ private static final long serialVersionUID = 0L;
         result.updateCrowd_ = updateCrowd_;
       } else {
         result.updateCrowd_ = updateCrowdBuilder_.build();
+      }
+      if (updateWorkflowBuilder_ == null) {
+        result.updateWorkflow_ = updateWorkflow_;
+      } else {
+        result.updateWorkflow_ = updateWorkflowBuilder_.build();
       }
       onBuilt();
       return result;
@@ -486,6 +547,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasUpdateCrowd()) {
         mergeUpdateCrowd(other.getUpdateCrowd());
+      }
+      if (other.hasUpdateWorkflow()) {
+        mergeUpdateWorkflow(other.getUpdateWorkflow());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -790,6 +854,123 @@ private static final long serialVersionUID = 0L;
         updateCrowd_ = null;
       }
       return updateCrowdBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent updateWorkflow_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent, cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEventOrBuilder> updateWorkflowBuilder_;
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public boolean hasUpdateWorkflow() {
+      return updateWorkflowBuilder_ != null || updateWorkflow_ != null;
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent getUpdateWorkflow() {
+      if (updateWorkflowBuilder_ == null) {
+        return updateWorkflow_ == null ? cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.getDefaultInstance() : updateWorkflow_;
+      } else {
+        return updateWorkflowBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public Builder setUpdateWorkflow(cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent value) {
+      if (updateWorkflowBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        updateWorkflow_ = value;
+        onChanged();
+      } else {
+        updateWorkflowBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public Builder setUpdateWorkflow(
+        cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.Builder builderForValue) {
+      if (updateWorkflowBuilder_ == null) {
+        updateWorkflow_ = builderForValue.build();
+        onChanged();
+      } else {
+        updateWorkflowBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public Builder mergeUpdateWorkflow(cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent value) {
+      if (updateWorkflowBuilder_ == null) {
+        if (updateWorkflow_ != null) {
+          updateWorkflow_ =
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.newBuilder(updateWorkflow_).mergeFrom(value).buildPartial();
+        } else {
+          updateWorkflow_ = value;
+        }
+        onChanged();
+      } else {
+        updateWorkflowBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public Builder clearUpdateWorkflow() {
+      if (updateWorkflowBuilder_ == null) {
+        updateWorkflow_ = null;
+        onChanged();
+      } else {
+        updateWorkflow_ = null;
+        updateWorkflowBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.Builder getUpdateWorkflowBuilder() {
+      
+      onChanged();
+      return getUpdateWorkflowFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEventOrBuilder getUpdateWorkflowOrBuilder() {
+      if (updateWorkflowBuilder_ != null) {
+        return updateWorkflowBuilder_.getMessageOrBuilder();
+      } else {
+        return updateWorkflow_ == null ?
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.getDefaultInstance() : updateWorkflow_;
+      }
+    }
+    /**
+     * <code>.metapb.UpdateWorkflowEvent updateWorkflow = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent, cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEventOrBuilder> 
+        getUpdateWorkflowFieldBuilder() {
+      if (updateWorkflowBuilder_ == null) {
+        updateWorkflowBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent, cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEvent.Builder, cn.infinivision.dataforce.busybee.pb.meta.UpdateWorkflowEventOrBuilder>(
+                getUpdateWorkflow(),
+                getParentForChildren(),
+                isClean());
+        updateWorkflow_ = null;
+      }
+      return updateWorkflowBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

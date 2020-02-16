@@ -5,21 +5,21 @@ package cn.infinivision.dataforce.busybee.pb.rpc;
 
 /**
  * <pre>
- * StartingInstanceRequest start a workflow instance
+ * UpdateInstanceRequest update a workflow
  * </pre>
  *
- * Protobuf type {@code rpcpb.StartingInstanceRequest}
+ * Protobuf type {@code rpcpb.UpdateInstanceRequest}
  */
-public  final class StartingInstanceRequest extends
+public  final class UpdateInstanceRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rpcpb.StartingInstanceRequest)
-    StartingInstanceRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:rpcpb.UpdateInstanceRequest)
+    UpdateInstanceRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use StartingInstanceRequest.newBuilder() to construct.
-  private StartingInstanceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use UpdateInstanceRequest.newBuilder() to construct.
+  private UpdateInstanceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private StartingInstanceRequest() {
+  private UpdateInstanceRequest() {
   }
 
   @java.lang.Override
@@ -27,7 +27,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private StartingInstanceRequest(
+  private UpdateInstanceRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -80,14 +80,14 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_StartingInstanceRequest_descriptor;
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateInstanceRequest_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_StartingInstanceRequest_fieldAccessorTable
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateInstanceRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder.class);
+            cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.Builder.class);
   }
 
   public static final int INSTANCE_FIELD_NUMBER = 1;
@@ -148,10 +148,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest)) {
+    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest)) {
       return super.equals(obj);
     }
-    cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest) obj;
+    cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest) obj;
 
     boolean result = true;
     result = result && (hasInstance() == other.hasInstance());
@@ -179,69 +179,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(byte[] data)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseDelimitedFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseDelimitedFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -253,7 +253,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest prototype) {
+  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -269,28 +269,28 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * StartingInstanceRequest start a workflow instance
+   * UpdateInstanceRequest update a workflow
    * </pre>
    *
-   * Protobuf type {@code rpcpb.StartingInstanceRequest}
+   * Protobuf type {@code rpcpb.UpdateInstanceRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rpcpb.StartingInstanceRequest)
-      cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rpcpb.UpdateInstanceRequest)
+      cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_StartingInstanceRequest_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateInstanceRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_StartingInstanceRequest_fieldAccessorTable
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateInstanceRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.Builder.class);
+              cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.Builder.class);
     }
 
-    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.newBuilder()
+    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -318,23 +318,23 @@ private static final long serialVersionUID = 0L;
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_StartingInstanceRequest_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateInstanceRequest_descriptor;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest getDefaultInstanceForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.getDefaultInstance();
+    public cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest getDefaultInstanceForType() {
+      return cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.getDefaultInstance();
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest build() {
-      cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest result = buildPartial();
+    public cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest build() {
+      cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest buildPartial() {
-      cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest(this);
+    public cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest buildPartial() {
+      cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest(this);
       if (instanceBuilder_ == null) {
         result.instance_ = instance_;
       } else {
@@ -371,16 +371,16 @@ private static final long serialVersionUID = 0L;
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest) {
-        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest)other);
+      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest) {
+        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest other) {
-      if (other == cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest other) {
+      if (other == cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest.getDefaultInstance()) return this;
       if (other.hasInstance()) {
         mergeInstance(other.getInstance());
       }
@@ -397,11 +397,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest parsedMessage = null;
+      cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest) e.getUnfinishedMessage();
+        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -538,39 +538,39 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rpcpb.StartingInstanceRequest)
+    // @@protoc_insertion_point(builder_scope:rpcpb.UpdateInstanceRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:rpcpb.StartingInstanceRequest)
-  private static final cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rpcpb.UpdateInstanceRequest)
+  private static final cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest();
+    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest();
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest getDefaultInstance() {
+  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<StartingInstanceRequest>
-      PARSER = new com.google.protobuf.AbstractParser<StartingInstanceRequest>() {
-    public StartingInstanceRequest parsePartialFrom(
+  private static final com.google.protobuf.Parser<UpdateInstanceRequest>
+      PARSER = new com.google.protobuf.AbstractParser<UpdateInstanceRequest>() {
+    public UpdateInstanceRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new StartingInstanceRequest(input, extensionRegistry);
+      return new UpdateInstanceRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<StartingInstanceRequest> parser() {
+  public static com.google.protobuf.Parser<UpdateInstanceRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<StartingInstanceRequest> getParserForType() {
+  public com.google.protobuf.Parser<UpdateInstanceRequest> getParserForType() {
     return PARSER;
   }
 
-  public cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest getDefaultInstanceForType() {
+  public cn.infinivision.dataforce.busybee.pb.rpc.UpdateInstanceRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

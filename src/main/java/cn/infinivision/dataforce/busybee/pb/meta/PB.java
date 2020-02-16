@@ -25,6 +25,11 @@ public final class PB {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_metapb_UpdateCrowdEvent_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_metapb_UpdateWorkflowEvent_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_metapb_UpdateWorkflowEvent_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_metapb_UserEvent_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -123,60 +128,64 @@ public final class PB {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nmeta.proto\022\006metapb\"x\n\005Event\022\037\n\004type\030\001 " +
-      "\001(\0162\021.metapb.EventType\022\037\n\004user\030\002 \001(\0132\021.m" +
-      "etapb.UserEvent\022-\n\013updateCrowd\030\003 \001(\0132\030.m" +
-      "etapb.UpdateCrowdEvent\"D\n\020UpdateCrowdEve" +
-      "nt\022\022\n\nworkflowID\030\001 \001(\004\022\r\n\005index\030\002 \001(\r\022\r\n" +
-      "\005crowd\030\003 \001(\014\"[\n\tUserEvent\022\016\n\006userID\030\001 \001(" +
-      "\004\022\020\n\010tenantID\030\002 \001(\004\022\022\n\nworkflowID\030\003 \001(\004\022" +
-      "\030\n\004data\030\004 \003(\0132\n.metapb.KV\" \n\002KV\022\013\n\003key\030\001" +
-      " \001(\014\022\r\n\005value\030\002 \001(\014\"\225\001\n\006Notify\022\016\n\006userID" +
-      "\030\001 \001(\r\022\r\n\005crowd\030\002 \001(\014\022\020\n\010tenantID\030\003 \001(\004\022" +
-      "\022\n\nworkflowID\030\004 \001(\004\022\020\n\010fromStep\030\005 \001(\t\022\022\n" +
-      "\nfromAction\030\006 \001(\t\022\016\n\006toStep\030\007 \001(\t\022\020\n\010toA" +
-      "ction\030\010 \001(\t\"&\n\007IDValue\022\r\n\005value\030\001 \001(\t\022\014\n" +
-      "\004type\030\002 \001(\t\"(\n\005IDSet\022\037\n\006values\030\001 \003(\0132\017.m" +
-      "etapb.IDValue\"e\n\010Workflow\022\n\n\002id\030\001 \001(\004\022\020\n" +
-      "\010tenantID\030\002 \001(\004\022\014\n\004name\030\003 \001(\t\022\033\n\005steps\030\004" +
-      " \003(\0132\014.metapb.Step\022\020\n\010duration\030\005 \001(\003\"|\n\020" +
-      "WorkflowInstance\022\"\n\010snapshot\030\001 \001(\0132\020.met" +
-      "apb.Workflow\022\r\n\005crowd\030\002 \001(\014\022\017\n\007workers\030\003" +
-      " \001(\004\022\021\n\tstartedAt\030\004 \001(\003\022\021\n\tstoppedAt\030\005 \001" +
-      "(\003\"\220\001\n\025WorkflowInstanceState\022\020\n\010tenantID" +
-      "\030\001 \001(\004\022\022\n\nworkflowID\030\002 \001(\004\022\r\n\005index\030\003 \001(" +
-      "\r\022!\n\006states\030\004 \003(\0132\021.metapb.StepState\022\017\n\007" +
-      "version\030\005 \001(\004\022\016\n\006stopAt\030\006 \001(\003\")\n\nCountSt" +
-      "ate\022\014\n\004step\030\001 \001(\t\022\r\n\005count\030\002 \001(\004\"k\n\022Inst" +
-      "anceCountState\022\"\n\010snapshot\030\001 \001(\0132\020.metap" +
-      "b.Workflow\022\"\n\006states\030\002 \003(\0132\022.metapb.Coun" +
-      "tState\022\r\n\005total\030\003 \001(\004\"6\n\tStepState\022\032\n\004st" +
-      "ep\030\001 \001(\0132\014.metapb.Step\022\r\n\005crowd\030\002 \001(\014\"d\n" +
-      "\004Step\022\014\n\004name\030\001 \001(\t\022$\n\texecution\030\002 \001(\0132\021" +
-      ".metapb.Execution\022\023\n\013enterAction\030\003 \001(\t\022\023" +
-      "\n\013leaveAction\030\004 \001(\t\"\333\001\n\tExecution\022#\n\004typ" +
-      "e\030\001 \001(\0162\025.metapb.ExectuionType\022%\n\005timer\030" +
-      "\002 \001(\0132\026.metapb.TimerExecution\022\'\n\006direct\030" +
-      "\003 \001(\0132\027.metapb.DirectExecution\022,\n\010branch" +
-      "es\030\004 \003(\0132\032.metapb.ConditionExecution\022+\n\010" +
-      "parallel\030\005 \001(\0132\031.metapb.ParallelExecutio" +
-      "n\"Q\n\016TimerExecution\022\037\n\tcondition\030\001 \001(\0132\014" +
-      ".metapb.Expr\022\014\n\004cron\030\002 \001(\t\022\020\n\010nextStep\030\003" +
-      " \001(\t\"K\n\021ParallelExecution\022\020\n\010nextStep\030\001 " +
-      "\001(\t\022$\n\tparallels\030\002 \003(\0132\021.metapb.Executio" +
-      "n\"#\n\017DirectExecution\022\020\n\010nextStep\030\001 \001(\t\"m" +
-      "\n\022ConditionExecution\022\037\n\tcondition\030\001 \001(\0132" +
-      "\014.metapb.Expr\022$\n\texecution\030\002 \001(\0132\021.metap" +
-      "b.Execution\022\020\n\010nextStep\030\003 \001(\t\";\n\004Expr\022\r\n" +
-      "\005value\030\001 \001(\014\022$\n\004type\030\002 \001(\0162\026.metapb.Expr" +
-      "ResultType*.\n\tEventType\022\014\n\010UserType\020\000\022\023\n" +
-      "\017UpdateCrowdType\020\001*F\n\005Group\022\020\n\014DefaultGr" +
-      "oup\020\000\022\024\n\020TenantInputGroup\020\001\022\025\n\021TenantOut" +
-      "putGroup\020\002*@\n\rExectuionType\022\n\n\006Direct\020\000\022" +
-      "\t\n\005Timer\020\001\022\n\n\006Branch\020\002\022\014\n\010Parallel\020\003*.\n\016" +
-      "ExprResultType\022\016\n\nBoolResult\020\000\022\014\n\010BMResu" +
-      "lt\020\001B7\n)cn.infinivision.dataforce.busybe" +
-      "e.pb.metaB\002PBP\001\242\002\003HLWb\006proto3"
+      "\n\nmeta.proto\022\006metapb\"\255\001\n\005Event\022\037\n\004type\030\001" +
+      " \001(\0162\021.metapb.EventType\022\037\n\004user\030\002 \001(\0132\021." +
+      "metapb.UserEvent\022-\n\013updateCrowd\030\003 \001(\0132\030." +
+      "metapb.UpdateCrowdEvent\0223\n\016updateWorkflo" +
+      "w\030\004 \001(\0132\033.metapb.UpdateWorkflowEvent\"D\n\020" +
+      "UpdateCrowdEvent\022\022\n\nworkflowID\030\001 \001(\004\022\r\n\005" +
+      "index\030\002 \001(\r\022\r\n\005crowd\030\003 \001(\014\"9\n\023UpdateWork" +
+      "flowEvent\022\"\n\010workflow\030\001 \001(\0132\020.metapb.Wor" +
+      "kflow\"[\n\tUserEvent\022\016\n\006userID\030\001 \001(\004\022\020\n\010te" +
+      "nantID\030\002 \001(\004\022\022\n\nworkflowID\030\003 \001(\004\022\030\n\004data" +
+      "\030\004 \003(\0132\n.metapb.KV\" \n\002KV\022\013\n\003key\030\001 \001(\014\022\r\n" +
+      "\005value\030\002 \001(\014\"\225\001\n\006Notify\022\016\n\006userID\030\001 \001(\r\022" +
+      "\r\n\005crowd\030\002 \001(\014\022\020\n\010tenantID\030\003 \001(\004\022\022\n\nwork" +
+      "flowID\030\004 \001(\004\022\020\n\010fromStep\030\005 \001(\t\022\022\n\nfromAc" +
+      "tion\030\006 \001(\t\022\016\n\006toStep\030\007 \001(\t\022\020\n\010toAction\030\010" +
+      " \001(\t\"&\n\007IDValue\022\r\n\005value\030\001 \001(\t\022\014\n\004type\030\002" +
+      " \001(\t\"(\n\005IDSet\022\037\n\006values\030\001 \003(\0132\017.metapb.I" +
+      "DValue\"e\n\010Workflow\022\n\n\002id\030\001 \001(\004\022\020\n\010tenant" +
+      "ID\030\002 \001(\004\022\014\n\004name\030\003 \001(\t\022\033\n\005steps\030\004 \003(\0132\014." +
+      "metapb.Step\022\020\n\010duration\030\005 \001(\003\"\215\001\n\020Workfl" +
+      "owInstance\022\"\n\010snapshot\030\001 \001(\0132\020.metapb.Wo" +
+      "rkflow\022\r\n\005crowd\030\002 \001(\014\022\017\n\007workers\030\003 \001(\004\022\021" +
+      "\n\tstartedAt\030\004 \001(\003\022\021\n\tstoppedAt\030\005 \001(\003\022\017\n\007" +
+      "version\030\006 \001(\004\"\220\001\n\025WorkflowInstanceState\022" +
+      "\020\n\010tenantID\030\001 \001(\004\022\022\n\nworkflowID\030\002 \001(\004\022\r\n" +
+      "\005index\030\003 \001(\r\022!\n\006states\030\004 \003(\0132\021.metapb.St" +
+      "epState\022\017\n\007version\030\005 \001(\004\022\016\n\006stopAt\030\006 \001(\003" +
+      "\")\n\nCountState\022\014\n\004step\030\001 \001(\t\022\r\n\005count\030\002 " +
+      "\001(\004\"k\n\022InstanceCountState\022\"\n\010snapshot\030\001 " +
+      "\001(\0132\020.metapb.Workflow\022\"\n\006states\030\002 \003(\0132\022." +
+      "metapb.CountState\022\r\n\005total\030\003 \001(\004\"6\n\tStep" +
+      "State\022\032\n\004step\030\001 \001(\0132\014.metapb.Step\022\r\n\005cro" +
+      "wd\030\002 \001(\014\"d\n\004Step\022\014\n\004name\030\001 \001(\t\022$\n\texecut" +
+      "ion\030\002 \001(\0132\021.metapb.Execution\022\023\n\013enterAct" +
+      "ion\030\003 \001(\t\022\023\n\013leaveAction\030\004 \001(\t\"\333\001\n\tExecu" +
+      "tion\022#\n\004type\030\001 \001(\0162\025.metapb.ExectuionTyp" +
+      "e\022%\n\005timer\030\002 \001(\0132\026.metapb.TimerExecution" +
+      "\022\'\n\006direct\030\003 \001(\0132\027.metapb.DirectExecutio" +
+      "n\022,\n\010branches\030\004 \003(\0132\032.metapb.ConditionEx" +
+      "ecution\022+\n\010parallel\030\005 \001(\0132\031.metapb.Paral" +
+      "lelExecution\"Q\n\016TimerExecution\022\037\n\tcondit" +
+      "ion\030\001 \001(\0132\014.metapb.Expr\022\014\n\004cron\030\002 \001(\t\022\020\n" +
+      "\010nextStep\030\003 \001(\t\"K\n\021ParallelExecution\022\020\n\010" +
+      "nextStep\030\001 \001(\t\022$\n\tparallels\030\002 \003(\0132\021.meta" +
+      "pb.Execution\"#\n\017DirectExecution\022\020\n\010nextS" +
+      "tep\030\001 \001(\t\"m\n\022ConditionExecution\022\037\n\tcondi" +
+      "tion\030\001 \001(\0132\014.metapb.Expr\022$\n\texecution\030\002 " +
+      "\001(\0132\021.metapb.Execution\022\020\n\010nextStep\030\003 \001(\t" +
+      "\";\n\004Expr\022\r\n\005value\030\001 \001(\014\022$\n\004type\030\002 \001(\0162\026." +
+      "metapb.ExprResultType*F\n\tEventType\022\014\n\010Us" +
+      "erType\020\000\022\023\n\017UpdateCrowdType\020\001\022\026\n\022UpdateW" +
+      "orkflowType\020\002*F\n\005Group\022\020\n\014DefaultGroup\020\000" +
+      "\022\024\n\020TenantInputGroup\020\001\022\025\n\021TenantOutputGr" +
+      "oup\020\002*@\n\rExectuionType\022\n\n\006Direct\020\000\022\t\n\005Ti" +
+      "mer\020\001\022\n\n\006Branch\020\002\022\014\n\010Parallel\020\003*.\n\016ExprR" +
+      "esultType\022\016\n\nBoolResult\020\000\022\014\n\010BMResult\020\001B" +
+      "7\n)cn.infinivision.dataforce.busybee.pb." +
+      "metaB\002PBP\001\242\002\003HLWb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -195,117 +204,123 @@ public final class PB {
     internal_static_metapb_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Event_descriptor,
-        new java.lang.String[] { "Type", "User", "UpdateCrowd", });
+        new java.lang.String[] { "Type", "User", "UpdateCrowd", "UpdateWorkflow", });
     internal_static_metapb_UpdateCrowdEvent_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_metapb_UpdateCrowdEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_UpdateCrowdEvent_descriptor,
         new java.lang.String[] { "WorkflowID", "Index", "Crowd", });
-    internal_static_metapb_UserEvent_descriptor =
+    internal_static_metapb_UpdateWorkflowEvent_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_metapb_UpdateWorkflowEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_metapb_UpdateWorkflowEvent_descriptor,
+        new java.lang.String[] { "Workflow", });
+    internal_static_metapb_UserEvent_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_metapb_UserEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_UserEvent_descriptor,
         new java.lang.String[] { "UserID", "TenantID", "WorkflowID", "Data", });
     internal_static_metapb_KV_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_metapb_KV_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_KV_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_metapb_Notify_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_metapb_Notify_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Notify_descriptor,
         new java.lang.String[] { "UserID", "Crowd", "TenantID", "WorkflowID", "FromStep", "FromAction", "ToStep", "ToAction", });
     internal_static_metapb_IDValue_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_metapb_IDValue_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_IDValue_descriptor,
         new java.lang.String[] { "Value", "Type", });
     internal_static_metapb_IDSet_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_metapb_IDSet_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_IDSet_descriptor,
         new java.lang.String[] { "Values", });
     internal_static_metapb_Workflow_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_metapb_Workflow_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Workflow_descriptor,
         new java.lang.String[] { "Id", "TenantID", "Name", "Steps", "Duration", });
     internal_static_metapb_WorkflowInstance_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_metapb_WorkflowInstance_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_WorkflowInstance_descriptor,
-        new java.lang.String[] { "Snapshot", "Crowd", "Workers", "StartedAt", "StoppedAt", });
+        new java.lang.String[] { "Snapshot", "Crowd", "Workers", "StartedAt", "StoppedAt", "Version", });
     internal_static_metapb_WorkflowInstanceState_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_metapb_WorkflowInstanceState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_WorkflowInstanceState_descriptor,
         new java.lang.String[] { "TenantID", "WorkflowID", "Index", "States", "Version", "StopAt", });
     internal_static_metapb_CountState_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_metapb_CountState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_CountState_descriptor,
         new java.lang.String[] { "Step", "Count", });
     internal_static_metapb_InstanceCountState_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_metapb_InstanceCountState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_InstanceCountState_descriptor,
         new java.lang.String[] { "Snapshot", "States", "Total", });
     internal_static_metapb_StepState_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_metapb_StepState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_StepState_descriptor,
         new java.lang.String[] { "Step", "Crowd", });
     internal_static_metapb_Step_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_metapb_Step_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Step_descriptor,
         new java.lang.String[] { "Name", "Execution", "EnterAction", "LeaveAction", });
     internal_static_metapb_Execution_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_metapb_Execution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Execution_descriptor,
         new java.lang.String[] { "Type", "Timer", "Direct", "Branches", "Parallel", });
     internal_static_metapb_TimerExecution_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_metapb_TimerExecution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_TimerExecution_descriptor,
         new java.lang.String[] { "Condition", "Cron", "NextStep", });
     internal_static_metapb_ParallelExecution_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_metapb_ParallelExecution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_ParallelExecution_descriptor,
         new java.lang.String[] { "NextStep", "Parallels", });
     internal_static_metapb_DirectExecution_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_metapb_DirectExecution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_DirectExecution_descriptor,
         new java.lang.String[] { "NextStep", });
     internal_static_metapb_ConditionExecution_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_metapb_ConditionExecution_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_ConditionExecution_descriptor,
         new java.lang.String[] { "Condition", "Execution", "NextStep", });
     internal_static_metapb_Expr_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_metapb_Expr_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Expr_descriptor,
