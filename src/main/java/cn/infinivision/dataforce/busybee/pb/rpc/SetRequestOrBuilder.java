@@ -16,4 +16,9 @@ public interface SetRequestOrBuilder extends
    * <code>bytes value = 2;</code>
    */
   com.google.protobuf.ByteString getValue();
+
+  /**
+   * <code>int64 ttl = 3;</code>
+   */
+  long getTtl();
 }

@@ -132,6 +132,7 @@ message Response {
 message SetRequest {
     bytes  key   = 1;
     bytes  value = 2;
+    int64  ttl   = 3;
 }
 
 // GetRequest get value by key

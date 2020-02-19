@@ -324,85 +324,86 @@ public final class PB {
       "iceResp\030\t \001(\0132\032.rpcpb.Uint32SliceRespons" +
       "e\0221\n\016bytesSliceResp\030\n \001(\0132\031.rpcpb.BytesS" +
       "liceResponse\022)\n\nstringResp\030\013 \001(\0132\025.rpcpb" +
-      ".StringResponse\"(\n\nSetRequest\022\013\n\003key\030\001 \001" +
-      "(\014\022\r\n\005value\030\002 \001(\014\"\031\n\nGetRequest\022\013\n\003key\030\001" +
-      " \001(\014\"\034\n\rDeleteRequest\022\013\n\003key\030\001 \001(\014\"-\n\017BM" +
-      "CreateRequest\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030\002 \003(" +
-      "\004\"*\n\014BMAddRequest\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030" +
-      "\002 \003(\004\"-\n\017BMRemoveRequest\022\013\n\003key\030\001 \001(\014\022\r\n" +
-      "\005value\030\002 \003(\004\"\035\n\016BMClearRequest\022\013\n\003key\030\001 " +
-      "\001(\014\"/\n\021BMContainsRequest\022\013\n\003key\030\001 \001(\014\022\r\n" +
-      "\005value\030\002 \003(\004\"\035\n\016BMCountRequest\022\013\n\003key\030\001 " +
-      "\001(\014\";\n\016BMRangeRequest\022\013\n\003key\030\001 \001(\014\022\r\n\005st" +
-      "art\030\002 \001(\004\022\r\n\005limit\030\003 \001(\004\"E\n\027StartingInst" +
-      "anceRequest\022*\n\010instance\030\001 \001(\0132\030.metapb.W" +
-      "orkflowInstance\"C\n\025UpdateInstanceRequest" +
-      "\022*\n\010instance\030\001 \001(\0132\030.metapb.WorkflowInst" +
-      "ance\"/\n\022UpdateCrowdRequest\022\n\n\002id\030\001 \001(\004\022\r" +
-      "\n\005crowd\030\002 \001(\014\";\n\025UpdateWorkflowRequest\022\"" +
-      "\n\010workflow\030\001 \001(\0132\020.metapb.Workflow\",\n\026St" +
-      "artedInstanceRequest\022\022\n\nworkflowID\030\001 \001(\004" +
-      "\")\n\023StopInstanceRequest\022\022\n\nworkflowID\030\001 " +
-      "\001(\004\"O\n\037CreateInstanceStateShardRequest\022," +
-      "\n\005state\030\001 \001(\0132\035.metapb.WorkflowInstanceS" +
-      "tate\"O\n\037UpdateInstanceStateShardRequest\022" +
-      ",\n\005state\030\001 \001(\0132\035.metapb.WorkflowInstance" +
-      "State\"D\n\037RemoveInstanceStateShardRequest" +
-      "\022\022\n\nworkflowID\030\001 \001(\004\022\r\n\005index\030\002 \001(\r\"/\n\031I" +
-      "nstanceCountStateRequest\022\022\n\nworkflowID\030\001" +
-      " \001(\004\"=\n\031InstanceCrowdStateRequest\022\022\n\nwor" +
-      "kflowID\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\"-\n\017QueueAddR" +
-      "equest\022\013\n\003key\030\001 \001(\014\022\r\n\005items\030\002 \003(\014\"o\n\021Qu" +
-      "eueFetchRequest\022\013\n\003key\030\001 \001(\014\022\020\n\010consumer" +
-      "\030\002 \001(\014\022\027\n\017completedOffset\030\003 \001(\004\022\r\n\005count" +
-      "\030\004 \001(\004\022\023\n\013concurrency\030\005 \001(\004\"=\n\021TenantIni" +
-      "tRequest\022\n\n\002id\030\001 \001(\004\022\034\n\024inputQueuePartit" +
-      "ions\030\002 \001(\004\"I\n\022ScanMappingRequest\022\n\n\002id\030\001" +
-      " \001(\004\022\014\n\004from\030\002 \001(\004\022\n\n\002to\030\003 \001(\004\022\r\n\005limit\030" +
-      "\004 \001(\004\"-\n\017GetIDSetRequest\022\n\n\002id\030\001 \001(\004\022\016\n\006" +
-      "userID\030\002 \001(\004\"N\n\024UpdateMappingRequest\022\n\n\002" +
-      "id\030\001 \001(\004\022\016\n\006userID\030\002 \001(\004\022\032\n\003set\030\003 \001(\0132\r." +
-      "metapb.IDSet\"J\n\021GetMappingRequest\022\n\n\002id\030" +
-      "\001 \001(\004\022\035\n\004from\030\002 \001(\0132\017.metapb.IDValue\022\n\n\002" +
-      "to\030\003 \001(\t\"A\n\024UpdateProfileRequest\022\n\n\002id\030\001" +
-      " \001(\004\022\016\n\006userID\030\002 \001(\004\022\r\n\005value\030\003 \001(\014\">\n\021G" +
-      "etProfileRequest\022\n\n\002id\030\001 \001(\004\022\016\n\006userID\030\002" +
-      " \001(\004\022\r\n\005field\030\003 \001(\t\"3\n\017AddEventRequest\022 " +
-      "\n\005event\030\001 \001(\0132\021.metapb.UserEvent\"o\n\022Fetc" +
-      "hNotifyRequest\022\n\n\002id\030\001 \001(\004\022\027\n\017completedO" +
-      "ffset\030\002 \001(\004\022\r\n\005count\030\003 \001(\004\022\020\n\010consumer\030\004" +
-      " \001(\t\022\023\n\013concurrency\030\005 \001(\004\",\n\016AllocIDRequ" +
-      "est\022\013\n\003key\030\001 \001(\014\022\r\n\005batch\030\002 \001(\004\"0\n\016Reset" +
-      "IDRequest\022\013\n\003key\030\001 \001(\014\022\021\n\tstartWith\030\002 \001(" +
-      "\004\"d\n\013ScanRequest\022\r\n\005start\030\001 \001(\014\022\013\n\003end\030\002" +
-      " \001(\014\022\r\n\005limit\030\003 \001(\004\022\014\n\004skip\030\004 \001(\005\022\034\n\005gro" +
-      "up\030\005 \001(\0162\r.metapb.Group\"\036\n\rErrorResponse" +
-      "\022\r\n\005error\030\001 \001(\t\"\017\n\rEmptyResponse\"\037\n\016Stri" +
-      "ngResponse\022\r\n\005value\030\001 \001(\t\"\036\n\rBytesRespon" +
-      "se\022\r\n\005value\030\001 \001(\014\"\035\n\014BoolResponse\022\r\n\005val" +
-      "ue\030\001 \001(\010\"\037\n\016Uint64Response\022\r\n\005value\030\001 \001(" +
-      "\004\"%\n\023Uint32SliceResponse\022\016\n\006values\030\001 \003(\004" +
-      "\"7\n\022BytesSliceResponse\022\r\n\005items\030\001 \003(\014\022\022\n" +
-      "\nlastOffset\030\002 \001(\004\"\037\n\016Uint32Response\022\r\n\005v" +
-      "alue\030\001 \001(\004\"/\n\023Uint32RangeResponse\022\014\n\004fro" +
-      "m\030\001 \001(\004\022\n\n\002to\030\002 \001(\004*\360\004\n\004Type\022\007\n\003Set\020\000\022\007\n" +
-      "\003Get\020\001\022\n\n\006Delete\020\002\022\010\n\004Scan\020\003\022\014\n\010BMCreate" +
-      "\020d\022\t\n\005BMAdd\020e\022\014\n\010BMRemove\020f\022\013\n\007BMClear\020g" +
-      "\022\016\n\nBMContains\020h\022\013\n\007BMCount\020i\022\013\n\007BMRange" +
-      "\020j\022\025\n\020StartingInstance\020\310\001\022\023\n\016UpdateWorkf" +
-      "low\020\311\001\022\020\n\013UpdateCrowd\020\312\001\022\023\n\016UpdateInstan" +
-      "ce\020\313\001\022\024\n\017StartedInstance\020\314\001\022\021\n\014StopInsta" +
-      "nce\020\315\001\022\035\n\030CreateInstanceStateShard\020\316\001\022\035\n" +
-      "\030UpdateInstanceStateShard\020\317\001\022\035\n\030RemoveIn" +
-      "stanceStateShard\020\320\001\022\027\n\022InstanceCountStat" +
-      "e\020\321\001\022\027\n\022InstanceCrowdState\020\322\001\022\r\n\010QueueAd" +
-      "d\020\254\002\022\017\n\nQueueFetch\020\255\002\022\017\n\nTenantInit\020\220\003\022\022" +
-      "\n\rUpdateMapping\020\221\003\022\017\n\nGetMapping\020\222\003\022\022\n\rU" +
-      "pdateProfile\020\223\003\022\017\n\nGetProfile\020\224\003\022\r\n\010AddE" +
-      "vent\020\225\003\022\020\n\013FetchNotify\020\226\003\022\020\n\013ScanMapping" +
-      "\020\227\003\022\r\n\010GetIDSet\020\230\003\022\014\n\007AllocID\020\365\003\022\014\n\007Rese" +
-      "tID\020\366\003B6\n(cn.infinivision.dataforce.busy" +
-      "bee.pb.rpcB\002PBP\001\242\002\003HLWb\006proto3"
+      ".StringResponse\"5\n\nSetRequest\022\013\n\003key\030\001 \001" +
+      "(\014\022\r\n\005value\030\002 \001(\014\022\013\n\003ttl\030\003 \001(\003\"\031\n\nGetReq" +
+      "uest\022\013\n\003key\030\001 \001(\014\"\034\n\rDeleteRequest\022\013\n\003ke" +
+      "y\030\001 \001(\014\"-\n\017BMCreateRequest\022\013\n\003key\030\001 \001(\014\022" +
+      "\r\n\005value\030\002 \003(\004\"*\n\014BMAddRequest\022\013\n\003key\030\001 " +
+      "\001(\014\022\r\n\005value\030\002 \003(\004\"-\n\017BMRemoveRequest\022\013\n" +
+      "\003key\030\001 \001(\014\022\r\n\005value\030\002 \003(\004\"\035\n\016BMClearRequ" +
+      "est\022\013\n\003key\030\001 \001(\014\"/\n\021BMContainsRequest\022\013\n" +
+      "\003key\030\001 \001(\014\022\r\n\005value\030\002 \003(\004\"\035\n\016BMCountRequ" +
+      "est\022\013\n\003key\030\001 \001(\014\";\n\016BMRangeRequest\022\013\n\003ke" +
+      "y\030\001 \001(\014\022\r\n\005start\030\002 \001(\004\022\r\n\005limit\030\003 \001(\004\"E\n" +
+      "\027StartingInstanceRequest\022*\n\010instance\030\001 \001" +
+      "(\0132\030.metapb.WorkflowInstance\"C\n\025UpdateIn" +
+      "stanceRequest\022*\n\010instance\030\001 \001(\0132\030.metapb" +
+      ".WorkflowInstance\"/\n\022UpdateCrowdRequest\022" +
+      "\n\n\002id\030\001 \001(\004\022\r\n\005crowd\030\002 \001(\014\";\n\025UpdateWork" +
+      "flowRequest\022\"\n\010workflow\030\001 \001(\0132\020.metapb.W" +
+      "orkflow\",\n\026StartedInstanceRequest\022\022\n\nwor" +
+      "kflowID\030\001 \001(\004\")\n\023StopInstanceRequest\022\022\n\n" +
+      "workflowID\030\001 \001(\004\"O\n\037CreateInstanceStateS" +
+      "hardRequest\022,\n\005state\030\001 \001(\0132\035.metapb.Work" +
+      "flowInstanceState\"O\n\037UpdateInstanceState" +
+      "ShardRequest\022,\n\005state\030\001 \001(\0132\035.metapb.Wor" +
+      "kflowInstanceState\"D\n\037RemoveInstanceStat" +
+      "eShardRequest\022\022\n\nworkflowID\030\001 \001(\004\022\r\n\005ind" +
+      "ex\030\002 \001(\r\"/\n\031InstanceCountStateRequest\022\022\n" +
+      "\nworkflowID\030\001 \001(\004\"=\n\031InstanceCrowdStateR" +
+      "equest\022\022\n\nworkflowID\030\001 \001(\004\022\014\n\004name\030\002 \001(\t" +
+      "\"-\n\017QueueAddRequest\022\013\n\003key\030\001 \001(\014\022\r\n\005item" +
+      "s\030\002 \003(\014\"o\n\021QueueFetchRequest\022\013\n\003key\030\001 \001(" +
+      "\014\022\020\n\010consumer\030\002 \001(\014\022\027\n\017completedOffset\030\003" +
+      " \001(\004\022\r\n\005count\030\004 \001(\004\022\023\n\013concurrency\030\005 \001(\004" +
+      "\"=\n\021TenantInitRequest\022\n\n\002id\030\001 \001(\004\022\034\n\024inp" +
+      "utQueuePartitions\030\002 \001(\004\"I\n\022ScanMappingRe" +
+      "quest\022\n\n\002id\030\001 \001(\004\022\014\n\004from\030\002 \001(\004\022\n\n\002to\030\003 " +
+      "\001(\004\022\r\n\005limit\030\004 \001(\004\"-\n\017GetIDSetRequest\022\n\n" +
+      "\002id\030\001 \001(\004\022\016\n\006userID\030\002 \001(\004\"N\n\024UpdateMappi" +
+      "ngRequest\022\n\n\002id\030\001 \001(\004\022\016\n\006userID\030\002 \001(\004\022\032\n" +
+      "\003set\030\003 \001(\0132\r.metapb.IDSet\"J\n\021GetMappingR" +
+      "equest\022\n\n\002id\030\001 \001(\004\022\035\n\004from\030\002 \001(\0132\017.metap" +
+      "b.IDValue\022\n\n\002to\030\003 \001(\t\"A\n\024UpdateProfileRe" +
+      "quest\022\n\n\002id\030\001 \001(\004\022\016\n\006userID\030\002 \001(\004\022\r\n\005val" +
+      "ue\030\003 \001(\014\">\n\021GetProfileRequest\022\n\n\002id\030\001 \001(" +
+      "\004\022\016\n\006userID\030\002 \001(\004\022\r\n\005field\030\003 \001(\t\"3\n\017AddE" +
+      "ventRequest\022 \n\005event\030\001 \001(\0132\021.metapb.User" +
+      "Event\"o\n\022FetchNotifyRequest\022\n\n\002id\030\001 \001(\004\022" +
+      "\027\n\017completedOffset\030\002 \001(\004\022\r\n\005count\030\003 \001(\004\022" +
+      "\020\n\010consumer\030\004 \001(\t\022\023\n\013concurrency\030\005 \001(\004\"," +
+      "\n\016AllocIDRequest\022\013\n\003key\030\001 \001(\014\022\r\n\005batch\030\002" +
+      " \001(\004\"0\n\016ResetIDRequest\022\013\n\003key\030\001 \001(\014\022\021\n\ts" +
+      "tartWith\030\002 \001(\004\"d\n\013ScanRequest\022\r\n\005start\030\001" +
+      " \001(\014\022\013\n\003end\030\002 \001(\014\022\r\n\005limit\030\003 \001(\004\022\014\n\004skip" +
+      "\030\004 \001(\005\022\034\n\005group\030\005 \001(\0162\r.metapb.Group\"\036\n\r" +
+      "ErrorResponse\022\r\n\005error\030\001 \001(\t\"\017\n\rEmptyRes" +
+      "ponse\"\037\n\016StringResponse\022\r\n\005value\030\001 \001(\t\"\036" +
+      "\n\rBytesResponse\022\r\n\005value\030\001 \001(\014\"\035\n\014BoolRe" +
+      "sponse\022\r\n\005value\030\001 \001(\010\"\037\n\016Uint64Response\022" +
+      "\r\n\005value\030\001 \001(\004\"%\n\023Uint32SliceResponse\022\016\n" +
+      "\006values\030\001 \003(\004\"7\n\022BytesSliceResponse\022\r\n\005i" +
+      "tems\030\001 \003(\014\022\022\n\nlastOffset\030\002 \001(\004\"\037\n\016Uint32" +
+      "Response\022\r\n\005value\030\001 \001(\004\"/\n\023Uint32RangeRe" +
+      "sponse\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004*\360\004\n\004Typ" +
+      "e\022\007\n\003Set\020\000\022\007\n\003Get\020\001\022\n\n\006Delete\020\002\022\010\n\004Scan\020" +
+      "\003\022\014\n\010BMCreate\020d\022\t\n\005BMAdd\020e\022\014\n\010BMRemove\020f" +
+      "\022\013\n\007BMClear\020g\022\016\n\nBMContains\020h\022\013\n\007BMCount" +
+      "\020i\022\013\n\007BMRange\020j\022\025\n\020StartingInstance\020\310\001\022\023" +
+      "\n\016UpdateWorkflow\020\311\001\022\020\n\013UpdateCrowd\020\312\001\022\023\n" +
+      "\016UpdateInstance\020\313\001\022\024\n\017StartedInstance\020\314\001" +
+      "\022\021\n\014StopInstance\020\315\001\022\035\n\030CreateInstanceSta" +
+      "teShard\020\316\001\022\035\n\030UpdateInstanceStateShard\020\317" +
+      "\001\022\035\n\030RemoveInstanceStateShard\020\320\001\022\027\n\022Inst" +
+      "anceCountState\020\321\001\022\027\n\022InstanceCrowdState\020" +
+      "\322\001\022\r\n\010QueueAdd\020\254\002\022\017\n\nQueueFetch\020\255\002\022\017\n\nTe" +
+      "nantInit\020\220\003\022\022\n\rUpdateMapping\020\221\003\022\017\n\nGetMa" +
+      "pping\020\222\003\022\022\n\rUpdateProfile\020\223\003\022\017\n\nGetProfi" +
+      "le\020\224\003\022\r\n\010AddEvent\020\225\003\022\020\n\013FetchNotify\020\226\003\022\020" +
+      "\n\013ScanMapping\020\227\003\022\r\n\010GetIDSet\020\230\003\022\014\n\007Alloc" +
+      "ID\020\365\003\022\014\n\007ResetID\020\366\003B6\n(cn.infinivision.d" +
+      "ataforce.busybee.pb.rpcB\002PBP\001\242\002\003HLWb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -452,7 +453,7 @@ public final class PB {
     internal_static_rpcpb_SetRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_rpcpb_SetRequest_descriptor,
-        new java.lang.String[] { "Key", "Value", });
+        new java.lang.String[] { "Key", "Value", "Ttl", });
     internal_static_rpcpb_GetRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_rpcpb_GetRequest_fieldAccessorTable = new

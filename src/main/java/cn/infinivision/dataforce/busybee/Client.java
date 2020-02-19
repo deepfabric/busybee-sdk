@@ -91,18 +91,16 @@ public class Client {
      * @return Future Result, use {@link Result#unsignedIntRangeResponse()} to get a unsigned int range response
      */
     public Future<Result> allocId(byte[] key, long batch) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.AllocID)
-                .setAllocID(AllocIDRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .setBatch(batch)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.AllocID)
+            .setAllocID(AllocIDRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .setBatch(batch)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -112,17 +110,15 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> resetId(byte[] key) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.ResetID)
-                .setResetID(ResetIDRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.ResetID)
+            .setResetID(ResetIDRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -143,18 +139,16 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> resetId(byte[] key, long startWith) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.ResetID)
-                .setResetID(ResetIDRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .setStartWith(startWith)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.ResetID)
+            .setResetID(ResetIDRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .setStartWith(startWith)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -165,18 +159,28 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> set(byte[] key, byte[] value) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.Set)
-                .setSet(SetRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .setValue(ByteString.copyFrom(value))
-                    .build())
-                .build();
+        return set(key, value, 0);
+    }
 
-            return doRequest(req);
-        });
+    /**
+     * set the key-value with a ttl in seconds
+     *
+     * @param key key
+     * @param value value
+     * @param ttl ttl in seconds
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> set(byte[] key, byte[] value, long ttl) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.Set)
+            .setSet(SetRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .setValue(ByteString.copyFrom(value))
+                .setTtl(ttl)
+                .build())
+            .build();
+        return doRequest(req);
     }
 
     /**
@@ -186,17 +190,15 @@ public class Client {
      * @return Future Result, use {@link Result#bytesResponse()} to get []byte result
      */
     public Future<Result> get(byte[] key) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.Get)
-                .setGet(GetRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.Get)
+            .setGet(GetRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -206,17 +208,15 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> delete(byte[] key) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.Delete)
-                .setDelete(DeleteRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.Delete)
+            .setDelete(DeleteRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -240,25 +240,23 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> updateIDMapping(long tenantId, long userId, IDValue... ids) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.UpdateMapping)
-                .setUpdateMapping(UpdateMappingRequest.newBuilder()
-                    .setId(tenantId)
-                    .setUserID(userId)
-                    .setSet(IDSet.newBuilder()
-                        .addValues(IDValue.newBuilder()
-                            .setValue(String.valueOf(userId))
-                            .setType(opts.defaultMappingType)
-                            .build())
-                        .addAllValues(Arrays.asList(ids))
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.UpdateMapping)
+            .setUpdateMapping(UpdateMappingRequest.newBuilder()
+                .setId(tenantId)
+                .setUserID(userId)
+                .setSet(IDSet.newBuilder()
+                    .addValues(IDValue.newBuilder()
+                        .setValue(String.valueOf(userId))
+                        .setType(opts.defaultMappingType)
                         .build())
+                    .addAllValues(Arrays.asList(ids))
                     .build())
-                .build();
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -269,18 +267,16 @@ public class Client {
      * @return Future Result, use {@link Result#idSetResponse} to get id set response
      */
     public Future<Result> getIDSet(long tenantId, long userId) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.GetIDSet)
-                .setGetIDSet(GetIDSetRequest.newBuilder()
-                    .setId(tenantId)
-                    .setUserID(userId)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.GetIDSet)
+            .setGetIDSet(GetIDSetRequest.newBuilder()
+                .setId(tenantId)
+                .setUserID(userId)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -293,20 +289,18 @@ public class Client {
      * @return Future Result, use {@link Result#bytesListResponse} to get bytes list response
      */
     public Future<Result> scanIDMapping(long tenantId, long fromInclude, long toExclude, long limit) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.ScanMapping)
-                .setScanMapping(ScanMappingRequest.newBuilder()
-                    .setId(tenantId)
-                    .setFrom(fromInclude)
-                    .setTo(toExclude)
-                    .setLimit(limit)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.ScanMapping)
+            .setScanMapping(ScanMappingRequest.newBuilder()
+                .setId(tenantId)
+                .setFrom(fromInclude)
+                .setTo(toExclude)
+                .setLimit(limit)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -318,19 +312,17 @@ public class Client {
      * @return Future Result, use {@link Result#stringResponse()} to get string result
      */
     public Future<Result> getID(long tenantId, IDValue from, String to) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.GetMapping)
-                .setGetMapping(GetMappingRequest.newBuilder()
-                    .setId(tenantId)
-                    .setFrom(from)
-                    .setTo(to)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.GetMapping)
+            .setGetMapping(GetMappingRequest.newBuilder()
+                .setId(tenantId)
+                .setFrom(from)
+                .setTo(to)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -342,19 +334,17 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> updateProfile(long tenantId, int userId, byte[] value) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.UpdateProfile)
-                .setUpdateProfile(UpdateProfileRequest.newBuilder()
-                    .setId(tenantId)
-                    .setUserID(userId)
-                    .setValue(ByteString.copyFrom(value))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.UpdateProfile)
+            .setUpdateProfile(UpdateProfileRequest.newBuilder()
+                .setId(tenantId)
+                .setUserID(userId)
+                .setValue(ByteString.copyFrom(value))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -365,18 +355,16 @@ public class Client {
      * @return Future Result, use {@link Result#bytesResponse()} ()} to get byte array result
      */
     public Future<Result> getProfile(long tenantId, int userId) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.GetProfile)
-                .setGetProfile(GetProfileRequest.newBuilder()
-                    .setId(tenantId)
-                    .setUserID(userId)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.GetProfile)
+            .setGetProfile(GetProfileRequest.newBuilder()
+                .setId(tenantId)
+                .setUserID(userId)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -388,19 +376,17 @@ public class Client {
      * @return Future Result, use {@link Result#bytesResponse()} ()} to get byte array result
      */
     public Future<Result> getProfile(long tenantId, int userId, String field) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.GetProfile)
-                .setGetProfile(GetProfileRequest.newBuilder()
-                    .setId(tenantId)
-                    .setUserID(userId)
-                    .setField(field)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.GetProfile)
+            .setGetProfile(GetProfileRequest.newBuilder()
+                .setId(tenantId)
+                .setUserID(userId)
+                .setField(field)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -434,18 +420,16 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> addToBitmap(byte[] key, Long... values) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.BMAdd)
-                .setBmAdd(BMAddRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .addAllValue(Arrays.asList(values))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.BMAdd)
+            .setBmAdd(BMAddRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .addAllValue(Arrays.asList(values))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -456,18 +440,16 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> removeFromBitmap(byte[] key, Long... values) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.BMRemove)
-                .setBmRemove(BMRemoveRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .addAllValue(Arrays.asList(values))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.BMRemove)
+            .setBmRemove(BMRemoveRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .addAllValue(Arrays.asList(values))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -477,17 +459,15 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> clearBitmap(byte[] key) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.BMClear)
-                .setBmClear(BMClearRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.BMClear)
+            .setBmClear(BMClearRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -497,17 +477,15 @@ public class Client {
      * @return Future Result, use {@link Result#longResponse} to get long result
      */
     public Future<Result> countOfBitmap(byte[] key) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.BMCount)
-                .setBmCount(BMCountRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.BMCount)
+            .setBmCount(BMCountRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -518,18 +496,16 @@ public class Client {
      * @return Future Result, use {@link Result#booleanResponse()} to get boolean result
      */
     public Future<Result> inBitmap(byte[] key, Long... values) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.BMContains)
-                .setBmContains(BMContainsRequest.newBuilder()
-                    .setKey(ByteString.copyFrom(key))
-                    .addAllValue(Arrays.asList(values))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.BMContains)
+            .setBmContains(BMContainsRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .addAllValue(Arrays.asList(values))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -540,18 +516,16 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> initTenant(long tenantId, long inputPartitions) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.TenantInit)
-                .setTenantInit(TenantInitRequest.newBuilder()
-                    .setId(tenantId)
-                    .setInputQueuePartitions(inputPartitions)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.TenantInit)
+            .setTenantInit(TenantInitRequest.newBuilder()
+                .setId(tenantId)
+                .setInputQueuePartitions(inputPartitions)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -566,21 +540,19 @@ public class Client {
         byte[] value = new byte[bm.serializedSizeInBytes()];
         bm.serialize(ByteBuffer.wrap(value));
 
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.StartingInstance)
-                .setStartInstance(StartingInstanceRequest.newBuilder()
-                    .setInstance(WorkflowInstance.newBuilder()
-                        .setWorkers(workers)
-                        .setSnapshot(wf)
-                        .setCrowd(ByteString.copyFrom(value))
-                        .build())
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.StartingInstance)
+            .setStartInstance(StartingInstanceRequest.newBuilder()
+                .setInstance(WorkflowInstance.newBuilder()
+                    .setWorkers(workers)
+                    .setSnapshot(wf)
+                    .setCrowd(ByteString.copyFrom(value))
                     .build())
-                .build();
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -590,17 +562,15 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> updateWorkflow(Workflow wf) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.UpdateWorkflow)
-                .setUpdateWorkflow(UpdateWorkflowRequest.newBuilder()
-                    .setWorkflow(wf)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.UpdateWorkflow)
+            .setUpdateWorkflow(UpdateWorkflowRequest.newBuilder()
+                .setWorkflow(wf)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -614,18 +584,16 @@ public class Client {
         byte[] value = new byte[bm.serializedSizeInBytes()];
         bm.serialize(ByteBuffer.wrap(value));
 
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.UpdateCrowd)
-                .setUpdateCrowd(UpdateCrowdRequest.newBuilder()
-                    .setId(workflowId)
-                    .setCrowd(ByteString.copyFrom(value))
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.UpdateCrowd)
+            .setUpdateCrowd(UpdateCrowdRequest.newBuilder()
+                .setId(workflowId)
+                .setCrowd(ByteString.copyFrom(value))
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -635,17 +603,15 @@ public class Client {
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
     public Future<Result> stopInstance(long workflowId) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.StopInstance)
-                .setStopInstance(StopInstanceRequest.newBuilder()
-                    .setWorkflowID(workflowId)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.StopInstance)
+            .setStopInstance(StopInstanceRequest.newBuilder()
+                .setWorkflowID(workflowId)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -655,17 +621,15 @@ public class Client {
      * @return Future Result, use {@link Result#countStateResponse} to get {@link InstanceCountState} response
      */
     public Future<Result> countState(long workflowId) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.InstanceCountState)
-                .setCountInstance(InstanceCountStateRequest.newBuilder()
-                    .setWorkflowID(workflowId)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.InstanceCountState)
+            .setCountInstance(InstanceCountStateRequest.newBuilder()
+                .setWorkflowID(workflowId)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -676,18 +640,16 @@ public class Client {
      * @return Future Result, use {@link Result#stepCrowdStateResponse} to get {@link StepState} response
      */
     public Future<Result> stepCrowdState(long workflowId, String step) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.InstanceCrowdState)
-                .setCrowdInstance(InstanceCrowdStateRequest.newBuilder()
-                    .setWorkflowID(workflowId)
-                    .setName(step)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.InstanceCrowdState)
+            .setCrowdInstance(InstanceCrowdStateRequest.newBuilder()
+                .setWorkflowID(workflowId)
+                .setName(step)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -714,17 +676,15 @@ public class Client {
                 .build());
         }
 
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.AddEvent)
-                .setAddEvent(AddEventRequest.newBuilder()
-                    .setEvent(builder.build())
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.AddEvent)
+            .setAddEvent(AddEventRequest.newBuilder()
+                .setEvent(builder.build())
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
     /**
@@ -758,28 +718,28 @@ public class Client {
     }
 
     private Future<Result> scan(byte[] starInclude, byte[] endExclude, long limit, int skipValuePrefix, Group group) {
-        return CompletableFuture.supplyAsync(() -> {
-            Request req = Request.newBuilder()
-                .setId(id.incrementAndGet())
-                .setType(Type.Scan)
-                .setScan(ScanRequest.newBuilder()
-                    .setStart(ByteString.copyFrom(starInclude))
-                    .setEnd(ByteString.copyFrom(endExclude))
-                    .setLimit(limit)
-                    .setSkip(skipValuePrefix)
-                    .setGroup(group)
-                    .build())
-                .build();
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.Scan)
+            .setScan(ScanRequest.newBuilder()
+                .setStart(ByteString.copyFrom(starInclude))
+                .setEnd(ByteString.copyFrom(endExclude))
+                .setLimit(limit)
+                .setSkip(skipValuePrefix)
+                .setGroup(group)
+                .build())
+            .build();
 
-            return doRequest(req);
-        });
+        return doRequest(req);
     }
 
-    private Result doRequest(Request req) {
+    private Future<Result> doRequest(Request req) {
         Result result = new Result();
         transport.sent(req, result::done, result::done);
-        result.waitComplete();
-        return result;
+        return CompletableFuture.supplyAsync(() -> {
+            result.waitComplete();
+            return result;
+        });
     }
 
     private static class FetchWorker {
@@ -861,7 +821,7 @@ public class Client {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().addServer("172.24.53.191:9091", "172.24.53.191:9092", "172.24.53.191:9093").build();
+        Client c = new Builder().addServer("172.22.175.226:8080").build();
         workflow(c);
         System.exit(0);
     }

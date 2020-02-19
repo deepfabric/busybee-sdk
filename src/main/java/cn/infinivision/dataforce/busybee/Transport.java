@@ -158,15 +158,6 @@ class Transport implements ChannelAware<MessageLite> {
                 }
             } catch (Throwable e) {
                 log.error("sent executor failed", e);
-            } finally {
-                requests.forEach(ctx -> {
-                    try {
-                        pool.returnObject(ctx);
-                    } catch (Exception e) {
-                        log.error("return ctx object to pool failed", e);
-                    }
-                });
-
             }
         }
 

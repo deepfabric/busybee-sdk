@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
   private SetRequest() {
     key_ = com.google.protobuf.ByteString.EMPTY;
     value_ = com.google.protobuf.ByteString.EMPTY;
+    ttl_ = 0L;
   }
 
   @java.lang.Override
@@ -63,6 +64,11 @@ private static final long serialVersionUID = 0L;
           case 18: {
 
             value_ = input.readBytes();
+            break;
+          }
+          case 24: {
+
+            ttl_ = input.readInt64();
             break;
           }
         }
@@ -107,6 +113,15 @@ private static final long serialVersionUID = 0L;
     return value_;
   }
 
+  public static final int TTL_FIELD_NUMBER = 3;
+  private long ttl_;
+  /**
+   * <code>int64 ttl = 3;</code>
+   */
+  public long getTtl() {
+    return ttl_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -125,6 +140,9 @@ private static final long serialVersionUID = 0L;
     if (!value_.isEmpty()) {
       output.writeBytes(2, value_);
     }
+    if (ttl_ != 0L) {
+      output.writeInt64(3, ttl_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -140,6 +158,10 @@ private static final long serialVersionUID = 0L;
     if (!value_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
         .computeBytesSize(2, value_);
+    }
+    if (ttl_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, ttl_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -161,6 +183,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getKey());
     result = result && getValue()
         .equals(other.getValue());
+    result = result && (getTtl()
+        == other.getTtl());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -176,6 +200,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getKey().hashCode();
     hash = (37 * hash) + VALUE_FIELD_NUMBER;
     hash = (53 * hash) + getValue().hashCode();
+    hash = (37 * hash) + TTL_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTtl());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -313,6 +340,8 @@ private static final long serialVersionUID = 0L;
 
       value_ = com.google.protobuf.ByteString.EMPTY;
 
+      ttl_ = 0L;
+
       return this;
     }
 
@@ -337,6 +366,7 @@ private static final long serialVersionUID = 0L;
       cn.infinivision.dataforce.busybee.pb.rpc.SetRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.SetRequest(this);
       result.key_ = key_;
       result.value_ = value_;
+      result.ttl_ = ttl_;
       onBuilt();
       return result;
     }
@@ -383,6 +413,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getValue() != com.google.protobuf.ByteString.EMPTY) {
         setValue(other.getValue());
+      }
+      if (other.getTtl() != 0L) {
+        setTtl(other.getTtl());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -465,6 +498,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearValue() {
       
       value_ = getDefaultInstance().getValue();
+      onChanged();
+      return this;
+    }
+
+    private long ttl_ ;
+    /**
+     * <code>int64 ttl = 3;</code>
+     */
+    public long getTtl() {
+      return ttl_;
+    }
+    /**
+     * <code>int64 ttl = 3;</code>
+     */
+    public Builder setTtl(long value) {
+      
+      ttl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 ttl = 3;</code>
+     */
+    public Builder clearTtl() {
+      
+      ttl_ = 0L;
       onChanged();
       return this;
     }
