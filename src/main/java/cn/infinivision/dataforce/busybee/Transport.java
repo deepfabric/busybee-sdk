@@ -42,15 +42,17 @@ import org.apache.commons.pool2.ObjectPool;
     private ScheduledExecutorService sharedExecutor = Executors.newSingleThreadScheduledExecutor();
     private EventLoopGroup sharedConnectorEventGroup;
     private List<Connector<MessageLite>> connectors = new ArrayList<>();
+    private CtxHolder holder;
     private long timeoutMS;
     private List<BlockingQueue<Ctx>> queues = new ArrayList<>();
     private Ctx stopFlag = new Ctx();
     private ObjectPool<Ctx> pool = SimpleBeanPoolFactory.create(Ctx::new);
     private CountDownLatch counter;
 
-    Transport(int workers, int ioExecutors, long timeoutMS) {
+    Transport(int workers, int ioExecutors, long timeoutMS, CtxHolder holder) {
         this.workers = workers;
         this.timeoutMS = timeoutMS;
+        this.holder = holder;
         executor = Executors.newFixedThreadPool(workers, new NamedThreadFactory("busybee-workers"));
         sharedConnectorEventGroup = new NioEventLoopGroup(ioExecutors);
         counter = new CountDownLatch(workers);
@@ -106,7 +108,7 @@ import org.apache.commons.pool2.ObjectPool;
         ctx.cb = cb;
         ctx.errCB = errCB;
 
-        CtxHolder.add(request.getId(), ctx, this.timeoutMS);
+        holder.add(request.getId(), ctx, this.timeoutMS);
         queues.get((int) (ops.incrementAndGet() % workers)).add(ctx);
 
         log.debug("request-{} added to sent queue", request.getId());
@@ -176,7 +178,7 @@ import org.apache.commons.pool2.ObjectPool;
     public void messageReceived(Channel channel, MessageLite message) {
         if (message instanceof Response) {
             Response resp = (Response) message;
-            Ctx ctx = CtxHolder.remove(resp.getId());
+            Ctx ctx = holder.remove(resp.getId());
             if (ctx != null) {
                 ctx.done(resp);
                 try {
@@ -220,11 +222,5 @@ import org.apache.commons.pool2.ObjectPool;
         void done(Response resp) {
             cb.accept(resp);
         }
-    }
-
-    public static void main(String[] args) {
-        Transport t = new Transport(1, 1, 10000);
-        t.start();
-
     }
 }

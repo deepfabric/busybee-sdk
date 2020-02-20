@@ -108,10 +108,11 @@ public class Builder {
     public Client build() {
         opts.adjust();
 
-        Transport transport = new Transport(opts.workers, opts.ioWorkers, opts.rpcTimeoutMS);
+        CtxHolder holder = new CtxHolder();
+        Transport transport = new Transport(opts.workers, opts.ioWorkers, opts.rpcTimeoutMS, holder);
         opts.servers.forEach(s -> transport.addConnector(s));
         transport.start();
 
-        return new Client(transport, opts);
+        return new Client(transport, holder, opts);
     }
 }

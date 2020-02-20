@@ -17,10 +17,10 @@ import org.apache.commons.pool2.ObjectPool;
 class CtxHolder {
     private static final ObjectPool<TimeoutTask> pool = SimpleBeanPoolFactory.create(TimeoutTask::new);
     private static final TimeUnit TIMEOUT_UNIT = TimeUnit.MILLISECONDS;
-    private static final Timer TIMEOUT_TIMER = new HashedWheelTimer(10, TIMEOUT_UNIT);
-    private static final Map<Long, Transport.Ctx> ASYNC_CONTENT = new ConcurrentHashMap<>();
+    private final Timer wheelTimer = new HashedWheelTimer(10, TIMEOUT_UNIT);
+    private final Map<Long, Transport.Ctx> contents = new ConcurrentHashMap<>();
 
-    private CtxHolder() {
+    CtxHolder() {
     }
 
     /**
@@ -30,9 +30,9 @@ class CtxHolder {
      * @param ctx
      * @param timeout
      */
-    public static void add(long id, Transport.Ctx ctx, long timeout) {
-        ASYNC_CONTENT.put(id, ctx);
-        TIMEOUT_TIMER.newTimeout(getTimeoutTask(id, ctx), timeout, TIMEOUT_UNIT);
+    public void add(long id, Transport.Ctx ctx, long timeout) {
+        contents.put(id, ctx);
+        wheelTimer.newTimeout(getTimeoutTask(id, ctx, this), timeout, TIMEOUT_UNIT);
     }
 
     /**
@@ -41,16 +41,16 @@ class CtxHolder {
      * @param id
      * @return
      */
-    public static Transport.Ctx remove(long id) {
-        return ASYNC_CONTENT.remove(id);
+    public Transport.Ctx remove(long id) {
+        return contents.remove(id);
     }
 
-    public static Transport.Ctx get(long id) {
-        return ASYNC_CONTENT.get(id);
+    public Transport.Ctx get(long id) {
+        return contents.get(id);
     }
 
-    public static void stop() {
-        for (Timeout timeout : TIMEOUT_TIMER.stop()) {
+    public void stop() {
+        for (Timeout timeout : wheelTimer.stop()) {
             timeout.cancel();
         }
     }
@@ -58,13 +58,14 @@ class CtxHolder {
     private static class TimeoutTask implements TimerTask {
         long id;
         TimerTask delegate;
+        CtxHolder holder;
 
         public TimeoutTask() {
         }
 
         @Override
         public void run(Timeout timeout) throws Exception {
-            if (CtxHolder.remove(id) != null) {
+            if (holder.remove(id) != null) {
                 if (null != delegate) {
                     delegate.run(timeout);
                 }
@@ -72,7 +73,7 @@ class CtxHolder {
         }
     }
 
-    private static TimeoutTask getTimeoutTask(long id, TimerTask timerTask) {
+    private static TimeoutTask getTimeoutTask(long id, TimerTask timerTask, CtxHolder holder) {
         TimeoutTask task;
 
         try {
@@ -83,6 +84,7 @@ class CtxHolder {
 
         task.id = id;
         task.delegate = timerTask;
+        task.holder = holder;
         return task;
     }
 }

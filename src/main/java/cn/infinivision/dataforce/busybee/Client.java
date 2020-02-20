@@ -56,6 +56,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -78,10 +79,12 @@ public class Client implements Closeable {
     private Options opts;
     private Map<Long, FetchWorker> fetchWorkers = new ConcurrentHashMap<>();
     private ScheduledExecutorService schedulers;
+    private CtxHolder holder;
 
-    Client(Transport transport, Options opts) {
+    Client(Transport transport, CtxHolder holder, Options opts) {
         this.transport = transport;
         this.opts = opts;
+        this.holder = holder;
         schedulers = Executors.newScheduledThreadPool(opts.fetchSchedulers);
     }
 
@@ -95,7 +98,7 @@ public class Client implements Closeable {
             throw new IOException(e);
         }
 
-        CtxHolder.stop();
+        holder.stop();
         log.info("client closed");
     }
 
@@ -837,10 +840,33 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
-        Client c = new Builder().addServer("192.168.200.160:9091").build();
-        c.set("key2".getBytes(), "value1".getBytes()).get().checkError();
-        System.out.println(c.get("key2".getBytes()).get().stringResponse());
-        c.close();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(() -> {
+            Client c = new Builder().rpcTimeout(5000).addServer("192.168.200.160:9091").build();
+            for (; ; ) {
+                try {
+                    c.scanIDMapping(1, 0, 100, 100).get().checkError();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        executorService.execute(() -> {
+            Client c = new Builder().rpcTimeout(5000).addServer("192.168.200.160:9091").build();
+            for (; ; ) {
+                try {
+                    c.scanIDMapping(1, 100, 200, 100).get().checkError();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+//        System.out.println(c.get("key2".getBytes()).get().stringResponse());
+//        c.close();
     }
 
     public static void keys(Client c) throws ExecutionException, InterruptedException {
