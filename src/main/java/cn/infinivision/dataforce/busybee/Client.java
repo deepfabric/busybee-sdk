@@ -47,6 +47,8 @@ import cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateWorkflowRequest;
 import com.google.protobuf.ByteString;
+import java.io.Closeable;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
@@ -70,7 +72,7 @@ import org.roaringbitmap.RoaringBitmap;
  * @author fagongzi
  */
 @Slf4j(topic = "busybee")
-public class Client {
+public class Client implements Closeable {
     private AtomicLong id = new AtomicLong(0);
     private Transport transport;
     private Options opts;
@@ -81,6 +83,20 @@ public class Client {
         this.transport = transport;
         this.opts = opts;
         schedulers = Executors.newScheduledThreadPool(opts.fetchSchedulers);
+    }
+
+    @Override
+    public void close() throws IOException {
+        fetchWorkers.values().stream().forEach(w -> w.stop());
+        schedulers.shutdownNow();
+        try {
+            transport.stop();
+        } catch (InterruptedException e) {
+            throw new IOException(e);
+        }
+
+        CtxHolder.stop();
+        log.info("client closed");
     }
 
     /**
@@ -820,11 +836,11 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().addServer("192.168.201.154:8080").build();
+    public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
+        Client c = new Builder().addServer("192.168.200.160:9091").build();
         c.set("key2".getBytes(), "value1".getBytes()).get().checkError();
         System.out.println(c.get("key2".getBytes()).get().stringResponse());
-        System.exit(0);
+        c.close();
     }
 
     public static void keys(Client c) throws ExecutionException, InterruptedException {

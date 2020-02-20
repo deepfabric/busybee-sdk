@@ -15,6 +15,7 @@ import io.netty.util.TimerTask;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -33,8 +34,7 @@ import org.apache.commons.pool2.ObjectPool;
  *
  * @author fagongzi
  */
-@Slf4j(topic = "busybee")
-class Transport implements ChannelAware<MessageLite> {
+@Slf4j(topic = "busybee") class Transport implements ChannelAware<MessageLite> {
     private AtomicBoolean running = new AtomicBoolean(false);
     private long workers;
     private AtomicLong ops = new AtomicLong(0);
@@ -46,13 +46,14 @@ class Transport implements ChannelAware<MessageLite> {
     private List<BlockingQueue<Ctx>> queues = new ArrayList<>();
     private Ctx stopFlag = new Ctx();
     private ObjectPool<Ctx> pool = SimpleBeanPoolFactory.create(Ctx::new);
+    private CountDownLatch counter;
 
     Transport(int workers, int ioExecutors, long timeoutMS) {
         this.workers = workers;
         this.timeoutMS = timeoutMS;
         executor = Executors.newFixedThreadPool(workers, new NamedThreadFactory("busybee-workers"));
         sharedConnectorEventGroup = new NioEventLoopGroup(ioExecutors);
-
+        counter = new CountDownLatch(workers);
         for (int i = 0; i < workers; i++) {
             queues.add(new LinkedBlockingQueue<>());
         }
@@ -68,9 +69,15 @@ class Transport implements ChannelAware<MessageLite> {
         }
     }
 
-    void stop() {
+    void stop() throws InterruptedException {
         if (running.compareAndSet(true, false)) {
             queues.forEach(q -> q.add(stopFlag));
+            counter.await();
+            connectors.forEach(conn -> conn.close());
+            executor.shutdownNow();
+            sharedExecutor.shutdownNow();
+            sharedConnectorEventGroup.shutdownGracefully();
+            log.info("transport stopped");
         }
     }
 
@@ -162,6 +169,7 @@ class Transport implements ChannelAware<MessageLite> {
         }
 
         log.info("sent executor exit");
+        counter.countDown();
     }
 
     @Override
