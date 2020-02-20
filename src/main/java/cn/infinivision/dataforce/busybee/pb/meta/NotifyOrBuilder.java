@@ -66,4 +66,9 @@ public interface NotifyOrBuilder extends
    */
   com.google.protobuf.ByteString
       getToActionBytes();
+
+  /**
+   * <code>int32 ttl = 9;</code>
+   */
+  int getTtl();
 }

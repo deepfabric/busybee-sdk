@@ -28,6 +28,7 @@ private static final long serialVersionUID = 0L;
     fromAction_ = "";
     toStep_ = "";
     toAction_ = "";
+    ttl_ = 0;
   }
 
   @java.lang.Override
@@ -103,6 +104,11 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             toAction_ = s;
+            break;
+          }
+          case 72: {
+
+            ttl_ = input.readInt32();
             break;
           }
         }
@@ -301,6 +307,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int TTL_FIELD_NUMBER = 9;
+  private int ttl_;
+  /**
+   * <code>int32 ttl = 9;</code>
+   */
+  public int getTtl() {
+    return ttl_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -336,6 +351,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!getToActionBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 8, toAction_);
+    }
+    if (ttl_ != 0) {
+      output.writeInt32(9, ttl_);
     }
     unknownFields.writeTo(output);
   }
@@ -373,6 +391,10 @@ private static final long serialVersionUID = 0L;
     if (!getToActionBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, toAction_);
     }
+    if (ttl_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(9, ttl_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -405,6 +427,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getToStep());
     result = result && getToAction()
         .equals(other.getToAction());
+    result = result && (getTtl()
+        == other.getTtl());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -434,6 +458,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getToStep().hashCode();
     hash = (37 * hash) + TOACTION_FIELD_NUMBER;
     hash = (53 * hash) + getToAction().hashCode();
+    hash = (37 * hash) + TTL_FIELD_NUMBER;
+    hash = (53 * hash) + getTtl();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -583,6 +609,8 @@ private static final long serialVersionUID = 0L;
 
       toAction_ = "";
 
+      ttl_ = 0;
+
       return this;
     }
 
@@ -613,6 +641,7 @@ private static final long serialVersionUID = 0L;
       result.fromAction_ = fromAction_;
       result.toStep_ = toStep_;
       result.toAction_ = toAction_;
+      result.ttl_ = ttl_;
       onBuilt();
       return result;
     }
@@ -681,6 +710,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getToAction().isEmpty()) {
         toAction_ = other.toAction_;
         onChanged();
+      }
+      if (other.getTtl() != 0) {
+        setTtl(other.getTtl());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1088,6 +1120,32 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       toAction_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int ttl_ ;
+    /**
+     * <code>int32 ttl = 9;</code>
+     */
+    public int getTtl() {
+      return ttl_;
+    }
+    /**
+     * <code>int32 ttl = 9;</code>
+     */
+    public Builder setTtl(int value) {
+      
+      ttl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 ttl = 9;</code>
+     */
+    public Builder clearTtl() {
+      
+      ttl_ = 0;
       onChanged();
       return this;
     }

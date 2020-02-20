@@ -23,6 +23,7 @@ private static final long serialVersionUID = 0L;
     name_ = "";
     enterAction_ = "";
     leaveAction_ = "";
+    ttl_ = 0;
   }
 
   @java.lang.Override
@@ -85,6 +86,11 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             leaveAction_ = s;
+            break;
+          }
+          case 40: {
+
+            ttl_ = input.readInt32();
             break;
           }
         }
@@ -234,6 +240,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int TTL_FIELD_NUMBER = 5;
+  private int ttl_;
+  /**
+   * <code>int32 ttl = 5;</code>
+   */
+  public int getTtl() {
+    return ttl_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -258,6 +273,9 @@ private static final long serialVersionUID = 0L;
     if (!getLeaveActionBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, leaveAction_);
     }
+    if (ttl_ != 0) {
+      output.writeInt32(5, ttl_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -278,6 +296,10 @@ private static final long serialVersionUID = 0L;
     }
     if (!getLeaveActionBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, leaveAction_);
+    }
+    if (ttl_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(5, ttl_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -306,6 +328,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getEnterAction());
     result = result && getLeaveAction()
         .equals(other.getLeaveAction());
+    result = result && (getTtl()
+        == other.getTtl());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -327,6 +351,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getEnterAction().hashCode();
     hash = (37 * hash) + LEAVEACTION_FIELD_NUMBER;
     hash = (53 * hash) + getLeaveAction().hashCode();
+    hash = (37 * hash) + TTL_FIELD_NUMBER;
+    hash = (53 * hash) + getTtl();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -472,6 +498,8 @@ private static final long serialVersionUID = 0L;
 
       leaveAction_ = "";
 
+      ttl_ = 0;
+
       return this;
     }
 
@@ -502,6 +530,7 @@ private static final long serialVersionUID = 0L;
       }
       result.enterAction_ = enterAction_;
       result.leaveAction_ = leaveAction_;
+      result.ttl_ = ttl_;
       onBuilt();
       return result;
     }
@@ -557,6 +586,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getLeaveAction().isEmpty()) {
         leaveAction_ = other.leaveAction_;
         onChanged();
+      }
+      if (other.getTtl() != 0) {
+        setTtl(other.getTtl());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -905,6 +937,32 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       leaveAction_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int ttl_ ;
+    /**
+     * <code>int32 ttl = 5;</code>
+     */
+    public int getTtl() {
+      return ttl_;
+    }
+    /**
+     * <code>int32 ttl = 5;</code>
+     */
+    public Builder setTtl(int value) {
+      
+      ttl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 ttl = 5;</code>
+     */
+    public Builder clearTtl() {
+      
+      ttl_ = 0;
       onChanged();
       return this;
     }

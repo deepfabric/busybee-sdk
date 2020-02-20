@@ -49,4 +49,9 @@ public interface StepOrBuilder extends
    */
   com.google.protobuf.ByteString
       getLeaveActionBytes();
+
+  /**
+   * <code>int32 ttl = 5;</code>
+   */
+  int getTtl();
 }

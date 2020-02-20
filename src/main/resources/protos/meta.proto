@@ -59,6 +59,7 @@ message Notify {
     string fromAction = 6;
     string toStep     = 7;
     string toAction   = 8;
+    int32  ttl        = 9;
 }
 
 // IDValue is a id value
@@ -133,6 +134,7 @@ message Step {
     Execution execution   = 2;
     string    enterAction = 3;
     string    leaveAction = 4;
+    int32     ttl         = 5;
 }
 
 // ExectuionType is is the type of a execution operation

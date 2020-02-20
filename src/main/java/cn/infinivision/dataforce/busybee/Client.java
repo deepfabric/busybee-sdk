@@ -19,10 +19,10 @@ import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
 import cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest;
-import cn.infinivision.dataforce.busybee.pb.rpc.BMAddRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.DeleteRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest;
@@ -422,8 +422,8 @@ public class Client {
     public Future<Result> addToBitmap(byte[] key, Long... values) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
-            .setType(Type.BMAdd)
-            .setBmAdd(BMAddRequest.newBuilder()
+            .setType(Type.BMCreate)
+            .setBmCreate(BMCreateRequest.newBuilder()
                 .setKey(ByteString.copyFrom(key))
                 .addAllValue(Arrays.asList(values))
                 .build())
@@ -821,8 +821,9 @@ public class Client {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().addServer("172.22.175.226:8080").build();
-        workflow(c);
+        Client c = new Builder().addServer("192.168.201.154:8080").build();
+        c.set("key2".getBytes(), "value1".getBytes()).get().checkError();
+        System.out.println(c.get("key2".getBytes()).get().stringResponse());
         System.exit(0);
     }
 
@@ -856,7 +857,8 @@ public class Client {
 
     public static void bitmap(Client c) throws ExecutionException, InterruptedException {
         byte[] key = "key1".getBytes();
-        c.addToBitmap(key, 1L, 2L, 3L, 4L).get().checkError();
+
+        c.addToBitmap(key, 1L, 2L, 3L, 4L, 5L).get().checkError();
         System.out.println(c.getBitmap(key).get().bitmapResponse().getCardinality());
     }
 
