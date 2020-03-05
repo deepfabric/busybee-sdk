@@ -5,24 +5,23 @@ package cn.infinivision.dataforce.busybee.pb.rpc;
 
 /**
  * <pre>
- * UpdateCrowdRequest update crowd request
+ * HistoryInstanceRequest history instance request
  * </pre>
  *
- * Protobuf type {@code rpcpb.UpdateCrowdRequest}
+ * Protobuf type {@code rpcpb.HistoryInstanceRequest}
  */
-public  final class UpdateCrowdRequest extends
+public  final class HistoryInstanceRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rpcpb.UpdateCrowdRequest)
-    UpdateCrowdRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:rpcpb.HistoryInstanceRequest)
+    HistoryInstanceRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use UpdateCrowdRequest.newBuilder() to construct.
-  private UpdateCrowdRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use HistoryInstanceRequest.newBuilder() to construct.
+  private HistoryInstanceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private UpdateCrowdRequest() {
-    id_ = 0L;
-    loader_ = 0;
-    loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
+  private HistoryInstanceRequest() {
+    workflowID_ = 0L;
+    instanceID_ = 0L;
   }
 
   @java.lang.Override
@@ -30,7 +29,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private UpdateCrowdRequest(
+  private HistoryInstanceRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -58,18 +57,12 @@ private static final long serialVersionUID = 0L;
           }
           case 8: {
 
-            id_ = input.readUInt64();
+            workflowID_ = input.readUInt64();
             break;
           }
           case 16: {
-            int rawValue = input.readEnum();
 
-            loader_ = rawValue;
-            break;
-          }
-          case 26: {
-
-            loaderMeta_ = input.readBytes();
+            instanceID_ = input.readUInt64();
             break;
           }
         }
@@ -86,48 +79,32 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateCrowdRequest_descriptor;
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_HistoryInstanceRequest_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateCrowdRequest_fieldAccessorTable
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_HistoryInstanceRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.Builder.class);
+            cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.Builder.class);
   }
 
-  public static final int ID_FIELD_NUMBER = 1;
-  private long id_;
+  public static final int WORKFLOWID_FIELD_NUMBER = 1;
+  private long workflowID_;
   /**
-   * <code>uint64 id = 1;</code>
+   * <code>uint64 workflowID = 1;</code>
    */
-  public long getId() {
-    return id_;
+  public long getWorkflowID() {
+    return workflowID_;
   }
 
-  public static final int LOADER_FIELD_NUMBER = 2;
-  private int loader_;
+  public static final int INSTANCEID_FIELD_NUMBER = 2;
+  private long instanceID_;
   /**
-   * <code>.metapb.BMLoader loader = 2;</code>
+   * <code>uint64 instanceID = 2;</code>
    */
-  public int getLoaderValue() {
-    return loader_;
-  }
-  /**
-   * <code>.metapb.BMLoader loader = 2;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader() {
-    cn.infinivision.dataforce.busybee.pb.meta.BMLoader result = cn.infinivision.dataforce.busybee.pb.meta.BMLoader.valueOf(loader_);
-    return result == null ? cn.infinivision.dataforce.busybee.pb.meta.BMLoader.UNRECOGNIZED : result;
-  }
-
-  public static final int LOADERMETA_FIELD_NUMBER = 3;
-  private com.google.protobuf.ByteString loaderMeta_;
-  /**
-   * <code>bytes loaderMeta = 3;</code>
-   */
-  public com.google.protobuf.ByteString getLoaderMeta() {
-    return loaderMeta_;
+  public long getInstanceID() {
+    return instanceID_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -142,14 +119,11 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (id_ != 0L) {
-      output.writeUInt64(1, id_);
+    if (workflowID_ != 0L) {
+      output.writeUInt64(1, workflowID_);
     }
-    if (loader_ != cn.infinivision.dataforce.busybee.pb.meta.BMLoader.RawLoader.getNumber()) {
-      output.writeEnum(2, loader_);
-    }
-    if (!loaderMeta_.isEmpty()) {
-      output.writeBytes(3, loaderMeta_);
+    if (instanceID_ != 0L) {
+      output.writeUInt64(2, instanceID_);
     }
     unknownFields.writeTo(output);
   }
@@ -159,17 +133,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (id_ != 0L) {
+    if (workflowID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(1, id_);
+        .computeUInt64Size(1, workflowID_);
     }
-    if (loader_ != cn.infinivision.dataforce.busybee.pb.meta.BMLoader.RawLoader.getNumber()) {
+    if (instanceID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(2, loader_);
-    }
-    if (!loaderMeta_.isEmpty()) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(3, loaderMeta_);
+        .computeUInt64Size(2, instanceID_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -181,17 +151,16 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest)) {
+    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest)) {
       return super.equals(obj);
     }
-    cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest) obj;
+    cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest) obj;
 
     boolean result = true;
-    result = result && (getId()
-        == other.getId());
-    result = result && loader_ == other.loader_;
-    result = result && getLoaderMeta()
-        .equals(other.getLoaderMeta());
+    result = result && (getWorkflowID()
+        == other.getWorkflowID());
+    result = result && (getInstanceID()
+        == other.getInstanceID());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -203,81 +172,80 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (37 * hash) + WORKFLOWID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getId());
-    hash = (37 * hash) + LOADER_FIELD_NUMBER;
-    hash = (53 * hash) + loader_;
-    hash = (37 * hash) + LOADERMETA_FIELD_NUMBER;
-    hash = (53 * hash) + getLoaderMeta().hashCode();
+        getWorkflowID());
+    hash = (37 * hash) + INSTANCEID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getInstanceID());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(byte[] data)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseDelimitedFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseDelimitedFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -289,7 +257,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest prototype) {
+  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -305,28 +273,28 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * UpdateCrowdRequest update crowd request
+   * HistoryInstanceRequest history instance request
    * </pre>
    *
-   * Protobuf type {@code rpcpb.UpdateCrowdRequest}
+   * Protobuf type {@code rpcpb.HistoryInstanceRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rpcpb.UpdateCrowdRequest)
-      cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rpcpb.HistoryInstanceRequest)
+      cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateCrowdRequest_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_HistoryInstanceRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateCrowdRequest_fieldAccessorTable
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_HistoryInstanceRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.Builder.class);
+              cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.Builder.class);
     }
 
-    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.newBuilder()
+    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -343,37 +311,34 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      id_ = 0L;
+      workflowID_ = 0L;
 
-      loader_ = 0;
-
-      loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
+      instanceID_ = 0L;
 
       return this;
     }
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_UpdateCrowdRequest_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_HistoryInstanceRequest_descriptor;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest getDefaultInstanceForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.getDefaultInstance();
+    public cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest getDefaultInstanceForType() {
+      return cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.getDefaultInstance();
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest build() {
-      cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest result = buildPartial();
+    public cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest build() {
+      cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest buildPartial() {
-      cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest(this);
-      result.id_ = id_;
-      result.loader_ = loader_;
-      result.loaderMeta_ = loaderMeta_;
+    public cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest buildPartial() {
+      cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest(this);
+      result.workflowID_ = workflowID_;
+      result.instanceID_ = instanceID_;
       onBuilt();
       return result;
     }
@@ -405,24 +370,21 @@ private static final long serialVersionUID = 0L;
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest) {
-        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest)other);
+      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest) {
+        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest other) {
-      if (other == cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest.getDefaultInstance()) return this;
-      if (other.getId() != 0L) {
-        setId(other.getId());
+    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest other) {
+      if (other == cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest.getDefaultInstance()) return this;
+      if (other.getWorkflowID() != 0L) {
+        setWorkflowID(other.getWorkflowID());
       }
-      if (other.loader_ != 0) {
-        setLoaderValue(other.getLoaderValue());
-      }
-      if (other.getLoaderMeta() != com.google.protobuf.ByteString.EMPTY) {
-        setLoaderMeta(other.getLoaderMeta());
+      if (other.getInstanceID() != 0L) {
+        setInstanceID(other.getInstanceID());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -437,11 +399,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest parsedMessage = null;
+      cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest) e.getUnfinishedMessage();
+        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -451,101 +413,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long id_ ;
+    private long workflowID_ ;
     /**
-     * <code>uint64 id = 1;</code>
+     * <code>uint64 workflowID = 1;</code>
      */
-    public long getId() {
-      return id_;
+    public long getWorkflowID() {
+      return workflowID_;
     }
     /**
-     * <code>uint64 id = 1;</code>
+     * <code>uint64 workflowID = 1;</code>
      */
-    public Builder setId(long value) {
+    public Builder setWorkflowID(long value) {
       
-      id_ = value;
+      workflowID_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 id = 1;</code>
+     * <code>uint64 workflowID = 1;</code>
      */
-    public Builder clearId() {
+    public Builder clearWorkflowID() {
       
-      id_ = 0L;
+      workflowID_ = 0L;
       onChanged();
       return this;
     }
 
-    private int loader_ = 0;
+    private long instanceID_ ;
     /**
-     * <code>.metapb.BMLoader loader = 2;</code>
+     * <code>uint64 instanceID = 2;</code>
      */
-    public int getLoaderValue() {
-      return loader_;
+    public long getInstanceID() {
+      return instanceID_;
     }
     /**
-     * <code>.metapb.BMLoader loader = 2;</code>
+     * <code>uint64 instanceID = 2;</code>
      */
-    public Builder setLoaderValue(int value) {
-      loader_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>.metapb.BMLoader loader = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader() {
-      cn.infinivision.dataforce.busybee.pb.meta.BMLoader result = cn.infinivision.dataforce.busybee.pb.meta.BMLoader.valueOf(loader_);
-      return result == null ? cn.infinivision.dataforce.busybee.pb.meta.BMLoader.UNRECOGNIZED : result;
-    }
-    /**
-     * <code>.metapb.BMLoader loader = 2;</code>
-     */
-    public Builder setLoader(cn.infinivision.dataforce.busybee.pb.meta.BMLoader value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
+    public Builder setInstanceID(long value) {
       
-      loader_ = value.getNumber();
+      instanceID_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>.metapb.BMLoader loader = 2;</code>
+     * <code>uint64 instanceID = 2;</code>
      */
-    public Builder clearLoader() {
+    public Builder clearInstanceID() {
       
-      loader_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private com.google.protobuf.ByteString loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
-    /**
-     * <code>bytes loaderMeta = 3;</code>
-     */
-    public com.google.protobuf.ByteString getLoaderMeta() {
-      return loaderMeta_;
-    }
-    /**
-     * <code>bytes loaderMeta = 3;</code>
-     */
-    public Builder setLoaderMeta(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      loaderMeta_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bytes loaderMeta = 3;</code>
-     */
-    public Builder clearLoaderMeta() {
-      
-      loaderMeta_ = getDefaultInstance().getLoaderMeta();
+      instanceID_ = 0L;
       onChanged();
       return this;
     }
@@ -560,39 +475,39 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rpcpb.UpdateCrowdRequest)
+    // @@protoc_insertion_point(builder_scope:rpcpb.HistoryInstanceRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:rpcpb.UpdateCrowdRequest)
-  private static final cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rpcpb.HistoryInstanceRequest)
+  private static final cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest();
+    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest();
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest getDefaultInstance() {
+  public static cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<UpdateCrowdRequest>
-      PARSER = new com.google.protobuf.AbstractParser<UpdateCrowdRequest>() {
-    public UpdateCrowdRequest parsePartialFrom(
+  private static final com.google.protobuf.Parser<HistoryInstanceRequest>
+      PARSER = new com.google.protobuf.AbstractParser<HistoryInstanceRequest>() {
+    public HistoryInstanceRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new UpdateCrowdRequest(input, extensionRegistry);
+      return new HistoryInstanceRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<UpdateCrowdRequest> parser() {
+  public static com.google.protobuf.Parser<HistoryInstanceRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<UpdateCrowdRequest> getParserForType() {
+  public com.google.protobuf.Parser<HistoryInstanceRequest> getParserForType() {
     return PARSER;
   }
 
-  public cn.infinivision.dataforce.busybee.pb.rpc.UpdateCrowdRequest getDefaultInstanceForType() {
+  public cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

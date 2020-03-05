@@ -5,40 +5,48 @@ package cn.infinivision.dataforce.busybee.pb.meta;
 
 /**
  * <pre>
- * EventType tenant input event type
+ * BMLoader bitmap loader type
  * </pre>
  *
- * Protobuf enum {@code metapb.EventType}
+ * Protobuf enum {@code metapb.BMLoader}
  */
-public enum EventType
+public enum BMLoader
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
-   * <code>UserType = 0;</code>
+   * <code>RawLoader = 0;</code>
    */
-  UserType(0),
+  RawLoader(0),
   /**
-   * <code>UpdateCrowdType = 1;</code>
+   * <code>KVLoader = 1;</code>
    */
-  UpdateCrowdType(1),
+  KVLoader(1),
   /**
-   * <code>UpdateWorkflowType = 2;</code>
+   * <code>KVShardLoader = 2;</code>
    */
-  UpdateWorkflowType(2),
+  KVShardLoader(2),
+  /**
+   * <code>ClickhouseLoader = 3;</code>
+   */
+  ClickhouseLoader(3),
   UNRECOGNIZED(-1),
   ;
 
   /**
-   * <code>UserType = 0;</code>
+   * <code>RawLoader = 0;</code>
    */
-  public static final int UserType_VALUE = 0;
+  public static final int RawLoader_VALUE = 0;
   /**
-   * <code>UpdateCrowdType = 1;</code>
+   * <code>KVLoader = 1;</code>
    */
-  public static final int UpdateCrowdType_VALUE = 1;
+  public static final int KVLoader_VALUE = 1;
   /**
-   * <code>UpdateWorkflowType = 2;</code>
+   * <code>KVShardLoader = 2;</code>
    */
-  public static final int UpdateWorkflowType_VALUE = 2;
+  public static final int KVShardLoader_VALUE = 2;
+  /**
+   * <code>ClickhouseLoader = 3;</code>
+   */
+  public static final int ClickhouseLoader_VALUE = 3;
 
 
   public final int getNumber() {
@@ -53,28 +61,29 @@ public enum EventType
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
-  public static EventType valueOf(int value) {
+  public static BMLoader valueOf(int value) {
     return forNumber(value);
   }
 
-  public static EventType forNumber(int value) {
+  public static BMLoader forNumber(int value) {
     switch (value) {
-      case 0: return UserType;
-      case 1: return UpdateCrowdType;
-      case 2: return UpdateWorkflowType;
+      case 0: return RawLoader;
+      case 1: return KVLoader;
+      case 2: return KVShardLoader;
+      case 3: return ClickhouseLoader;
       default: return null;
     }
   }
 
-  public static com.google.protobuf.Internal.EnumLiteMap<EventType>
+  public static com.google.protobuf.Internal.EnumLiteMap<BMLoader>
       internalGetValueMap() {
     return internalValueMap;
   }
   private static final com.google.protobuf.Internal.EnumLiteMap<
-      EventType> internalValueMap =
-        new com.google.protobuf.Internal.EnumLiteMap<EventType>() {
-          public EventType findValueByNumber(int number) {
-            return EventType.forNumber(number);
+      BMLoader> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<BMLoader>() {
+          public BMLoader findValueByNumber(int number) {
+            return BMLoader.forNumber(number);
           }
         };
 
@@ -88,12 +97,12 @@ public enum EventType
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(2);
+    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(0);
   }
 
-  private static final EventType[] VALUES = values();
+  private static final BMLoader[] VALUES = values();
 
-  public static EventType valueOf(
+  public static BMLoader valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
       throw new java.lang.IllegalArgumentException(
@@ -107,10 +116,10 @@ public enum EventType
 
   private final int value;
 
-  private EventType(int value) {
+  private BMLoader(int value) {
     this.value = value;
   }
 
-  // @@protoc_insertion_point(enum_scope:metapb.EventType)
+  // @@protoc_insertion_point(enum_scope:metapb.BMLoader)
 }
 

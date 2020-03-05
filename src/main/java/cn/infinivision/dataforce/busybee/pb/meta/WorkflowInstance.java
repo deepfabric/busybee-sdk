@@ -20,11 +20,15 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private WorkflowInstance() {
-    crowd_ = com.google.protobuf.ByteString.EMPTY;
+    instanceID_ = 0L;
+    loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
+    loader_ = 0;
+    totalCrowd_ = 0L;
     workers_ = 0L;
     startedAt_ = 0L;
     stoppedAt_ = 0L;
     version_ = 0L;
+    state_ = 0;
   }
 
   @java.lang.Override
@@ -71,29 +75,51 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 18: {
+          case 16: {
 
-            crowd_ = input.readBytes();
+            instanceID_ = input.readUInt64();
             break;
           }
-          case 24: {
+          case 26: {
 
-            workers_ = input.readUInt64();
+            loaderMeta_ = input.readBytes();
             break;
           }
           case 32: {
+            int rawValue = input.readEnum();
 
-            startedAt_ = input.readInt64();
+            loader_ = rawValue;
             break;
           }
           case 40: {
 
-            stoppedAt_ = input.readInt64();
+            totalCrowd_ = input.readUInt64();
             break;
           }
           case 48: {
 
+            workers_ = input.readUInt64();
+            break;
+          }
+          case 56: {
+
+            startedAt_ = input.readInt64();
+            break;
+          }
+          case 64: {
+
+            stoppedAt_ = input.readInt64();
+            break;
+          }
+          case 72: {
+
             version_ = input.readUInt64();
+            break;
+          }
+          case 80: {
+            int rawValue = input.readEnum();
+
+            state_ = rawValue;
             break;
           }
         }
@@ -141,49 +167,99 @@ private static final long serialVersionUID = 0L;
     return getSnapshot();
   }
 
-  public static final int CROWD_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString crowd_;
+  public static final int INSTANCEID_FIELD_NUMBER = 2;
+  private long instanceID_;
   /**
-   * <code>bytes crowd = 2;</code>
+   * <code>uint64 instanceID = 2;</code>
    */
-  public com.google.protobuf.ByteString getCrowd() {
-    return crowd_;
+  public long getInstanceID() {
+    return instanceID_;
   }
 
-  public static final int WORKERS_FIELD_NUMBER = 3;
+  public static final int LOADERMETA_FIELD_NUMBER = 3;
+  private com.google.protobuf.ByteString loaderMeta_;
+  /**
+   * <code>bytes loaderMeta = 3;</code>
+   */
+  public com.google.protobuf.ByteString getLoaderMeta() {
+    return loaderMeta_;
+  }
+
+  public static final int LOADER_FIELD_NUMBER = 4;
+  private int loader_;
+  /**
+   * <code>.metapb.BMLoader loader = 4;</code>
+   */
+  public int getLoaderValue() {
+    return loader_;
+  }
+  /**
+   * <code>.metapb.BMLoader loader = 4;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader() {
+    cn.infinivision.dataforce.busybee.pb.meta.BMLoader result = cn.infinivision.dataforce.busybee.pb.meta.BMLoader.valueOf(loader_);
+    return result == null ? cn.infinivision.dataforce.busybee.pb.meta.BMLoader.UNRECOGNIZED : result;
+  }
+
+  public static final int TOTALCROWD_FIELD_NUMBER = 5;
+  private long totalCrowd_;
+  /**
+   * <code>uint64 totalCrowd = 5;</code>
+   */
+  public long getTotalCrowd() {
+    return totalCrowd_;
+  }
+
+  public static final int WORKERS_FIELD_NUMBER = 6;
   private long workers_;
   /**
-   * <code>uint64 workers = 3;</code>
+   * <code>uint64 workers = 6;</code>
    */
   public long getWorkers() {
     return workers_;
   }
 
-  public static final int STARTEDAT_FIELD_NUMBER = 4;
+  public static final int STARTEDAT_FIELD_NUMBER = 7;
   private long startedAt_;
   /**
-   * <code>int64 startedAt = 4;</code>
+   * <code>int64 startedAt = 7;</code>
    */
   public long getStartedAt() {
     return startedAt_;
   }
 
-  public static final int STOPPEDAT_FIELD_NUMBER = 5;
+  public static final int STOPPEDAT_FIELD_NUMBER = 8;
   private long stoppedAt_;
   /**
-   * <code>int64 stoppedAt = 5;</code>
+   * <code>int64 stoppedAt = 8;</code>
    */
   public long getStoppedAt() {
     return stoppedAt_;
   }
 
-  public static final int VERSION_FIELD_NUMBER = 6;
+  public static final int VERSION_FIELD_NUMBER = 9;
   private long version_;
   /**
-   * <code>uint64 version = 6;</code>
+   * <code>uint64 version = 9;</code>
    */
   public long getVersion() {
     return version_;
+  }
+
+  public static final int STATE_FIELD_NUMBER = 10;
+  private int state_;
+  /**
+   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   */
+  public int getStateValue() {
+    return state_;
+  }
+  /**
+   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState() {
+    cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState result = cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.valueOf(state_);
+    return result == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -201,20 +277,32 @@ private static final long serialVersionUID = 0L;
     if (snapshot_ != null) {
       output.writeMessage(1, getSnapshot());
     }
-    if (!crowd_.isEmpty()) {
-      output.writeBytes(2, crowd_);
+    if (instanceID_ != 0L) {
+      output.writeUInt64(2, instanceID_);
+    }
+    if (!loaderMeta_.isEmpty()) {
+      output.writeBytes(3, loaderMeta_);
+    }
+    if (loader_ != cn.infinivision.dataforce.busybee.pb.meta.BMLoader.RawLoader.getNumber()) {
+      output.writeEnum(4, loader_);
+    }
+    if (totalCrowd_ != 0L) {
+      output.writeUInt64(5, totalCrowd_);
     }
     if (workers_ != 0L) {
-      output.writeUInt64(3, workers_);
+      output.writeUInt64(6, workers_);
     }
     if (startedAt_ != 0L) {
-      output.writeInt64(4, startedAt_);
+      output.writeInt64(7, startedAt_);
     }
     if (stoppedAt_ != 0L) {
-      output.writeInt64(5, stoppedAt_);
+      output.writeInt64(8, stoppedAt_);
     }
     if (version_ != 0L) {
-      output.writeUInt64(6, version_);
+      output.writeUInt64(9, version_);
+    }
+    if (state_ != cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Starting.getNumber()) {
+      output.writeEnum(10, state_);
     }
     unknownFields.writeTo(output);
   }
@@ -228,25 +316,41 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getSnapshot());
     }
-    if (!crowd_.isEmpty()) {
+    if (instanceID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(2, crowd_);
+        .computeUInt64Size(2, instanceID_);
+    }
+    if (!loaderMeta_.isEmpty()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBytesSize(3, loaderMeta_);
+    }
+    if (loader_ != cn.infinivision.dataforce.busybee.pb.meta.BMLoader.RawLoader.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(4, loader_);
+    }
+    if (totalCrowd_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(5, totalCrowd_);
     }
     if (workers_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(3, workers_);
+        .computeUInt64Size(6, workers_);
     }
     if (startedAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(4, startedAt_);
+        .computeInt64Size(7, startedAt_);
     }
     if (stoppedAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(5, stoppedAt_);
+        .computeInt64Size(8, stoppedAt_);
     }
     if (version_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(6, version_);
+        .computeUInt64Size(9, version_);
+    }
+    if (state_ != cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Starting.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(10, state_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -269,8 +373,13 @@ private static final long serialVersionUID = 0L;
       result = result && getSnapshot()
           .equals(other.getSnapshot());
     }
-    result = result && getCrowd()
-        .equals(other.getCrowd());
+    result = result && (getInstanceID()
+        == other.getInstanceID());
+    result = result && getLoaderMeta()
+        .equals(other.getLoaderMeta());
+    result = result && loader_ == other.loader_;
+    result = result && (getTotalCrowd()
+        == other.getTotalCrowd());
     result = result && (getWorkers()
         == other.getWorkers());
     result = result && (getStartedAt()
@@ -279,6 +388,7 @@ private static final long serialVersionUID = 0L;
         == other.getStoppedAt());
     result = result && (getVersion()
         == other.getVersion());
+    result = result && state_ == other.state_;
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -294,8 +404,16 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + SNAPSHOT_FIELD_NUMBER;
       hash = (53 * hash) + getSnapshot().hashCode();
     }
-    hash = (37 * hash) + CROWD_FIELD_NUMBER;
-    hash = (53 * hash) + getCrowd().hashCode();
+    hash = (37 * hash) + INSTANCEID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getInstanceID());
+    hash = (37 * hash) + LOADERMETA_FIELD_NUMBER;
+    hash = (53 * hash) + getLoaderMeta().hashCode();
+    hash = (37 * hash) + LOADER_FIELD_NUMBER;
+    hash = (53 * hash) + loader_;
+    hash = (37 * hash) + TOTALCROWD_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTotalCrowd());
     hash = (37 * hash) + WORKERS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getWorkers());
@@ -308,6 +426,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + VERSION_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getVersion());
+    hash = (37 * hash) + STATE_FIELD_NUMBER;
+    hash = (53 * hash) + state_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -447,7 +567,13 @@ private static final long serialVersionUID = 0L;
         snapshot_ = null;
         snapshotBuilder_ = null;
       }
-      crowd_ = com.google.protobuf.ByteString.EMPTY;
+      instanceID_ = 0L;
+
+      loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
+
+      loader_ = 0;
+
+      totalCrowd_ = 0L;
 
       workers_ = 0L;
 
@@ -456,6 +582,8 @@ private static final long serialVersionUID = 0L;
       stoppedAt_ = 0L;
 
       version_ = 0L;
+
+      state_ = 0;
 
       return this;
     }
@@ -484,11 +612,15 @@ private static final long serialVersionUID = 0L;
       } else {
         result.snapshot_ = snapshotBuilder_.build();
       }
-      result.crowd_ = crowd_;
+      result.instanceID_ = instanceID_;
+      result.loaderMeta_ = loaderMeta_;
+      result.loader_ = loader_;
+      result.totalCrowd_ = totalCrowd_;
       result.workers_ = workers_;
       result.startedAt_ = startedAt_;
       result.stoppedAt_ = stoppedAt_;
       result.version_ = version_;
+      result.state_ = state_;
       onBuilt();
       return result;
     }
@@ -533,8 +665,17 @@ private static final long serialVersionUID = 0L;
       if (other.hasSnapshot()) {
         mergeSnapshot(other.getSnapshot());
       }
-      if (other.getCrowd() != com.google.protobuf.ByteString.EMPTY) {
-        setCrowd(other.getCrowd());
+      if (other.getInstanceID() != 0L) {
+        setInstanceID(other.getInstanceID());
+      }
+      if (other.getLoaderMeta() != com.google.protobuf.ByteString.EMPTY) {
+        setLoaderMeta(other.getLoaderMeta());
+      }
+      if (other.loader_ != 0) {
+        setLoaderValue(other.getLoaderValue());
+      }
+      if (other.getTotalCrowd() != 0L) {
+        setTotalCrowd(other.getTotalCrowd());
       }
       if (other.getWorkers() != 0L) {
         setWorkers(other.getWorkers());
@@ -547,6 +688,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getVersion() != 0L) {
         setVersion(other.getVersion());
+      }
+      if (other.state_ != 0) {
+        setStateValue(other.getStateValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -692,44 +836,140 @@ private static final long serialVersionUID = 0L;
       return snapshotBuilder_;
     }
 
-    private com.google.protobuf.ByteString crowd_ = com.google.protobuf.ByteString.EMPTY;
+    private long instanceID_ ;
     /**
-     * <code>bytes crowd = 2;</code>
+     * <code>uint64 instanceID = 2;</code>
      */
-    public com.google.protobuf.ByteString getCrowd() {
-      return crowd_;
+    public long getInstanceID() {
+      return instanceID_;
     }
     /**
-     * <code>bytes crowd = 2;</code>
+     * <code>uint64 instanceID = 2;</code>
      */
-    public Builder setCrowd(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      crowd_ = value;
+    public Builder setInstanceID(long value) {
+      
+      instanceID_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bytes crowd = 2;</code>
+     * <code>uint64 instanceID = 2;</code>
      */
-    public Builder clearCrowd() {
+    public Builder clearInstanceID() {
       
-      crowd_ = getDefaultInstance().getCrowd();
+      instanceID_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.ByteString loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <code>bytes loaderMeta = 3;</code>
+     */
+    public com.google.protobuf.ByteString getLoaderMeta() {
+      return loaderMeta_;
+    }
+    /**
+     * <code>bytes loaderMeta = 3;</code>
+     */
+    public Builder setLoaderMeta(com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      loaderMeta_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bytes loaderMeta = 3;</code>
+     */
+    public Builder clearLoaderMeta() {
+      
+      loaderMeta_ = getDefaultInstance().getLoaderMeta();
+      onChanged();
+      return this;
+    }
+
+    private int loader_ = 0;
+    /**
+     * <code>.metapb.BMLoader loader = 4;</code>
+     */
+    public int getLoaderValue() {
+      return loader_;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 4;</code>
+     */
+    public Builder setLoaderValue(int value) {
+      loader_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader() {
+      cn.infinivision.dataforce.busybee.pb.meta.BMLoader result = cn.infinivision.dataforce.busybee.pb.meta.BMLoader.valueOf(loader_);
+      return result == null ? cn.infinivision.dataforce.busybee.pb.meta.BMLoader.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 4;</code>
+     */
+    public Builder setLoader(cn.infinivision.dataforce.busybee.pb.meta.BMLoader value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      loader_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 4;</code>
+     */
+    public Builder clearLoader() {
+      
+      loader_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private long totalCrowd_ ;
+    /**
+     * <code>uint64 totalCrowd = 5;</code>
+     */
+    public long getTotalCrowd() {
+      return totalCrowd_;
+    }
+    /**
+     * <code>uint64 totalCrowd = 5;</code>
+     */
+    public Builder setTotalCrowd(long value) {
+      
+      totalCrowd_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 totalCrowd = 5;</code>
+     */
+    public Builder clearTotalCrowd() {
+      
+      totalCrowd_ = 0L;
       onChanged();
       return this;
     }
 
     private long workers_ ;
     /**
-     * <code>uint64 workers = 3;</code>
+     * <code>uint64 workers = 6;</code>
      */
     public long getWorkers() {
       return workers_;
     }
     /**
-     * <code>uint64 workers = 3;</code>
+     * <code>uint64 workers = 6;</code>
      */
     public Builder setWorkers(long value) {
       
@@ -738,7 +978,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint64 workers = 3;</code>
+     * <code>uint64 workers = 6;</code>
      */
     public Builder clearWorkers() {
       
@@ -749,13 +989,13 @@ private static final long serialVersionUID = 0L;
 
     private long startedAt_ ;
     /**
-     * <code>int64 startedAt = 4;</code>
+     * <code>int64 startedAt = 7;</code>
      */
     public long getStartedAt() {
       return startedAt_;
     }
     /**
-     * <code>int64 startedAt = 4;</code>
+     * <code>int64 startedAt = 7;</code>
      */
     public Builder setStartedAt(long value) {
       
@@ -764,7 +1004,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 startedAt = 4;</code>
+     * <code>int64 startedAt = 7;</code>
      */
     public Builder clearStartedAt() {
       
@@ -775,13 +1015,13 @@ private static final long serialVersionUID = 0L;
 
     private long stoppedAt_ ;
     /**
-     * <code>int64 stoppedAt = 5;</code>
+     * <code>int64 stoppedAt = 8;</code>
      */
     public long getStoppedAt() {
       return stoppedAt_;
     }
     /**
-     * <code>int64 stoppedAt = 5;</code>
+     * <code>int64 stoppedAt = 8;</code>
      */
     public Builder setStoppedAt(long value) {
       
@@ -790,7 +1030,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 stoppedAt = 5;</code>
+     * <code>int64 stoppedAt = 8;</code>
      */
     public Builder clearStoppedAt() {
       
@@ -801,13 +1041,13 @@ private static final long serialVersionUID = 0L;
 
     private long version_ ;
     /**
-     * <code>uint64 version = 6;</code>
+     * <code>uint64 version = 9;</code>
      */
     public long getVersion() {
       return version_;
     }
     /**
-     * <code>uint64 version = 6;</code>
+     * <code>uint64 version = 9;</code>
      */
     public Builder setVersion(long value) {
       
@@ -816,11 +1056,55 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint64 version = 6;</code>
+     * <code>uint64 version = 9;</code>
      */
     public Builder clearVersion() {
       
       version_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private int state_ = 0;
+    /**
+     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     */
+    public int getStateValue() {
+      return state_;
+    }
+    /**
+     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     */
+    public Builder setStateValue(int value) {
+      state_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState() {
+      cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState result = cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.valueOf(state_);
+      return result == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     */
+    public Builder setState(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      state_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     */
+    public Builder clearState() {
+      
+      state_ = 0;
       onChanged();
       return this;
     }

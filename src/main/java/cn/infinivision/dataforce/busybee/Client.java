@@ -1,5 +1,6 @@
 package cn.infinivision.dataforce.busybee;
 
+import cn.infinivision.dataforce.busybee.pb.meta.BMLoader;
 import cn.infinivision.dataforce.busybee.pb.meta.ConditionExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.DirectExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.ExectuionType;
@@ -12,11 +13,13 @@ import cn.infinivision.dataforce.busybee.pb.meta.IDValue;
 import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
 import cn.infinivision.dataforce.busybee.pb.meta.KV;
 import cn.infinivision.dataforce.busybee.pb.meta.Notify;
+import cn.infinivision.dataforce.busybee.pb.meta.ShardBitmapLoadMeta;
 import cn.infinivision.dataforce.busybee.pb.meta.Step;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
 import cn.infinivision.dataforce.busybee.pb.meta.UserEvent;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
+import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState;
 import cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest;
@@ -30,8 +33,10 @@ import cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.LastInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Request;
 import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
@@ -47,16 +52,18 @@ import cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateWorkflowRequest;
 import com.google.protobuf.ByteString;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -247,7 +254,7 @@ public class Client implements Closeable {
      * @return Future Result, use {@link Result#bytesListResponse} to get bytes list response
      */
     public Future<Result> scanKeys(byte[] starInclude, byte[] endExclude, long limit) {
-        return scan(starInclude, endExclude, limit, 1, Group.DefaultGroup);
+        return scan(starInclude, endExclude, limit, Group.DefaultGroup);
     }
 
     /**
@@ -566,8 +573,97 @@ public class Client implements Closeable {
                 .setInstance(WorkflowInstance.newBuilder()
                     .setWorkers(workers)
                     .setSnapshot(wf)
-                    .setCrowd(ByteString.copyFrom(value))
+                    .setLoader(BMLoader.RawLoader)
+                    .setLoaderMeta(ByteString.copyFrom(value))
                     .build())
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * start the workflow using CK Sql
+     *
+     * @param wf workflow
+     * @param sql load bitmap from ck sql
+     * @param workers number of workers to run this workflow
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> startInstanceWithCK(Workflow wf, String sql, long workers) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.StartingInstance)
+            .setStartInstance(StartingInstanceRequest.newBuilder()
+                .setInstance(WorkflowInstance.newBuilder()
+                    .setWorkers(workers)
+                    .setSnapshot(wf)
+                    .setLoader(BMLoader.ClickhouseLoader)
+                    .setLoaderMeta(ByteString.copyFrom(sql.getBytes()))
+                    .build())
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * start the workflow using CK Sql
+     *
+     * @param wf workflow
+     * @param key load bitmap from kv
+     * @param workers number of workers to run this workflow
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> startInstanceWithKV(Workflow wf, String key, long workers) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.StartingInstance)
+            .setStartInstance(StartingInstanceRequest.newBuilder()
+                .setInstance(WorkflowInstance.newBuilder()
+                    .setWorkers(workers)
+                    .setSnapshot(wf)
+                    .setLoader(BMLoader.KVLoader)
+                    .setLoaderMeta(ByteString.copyFrom(key.getBytes()))
+                    .build())
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * get the workflow last instance
+     *
+     * @param workflowId workflow id
+     * @return Future Result, use {@link Result#lastInstanceResponse} to get response
+     */
+    public Future<Result> lastInstance(long workflowId) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.LastInstance)
+            .setLastInstance(LastInstanceRequest.newBuilder()
+                .setWorkflowID(workflowId)
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * get the workflow history instance snapshot
+     *
+     * @param workflowId workflow id
+     * @param instanceId workflow instance id
+     * @return Future Result, use {@link Result#historyInstanceResponse} to get response
+     */
+    public Future<Result> historyInstance(long workflowId, long instanceId) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.HistoryInstance)
+            .setHistoryInstance(HistoryInstanceRequest.newBuilder()
+                .setWorkflowID(workflowId)
+                .setInstanceID(instanceId)
                 .build())
             .build();
 
@@ -608,7 +704,50 @@ public class Client implements Closeable {
             .setType(Type.UpdateCrowd)
             .setUpdateCrowd(UpdateCrowdRequest.newBuilder()
                 .setId(workflowId)
-                .setCrowd(ByteString.copyFrom(value))
+                .setLoader(BMLoader.RawLoader)
+                .setLoaderMeta(ByteString.copyFrom(value))
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * update the workflow crowd
+     *
+     * @param workflowId workflow id
+     * @param sql crowd query sql
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> updateWorkflowCrowdWithCKSQL(long workflowId, String sql) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.UpdateCrowd)
+            .setUpdateCrowd(UpdateCrowdRequest.newBuilder()
+                .setId(workflowId)
+                .setLoader(BMLoader.ClickhouseLoader)
+                .setLoaderMeta(ByteString.copyFrom(sql.getBytes()))
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * update the workflow crowd
+     *
+     * @param workflowId workflow id
+     * @param key crowd key in the KV
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> updateWorkflowCrowdWithKV(long workflowId, String key) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.UpdateCrowd)
+            .setUpdateCrowd(UpdateCrowdRequest.newBuilder()
+                .setId(workflowId)
+                .setLoader(BMLoader.KVLoader)
+                .setLoaderMeta(ByteString.copyFrom(key.getBytes()))
                 .build())
             .build();
 
@@ -652,26 +791,6 @@ public class Client implements Closeable {
     }
 
     /**
-     * the crowd step state of the workflow, contains step and crowd users on the step.
-     *
-     * @param workflowId workflow id
-     * @param step step name
-     * @return Future Result, use {@link Result#stepCrowdStateResponse} to get {@link StepState} response
-     */
-    public Future<Result> stepCrowdState(long workflowId, String step) {
-        Request req = Request.newBuilder()
-            .setId(id.incrementAndGet())
-            .setType(Type.InstanceCrowdState)
-            .setCrowdInstance(InstanceCrowdStateRequest.newBuilder()
-                .setWorkflowID(workflowId)
-                .setName(step)
-                .build())
-            .build();
-
-        return doRequest(req);
-    }
-
-    /**
      * added event to the tenant's input queue.
      *
      * @param tenantId tenant id
@@ -707,6 +826,26 @@ public class Client implements Closeable {
     }
 
     /**
+     * the crowd step state of the workflow, contains step and crowd users on the step.
+     *
+     * @param workflowId workflow id
+     * @param step step name
+     * @return Future Result, use {@link Result#stepCrowdStateResponse} to get {@link StepState} response
+     */
+    public Future<Result> stepCrowdState(long workflowId, String step) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.InstanceCrowdState)
+            .setCrowdInstance(InstanceCrowdStateRequest.newBuilder()
+                .setWorkflowID(workflowId)
+                .setName(step)
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
      * watch the notifies of the giving tenantId
      *
      * @param tenantId tenant id
@@ -719,7 +858,72 @@ public class Client implements Closeable {
             return;
         }
 
-        FetchWorker w = new FetchWorker(this, tenantId, consumer, callback, schedulers);
+        FetchWorker w = new FetchWorker(this, tenantId, consumer, callback, null, schedulers);
+        fetchWorkers.putIfAbsent(tenantId, w);
+        schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
+    }
+
+    /**
+     * get bitmap by loader and loaderMeta
+     *
+     * @param loader loader
+     * @param loadMeta loader meta
+     * @return
+     */
+    public RoaringBitmap loadBitmap(BMLoader loader, ByteString loadMeta) {
+        switch (loader) {
+            case KVShardLoader:
+                try {
+                    ShardBitmapLoadMeta meta = ShardBitmapLoadMeta.parseFrom(loadMeta);
+                    int pos = 0;
+                    byte[] data = new byte[(int) meta.getTotal()];
+                    ByteBuf buf = ByteBufAllocator.DEFAULT.buffer();
+                    for (int i = 0; i < meta.getShards(); i++) {
+                        buf.clear();
+                        buf.writeBytes(meta.getKey().toByteArray());
+                        buf.writeInt(i);
+
+                        byte[] key = new byte[buf.readableBytes()];
+                        buf.readBytes(key);
+
+                        byte[] shard = get(key).get().bytesResponse();
+                        System.arraycopy(shard, 0, data, pos, shard.length);
+                        pos += shard.length;
+                    }
+
+                    RoaringBitmap bm = RoaringBitmap.bitmapOf();
+                    bm.deserialize(ByteBuffer.wrap(data));
+                    return bm;
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            case RawLoader:
+                RoaringBitmap bm = RoaringBitmap.bitmapOf();
+                try {
+                    bm.deserialize(ByteBuffer.wrap(loadMeta.toByteArray()));
+                    return bm;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            default:
+                throw new RuntimeException("not support loader " + loader);
+        }
+    }
+
+    /**
+     * watch the notifies of the giving tenantId
+     *
+     * @param tenantId tenant id
+     * @param consumer size
+     * @param callback batch callback
+     */
+    public void watchBatchNotify(long tenantId, String consumer, Consumer<List<Notify>> callback) {
+        if (fetchWorkers.containsKey(tenantId)) {
+            log.warn("tenant {} already in watching", tenantId);
+            return;
+        }
+
+        FetchWorker w = new FetchWorker(this, tenantId, consumer, null, callback, schedulers);
         fetchWorkers.putIfAbsent(tenantId, w);
         schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
     }
@@ -736,7 +940,7 @@ public class Client implements Closeable {
         }
     }
 
-    private Future<Result> scan(byte[] starInclude, byte[] endExclude, long limit, int skipValuePrefix, Group group) {
+    private Future<Result> scan(byte[] starInclude, byte[] endExclude, long limit, Group group) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.Scan)
@@ -744,7 +948,6 @@ public class Client implements Closeable {
                 .setStart(ByteString.copyFrom(starInclude))
                 .setEnd(ByteString.copyFrom(endExclude))
                 .setLimit(limit)
-                .setSkip(skipValuePrefix)
                 .setGroup(group)
                 .build())
             .build();
@@ -768,14 +971,17 @@ public class Client implements Closeable {
         private long offset;
         private String consumer;
         private Consumer<Notify> callback;
+        private Consumer<List<Notify>> batchCallback;
         private ScheduledExecutorService schedulers;
 
         FetchWorker(Client client, long tenantId, String consumer, Consumer<Notify> callback,
+            Consumer<List<Notify>> batchCallback,
             ScheduledExecutorService schedulers) {
             this.client = client;
             this.tenantId = tenantId;
             this.consumer = consumer;
             this.callback = callback;
+            this.batchCallback = batchCallback;
             this.schedulers = schedulers;
         }
 
@@ -798,10 +1004,20 @@ public class Client implements Closeable {
                     List<ByteString> items = resp.getBytesSliceResp().getItemsList();
                     if (items.size() > 0) {
                         long value = resp.getBytesSliceResp().getLastOffset() - items.size();
+                        List<Notify> values = new ArrayList<>();
                         for (ByteString bs : items) {
-                            callback.accept(Notify.parseFrom(bs));
-                            value++;
-                            offset = value;
+                            values.add(Notify.parseFrom(bs));
+                        }
+
+                        if (callback != null) {
+                            for (Notify nt : values) {
+                                callback.accept(nt);
+                                value++;
+                                offset = value;
+                            }
+                        } else {
+                            batchCallback.accept(values);
+                            offset = resp.getBytesSliceResp().getLastOffset();
                         }
                         after = 0;
                     }
@@ -840,33 +1056,13 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.execute(() -> {
-            Client c = new Builder().rpcTimeout(5000).addServer("192.168.200.160:9091").build();
-            for (; ; ) {
-                try {
-                    c.scanIDMapping(1, 0, 100, 100).get().checkError();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        executorService.execute(() -> {
-            Client c = new Builder().rpcTimeout(5000).addServer("192.168.200.160:9091").build();
-            for (; ; ) {
-                try {
-                    c.scanIDMapping(1, 100, 200, 100).get().checkError();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-//        System.out.println(c.get("key2".getBytes()).get().stringResponse());
-//        c.close();
+        Client c = new Builder().rpcTimeout(5000).addServer("172.21.143.164:8081",
+            "172.21.143.164:8082",
+            "172.21.143.164:8083",
+            "172.21.143.164:8084").build();
+
+        workflowWithBigBM(c);
+
     }
 
     public static void keys(Client c) throws ExecutionException, InterruptedException {
@@ -902,6 +1098,176 @@ public class Client implements Closeable {
 
         c.addToBitmap(key, 1L, 2L, 3L, 4L, 5L).get().checkError();
         System.out.println(c.getBitmap(key).get().bitmapResponse().getCardinality());
+    }
+
+    public static void workflowWithBigBM(Client c) throws ExecutionException, InterruptedException {
+        byte[] key = "bm1".getBytes();
+        Long[] values = new Long[40000];
+        int index = 0;
+        for (long i = 0; i < 400000000L; i++) {
+            if (i % 333 == 0) {
+                values[index] = i;
+                index++;
+
+                if (index == 40000) {
+                    c.addToBitmap(key, values).get().checkError();
+                    index = 0;
+                }
+            }
+        }
+
+        if (index > 0) {
+            c.addToBitmap(key, values).get().checkError();
+        }
+
+        Workflow wf = Workflow.newBuilder()
+            .setId(1000)
+            .setName("test")
+            .setTenantID(1)
+            .addSteps(Step.newBuilder()
+                .setName("step-0")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Branch)
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
+                            .build())
+                        .setNextStep("step_end_1"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
+                            .build())
+                        .setNextStep("step_end_2"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
+                            .build())
+                        .setNextStep("step_end_3"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
+                            .build())
+                        .setNextStep("step_end_4"))
+                    .build())
+                .build())
+            .addSteps(Step.newBuilder()
+                .setName("step_end_1")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_2")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_3")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_4")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .build();
+
+        c.initTenant(1, 2).get().checkError();
+        Thread.sleep(15000);
+        c.startInstanceWithKV(wf, "bm1", 128).get().checkError();
+        c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
+        c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
+        c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
+
+        for (; ; ) {
+            System.out.println("************************** send last instance");
+            WorkflowInstance last = c.lastInstance(1000).get().lastInstanceResponse();
+            if (last.getState() == WorkflowInstanceState.Running) {
+                break;
+            }
+
+            Thread.sleep(1000);
+        }
+
+        System.out.println("countState: " + c.countState(1000).get().countStateResponse());
+        System.out.println("updateWorkflowCrowd*********** ");
+        c.updateWorkflowCrowd(1000, RoaringBitmap.bitmapOf(1, 2, 3, 4)).get().checkError();
+        Thread.sleep(2000);
+        c.addEvent(1, 4, "uid".getBytes(), "4".getBytes()).get().checkError();
+        Thread.sleep(2000);
+        System.out.println(c.countState(1000).get().countStateResponse());
+
+        c.updateWorkflow(Workflow.newBuilder()
+            .setId(1000)
+            .setName("test")
+            .setTenantID(1)
+            .addSteps(Step.newBuilder()
+                .setName("step-0")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Branch)
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
+                            .build())
+                        .setNextStep("step_end_1"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
+                            .build())
+                        .setNextStep("step_end_2"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
+                            .build())
+                        .setNextStep("step_end_3"))
+                    .addBranches(ConditionExecution.newBuilder()
+                        .setCondition(Expr.newBuilder()
+                            .setType(ExprResultType.BoolResult)
+                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
+                            .build())
+                        .setNextStep("step_end_4"))
+                    .build())
+                .build())
+            .addSteps(Step.newBuilder()
+                .setName("step_end_1")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .addSteps(Step.newBuilder()
+                .setName("step_end_4")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .build()).get().checkError();
+
+        Thread.sleep(2000);
+        System.out.println(c.countState(1000).get().countStateResponse());
+
+        StepState state = c.stepCrowdState(1000, "step-0").get().stepCrowdStateResponse();
+        System.out.println("************************* state: " + state);
+        RoaringBitmap bm = c.loadBitmap(state.getLoader(), state.getLoaderMeta());
+        System.out.println("####************************* state: " + state + ", " + bm.getLongCardinality());
+
+        c.stopInstance(1000).get();
+
+        Thread.sleep(1000);
+        WorkflowInstance last = c.lastInstance(1000).get().lastInstanceResponse();
+        System.out.println(last);
+        System.out.println(c.historyInstance(1000, last.getInstanceID()).get().historyInstanceResponse());
+
     }
 
     public static void workflow(Client c) throws ExecutionException, InterruptedException {
@@ -973,6 +1339,7 @@ public class Client implements Closeable {
         c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
 
         Thread.sleep(2000);
+        System.out.println(c.lastInstance(1000).get().lastInstanceResponse());
         System.out.println(c.countState(1000).get().countStateResponse());
 
         c.updateWorkflowCrowd(1000, RoaringBitmap.bitmapOf(1, 2, 3, 4)).get().checkError();
@@ -1031,5 +1398,13 @@ public class Client implements Closeable {
 
         Thread.sleep(2000);
         System.out.println(c.countState(1000).get().countStateResponse());
+
+        c.stopInstance(1000).get();
+
+        Thread.sleep(1000);
+        WorkflowInstance last = c.lastInstance(1000).get().lastInstanceResponse();
+        System.out.println(last);
+        System.out.println(c.historyInstance(1000, last.getInstanceID()).get().historyInstanceResponse());
+
     }
 }

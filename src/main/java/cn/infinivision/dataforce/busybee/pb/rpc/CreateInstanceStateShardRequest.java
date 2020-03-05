@@ -54,11 +54,11 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 10: {
-            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Builder subBuilder = null;
+            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.Builder subBuilder = null;
             if (state_ != null) {
               subBuilder = state_.toBuilder();
             }
-            state_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.parser(), extensionRegistry);
+            state_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(state_);
               state_ = subBuilder.buildPartial();
@@ -91,23 +91,23 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int STATE_FIELD_NUMBER = 1;
-  private cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState state_;
+  private cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState state_;
   /**
-   * <code>.metapb.WorkflowInstanceState state = 1;</code>
+   * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
    */
   public boolean hasState() {
     return state_ != null;
   }
   /**
-   * <code>.metapb.WorkflowInstanceState state = 1;</code>
+   * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState() {
-    return state_ == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.getDefaultInstance() : state_;
+  public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState getState() {
+    return state_ == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.getDefaultInstance() : state_;
   }
   /**
-   * <code>.metapb.WorkflowInstanceState state = 1;</code>
+   * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceStateOrBuilder getStateOrBuilder() {
+  public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerStateOrBuilder getStateOrBuilder() {
     return getState();
   }
 
@@ -411,29 +411,29 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState state_ = null;
+    private cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState state_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Builder, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceStateOrBuilder> stateBuilder_;
+        cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.Builder, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerStateOrBuilder> stateBuilder_;
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
     public boolean hasState() {
       return stateBuilder_ != null || state_ != null;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState() {
+    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState getState() {
       if (stateBuilder_ == null) {
-        return state_ == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.getDefaultInstance() : state_;
+        return state_ == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.getDefaultInstance() : state_;
       } else {
         return stateBuilder_.getMessage();
       }
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
-    public Builder setState(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState value) {
+    public Builder setState(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState value) {
       if (stateBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -447,10 +447,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
     public Builder setState(
-        cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Builder builderForValue) {
+        cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.Builder builderForValue) {
       if (stateBuilder_ == null) {
         state_ = builderForValue.build();
         onChanged();
@@ -461,13 +461,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
-    public Builder mergeState(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState value) {
+    public Builder mergeState(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState value) {
       if (stateBuilder_ == null) {
         if (state_ != null) {
           state_ =
-            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.newBuilder(state_).mergeFrom(value).buildPartial();
+            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.newBuilder(state_).mergeFrom(value).buildPartial();
         } else {
           state_ = value;
         }
@@ -479,7 +479,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
     public Builder clearState() {
       if (stateBuilder_ == null) {
@@ -493,33 +493,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Builder getStateBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.Builder getStateBuilder() {
       
       onChanged();
       return getStateFieldBuilder().getBuilder();
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceStateOrBuilder getStateOrBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerStateOrBuilder getStateOrBuilder() {
       if (stateBuilder_ != null) {
         return stateBuilder_.getMessageOrBuilder();
       } else {
         return state_ == null ?
-            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.getDefaultInstance() : state_;
+            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.getDefaultInstance() : state_;
       }
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 1;</code>
+     * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Builder, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceStateOrBuilder> 
+        cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.Builder, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerStateOrBuilder> 
         getStateFieldBuilder() {
       if (stateBuilder_ == null) {
         stateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Builder, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceStateOrBuilder>(
+            cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState.Builder, cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerStateOrBuilder>(
                 getState(),
                 getParentForChildren(),
                 isClean());

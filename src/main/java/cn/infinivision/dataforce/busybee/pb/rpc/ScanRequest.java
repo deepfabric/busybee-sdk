@@ -23,7 +23,6 @@ private static final long serialVersionUID = 0L;
     start_ = com.google.protobuf.ByteString.EMPTY;
     end_ = com.google.protobuf.ByteString.EMPTY;
     limit_ = 0L;
-    skip_ = 0;
     group_ = 0;
   }
 
@@ -74,11 +73,6 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 32: {
-
-            skip_ = input.readInt32();
-            break;
-          }
-          case 40: {
             int rawValue = input.readEnum();
 
             group_ = rawValue;
@@ -135,25 +129,16 @@ private static final long serialVersionUID = 0L;
     return limit_;
   }
 
-  public static final int SKIP_FIELD_NUMBER = 4;
-  private int skip_;
-  /**
-   * <code>int32 skip = 4;</code>
-   */
-  public int getSkip() {
-    return skip_;
-  }
-
-  public static final int GROUP_FIELD_NUMBER = 5;
+  public static final int GROUP_FIELD_NUMBER = 4;
   private int group_;
   /**
-   * <code>.metapb.Group group = 5;</code>
+   * <code>.metapb.Group group = 4;</code>
    */
   public int getGroupValue() {
     return group_;
   }
   /**
-   * <code>.metapb.Group group = 5;</code>
+   * <code>.metapb.Group group = 4;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.meta.Group getGroup() {
     cn.infinivision.dataforce.busybee.pb.meta.Group result = cn.infinivision.dataforce.busybee.pb.meta.Group.valueOf(group_);
@@ -181,11 +166,8 @@ private static final long serialVersionUID = 0L;
     if (limit_ != 0L) {
       output.writeUInt64(3, limit_);
     }
-    if (skip_ != 0) {
-      output.writeInt32(4, skip_);
-    }
     if (group_ != cn.infinivision.dataforce.busybee.pb.meta.Group.DefaultGroup.getNumber()) {
-      output.writeEnum(5, group_);
+      output.writeEnum(4, group_);
     }
     unknownFields.writeTo(output);
   }
@@ -207,13 +189,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(3, limit_);
     }
-    if (skip_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(4, skip_);
-    }
     if (group_ != cn.infinivision.dataforce.busybee.pb.meta.Group.DefaultGroup.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(5, group_);
+        .computeEnumSize(4, group_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -237,8 +215,6 @@ private static final long serialVersionUID = 0L;
         .equals(other.getEnd());
     result = result && (getLimit()
         == other.getLimit());
-    result = result && (getSkip()
-        == other.getSkip());
     result = result && group_ == other.group_;
     result = result && unknownFields.equals(other.unknownFields);
     return result;
@@ -258,8 +234,6 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + LIMIT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getLimit());
-    hash = (37 * hash) + SKIP_FIELD_NUMBER;
-    hash = (53 * hash) + getSkip();
     hash = (37 * hash) + GROUP_FIELD_NUMBER;
     hash = (53 * hash) + group_;
     hash = (29 * hash) + unknownFields.hashCode();
@@ -401,8 +375,6 @@ private static final long serialVersionUID = 0L;
 
       limit_ = 0L;
 
-      skip_ = 0;
-
       group_ = 0;
 
       return this;
@@ -430,7 +402,6 @@ private static final long serialVersionUID = 0L;
       result.start_ = start_;
       result.end_ = end_;
       result.limit_ = limit_;
-      result.skip_ = skip_;
       result.group_ = group_;
       onBuilt();
       return result;
@@ -481,9 +452,6 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getLimit() != 0L) {
         setLimit(other.getLimit());
-      }
-      if (other.getSkip() != 0) {
-        setSkip(other.getSkip());
       }
       if (other.group_ != 0) {
         setGroupValue(other.getGroupValue());
@@ -599,41 +567,15 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int skip_ ;
-    /**
-     * <code>int32 skip = 4;</code>
-     */
-    public int getSkip() {
-      return skip_;
-    }
-    /**
-     * <code>int32 skip = 4;</code>
-     */
-    public Builder setSkip(int value) {
-      
-      skip_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 skip = 4;</code>
-     */
-    public Builder clearSkip() {
-      
-      skip_ = 0;
-      onChanged();
-      return this;
-    }
-
     private int group_ = 0;
     /**
-     * <code>.metapb.Group group = 5;</code>
+     * <code>.metapb.Group group = 4;</code>
      */
     public int getGroupValue() {
       return group_;
     }
     /**
-     * <code>.metapb.Group group = 5;</code>
+     * <code>.metapb.Group group = 4;</code>
      */
     public Builder setGroupValue(int value) {
       group_ = value;
@@ -641,14 +583,14 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.Group group = 5;</code>
+     * <code>.metapb.Group group = 4;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.Group getGroup() {
       cn.infinivision.dataforce.busybee.pb.meta.Group result = cn.infinivision.dataforce.busybee.pb.meta.Group.valueOf(group_);
       return result == null ? cn.infinivision.dataforce.busybee.pb.meta.Group.UNRECOGNIZED : result;
     }
     /**
-     * <code>.metapb.Group group = 5;</code>
+     * <code>.metapb.Group group = 4;</code>
      */
     public Builder setGroup(cn.infinivision.dataforce.busybee.pb.meta.Group value) {
       if (value == null) {
@@ -660,7 +602,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.Group group = 5;</code>
+     * <code>.metapb.Group group = 4;</code>
      */
     public Builder clearGroup() {
       

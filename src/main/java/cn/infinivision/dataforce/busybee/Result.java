@@ -3,6 +3,8 @@ package cn.infinivision.dataforce.busybee;
 import cn.infinivision.dataforce.busybee.pb.meta.IDSet;
 import cn.infinivision.dataforce.busybee.pb.meta.InstanceCountState;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
+import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
+import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceSnapshot;
 import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.aicloud.tools.netty.util.BytesUtils;
@@ -211,6 +213,44 @@ public class Result {
         }
 
         throw new IllegalAccessError("the response is not id set list response");
+    }
+
+    /**
+     * last instance response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return last workflow instance
+     */
+    public WorkflowInstance lastInstanceResponse() {
+        checkError();
+
+        if (resp.hasBytesResp()) {
+            try {
+                return WorkflowInstance.parseFrom(resp.getBytesResp().getValue());
+            } catch (InvalidProtocolBufferException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        throw new IllegalAccessError("the response is not last instance response");
+    }
+
+    /**
+     * history instance response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return history workflow instance result
+     */
+    public WorkflowInstanceSnapshot historyInstanceResponse() {
+        checkError();
+
+        if (resp.hasBytesResp()) {
+            try {
+                return WorkflowInstanceSnapshot.parseFrom(resp.getBytesResp().getValue());
+            } catch (InvalidProtocolBufferException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        throw new IllegalAccessError("the response is not history instance response");
     }
 
     /**

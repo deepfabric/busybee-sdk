@@ -21,7 +21,21 @@ public interface StepStateOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.meta.StepOrBuilder getStepOrBuilder();
 
   /**
-   * <code>bytes crowd = 2;</code>
+   * <code>uint64 totalCrowd = 2;</code>
    */
-  com.google.protobuf.ByteString getCrowd();
+  long getTotalCrowd();
+
+  /**
+   * <code>.metapb.BMLoader loader = 3;</code>
+   */
+  int getLoaderValue();
+  /**
+   * <code>.metapb.BMLoader loader = 3;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader();
+
+  /**
+   * <code>bytes loaderMeta = 4;</code>
+   */
+  com.google.protobuf.ByteString getLoaderMeta();
 }

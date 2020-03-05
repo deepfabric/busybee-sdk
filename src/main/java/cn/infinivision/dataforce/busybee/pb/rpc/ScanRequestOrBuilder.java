@@ -23,16 +23,11 @@ public interface ScanRequestOrBuilder extends
   long getLimit();
 
   /**
-   * <code>int32 skip = 4;</code>
-   */
-  int getSkip();
-
-  /**
-   * <code>.metapb.Group group = 5;</code>
+   * <code>.metapb.Group group = 4;</code>
    */
   int getGroupValue();
   /**
-   * <code>.metapb.Group group = 5;</code>
+   * <code>.metapb.Group group = 4;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.Group getGroup();
 }

@@ -8,15 +8,15 @@ public interface CreateInstanceStateShardRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.metapb.WorkflowInstanceState state = 1;</code>
+   * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
    */
   boolean hasState();
   /**
-   * <code>.metapb.WorkflowInstanceState state = 1;</code>
+   * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState();
+  cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerState getState();
   /**
-   * <code>.metapb.WorkflowInstanceState state = 1;</code>
+   * <code>.metapb.WorkflowInstanceWorkerState state = 1;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceStateOrBuilder getStateOrBuilder();
+  cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceWorkerStateOrBuilder getStateOrBuilder();
 }

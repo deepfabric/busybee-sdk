@@ -13,7 +13,16 @@ public interface UpdateCrowdRequestOrBuilder extends
   long getId();
 
   /**
-   * <code>bytes crowd = 2;</code>
+   * <code>.metapb.BMLoader loader = 2;</code>
    */
-  com.google.protobuf.ByteString getCrowd();
+  int getLoaderValue();
+  /**
+   * <code>.metapb.BMLoader loader = 2;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader();
+
+  /**
+   * <code>bytes loaderMeta = 3;</code>
+   */
+  com.google.protobuf.ByteString getLoaderMeta();
 }

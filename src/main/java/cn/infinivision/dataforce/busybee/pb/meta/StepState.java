@@ -20,7 +20,9 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private StepState() {
-    crowd_ = com.google.protobuf.ByteString.EMPTY;
+    totalCrowd_ = 0L;
+    loader_ = 0;
+    loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   @java.lang.Override
@@ -67,9 +69,20 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 18: {
+          case 16: {
 
-            crowd_ = input.readBytes();
+            totalCrowd_ = input.readUInt64();
+            break;
+          }
+          case 24: {
+            int rawValue = input.readEnum();
+
+            loader_ = rawValue;
+            break;
+          }
+          case 34: {
+
+            loaderMeta_ = input.readBytes();
             break;
           }
         }
@@ -117,13 +130,38 @@ private static final long serialVersionUID = 0L;
     return getStep();
   }
 
-  public static final int CROWD_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString crowd_;
+  public static final int TOTALCROWD_FIELD_NUMBER = 2;
+  private long totalCrowd_;
   /**
-   * <code>bytes crowd = 2;</code>
+   * <code>uint64 totalCrowd = 2;</code>
    */
-  public com.google.protobuf.ByteString getCrowd() {
-    return crowd_;
+  public long getTotalCrowd() {
+    return totalCrowd_;
+  }
+
+  public static final int LOADER_FIELD_NUMBER = 3;
+  private int loader_;
+  /**
+   * <code>.metapb.BMLoader loader = 3;</code>
+   */
+  public int getLoaderValue() {
+    return loader_;
+  }
+  /**
+   * <code>.metapb.BMLoader loader = 3;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader() {
+    cn.infinivision.dataforce.busybee.pb.meta.BMLoader result = cn.infinivision.dataforce.busybee.pb.meta.BMLoader.valueOf(loader_);
+    return result == null ? cn.infinivision.dataforce.busybee.pb.meta.BMLoader.UNRECOGNIZED : result;
+  }
+
+  public static final int LOADERMETA_FIELD_NUMBER = 4;
+  private com.google.protobuf.ByteString loaderMeta_;
+  /**
+   * <code>bytes loaderMeta = 4;</code>
+   */
+  public com.google.protobuf.ByteString getLoaderMeta() {
+    return loaderMeta_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -141,8 +179,14 @@ private static final long serialVersionUID = 0L;
     if (step_ != null) {
       output.writeMessage(1, getStep());
     }
-    if (!crowd_.isEmpty()) {
-      output.writeBytes(2, crowd_);
+    if (totalCrowd_ != 0L) {
+      output.writeUInt64(2, totalCrowd_);
+    }
+    if (loader_ != cn.infinivision.dataforce.busybee.pb.meta.BMLoader.RawLoader.getNumber()) {
+      output.writeEnum(3, loader_);
+    }
+    if (!loaderMeta_.isEmpty()) {
+      output.writeBytes(4, loaderMeta_);
     }
     unknownFields.writeTo(output);
   }
@@ -156,9 +200,17 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getStep());
     }
-    if (!crowd_.isEmpty()) {
+    if (totalCrowd_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(2, crowd_);
+        .computeUInt64Size(2, totalCrowd_);
+    }
+    if (loader_ != cn.infinivision.dataforce.busybee.pb.meta.BMLoader.RawLoader.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(3, loader_);
+    }
+    if (!loaderMeta_.isEmpty()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBytesSize(4, loaderMeta_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -181,8 +233,11 @@ private static final long serialVersionUID = 0L;
       result = result && getStep()
           .equals(other.getStep());
     }
-    result = result && getCrowd()
-        .equals(other.getCrowd());
+    result = result && (getTotalCrowd()
+        == other.getTotalCrowd());
+    result = result && loader_ == other.loader_;
+    result = result && getLoaderMeta()
+        .equals(other.getLoaderMeta());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -198,8 +253,13 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + STEP_FIELD_NUMBER;
       hash = (53 * hash) + getStep().hashCode();
     }
-    hash = (37 * hash) + CROWD_FIELD_NUMBER;
-    hash = (53 * hash) + getCrowd().hashCode();
+    hash = (37 * hash) + TOTALCROWD_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTotalCrowd());
+    hash = (37 * hash) + LOADER_FIELD_NUMBER;
+    hash = (53 * hash) + loader_;
+    hash = (37 * hash) + LOADERMETA_FIELD_NUMBER;
+    hash = (53 * hash) + getLoaderMeta().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -339,7 +399,11 @@ private static final long serialVersionUID = 0L;
         step_ = null;
         stepBuilder_ = null;
       }
-      crowd_ = com.google.protobuf.ByteString.EMPTY;
+      totalCrowd_ = 0L;
+
+      loader_ = 0;
+
+      loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
 
       return this;
     }
@@ -368,7 +432,9 @@ private static final long serialVersionUID = 0L;
       } else {
         result.step_ = stepBuilder_.build();
       }
-      result.crowd_ = crowd_;
+      result.totalCrowd_ = totalCrowd_;
+      result.loader_ = loader_;
+      result.loaderMeta_ = loaderMeta_;
       onBuilt();
       return result;
     }
@@ -413,8 +479,14 @@ private static final long serialVersionUID = 0L;
       if (other.hasStep()) {
         mergeStep(other.getStep());
       }
-      if (other.getCrowd() != com.google.protobuf.ByteString.EMPTY) {
-        setCrowd(other.getCrowd());
+      if (other.getTotalCrowd() != 0L) {
+        setTotalCrowd(other.getTotalCrowd());
+      }
+      if (other.loader_ != 0) {
+        setLoaderValue(other.getLoaderValue());
+      }
+      if (other.getLoaderMeta() != com.google.protobuf.ByteString.EMPTY) {
+        setLoaderMeta(other.getLoaderMeta());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -560,31 +632,101 @@ private static final long serialVersionUID = 0L;
       return stepBuilder_;
     }
 
-    private com.google.protobuf.ByteString crowd_ = com.google.protobuf.ByteString.EMPTY;
+    private long totalCrowd_ ;
     /**
-     * <code>bytes crowd = 2;</code>
+     * <code>uint64 totalCrowd = 2;</code>
      */
-    public com.google.protobuf.ByteString getCrowd() {
-      return crowd_;
+    public long getTotalCrowd() {
+      return totalCrowd_;
     }
     /**
-     * <code>bytes crowd = 2;</code>
+     * <code>uint64 totalCrowd = 2;</code>
      */
-    public Builder setCrowd(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      crowd_ = value;
+    public Builder setTotalCrowd(long value) {
+      
+      totalCrowd_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bytes crowd = 2;</code>
+     * <code>uint64 totalCrowd = 2;</code>
      */
-    public Builder clearCrowd() {
+    public Builder clearTotalCrowd() {
       
-      crowd_ = getDefaultInstance().getCrowd();
+      totalCrowd_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private int loader_ = 0;
+    /**
+     * <code>.metapb.BMLoader loader = 3;</code>
+     */
+    public int getLoaderValue() {
+      return loader_;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 3;</code>
+     */
+    public Builder setLoaderValue(int value) {
+      loader_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 3;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader() {
+      cn.infinivision.dataforce.busybee.pb.meta.BMLoader result = cn.infinivision.dataforce.busybee.pb.meta.BMLoader.valueOf(loader_);
+      return result == null ? cn.infinivision.dataforce.busybee.pb.meta.BMLoader.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 3;</code>
+     */
+    public Builder setLoader(cn.infinivision.dataforce.busybee.pb.meta.BMLoader value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      loader_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.metapb.BMLoader loader = 3;</code>
+     */
+    public Builder clearLoader() {
+      
+      loader_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.ByteString loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <code>bytes loaderMeta = 4;</code>
+     */
+    public com.google.protobuf.ByteString getLoaderMeta() {
+      return loaderMeta_;
+    }
+    /**
+     * <code>bytes loaderMeta = 4;</code>
+     */
+    public Builder setLoaderMeta(com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      loaderMeta_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bytes loaderMeta = 4;</code>
+     */
+    public Builder clearLoaderMeta() {
+      
+      loaderMeta_ = getDefaultInstance().getLoaderMeta();
       onChanged();
       return this;
     }

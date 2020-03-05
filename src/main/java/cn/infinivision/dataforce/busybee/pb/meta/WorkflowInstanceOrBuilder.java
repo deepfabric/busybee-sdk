@@ -21,27 +21,55 @@ public interface WorkflowInstanceOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.meta.WorkflowOrBuilder getSnapshotOrBuilder();
 
   /**
-   * <code>bytes crowd = 2;</code>
+   * <code>uint64 instanceID = 2;</code>
    */
-  com.google.protobuf.ByteString getCrowd();
+  long getInstanceID();
 
   /**
-   * <code>uint64 workers = 3;</code>
+   * <code>bytes loaderMeta = 3;</code>
+   */
+  com.google.protobuf.ByteString getLoaderMeta();
+
+  /**
+   * <code>.metapb.BMLoader loader = 4;</code>
+   */
+  int getLoaderValue();
+  /**
+   * <code>.metapb.BMLoader loader = 4;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.BMLoader getLoader();
+
+  /**
+   * <code>uint64 totalCrowd = 5;</code>
+   */
+  long getTotalCrowd();
+
+  /**
+   * <code>uint64 workers = 6;</code>
    */
   long getWorkers();
 
   /**
-   * <code>int64 startedAt = 4;</code>
+   * <code>int64 startedAt = 7;</code>
    */
   long getStartedAt();
 
   /**
-   * <code>int64 stoppedAt = 5;</code>
+   * <code>int64 stoppedAt = 8;</code>
    */
   long getStoppedAt();
 
   /**
-   * <code>uint64 version = 6;</code>
+   * <code>uint64 version = 9;</code>
    */
   long getVersion();
+
+  /**
+   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   */
+  int getStateValue();
+  /**
+   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState();
 }
