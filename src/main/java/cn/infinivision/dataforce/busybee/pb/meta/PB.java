@@ -163,60 +163,60 @@ public final class PB {
       "ep\030\005 \001(\t\022\022\n\nfromAction\030\006 \001(\t\022\016\n\006toStep\030\007" +
       " \001(\t\022\020\n\010toAction\030\010 \001(\t\022\013\n\003ttl\030\t \001(\005\"&\n\007I" +
       "DValue\022\r\n\005value\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\"(\n\005I" +
-      "DSet\022\037\n\006values\030\001 \003(\0132\017.metapb.IDValue\"e\n" +
+      "DSet\022\037\n\006values\030\001 \003(\0132\017.metapb.IDValue\"c\n" +
       "\010Workflow\022\n\n\002id\030\001 \001(\004\022\020\n\010tenantID\030\002 \001(\004\022" +
       "\014\n\004name\030\003 \001(\t\022\033\n\005steps\030\004 \003(\0132\014.metapb.St" +
-      "ep\022\020\n\010duration\030\005 \001(\003\"\212\002\n\020WorkflowInstanc" +
-      "e\022\"\n\010snapshot\030\001 \001(\0132\020.metapb.Workflow\022\022\n" +
-      "\ninstanceID\030\002 \001(\004\022\022\n\nloaderMeta\030\003 \001(\014\022 \n" +
-      "\006loader\030\004 \001(\0162\020.metapb.BMLoader\022\022\n\ntotal" +
-      "Crowd\030\005 \001(\004\022\017\n\007workers\030\006 \001(\004\022\021\n\tstartedA" +
-      "t\030\007 \001(\003\022\021\n\tstoppedAt\030\010 \001(\003\022\017\n\007version\030\t " +
-      "\001(\004\022,\n\005state\030\n \001(\0162\035.metapb.WorkflowInst" +
-      "anceState\"|\n\030WorkflowInstanceSnapshot\022*\n" +
-      "\010snapshot\030\001 \001(\0132\030.metapb.WorkflowInstanc" +
-      "e\022\021\n\ttimestamp\030\002 \001(\003\022!\n\006states\030\003 \003(\0132\021.m" +
-      "etapb.StepState\"\226\001\n\033WorkflowInstanceWork" +
-      "erState\022\020\n\010tenantID\030\001 \001(\004\022\022\n\nworkflowID\030" +
-      "\002 \001(\004\022\r\n\005index\030\003 \001(\r\022!\n\006states\030\004 \003(\0132\021.m" +
-      "etapb.StepState\022\017\n\007version\030\005 \001(\004\022\016\n\006stop" +
-      "At\030\006 \001(\003\")\n\nCountState\022\014\n\004step\030\001 \001(\t\022\r\n\005" +
-      "count\030\002 \001(\004\"k\n\022InstanceCountState\022\"\n\010sna" +
-      "pshot\030\001 \001(\0132\020.metapb.Workflow\022\"\n\006states\030" +
-      "\002 \003(\0132\022.metapb.CountState\022\r\n\005total\030\003 \001(\004" +
-      "\"q\n\tStepState\022\032\n\004step\030\001 \001(\0132\014.metapb.Ste" +
-      "p\022\022\n\ntotalCrowd\030\002 \001(\004\022 \n\006loader\030\003 \001(\0162\020." +
-      "metapb.BMLoader\022\022\n\nloaderMeta\030\004 \001(\014\"q\n\004S" +
-      "tep\022\014\n\004name\030\001 \001(\t\022$\n\texecution\030\002 \001(\0132\021.m" +
-      "etapb.Execution\022\023\n\013enterAction\030\003 \001(\t\022\023\n\013" +
-      "leaveAction\030\004 \001(\t\022\013\n\003ttl\030\005 \001(\005\"\333\001\n\tExecu" +
-      "tion\022#\n\004type\030\001 \001(\0162\025.metapb.ExectuionTyp" +
-      "e\022%\n\005timer\030\002 \001(\0132\026.metapb.TimerExecution" +
-      "\022\'\n\006direct\030\003 \001(\0132\027.metapb.DirectExecutio" +
-      "n\022,\n\010branches\030\004 \003(\0132\032.metapb.ConditionEx" +
-      "ecution\022+\n\010parallel\030\005 \001(\0132\031.metapb.Paral" +
-      "lelExecution\"Q\n\016TimerExecution\022\037\n\tcondit" +
-      "ion\030\001 \001(\0132\014.metapb.Expr\022\014\n\004cron\030\002 \001(\t\022\020\n" +
-      "\010nextStep\030\003 \001(\t\"K\n\021ParallelExecution\022\020\n\010" +
-      "nextStep\030\001 \001(\t\022$\n\tparallels\030\002 \003(\0132\021.meta" +
-      "pb.Execution\"#\n\017DirectExecution\022\020\n\010nextS" +
-      "tep\030\001 \001(\t\"m\n\022ConditionExecution\022\037\n\tcondi" +
-      "tion\030\001 \001(\0132\014.metapb.Expr\022$\n\texecution\030\002 " +
-      "\001(\0132\021.metapb.Execution\022\020\n\010nextStep\030\003 \001(\t" +
-      "\";\n\004Expr\022\r\n\005value\030\001 \001(\014\022$\n\004type\030\002 \001(\0162\026." +
-      "metapb.ExprResultType*P\n\010BMLoader\022\r\n\tRaw" +
-      "Loader\020\000\022\014\n\010KVLoader\020\001\022\021\n\rKVShardLoader\020" +
-      "\002\022\024\n\020ClickhouseLoader\020\003*M\n\025WorkflowInsta" +
-      "nceState\022\014\n\010Starting\020\000\022\013\n\007Running\020\001\022\014\n\010S" +
-      "topping\020\002\022\013\n\007Stopped\020\003*F\n\tEventType\022\014\n\010U" +
-      "serType\020\000\022\023\n\017UpdateCrowdType\020\001\022\026\n\022Update" +
-      "WorkflowType\020\002*F\n\005Group\022\020\n\014DefaultGroup\020" +
-      "\000\022\024\n\020TenantInputGroup\020\001\022\025\n\021TenantOutputG" +
-      "roup\020\002*@\n\rExectuionType\022\n\n\006Direct\020\000\022\t\n\005T" +
-      "imer\020\001\022\n\n\006Branch\020\002\022\014\n\010Parallel\020\003*.\n\016Expr" +
-      "ResultType\022\016\n\nBoolResult\020\000\022\014\n\010BMResult\020\001" +
-      "B7\n)cn.infinivision.dataforce.busybee.pb" +
-      ".metaB\002PBP\001\242\002\003HLWb\006proto3"
+      "ep\022\016\n\006stopAt\030\005 \001(\003\"\212\002\n\020WorkflowInstance\022" +
+      "\"\n\010snapshot\030\001 \001(\0132\020.metapb.Workflow\022\022\n\ni" +
+      "nstanceID\030\002 \001(\004\022\022\n\nloaderMeta\030\003 \001(\014\022 \n\006l" +
+      "oader\030\004 \001(\0162\020.metapb.BMLoader\022\022\n\ntotalCr" +
+      "owd\030\005 \001(\004\022\017\n\007workers\030\006 \001(\004\022\021\n\tstartedAt\030" +
+      "\007 \001(\003\022\021\n\tstoppedAt\030\010 \001(\003\022\017\n\007version\030\t \001(" +
+      "\004\022,\n\005state\030\n \001(\0162\035.metapb.WorkflowInstan" +
+      "ceState\"|\n\030WorkflowInstanceSnapshot\022*\n\010s" +
+      "napshot\030\001 \001(\0132\030.metapb.WorkflowInstance\022" +
+      "\021\n\ttimestamp\030\002 \001(\003\022!\n\006states\030\003 \003(\0132\021.met" +
+      "apb.StepState\"\226\001\n\033WorkflowInstanceWorker" +
+      "State\022\020\n\010tenantID\030\001 \001(\004\022\022\n\nworkflowID\030\002 " +
+      "\001(\004\022\r\n\005index\030\003 \001(\r\022!\n\006states\030\004 \003(\0132\021.met" +
+      "apb.StepState\022\017\n\007version\030\005 \001(\004\022\016\n\006stopAt" +
+      "\030\006 \001(\003\")\n\nCountState\022\014\n\004step\030\001 \001(\t\022\r\n\005co" +
+      "unt\030\002 \001(\004\"k\n\022InstanceCountState\022\"\n\010snaps" +
+      "hot\030\001 \001(\0132\020.metapb.Workflow\022\"\n\006states\030\002 " +
+      "\003(\0132\022.metapb.CountState\022\r\n\005total\030\003 \001(\004\"q" +
+      "\n\tStepState\022\032\n\004step\030\001 \001(\0132\014.metapb.Step\022" +
+      "\022\n\ntotalCrowd\030\002 \001(\004\022 \n\006loader\030\003 \001(\0162\020.me" +
+      "tapb.BMLoader\022\022\n\nloaderMeta\030\004 \001(\014\"q\n\004Ste" +
+      "p\022\014\n\004name\030\001 \001(\t\022$\n\texecution\030\002 \001(\0132\021.met" +
+      "apb.Execution\022\023\n\013enterAction\030\003 \001(\t\022\023\n\013le" +
+      "aveAction\030\004 \001(\t\022\013\n\003ttl\030\005 \001(\005\"\333\001\n\tExecuti" +
+      "on\022#\n\004type\030\001 \001(\0162\025.metapb.ExectuionType\022" +
+      "%\n\005timer\030\002 \001(\0132\026.metapb.TimerExecution\022\'" +
+      "\n\006direct\030\003 \001(\0132\027.metapb.DirectExecution\022" +
+      ",\n\010branches\030\004 \003(\0132\032.metapb.ConditionExec" +
+      "ution\022+\n\010parallel\030\005 \001(\0132\031.metapb.Paralle" +
+      "lExecution\"Q\n\016TimerExecution\022\037\n\tconditio" +
+      "n\030\001 \001(\0132\014.metapb.Expr\022\014\n\004cron\030\002 \001(\t\022\020\n\010n" +
+      "extStep\030\003 \001(\t\"K\n\021ParallelExecution\022\020\n\010ne" +
+      "xtStep\030\001 \001(\t\022$\n\tparallels\030\002 \003(\0132\021.metapb" +
+      ".Execution\"#\n\017DirectExecution\022\020\n\010nextSte" +
+      "p\030\001 \001(\t\"m\n\022ConditionExecution\022\037\n\tconditi" +
+      "on\030\001 \001(\0132\014.metapb.Expr\022$\n\texecution\030\002 \001(" +
+      "\0132\021.metapb.Execution\022\020\n\010nextStep\030\003 \001(\t\";" +
+      "\n\004Expr\022\r\n\005value\030\001 \001(\014\022$\n\004type\030\002 \001(\0162\026.me" +
+      "tapb.ExprResultType*P\n\010BMLoader\022\r\n\tRawLo" +
+      "ader\020\000\022\014\n\010KVLoader\020\001\022\021\n\rKVShardLoader\020\002\022" +
+      "\024\n\020ClickhouseLoader\020\003*M\n\025WorkflowInstanc" +
+      "eState\022\014\n\010Starting\020\000\022\013\n\007Running\020\001\022\014\n\010Sto" +
+      "pping\020\002\022\013\n\007Stopped\020\003*F\n\tEventType\022\014\n\010Use" +
+      "rType\020\000\022\023\n\017UpdateCrowdType\020\001\022\026\n\022UpdateWo" +
+      "rkflowType\020\002*F\n\005Group\022\020\n\014DefaultGroup\020\000\022" +
+      "\024\n\020TenantInputGroup\020\001\022\025\n\021TenantOutputGro" +
+      "up\020\002*@\n\rExectuionType\022\n\n\006Direct\020\000\022\t\n\005Tim" +
+      "er\020\001\022\n\n\006Branch\020\002\022\014\n\010Parallel\020\003*.\n\016ExprRe" +
+      "sultType\022\016\n\nBoolResult\020\000\022\014\n\010BMResult\020\001B7" +
+      "\n)cn.infinivision.dataforce.busybee.pb.m" +
+      "etaB\002PBP\001\242\002\003HLWb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -295,7 +295,7 @@ public final class PB {
     internal_static_metapb_Workflow_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Workflow_descriptor,
-        new java.lang.String[] { "Id", "TenantID", "Name", "Steps", "Duration", });
+        new java.lang.String[] { "Id", "TenantID", "Name", "Steps", "StopAt", });
     internal_static_metapb_WorkflowInstance_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_metapb_WorkflowInstance_fieldAccessorTable = new

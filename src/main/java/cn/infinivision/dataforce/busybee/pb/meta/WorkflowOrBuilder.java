@@ -52,7 +52,7 @@ public interface WorkflowOrBuilder extends
       int index);
 
   /**
-   * <code>int64 duration = 5;</code>
+   * <code>int64 stopAt = 5;</code>
    */
-  long getDuration();
+  long getStopAt();
 }

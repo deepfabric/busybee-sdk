@@ -24,7 +24,7 @@ private static final long serialVersionUID = 0L;
     tenantID_ = 0L;
     name_ = "";
     steps_ = java.util.Collections.emptyList();
-    duration_ = 0L;
+    stopAt_ = 0L;
   }
 
   @java.lang.Override
@@ -85,7 +85,7 @@ private static final long serialVersionUID = 0L;
           }
           case 40: {
 
-            duration_ = input.readInt64();
+            stopAt_ = input.readInt64();
             break;
           }
         }
@@ -203,13 +203,13 @@ private static final long serialVersionUID = 0L;
     return steps_.get(index);
   }
 
-  public static final int DURATION_FIELD_NUMBER = 5;
-  private long duration_;
+  public static final int STOPAT_FIELD_NUMBER = 5;
+  private long stopAt_;
   /**
-   * <code>int64 duration = 5;</code>
+   * <code>int64 stopAt = 5;</code>
    */
-  public long getDuration() {
-    return duration_;
+  public long getStopAt() {
+    return stopAt_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -236,8 +236,8 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < steps_.size(); i++) {
       output.writeMessage(4, steps_.get(i));
     }
-    if (duration_ != 0L) {
-      output.writeInt64(5, duration_);
+    if (stopAt_ != 0L) {
+      output.writeInt64(5, stopAt_);
     }
     unknownFields.writeTo(output);
   }
@@ -262,9 +262,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(4, steps_.get(i));
     }
-    if (duration_ != 0L) {
+    if (stopAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(5, duration_);
+        .computeInt64Size(5, stopAt_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -290,8 +290,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getName());
     result = result && getStepsList()
         .equals(other.getStepsList());
-    result = result && (getDuration()
-        == other.getDuration());
+    result = result && (getStopAt()
+        == other.getStopAt());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -315,9 +315,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + STEPS_FIELD_NUMBER;
       hash = (53 * hash) + getStepsList().hashCode();
     }
-    hash = (37 * hash) + DURATION_FIELD_NUMBER;
+    hash = (37 * hash) + STOPAT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getDuration());
+        getStopAt());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -464,7 +464,7 @@ private static final long serialVersionUID = 0L;
       } else {
         stepsBuilder_.clear();
       }
-      duration_ = 0L;
+      stopAt_ = 0L;
 
       return this;
     }
@@ -502,7 +502,7 @@ private static final long serialVersionUID = 0L;
       } else {
         result.steps_ = stepsBuilder_.build();
       }
-      result.duration_ = duration_;
+      result.stopAt_ = stopAt_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -581,8 +581,8 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
-      if (other.getDuration() != 0L) {
-        setDuration(other.getDuration());
+      if (other.getStopAt() != 0L) {
+        setStopAt(other.getStopAt());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -973,28 +973,28 @@ private static final long serialVersionUID = 0L;
       return stepsBuilder_;
     }
 
-    private long duration_ ;
+    private long stopAt_ ;
     /**
-     * <code>int64 duration = 5;</code>
+     * <code>int64 stopAt = 5;</code>
      */
-    public long getDuration() {
-      return duration_;
+    public long getStopAt() {
+      return stopAt_;
     }
     /**
-     * <code>int64 duration = 5;</code>
+     * <code>int64 stopAt = 5;</code>
      */
-    public Builder setDuration(long value) {
+    public Builder setStopAt(long value) {
       
-      duration_ = value;
+      stopAt_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int64 duration = 5;</code>
+     * <code>int64 stopAt = 5;</code>
      */
-    public Builder clearDuration() {
+    public Builder clearStopAt() {
       
-      duration_ = 0L;
+      stopAt_ = 0L;
       onChanged();
       return this;
     }
