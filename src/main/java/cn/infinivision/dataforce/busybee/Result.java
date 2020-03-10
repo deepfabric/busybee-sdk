@@ -33,6 +33,7 @@ public class Result {
      */
     public void checkError() {
         if (err != null) {
+            log.error("option failed", err);
             throw err;
         }
     }
@@ -117,7 +118,7 @@ public class Result {
         checkError();
 
         if (resp.hasBytesSliceResp()) {
-            return resp.getBytesSliceResp().getItemsList().stream()
+            return resp.getBytesSliceResp().getValuesList().stream()
                 .map(e -> e.toByteArray())
                 .collect(Collectors.toList());
         }
@@ -200,8 +201,8 @@ public class Result {
         checkError();
 
         if (resp.hasBytesSliceResp()) {
-            List<IDSet> value = new ArrayList<>(resp.getBytesSliceResp().getItemsCount());
-            resp.getBytesSliceResp().getItemsList().forEach(e -> {
+            List<IDSet> value = new ArrayList<>(resp.getBytesSliceResp().getValuesCount());
+            resp.getBytesSliceResp().getValuesList().forEach(e -> {
                 try {
                     value.add(IDSet.parseFrom(e));
                 } catch (InvalidProtocolBufferException e1) {

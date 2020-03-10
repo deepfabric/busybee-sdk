@@ -20,8 +20,9 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private BytesSliceResponse() {
-    items_ = java.util.Collections.emptyList();
-    lastOffset_ = 0L;
+    keys_ = java.util.Collections.emptyList();
+    values_ = java.util.Collections.emptyList();
+    lastValue_ = 0L;
   }
 
   @java.lang.Override
@@ -57,15 +58,23 @@ private static final long serialVersionUID = 0L;
           }
           case 10: {
             if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-              items_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+              keys_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
               mutable_bitField0_ |= 0x00000001;
             }
-            items_.add(input.readBytes());
+            keys_.add(input.readBytes());
             break;
           }
-          case 16: {
+          case 18: {
+            if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              values_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+              mutable_bitField0_ |= 0x00000002;
+            }
+            values_.add(input.readBytes());
+            break;
+          }
+          case 24: {
 
-            lastOffset_ = input.readUInt64();
+            lastValue_ = input.readUInt64();
             break;
           }
         }
@@ -77,7 +86,10 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-        items_ = java.util.Collections.unmodifiableList(items_);
+        keys_ = java.util.Collections.unmodifiableList(keys_);
+      }
+      if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+        values_ = java.util.Collections.unmodifiableList(values_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -96,35 +108,57 @@ private static final long serialVersionUID = 0L;
   }
 
   private int bitField0_;
-  public static final int ITEMS_FIELD_NUMBER = 1;
-  private java.util.List<com.google.protobuf.ByteString> items_;
+  public static final int KEYS_FIELD_NUMBER = 1;
+  private java.util.List<com.google.protobuf.ByteString> keys_;
   /**
-   * <code>repeated bytes items = 1;</code>
+   * <code>repeated bytes keys = 1;</code>
    */
   public java.util.List<com.google.protobuf.ByteString>
-      getItemsList() {
-    return items_;
+      getKeysList() {
+    return keys_;
   }
   /**
-   * <code>repeated bytes items = 1;</code>
+   * <code>repeated bytes keys = 1;</code>
    */
-  public int getItemsCount() {
-    return items_.size();
+  public int getKeysCount() {
+    return keys_.size();
   }
   /**
-   * <code>repeated bytes items = 1;</code>
+   * <code>repeated bytes keys = 1;</code>
    */
-  public com.google.protobuf.ByteString getItems(int index) {
-    return items_.get(index);
+  public com.google.protobuf.ByteString getKeys(int index) {
+    return keys_.get(index);
   }
 
-  public static final int LASTOFFSET_FIELD_NUMBER = 2;
-  private long lastOffset_;
+  public static final int VALUES_FIELD_NUMBER = 2;
+  private java.util.List<com.google.protobuf.ByteString> values_;
   /**
-   * <code>uint64 lastOffset = 2;</code>
+   * <code>repeated bytes values = 2;</code>
    */
-  public long getLastOffset() {
-    return lastOffset_;
+  public java.util.List<com.google.protobuf.ByteString>
+      getValuesList() {
+    return values_;
+  }
+  /**
+   * <code>repeated bytes values = 2;</code>
+   */
+  public int getValuesCount() {
+    return values_.size();
+  }
+  /**
+   * <code>repeated bytes values = 2;</code>
+   */
+  public com.google.protobuf.ByteString getValues(int index) {
+    return values_.get(index);
+  }
+
+  public static final int LASTVALUE_FIELD_NUMBER = 3;
+  private long lastValue_;
+  /**
+   * <code>uint64 lastValue = 3;</code>
+   */
+  public long getLastValue() {
+    return lastValue_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -139,11 +173,14 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    for (int i = 0; i < items_.size(); i++) {
-      output.writeBytes(1, items_.get(i));
+    for (int i = 0; i < keys_.size(); i++) {
+      output.writeBytes(1, keys_.get(i));
     }
-    if (lastOffset_ != 0L) {
-      output.writeUInt64(2, lastOffset_);
+    for (int i = 0; i < values_.size(); i++) {
+      output.writeBytes(2, values_.get(i));
+    }
+    if (lastValue_ != 0L) {
+      output.writeUInt64(3, lastValue_);
     }
     unknownFields.writeTo(output);
   }
@@ -155,16 +192,25 @@ private static final long serialVersionUID = 0L;
     size = 0;
     {
       int dataSize = 0;
-      for (int i = 0; i < items_.size(); i++) {
+      for (int i = 0; i < keys_.size(); i++) {
         dataSize += com.google.protobuf.CodedOutputStream
-          .computeBytesSizeNoTag(items_.get(i));
+          .computeBytesSizeNoTag(keys_.get(i));
       }
       size += dataSize;
-      size += 1 * getItemsList().size();
+      size += 1 * getKeysList().size();
     }
-    if (lastOffset_ != 0L) {
+    {
+      int dataSize = 0;
+      for (int i = 0; i < values_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeBytesSizeNoTag(values_.get(i));
+      }
+      size += dataSize;
+      size += 1 * getValuesList().size();
+    }
+    if (lastValue_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(2, lastOffset_);
+        .computeUInt64Size(3, lastValue_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -182,10 +228,12 @@ private static final long serialVersionUID = 0L;
     cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse other = (cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse) obj;
 
     boolean result = true;
-    result = result && getItemsList()
-        .equals(other.getItemsList());
-    result = result && (getLastOffset()
-        == other.getLastOffset());
+    result = result && getKeysList()
+        .equals(other.getKeysList());
+    result = result && getValuesList()
+        .equals(other.getValuesList());
+    result = result && (getLastValue()
+        == other.getLastValue());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -197,13 +245,17 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    if (getItemsCount() > 0) {
-      hash = (37 * hash) + ITEMS_FIELD_NUMBER;
-      hash = (53 * hash) + getItemsList().hashCode();
+    if (getKeysCount() > 0) {
+      hash = (37 * hash) + KEYS_FIELD_NUMBER;
+      hash = (53 * hash) + getKeysList().hashCode();
     }
-    hash = (37 * hash) + LASTOFFSET_FIELD_NUMBER;
+    if (getValuesCount() > 0) {
+      hash = (37 * hash) + VALUES_FIELD_NUMBER;
+      hash = (53 * hash) + getValuesList().hashCode();
+    }
+    hash = (37 * hash) + LASTVALUE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getLastOffset());
+        getLastValue());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -337,9 +389,11 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      items_ = java.util.Collections.emptyList();
+      keys_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000001);
-      lastOffset_ = 0L;
+      values_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000002);
+      lastValue_ = 0L;
 
       return this;
     }
@@ -366,11 +420,16 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        items_ = java.util.Collections.unmodifiableList(items_);
+        keys_ = java.util.Collections.unmodifiableList(keys_);
         bitField0_ = (bitField0_ & ~0x00000001);
       }
-      result.items_ = items_;
-      result.lastOffset_ = lastOffset_;
+      result.keys_ = keys_;
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        values_ = java.util.Collections.unmodifiableList(values_);
+        bitField0_ = (bitField0_ & ~0x00000002);
+      }
+      result.values_ = values_;
+      result.lastValue_ = lastValue_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -413,18 +472,28 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse other) {
       if (other == cn.infinivision.dataforce.busybee.pb.rpc.BytesSliceResponse.getDefaultInstance()) return this;
-      if (!other.items_.isEmpty()) {
-        if (items_.isEmpty()) {
-          items_ = other.items_;
+      if (!other.keys_.isEmpty()) {
+        if (keys_.isEmpty()) {
+          keys_ = other.keys_;
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          ensureItemsIsMutable();
-          items_.addAll(other.items_);
+          ensureKeysIsMutable();
+          keys_.addAll(other.keys_);
         }
         onChanged();
       }
-      if (other.getLastOffset() != 0L) {
-        setLastOffset(other.getLastOffset());
+      if (!other.values_.isEmpty()) {
+        if (values_.isEmpty()) {
+          values_ = other.values_;
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          ensureValuesIsMutable();
+          values_.addAll(other.values_);
+        }
+        onChanged();
+      }
+      if (other.getLastValue() != 0L) {
+        setLastValue(other.getLastValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -454,100 +523,172 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<com.google.protobuf.ByteString> items_ = java.util.Collections.emptyList();
-    private void ensureItemsIsMutable() {
+    private java.util.List<com.google.protobuf.ByteString> keys_ = java.util.Collections.emptyList();
+    private void ensureKeysIsMutable() {
       if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-        items_ = new java.util.ArrayList<com.google.protobuf.ByteString>(items_);
+        keys_ = new java.util.ArrayList<com.google.protobuf.ByteString>(keys_);
         bitField0_ |= 0x00000001;
        }
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
     public java.util.List<com.google.protobuf.ByteString>
-        getItemsList() {
-      return java.util.Collections.unmodifiableList(items_);
+        getKeysList() {
+      return java.util.Collections.unmodifiableList(keys_);
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
-    public int getItemsCount() {
-      return items_.size();
+    public int getKeysCount() {
+      return keys_.size();
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
-    public com.google.protobuf.ByteString getItems(int index) {
-      return items_.get(index);
+    public com.google.protobuf.ByteString getKeys(int index) {
+      return keys_.get(index);
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
-    public Builder setItems(
+    public Builder setKeys(
         int index, com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  ensureItemsIsMutable();
-      items_.set(index, value);
+  ensureKeysIsMutable();
+      keys_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
-    public Builder addItems(com.google.protobuf.ByteString value) {
+    public Builder addKeys(com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  ensureItemsIsMutable();
-      items_.add(value);
+  ensureKeysIsMutable();
+      keys_.add(value);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
-    public Builder addAllItems(
+    public Builder addAllKeys(
         java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
-      ensureItemsIsMutable();
+      ensureKeysIsMutable();
       com.google.protobuf.AbstractMessageLite.Builder.addAll(
-          values, items_);
+          values, keys_);
       onChanged();
       return this;
     }
     /**
-     * <code>repeated bytes items = 1;</code>
+     * <code>repeated bytes keys = 1;</code>
      */
-    public Builder clearItems() {
-      items_ = java.util.Collections.emptyList();
+    public Builder clearKeys() {
+      keys_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000001);
       onChanged();
       return this;
     }
 
-    private long lastOffset_ ;
-    /**
-     * <code>uint64 lastOffset = 2;</code>
-     */
-    public long getLastOffset() {
-      return lastOffset_;
+    private java.util.List<com.google.protobuf.ByteString> values_ = java.util.Collections.emptyList();
+    private void ensureValuesIsMutable() {
+      if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        values_ = new java.util.ArrayList<com.google.protobuf.ByteString>(values_);
+        bitField0_ |= 0x00000002;
+       }
     }
     /**
-     * <code>uint64 lastOffset = 2;</code>
+     * <code>repeated bytes values = 2;</code>
      */
-    public Builder setLastOffset(long value) {
-      
-      lastOffset_ = value;
+    public java.util.List<com.google.protobuf.ByteString>
+        getValuesList() {
+      return java.util.Collections.unmodifiableList(values_);
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public int getValuesCount() {
+      return values_.size();
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public com.google.protobuf.ByteString getValues(int index) {
+      return values_.get(index);
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public Builder setValues(
+        int index, com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+      values_.set(index, value);
       onChanged();
       return this;
     }
     /**
-     * <code>uint64 lastOffset = 2;</code>
+     * <code>repeated bytes values = 2;</code>
      */
-    public Builder clearLastOffset() {
+    public Builder addValues(com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+      values_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public Builder addAllValues(
+        java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
+      ensureValuesIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, values_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated bytes values = 2;</code>
+     */
+    public Builder clearValues() {
+      values_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000002);
+      onChanged();
+      return this;
+    }
+
+    private long lastValue_ ;
+    /**
+     * <code>uint64 lastValue = 3;</code>
+     */
+    public long getLastValue() {
+      return lastValue_;
+    }
+    /**
+     * <code>uint64 lastValue = 3;</code>
+     */
+    public Builder setLastValue(long value) {
       
-      lastOffset_ = 0L;
+      lastValue_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 lastValue = 3;</code>
+     */
+    public Builder clearLastValue() {
+      
+      lastValue_ = 0L;
       onChanged();
       return this;
     }

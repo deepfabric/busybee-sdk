@@ -398,28 +398,29 @@ public final class PB {
       "onse\022\r\n\005value\030\001 \001(\014\"\035\n\014BoolResponse\022\r\n\005v" +
       "alue\030\001 \001(\010\"\037\n\016Uint64Response\022\r\n\005value\030\001 " +
       "\001(\004\"%\n\023Uint32SliceResponse\022\016\n\006values\030\001 \003" +
-      "(\004\"7\n\022BytesSliceResponse\022\r\n\005items\030\001 \003(\014\022" +
-      "\022\n\nlastOffset\030\002 \001(\004\"\037\n\016Uint32Response\022\r\n" +
-      "\005value\030\001 \001(\004\"/\n\023Uint32RangeResponse\022\014\n\004f" +
-      "rom\030\001 \001(\004\022\n\n\002to\030\002 \001(\004*\232\005\n\004Type\022\007\n\003Set\020\000\022" +
-      "\007\n\003Get\020\001\022\n\n\006Delete\020\002\022\010\n\004Scan\020\003\022\014\n\010BMCrea" +
-      "te\020d\022\t\n\005BMAdd\020e\022\014\n\010BMRemove\020f\022\013\n\007BMClear" +
-      "\020g\022\016\n\nBMContains\020h\022\013\n\007BMCount\020i\022\013\n\007BMRan" +
-      "ge\020j\022\025\n\020StartingInstance\020\310\001\022\021\n\014LastInsta" +
-      "nce\020\311\001\022\024\n\017HistoryInstance\020\312\001\022\023\n\016UpdateWo" +
-      "rkflow\020\313\001\022\020\n\013UpdateCrowd\020\314\001\022\024\n\017StartedIn" +
-      "stance\020\315\001\022\021\n\014StopInstance\020\316\001\022\024\n\017StoppedI" +
-      "nstance\020\317\001\022\035\n\030CreateInstanceStateShard\020\320" +
-      "\001\022\035\n\030UpdateInstanceStateShard\020\321\001\022\035\n\030Remo" +
-      "veInstanceStateShard\020\322\001\022\027\n\022InstanceCount" +
-      "State\020\323\001\022\027\n\022InstanceCrowdState\020\324\001\022\r\n\010Que" +
-      "ueAdd\020\254\002\022\017\n\nQueueFetch\020\255\002\022\017\n\nTenantInit\020" +
-      "\220\003\022\022\n\rUpdateMapping\020\221\003\022\017\n\nGetMapping\020\222\003\022" +
-      "\022\n\rUpdateProfile\020\223\003\022\017\n\nGetProfile\020\224\003\022\r\n\010" +
-      "AddEvent\020\225\003\022\020\n\013FetchNotify\020\226\003\022\020\n\013ScanMap" +
-      "ping\020\227\003\022\r\n\010GetIDSet\020\230\003\022\014\n\007AllocID\020\365\003\022\014\n\007" +
-      "ResetID\020\366\003B6\n(cn.infinivision.dataforce." +
-      "busybee.pb.rpcB\002PBP\001\242\002\003HLWb\006proto3"
+      "(\004\"E\n\022BytesSliceResponse\022\014\n\004keys\030\001 \003(\014\022\016" +
+      "\n\006values\030\002 \003(\014\022\021\n\tlastValue\030\003 \001(\004\"\037\n\016Uin" +
+      "t32Response\022\r\n\005value\030\001 \001(\004\"/\n\023Uint32Rang" +
+      "eResponse\022\014\n\004from\030\001 \001(\004\022\n\n\002to\030\002 \001(\004*\232\005\n\004" +
+      "Type\022\007\n\003Set\020\000\022\007\n\003Get\020\001\022\n\n\006Delete\020\002\022\010\n\004Sc" +
+      "an\020\003\022\014\n\010BMCreate\020d\022\t\n\005BMAdd\020e\022\014\n\010BMRemov" +
+      "e\020f\022\013\n\007BMClear\020g\022\016\n\nBMContains\020h\022\013\n\007BMCo" +
+      "unt\020i\022\013\n\007BMRange\020j\022\025\n\020StartingInstance\020\310" +
+      "\001\022\021\n\014LastInstance\020\311\001\022\024\n\017HistoryInstance\020" +
+      "\312\001\022\023\n\016UpdateWorkflow\020\313\001\022\020\n\013UpdateCrowd\020\314" +
+      "\001\022\024\n\017StartedInstance\020\315\001\022\021\n\014StopInstance\020" +
+      "\316\001\022\024\n\017StoppedInstance\020\317\001\022\035\n\030CreateInstan" +
+      "ceStateShard\020\320\001\022\035\n\030UpdateInstanceStateSh" +
+      "ard\020\321\001\022\035\n\030RemoveInstanceStateShard\020\322\001\022\027\n" +
+      "\022InstanceCountState\020\323\001\022\027\n\022InstanceCrowdS" +
+      "tate\020\324\001\022\r\n\010QueueAdd\020\254\002\022\017\n\nQueueFetch\020\255\002\022" +
+      "\017\n\nTenantInit\020\220\003\022\022\n\rUpdateMapping\020\221\003\022\017\n\n" +
+      "GetMapping\020\222\003\022\022\n\rUpdateProfile\020\223\003\022\017\n\nGet" +
+      "Profile\020\224\003\022\r\n\010AddEvent\020\225\003\022\020\n\013FetchNotify" +
+      "\020\226\003\022\020\n\013ScanMapping\020\227\003\022\r\n\010GetIDSet\020\230\003\022\014\n\007" +
+      "AllocID\020\365\003\022\014\n\007ResetID\020\366\003B6\n(cn.infinivis" +
+      "ion.dataforce.busybee.pb.rpcB\002PBP\001\242\002\003HLW" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -733,7 +734,7 @@ public final class PB {
     internal_static_rpcpb_BytesSliceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_rpcpb_BytesSliceResponse_descriptor,
-        new java.lang.String[] { "Items", "LastOffset", });
+        new java.lang.String[] { "Keys", "Values", "LastValue", });
     internal_static_rpcpb_Uint32Response_descriptor =
       getDescriptor().getMessageTypes().get(50);
     internal_static_rpcpb_Uint32Response_fieldAccessorTable = new

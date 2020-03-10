@@ -148,6 +148,7 @@ import org.apache.commons.pool2.ObjectPool;
                         if (conn.isConnected()) {
                             break;
                         }
+                        log.error("{} not connected", conn);
                     }
 
                     boolean failed = false;
@@ -178,6 +179,7 @@ import org.apache.commons.pool2.ObjectPool;
     public void messageReceived(Channel channel, MessageLite message) {
         if (message instanceof Response) {
             Response resp = (Response) message;
+            log.debug("received {}", resp.getId());
             Ctx ctx = holder.remove(resp.getId());
             if (ctx != null) {
                 ctx.done(resp);
@@ -216,7 +218,7 @@ import org.apache.commons.pool2.ObjectPool;
 
         @Override
         public void run(Timeout timeout) throws Exception {
-            errCB.accept(new TimeoutException());
+            errCB.accept(new TimeoutException("" + request.getId()));
         }
 
         void done(Response resp) {

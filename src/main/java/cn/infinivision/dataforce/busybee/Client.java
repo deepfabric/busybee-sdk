@@ -1001,9 +1001,9 @@ public class Client implements Closeable {
                     log.error("tenant {} fetch failed at offset {} with error {}",
                         tenantId, offset, resp.getError().getError());
                 } else {
-                    List<ByteString> items = resp.getBytesSliceResp().getItemsList();
+                    List<ByteString> items = resp.getBytesSliceResp().getValuesList();
                     if (items.size() > 0) {
-                        long value = resp.getBytesSliceResp().getLastOffset() - items.size();
+                        long value = resp.getBytesSliceResp().getLastValue() - items.size();
                         List<Notify> values = new ArrayList<>();
                         for (ByteString bs : items) {
                             values.add(Notify.parseFrom(bs));
@@ -1017,7 +1017,7 @@ public class Client implements Closeable {
                             }
                         } else {
                             batchCallback.accept(values);
-                            offset = resp.getBytesSliceResp().getLastOffset();
+                            offset = resp.getBytesSliceResp().getLastValue();
                         }
                         after = 0;
                     }
@@ -1056,11 +1056,12 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
-        Client c = new Builder().rpcTimeout(5000).addServer("172.21.143.164:8081",
-            "172.21.143.164:8082",
-            "172.21.143.164:8083",
-            "172.21.143.164:8084").build();
+        Client c = new Builder().rpcTimeout(5000).addServer("172.25.212.148:8091",
+            "172.25.212.148:8092",
+            "172.25.212.148:8093",
+            "172.25.212.148:8094").build();
 
+//        c.initTenant(1, 2).get().checkError();
         workflowWithBigBM(c);
 
     }
@@ -1182,7 +1183,7 @@ public class Client implements Closeable {
 
         c.initTenant(1, 2).get().checkError();
         Thread.sleep(15000);
-        c.startInstanceWithKV(wf, "bm1", 128).get().checkError();
+        c.startInstanceWithKV(wf, "bm1", 256).get().checkError();
         c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
         c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
         c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();

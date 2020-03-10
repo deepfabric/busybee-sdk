@@ -8,20 +8,33 @@ public interface BytesSliceResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated bytes items = 1;</code>
+   * <code>repeated bytes keys = 1;</code>
    */
-  java.util.List<com.google.protobuf.ByteString> getItemsList();
+  java.util.List<com.google.protobuf.ByteString> getKeysList();
   /**
-   * <code>repeated bytes items = 1;</code>
+   * <code>repeated bytes keys = 1;</code>
    */
-  int getItemsCount();
+  int getKeysCount();
   /**
-   * <code>repeated bytes items = 1;</code>
+   * <code>repeated bytes keys = 1;</code>
    */
-  com.google.protobuf.ByteString getItems(int index);
+  com.google.protobuf.ByteString getKeys(int index);
 
   /**
-   * <code>uint64 lastOffset = 2;</code>
+   * <code>repeated bytes values = 2;</code>
    */
-  long getLastOffset();
+  java.util.List<com.google.protobuf.ByteString> getValuesList();
+  /**
+   * <code>repeated bytes values = 2;</code>
+   */
+  int getValuesCount();
+  /**
+   * <code>repeated bytes values = 2;</code>
+   */
+  com.google.protobuf.ByteString getValues(int index);
+
+  /**
+   * <code>uint64 lastValue = 3;</code>
+   */
+  long getLastValue();
 }
