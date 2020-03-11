@@ -8,9 +8,9 @@ public interface NotifyOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint32 userID = 1;</code>
+   * <code>int64 userID = 1;</code>
    */
-  int getUserID();
+  long getUserID();
 
   /**
    * <code>bytes crowd = 2;</code>
@@ -28,47 +28,52 @@ public interface NotifyOrBuilder extends
   long getWorkflowID();
 
   /**
-   * <code>string fromStep = 5;</code>
+   * <code>uint64 instanceID = 5;</code>
+   */
+  long getInstanceID();
+
+  /**
+   * <code>string fromStep = 6;</code>
    */
   java.lang.String getFromStep();
   /**
-   * <code>string fromStep = 5;</code>
+   * <code>string fromStep = 6;</code>
    */
   com.google.protobuf.ByteString
       getFromStepBytes();
 
   /**
-   * <code>string fromAction = 6;</code>
+   * <code>string fromAction = 7;</code>
    */
   java.lang.String getFromAction();
   /**
-   * <code>string fromAction = 6;</code>
+   * <code>string fromAction = 7;</code>
    */
   com.google.protobuf.ByteString
       getFromActionBytes();
 
   /**
-   * <code>string toStep = 7;</code>
+   * <code>string toStep = 8;</code>
    */
   java.lang.String getToStep();
   /**
-   * <code>string toStep = 7;</code>
+   * <code>string toStep = 8;</code>
    */
   com.google.protobuf.ByteString
       getToStepBytes();
 
   /**
-   * <code>string toAction = 8;</code>
+   * <code>string toAction = 9;</code>
    */
   java.lang.String getToAction();
   /**
-   * <code>string toAction = 8;</code>
+   * <code>string toAction = 9;</code>
    */
   com.google.protobuf.ByteString
       getToActionBytes();
 
   /**
-   * <code>int32 ttl = 9;</code>
+   * <code>int32 ttl = 10;</code>
    */
   int getTtl();
 }

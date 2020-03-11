@@ -8,7 +8,7 @@ public interface UserEventOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint64 userID = 1;</code>
+   * <code>int64 userID = 1;</code>
    */
   long getUserID();
 
@@ -23,25 +23,30 @@ public interface UserEventOrBuilder extends
   long getWorkflowID();
 
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>uint64 instanceID = 4;</code>
+   */
+  long getInstanceID();
+
+  /**
+   * <code>repeated .metapb.KV data = 5;</code>
    */
   java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> 
       getDataList();
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>repeated .metapb.KV data = 5;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.KV getData(int index);
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>repeated .metapb.KV data = 5;</code>
    */
   int getDataCount();
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>repeated .metapb.KV data = 5;</code>
    */
   java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> 
       getDataOrBuilderList();
   /**
-   * <code>repeated .metapb.KV data = 4;</code>
+   * <code>repeated .metapb.KV data = 5;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder getDataOrBuilder(
       int index);

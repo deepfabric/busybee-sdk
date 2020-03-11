@@ -20,10 +20,11 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Notify() {
-    userID_ = 0;
+    userID_ = 0L;
     crowd_ = com.google.protobuf.ByteString.EMPTY;
     tenantID_ = 0L;
     workflowID_ = 0L;
+    instanceID_ = 0L;
     fromStep_ = "";
     fromAction_ = "";
     toStep_ = "";
@@ -64,7 +65,7 @@ private static final long serialVersionUID = 0L;
           }
           case 8: {
 
-            userID_ = input.readUInt32();
+            userID_ = input.readInt64();
             break;
           }
           case 18: {
@@ -82,31 +83,36 @@ private static final long serialVersionUID = 0L;
             workflowID_ = input.readUInt64();
             break;
           }
-          case 42: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 40: {
 
-            fromStep_ = s;
+            instanceID_ = input.readUInt64();
             break;
           }
           case 50: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            fromAction_ = s;
+            fromStep_ = s;
             break;
           }
           case 58: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            toStep_ = s;
+            fromAction_ = s;
             break;
           }
           case 66: {
             java.lang.String s = input.readStringRequireUtf8();
 
+            toStep_ = s;
+            break;
+          }
+          case 74: {
+            java.lang.String s = input.readStringRequireUtf8();
+
             toAction_ = s;
             break;
           }
-          case 72: {
+          case 80: {
 
             ttl_ = input.readInt32();
             break;
@@ -136,11 +142,11 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int USERID_FIELD_NUMBER = 1;
-  private int userID_;
+  private long userID_;
   /**
-   * <code>uint32 userID = 1;</code>
+   * <code>int64 userID = 1;</code>
    */
-  public int getUserID() {
+  public long getUserID() {
     return userID_;
   }
 
@@ -171,10 +177,19 @@ private static final long serialVersionUID = 0L;
     return workflowID_;
   }
 
-  public static final int FROMSTEP_FIELD_NUMBER = 5;
+  public static final int INSTANCEID_FIELD_NUMBER = 5;
+  private long instanceID_;
+  /**
+   * <code>uint64 instanceID = 5;</code>
+   */
+  public long getInstanceID() {
+    return instanceID_;
+  }
+
+  public static final int FROMSTEP_FIELD_NUMBER = 6;
   private volatile java.lang.Object fromStep_;
   /**
-   * <code>string fromStep = 5;</code>
+   * <code>string fromStep = 6;</code>
    */
   public java.lang.String getFromStep() {
     java.lang.Object ref = fromStep_;
@@ -189,7 +204,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string fromStep = 5;</code>
+   * <code>string fromStep = 6;</code>
    */
   public com.google.protobuf.ByteString
       getFromStepBytes() {
@@ -205,10 +220,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FROMACTION_FIELD_NUMBER = 6;
+  public static final int FROMACTION_FIELD_NUMBER = 7;
   private volatile java.lang.Object fromAction_;
   /**
-   * <code>string fromAction = 6;</code>
+   * <code>string fromAction = 7;</code>
    */
   public java.lang.String getFromAction() {
     java.lang.Object ref = fromAction_;
@@ -223,7 +238,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string fromAction = 6;</code>
+   * <code>string fromAction = 7;</code>
    */
   public com.google.protobuf.ByteString
       getFromActionBytes() {
@@ -239,10 +254,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TOSTEP_FIELD_NUMBER = 7;
+  public static final int TOSTEP_FIELD_NUMBER = 8;
   private volatile java.lang.Object toStep_;
   /**
-   * <code>string toStep = 7;</code>
+   * <code>string toStep = 8;</code>
    */
   public java.lang.String getToStep() {
     java.lang.Object ref = toStep_;
@@ -257,7 +272,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string toStep = 7;</code>
+   * <code>string toStep = 8;</code>
    */
   public com.google.protobuf.ByteString
       getToStepBytes() {
@@ -273,10 +288,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TOACTION_FIELD_NUMBER = 8;
+  public static final int TOACTION_FIELD_NUMBER = 9;
   private volatile java.lang.Object toAction_;
   /**
-   * <code>string toAction = 8;</code>
+   * <code>string toAction = 9;</code>
    */
   public java.lang.String getToAction() {
     java.lang.Object ref = toAction_;
@@ -291,7 +306,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string toAction = 8;</code>
+   * <code>string toAction = 9;</code>
    */
   public com.google.protobuf.ByteString
       getToActionBytes() {
@@ -307,10 +322,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TTL_FIELD_NUMBER = 9;
+  public static final int TTL_FIELD_NUMBER = 10;
   private int ttl_;
   /**
-   * <code>int32 ttl = 9;</code>
+   * <code>int32 ttl = 10;</code>
    */
   public int getTtl() {
     return ttl_;
@@ -328,8 +343,8 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (userID_ != 0) {
-      output.writeUInt32(1, userID_);
+    if (userID_ != 0L) {
+      output.writeInt64(1, userID_);
     }
     if (!crowd_.isEmpty()) {
       output.writeBytes(2, crowd_);
@@ -340,20 +355,23 @@ private static final long serialVersionUID = 0L;
     if (workflowID_ != 0L) {
       output.writeUInt64(4, workflowID_);
     }
+    if (instanceID_ != 0L) {
+      output.writeUInt64(5, instanceID_);
+    }
     if (!getFromStepBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, fromStep_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, fromStep_);
     }
     if (!getFromActionBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, fromAction_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, fromAction_);
     }
     if (!getToStepBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, toStep_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, toStep_);
     }
     if (!getToActionBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, toAction_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, toAction_);
     }
     if (ttl_ != 0) {
-      output.writeInt32(9, ttl_);
+      output.writeInt32(10, ttl_);
     }
     unknownFields.writeTo(output);
   }
@@ -363,9 +381,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (userID_ != 0) {
+    if (userID_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(1, userID_);
+        .computeInt64Size(1, userID_);
     }
     if (!crowd_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
@@ -379,21 +397,25 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(4, workflowID_);
     }
+    if (instanceID_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(5, instanceID_);
+    }
     if (!getFromStepBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, fromStep_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, fromStep_);
     }
     if (!getFromActionBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, fromAction_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, fromAction_);
     }
     if (!getToStepBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, toStep_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, toStep_);
     }
     if (!getToActionBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, toAction_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, toAction_);
     }
     if (ttl_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(9, ttl_);
+        .computeInt32Size(10, ttl_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -419,6 +441,8 @@ private static final long serialVersionUID = 0L;
         == other.getTenantID());
     result = result && (getWorkflowID()
         == other.getWorkflowID());
+    result = result && (getInstanceID()
+        == other.getInstanceID());
     result = result && getFromStep()
         .equals(other.getFromStep());
     result = result && getFromAction()
@@ -441,7 +465,8 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + USERID_FIELD_NUMBER;
-    hash = (53 * hash) + getUserID();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getUserID());
     hash = (37 * hash) + CROWD_FIELD_NUMBER;
     hash = (53 * hash) + getCrowd().hashCode();
     hash = (37 * hash) + TENANTID_FIELD_NUMBER;
@@ -450,6 +475,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + WORKFLOWID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getWorkflowID());
+    hash = (37 * hash) + INSTANCEID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getInstanceID());
     hash = (37 * hash) + FROMSTEP_FIELD_NUMBER;
     hash = (53 * hash) + getFromStep().hashCode();
     hash = (37 * hash) + FROMACTION_FIELD_NUMBER;
@@ -593,13 +621,15 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      userID_ = 0;
+      userID_ = 0L;
 
       crowd_ = com.google.protobuf.ByteString.EMPTY;
 
       tenantID_ = 0L;
 
       workflowID_ = 0L;
+
+      instanceID_ = 0L;
 
       fromStep_ = "";
 
@@ -637,6 +667,7 @@ private static final long serialVersionUID = 0L;
       result.crowd_ = crowd_;
       result.tenantID_ = tenantID_;
       result.workflowID_ = workflowID_;
+      result.instanceID_ = instanceID_;
       result.fromStep_ = fromStep_;
       result.fromAction_ = fromAction_;
       result.toStep_ = toStep_;
@@ -683,7 +714,7 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.meta.Notify other) {
       if (other == cn.infinivision.dataforce.busybee.pb.meta.Notify.getDefaultInstance()) return this;
-      if (other.getUserID() != 0) {
+      if (other.getUserID() != 0L) {
         setUserID(other.getUserID());
       }
       if (other.getCrowd() != com.google.protobuf.ByteString.EMPTY) {
@@ -694,6 +725,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getWorkflowID() != 0L) {
         setWorkflowID(other.getWorkflowID());
+      }
+      if (other.getInstanceID() != 0L) {
+        setInstanceID(other.getInstanceID());
       }
       if (!other.getFromStep().isEmpty()) {
         fromStep_ = other.fromStep_;
@@ -741,28 +775,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int userID_ ;
+    private long userID_ ;
     /**
-     * <code>uint32 userID = 1;</code>
+     * <code>int64 userID = 1;</code>
      */
-    public int getUserID() {
+    public long getUserID() {
       return userID_;
     }
     /**
-     * <code>uint32 userID = 1;</code>
+     * <code>int64 userID = 1;</code>
      */
-    public Builder setUserID(int value) {
+    public Builder setUserID(long value) {
       
       userID_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>uint32 userID = 1;</code>
+     * <code>int64 userID = 1;</code>
      */
     public Builder clearUserID() {
       
-      userID_ = 0;
+      userID_ = 0L;
       onChanged();
       return this;
     }
@@ -848,9 +882,35 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private long instanceID_ ;
+    /**
+     * <code>uint64 instanceID = 5;</code>
+     */
+    public long getInstanceID() {
+      return instanceID_;
+    }
+    /**
+     * <code>uint64 instanceID = 5;</code>
+     */
+    public Builder setInstanceID(long value) {
+      
+      instanceID_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 instanceID = 5;</code>
+     */
+    public Builder clearInstanceID() {
+      
+      instanceID_ = 0L;
+      onChanged();
+      return this;
+    }
+
     private java.lang.Object fromStep_ = "";
     /**
-     * <code>string fromStep = 5;</code>
+     * <code>string fromStep = 6;</code>
      */
     public java.lang.String getFromStep() {
       java.lang.Object ref = fromStep_;
@@ -865,7 +925,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fromStep = 5;</code>
+     * <code>string fromStep = 6;</code>
      */
     public com.google.protobuf.ByteString
         getFromStepBytes() {
@@ -881,7 +941,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fromStep = 5;</code>
+     * <code>string fromStep = 6;</code>
      */
     public Builder setFromStep(
         java.lang.String value) {
@@ -894,7 +954,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fromStep = 5;</code>
+     * <code>string fromStep = 6;</code>
      */
     public Builder clearFromStep() {
       
@@ -903,7 +963,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fromStep = 5;</code>
+     * <code>string fromStep = 6;</code>
      */
     public Builder setFromStepBytes(
         com.google.protobuf.ByteString value) {
@@ -919,7 +979,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object fromAction_ = "";
     /**
-     * <code>string fromAction = 6;</code>
+     * <code>string fromAction = 7;</code>
      */
     public java.lang.String getFromAction() {
       java.lang.Object ref = fromAction_;
@@ -934,7 +994,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fromAction = 6;</code>
+     * <code>string fromAction = 7;</code>
      */
     public com.google.protobuf.ByteString
         getFromActionBytes() {
@@ -950,7 +1010,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fromAction = 6;</code>
+     * <code>string fromAction = 7;</code>
      */
     public Builder setFromAction(
         java.lang.String value) {
@@ -963,7 +1023,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fromAction = 6;</code>
+     * <code>string fromAction = 7;</code>
      */
     public Builder clearFromAction() {
       
@@ -972,7 +1032,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fromAction = 6;</code>
+     * <code>string fromAction = 7;</code>
      */
     public Builder setFromActionBytes(
         com.google.protobuf.ByteString value) {
@@ -988,7 +1048,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object toStep_ = "";
     /**
-     * <code>string toStep = 7;</code>
+     * <code>string toStep = 8;</code>
      */
     public java.lang.String getToStep() {
       java.lang.Object ref = toStep_;
@@ -1003,7 +1063,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string toStep = 7;</code>
+     * <code>string toStep = 8;</code>
      */
     public com.google.protobuf.ByteString
         getToStepBytes() {
@@ -1019,7 +1079,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string toStep = 7;</code>
+     * <code>string toStep = 8;</code>
      */
     public Builder setToStep(
         java.lang.String value) {
@@ -1032,7 +1092,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string toStep = 7;</code>
+     * <code>string toStep = 8;</code>
      */
     public Builder clearToStep() {
       
@@ -1041,7 +1101,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string toStep = 7;</code>
+     * <code>string toStep = 8;</code>
      */
     public Builder setToStepBytes(
         com.google.protobuf.ByteString value) {
@@ -1057,7 +1117,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object toAction_ = "";
     /**
-     * <code>string toAction = 8;</code>
+     * <code>string toAction = 9;</code>
      */
     public java.lang.String getToAction() {
       java.lang.Object ref = toAction_;
@@ -1072,7 +1132,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string toAction = 8;</code>
+     * <code>string toAction = 9;</code>
      */
     public com.google.protobuf.ByteString
         getToActionBytes() {
@@ -1088,7 +1148,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string toAction = 8;</code>
+     * <code>string toAction = 9;</code>
      */
     public Builder setToAction(
         java.lang.String value) {
@@ -1101,7 +1161,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string toAction = 8;</code>
+     * <code>string toAction = 9;</code>
      */
     public Builder clearToAction() {
       
@@ -1110,7 +1170,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string toAction = 8;</code>
+     * <code>string toAction = 9;</code>
      */
     public Builder setToActionBytes(
         com.google.protobuf.ByteString value) {
@@ -1126,13 +1186,13 @@ private static final long serialVersionUID = 0L;
 
     private int ttl_ ;
     /**
-     * <code>int32 ttl = 9;</code>
+     * <code>int32 ttl = 10;</code>
      */
     public int getTtl() {
       return ttl_;
     }
     /**
-     * <code>int32 ttl = 9;</code>
+     * <code>int32 ttl = 10;</code>
      */
     public Builder setTtl(int value) {
       
@@ -1141,7 +1201,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 ttl = 9;</code>
+     * <code>int32 ttl = 10;</code>
      */
     public Builder clearTtl() {
       

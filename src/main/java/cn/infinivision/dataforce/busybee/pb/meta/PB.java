@@ -154,14 +154,15 @@ public final class PB {
       "eWorkflowEvent\"D\n\020UpdateCrowdEvent\022\022\n\nwo" +
       "rkflowID\030\001 \001(\004\022\r\n\005index\030\002 \001(\r\022\r\n\005crowd\030\003" +
       " \001(\014\"9\n\023UpdateWorkflowEvent\022\"\n\010workflow\030" +
-      "\001 \001(\0132\020.metapb.Workflow\"[\n\tUserEvent\022\016\n\006" +
-      "userID\030\001 \001(\004\022\020\n\010tenantID\030\002 \001(\004\022\022\n\nworkfl" +
-      "owID\030\003 \001(\004\022\030\n\004data\030\004 \003(\0132\n.metapb.KV\" \n\002" +
-      "KV\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030\002 \001(\014\"\242\001\n\006Notif" +
-      "y\022\016\n\006userID\030\001 \001(\r\022\r\n\005crowd\030\002 \001(\014\022\020\n\010tena" +
-      "ntID\030\003 \001(\004\022\022\n\nworkflowID\030\004 \001(\004\022\020\n\010fromSt" +
-      "ep\030\005 \001(\t\022\022\n\nfromAction\030\006 \001(\t\022\016\n\006toStep\030\007" +
-      " \001(\t\022\020\n\010toAction\030\010 \001(\t\022\013\n\003ttl\030\t \001(\005\"&\n\007I" +
+      "\001 \001(\0132\020.metapb.Workflow\"o\n\tUserEvent\022\016\n\006" +
+      "userID\030\001 \001(\003\022\020\n\010tenantID\030\002 \001(\004\022\022\n\nworkfl" +
+      "owID\030\003 \001(\004\022\022\n\ninstanceID\030\004 \001(\004\022\030\n\004data\030\005" +
+      " \003(\0132\n.metapb.KV\" \n\002KV\022\013\n\003key\030\001 \001(\014\022\r\n\005v" +
+      "alue\030\002 \001(\014\"\266\001\n\006Notify\022\016\n\006userID\030\001 \001(\003\022\r\n" +
+      "\005crowd\030\002 \001(\014\022\020\n\010tenantID\030\003 \001(\004\022\022\n\nworkfl" +
+      "owID\030\004 \001(\004\022\022\n\ninstanceID\030\005 \001(\004\022\020\n\010fromSt" +
+      "ep\030\006 \001(\t\022\022\n\nfromAction\030\007 \001(\t\022\016\n\006toStep\030\010" +
+      " \001(\t\022\020\n\010toAction\030\t \001(\t\022\013\n\003ttl\030\n \001(\005\"&\n\007I" +
       "DValue\022\r\n\005value\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\"(\n\005I" +
       "DSet\022\037\n\006values\030\001 \003(\0132\017.metapb.IDValue\"c\n" +
       "\010Workflow\022\n\n\002id\030\001 \001(\004\022\020\n\010tenantID\030\002 \001(\004\022" +
@@ -266,7 +267,7 @@ public final class PB {
     internal_static_metapb_UserEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_UserEvent_descriptor,
-        new java.lang.String[] { "UserID", "TenantID", "WorkflowID", "Data", });
+        new java.lang.String[] { "UserID", "TenantID", "WorkflowID", "InstanceID", "Data", });
     internal_static_metapb_KV_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_metapb_KV_fieldAccessorTable = new
@@ -278,7 +279,7 @@ public final class PB {
     internal_static_metapb_Notify_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Notify_descriptor,
-        new java.lang.String[] { "UserID", "Crowd", "TenantID", "WorkflowID", "FromStep", "FromAction", "ToStep", "ToAction", "Ttl", });
+        new java.lang.String[] { "UserID", "Crowd", "TenantID", "WorkflowID", "InstanceID", "FromStep", "FromAction", "ToStep", "ToAction", "Ttl", });
     internal_static_metapb_IDValue_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_metapb_IDValue_fieldAccessorTable = new

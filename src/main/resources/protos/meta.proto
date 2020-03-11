@@ -66,10 +66,11 @@ message UpdateWorkflowEvent {
 
 // UserEvent is process definition
 message UserEvent {
-    uint64 userID     = 1;
+    int64  userID     = 1;
     uint64 tenantID   = 2;
     uint64 workflowID = 3;
-    repeated KV data  = 4;
+    uint64 instanceID = 4;
+    repeated KV data  = 5;
 }
 
 // KV custom KV data
@@ -80,15 +81,16 @@ message KV {
 
 // Notify notify message
 message Notify {
-    uint32 userID     = 1;
+    int64  userID     = 1;
     bytes  crowd      = 2;
     uint64 tenantID   = 3;
     uint64 workflowID = 4;
-    string fromStep   = 5;
-    string fromAction = 6;
-    string toStep     = 7;
-    string toAction   = 8;
-    int32  ttl        = 9;
+    uint64 instanceID = 5;
+    string fromStep   = 6;
+    string fromAction = 7;
+    string toStep     = 8;
+    string toAction   = 9;
+    int32  ttl        = 10;
 }
 
 
