@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
   private WorkflowInstanceWorkerState() {
     tenantID_ = 0L;
     workflowID_ = 0L;
+    instanceID_ = 0L;
     index_ = 0;
     states_ = java.util.Collections.emptyList();
     version_ = 0L;
@@ -71,24 +72,29 @@ private static final long serialVersionUID = 0L;
           }
           case 24: {
 
+            instanceID_ = input.readUInt64();
+            break;
+          }
+          case 32: {
+
             index_ = input.readUInt32();
             break;
           }
-          case 34: {
-            if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          case 42: {
+            if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
               states_ = new java.util.ArrayList<cn.infinivision.dataforce.busybee.pb.meta.StepState>();
-              mutable_bitField0_ |= 0x00000008;
+              mutable_bitField0_ |= 0x00000010;
             }
             states_.add(
                 input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.StepState.parser(), extensionRegistry));
             break;
           }
-          case 40: {
+          case 48: {
 
             version_ = input.readUInt64();
             break;
           }
-          case 48: {
+          case 56: {
 
             stopAt_ = input.readInt64();
             break;
@@ -101,7 +107,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
         states_ = java.util.Collections.unmodifiableList(states_);
       }
       this.unknownFields = unknownFields.build();
@@ -139,63 +145,72 @@ private static final long serialVersionUID = 0L;
     return workflowID_;
   }
 
-  public static final int INDEX_FIELD_NUMBER = 3;
+  public static final int INSTANCEID_FIELD_NUMBER = 3;
+  private long instanceID_;
+  /**
+   * <code>uint64 instanceID = 3;</code>
+   */
+  public long getInstanceID() {
+    return instanceID_;
+  }
+
+  public static final int INDEX_FIELD_NUMBER = 4;
   private int index_;
   /**
-   * <code>uint32 index = 3;</code>
+   * <code>uint32 index = 4;</code>
    */
   public int getIndex() {
     return index_;
   }
 
-  public static final int STATES_FIELD_NUMBER = 4;
+  public static final int STATES_FIELD_NUMBER = 5;
   private java.util.List<cn.infinivision.dataforce.busybee.pb.meta.StepState> states_;
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.StepState> getStatesList() {
     return states_;
   }
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   public java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder> 
       getStatesOrBuilderList() {
     return states_;
   }
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   public int getStatesCount() {
     return states_.size();
   }
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.meta.StepState getStates(int index) {
     return states_.get(index);
   }
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder getStatesOrBuilder(
       int index) {
     return states_.get(index);
   }
 
-  public static final int VERSION_FIELD_NUMBER = 5;
+  public static final int VERSION_FIELD_NUMBER = 6;
   private long version_;
   /**
-   * <code>uint64 version = 5;</code>
+   * <code>uint64 version = 6;</code>
    */
   public long getVersion() {
     return version_;
   }
 
-  public static final int STOPAT_FIELD_NUMBER = 6;
+  public static final int STOPAT_FIELD_NUMBER = 7;
   private long stopAt_;
   /**
-   * <code>int64 stopAt = 6;</code>
+   * <code>int64 stopAt = 7;</code>
    */
   public long getStopAt() {
     return stopAt_;
@@ -219,17 +234,20 @@ private static final long serialVersionUID = 0L;
     if (workflowID_ != 0L) {
       output.writeUInt64(2, workflowID_);
     }
+    if (instanceID_ != 0L) {
+      output.writeUInt64(3, instanceID_);
+    }
     if (index_ != 0) {
-      output.writeUInt32(3, index_);
+      output.writeUInt32(4, index_);
     }
     for (int i = 0; i < states_.size(); i++) {
-      output.writeMessage(4, states_.get(i));
+      output.writeMessage(5, states_.get(i));
     }
     if (version_ != 0L) {
-      output.writeUInt64(5, version_);
+      output.writeUInt64(6, version_);
     }
     if (stopAt_ != 0L) {
-      output.writeInt64(6, stopAt_);
+      output.writeInt64(7, stopAt_);
     }
     unknownFields.writeTo(output);
   }
@@ -247,21 +265,25 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(2, workflowID_);
     }
+    if (instanceID_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(3, instanceID_);
+    }
     if (index_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt32Size(3, index_);
+        .computeUInt32Size(4, index_);
     }
     for (int i = 0; i < states_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(4, states_.get(i));
+        .computeMessageSize(5, states_.get(i));
     }
     if (version_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(5, version_);
+        .computeUInt64Size(6, version_);
     }
     if (stopAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(6, stopAt_);
+        .computeInt64Size(7, stopAt_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -283,6 +305,8 @@ private static final long serialVersionUID = 0L;
         == other.getTenantID());
     result = result && (getWorkflowID()
         == other.getWorkflowID());
+    result = result && (getInstanceID()
+        == other.getInstanceID());
     result = result && (getIndex()
         == other.getIndex());
     result = result && getStatesList()
@@ -308,6 +332,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + WORKFLOWID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getWorkflowID());
+    hash = (37 * hash) + INSTANCEID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getInstanceID());
     hash = (37 * hash) + INDEX_FIELD_NUMBER;
     hash = (53 * hash) + getIndex();
     if (getStatesCount() > 0) {
@@ -458,11 +485,13 @@ private static final long serialVersionUID = 0L;
 
       workflowID_ = 0L;
 
+      instanceID_ = 0L;
+
       index_ = 0;
 
       if (statesBuilder_ == null) {
         states_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
       } else {
         statesBuilder_.clear();
       }
@@ -496,11 +525,12 @@ private static final long serialVersionUID = 0L;
       int to_bitField0_ = 0;
       result.tenantID_ = tenantID_;
       result.workflowID_ = workflowID_;
+      result.instanceID_ = instanceID_;
       result.index_ = index_;
       if (statesBuilder_ == null) {
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
           states_ = java.util.Collections.unmodifiableList(states_);
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.states_ = states_;
       } else {
@@ -556,6 +586,9 @@ private static final long serialVersionUID = 0L;
       if (other.getWorkflowID() != 0L) {
         setWorkflowID(other.getWorkflowID());
       }
+      if (other.getInstanceID() != 0L) {
+        setInstanceID(other.getInstanceID());
+      }
       if (other.getIndex() != 0) {
         setIndex(other.getIndex());
       }
@@ -563,7 +596,7 @@ private static final long serialVersionUID = 0L;
         if (!other.states_.isEmpty()) {
           if (states_.isEmpty()) {
             states_ = other.states_;
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000010);
           } else {
             ensureStatesIsMutable();
             states_.addAll(other.states_);
@@ -576,7 +609,7 @@ private static final long serialVersionUID = 0L;
             statesBuilder_.dispose();
             statesBuilder_ = null;
             states_ = other.states_;
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000010);
             statesBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getStatesFieldBuilder() : null;
@@ -671,15 +704,41 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private long instanceID_ ;
+    /**
+     * <code>uint64 instanceID = 3;</code>
+     */
+    public long getInstanceID() {
+      return instanceID_;
+    }
+    /**
+     * <code>uint64 instanceID = 3;</code>
+     */
+    public Builder setInstanceID(long value) {
+      
+      instanceID_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 instanceID = 3;</code>
+     */
+    public Builder clearInstanceID() {
+      
+      instanceID_ = 0L;
+      onChanged();
+      return this;
+    }
+
     private int index_ ;
     /**
-     * <code>uint32 index = 3;</code>
+     * <code>uint32 index = 4;</code>
      */
     public int getIndex() {
       return index_;
     }
     /**
-     * <code>uint32 index = 3;</code>
+     * <code>uint32 index = 4;</code>
      */
     public Builder setIndex(int value) {
       
@@ -688,7 +747,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint32 index = 3;</code>
+     * <code>uint32 index = 4;</code>
      */
     public Builder clearIndex() {
       
@@ -700,9 +759,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<cn.infinivision.dataforce.busybee.pb.meta.StepState> states_ =
       java.util.Collections.emptyList();
     private void ensureStatesIsMutable() {
-      if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (!((bitField0_ & 0x00000010) == 0x00000010)) {
         states_ = new java.util.ArrayList<cn.infinivision.dataforce.busybee.pb.meta.StepState>(states_);
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
        }
     }
 
@@ -710,7 +769,7 @@ private static final long serialVersionUID = 0L;
         cn.infinivision.dataforce.busybee.pb.meta.StepState, cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder, cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder> statesBuilder_;
 
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.StepState> getStatesList() {
       if (statesBuilder_ == null) {
@@ -720,7 +779,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public int getStatesCount() {
       if (statesBuilder_ == null) {
@@ -730,7 +789,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.StepState getStates(int index) {
       if (statesBuilder_ == null) {
@@ -740,7 +799,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder setStates(
         int index, cn.infinivision.dataforce.busybee.pb.meta.StepState value) {
@@ -757,7 +816,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder setStates(
         int index, cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder builderForValue) {
@@ -771,7 +830,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder addStates(cn.infinivision.dataforce.busybee.pb.meta.StepState value) {
       if (statesBuilder_ == null) {
@@ -787,7 +846,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder addStates(
         int index, cn.infinivision.dataforce.busybee.pb.meta.StepState value) {
@@ -804,7 +863,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder addStates(
         cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder builderForValue) {
@@ -818,7 +877,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder addStates(
         int index, cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder builderForValue) {
@@ -832,7 +891,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder addAllStates(
         java.lang.Iterable<? extends cn.infinivision.dataforce.busybee.pb.meta.StepState> values) {
@@ -847,12 +906,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder clearStates() {
       if (statesBuilder_ == null) {
         states_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
       } else {
         statesBuilder_.clear();
@@ -860,7 +919,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public Builder removeStates(int index) {
       if (statesBuilder_ == null) {
@@ -873,14 +932,14 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder getStatesBuilder(
         int index) {
       return getStatesFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder getStatesOrBuilder(
         int index) {
@@ -890,7 +949,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder> 
          getStatesOrBuilderList() {
@@ -901,14 +960,14 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder addStatesBuilder() {
       return getStatesFieldBuilder().addBuilder(
           cn.infinivision.dataforce.busybee.pb.meta.StepState.getDefaultInstance());
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder addStatesBuilder(
         int index) {
@@ -916,7 +975,7 @@ private static final long serialVersionUID = 0L;
           index, cn.infinivision.dataforce.busybee.pb.meta.StepState.getDefaultInstance());
     }
     /**
-     * <code>repeated .metapb.StepState states = 4;</code>
+     * <code>repeated .metapb.StepState states = 5;</code>
      */
     public java.util.List<cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder> 
          getStatesBuilderList() {
@@ -929,7 +988,7 @@ private static final long serialVersionUID = 0L;
         statesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             cn.infinivision.dataforce.busybee.pb.meta.StepState, cn.infinivision.dataforce.busybee.pb.meta.StepState.Builder, cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder>(
                 states_,
-                ((bitField0_ & 0x00000008) == 0x00000008),
+                ((bitField0_ & 0x00000010) == 0x00000010),
                 getParentForChildren(),
                 isClean());
         states_ = null;
@@ -939,13 +998,13 @@ private static final long serialVersionUID = 0L;
 
     private long version_ ;
     /**
-     * <code>uint64 version = 5;</code>
+     * <code>uint64 version = 6;</code>
      */
     public long getVersion() {
       return version_;
     }
     /**
-     * <code>uint64 version = 5;</code>
+     * <code>uint64 version = 6;</code>
      */
     public Builder setVersion(long value) {
       
@@ -954,7 +1013,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint64 version = 5;</code>
+     * <code>uint64 version = 6;</code>
      */
     public Builder clearVersion() {
       
@@ -965,13 +1024,13 @@ private static final long serialVersionUID = 0L;
 
     private long stopAt_ ;
     /**
-     * <code>int64 stopAt = 6;</code>
+     * <code>int64 stopAt = 7;</code>
      */
     public long getStopAt() {
       return stopAt_;
     }
     /**
-     * <code>int64 stopAt = 6;</code>
+     * <code>int64 stopAt = 7;</code>
      */
     public Builder setStopAt(long value) {
       
@@ -980,7 +1039,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 stopAt = 6;</code>
+     * <code>int64 stopAt = 7;</code>
      */
     public Builder clearStopAt() {
       

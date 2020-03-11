@@ -18,41 +18,46 @@ public interface WorkflowInstanceWorkerStateOrBuilder extends
   long getWorkflowID();
 
   /**
-   * <code>uint32 index = 3;</code>
+   * <code>uint64 instanceID = 3;</code>
+   */
+  long getInstanceID();
+
+  /**
+   * <code>uint32 index = 4;</code>
    */
   int getIndex();
 
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   java.util.List<cn.infinivision.dataforce.busybee.pb.meta.StepState> 
       getStatesList();
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.StepState getStates(int index);
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   int getStatesCount();
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder> 
       getStatesOrBuilderList();
   /**
-   * <code>repeated .metapb.StepState states = 4;</code>
+   * <code>repeated .metapb.StepState states = 5;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.StepStateOrBuilder getStatesOrBuilder(
       int index);
 
   /**
-   * <code>uint64 version = 5;</code>
+   * <code>uint64 version = 6;</code>
    */
   long getVersion();
 
   /**
-   * <code>int64 stopAt = 6;</code>
+   * <code>int64 stopAt = 7;</code>
    */
   long getStopAt();
 }
