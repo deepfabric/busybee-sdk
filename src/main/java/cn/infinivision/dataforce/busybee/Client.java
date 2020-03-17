@@ -70,7 +70,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.roaringbitmap.RoaringBitmap;
 
@@ -852,7 +852,7 @@ public class Client implements Closeable {
      * @param consumer size
      * @param callback callback
      */
-    public void watchNotify(long tenantId, String consumer, Consumer<Notify> callback) {
+    public void watchNotify(long tenantId, String consumer, BiConsumer<Long, Notify> callback) {
         if (fetchWorkers.containsKey(tenantId)) {
             log.warn("tenant {} already in watching", tenantId);
             return;
@@ -861,6 +861,36 @@ public class Client implements Closeable {
         FetchWorker w = new FetchWorker(this, tenantId, consumer, callback, null, schedulers);
         fetchWorkers.putIfAbsent(tenantId, w);
         schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
+    }
+
+    /**
+     * watch the notifies of the giving tenantId
+     *
+     * @param tenantId tenant id
+     * @param consumer size
+     * @param callback batch callback
+     */
+    public void watchBatchNotify(long tenantId, String consumer, BiConsumer<Long, List<Notify>> callback) {
+        if (fetchWorkers.containsKey(tenantId)) {
+            log.warn("tenant {} already in watching", tenantId);
+            return;
+        }
+
+        FetchWorker w = new FetchWorker(this, tenantId, consumer, null, callback, schedulers);
+        fetchWorkers.putIfAbsent(tenantId, w);
+        schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
+    }
+
+    /**
+     * stop watch the notifies
+     *
+     * @param tenantId tenant id
+     */
+    public void stopWatchNotify(long tenantId) {
+        FetchWorker w = fetchWorkers.remove(tenantId);
+        if (w != null) {
+            w.stop();
+        }
     }
 
     /**
@@ -910,36 +940,6 @@ public class Client implements Closeable {
         }
     }
 
-    /**
-     * watch the notifies of the giving tenantId
-     *
-     * @param tenantId tenant id
-     * @param consumer size
-     * @param callback batch callback
-     */
-    public void watchBatchNotify(long tenantId, String consumer, Consumer<List<Notify>> callback) {
-        if (fetchWorkers.containsKey(tenantId)) {
-            log.warn("tenant {} already in watching", tenantId);
-            return;
-        }
-
-        FetchWorker w = new FetchWorker(this, tenantId, consumer, null, callback, schedulers);
-        fetchWorkers.putIfAbsent(tenantId, w);
-        schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
-    }
-
-    /**
-     * stop watch the notifies
-     *
-     * @param tenantId tenant id
-     */
-    public void stopWatchNotify(long tenantId) {
-        FetchWorker w = fetchWorkers.remove(tenantId);
-        if (w != null) {
-            w.stop();
-        }
-    }
-
     private Future<Result> scan(byte[] starInclude, byte[] endExclude, long limit, Group group) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
@@ -970,12 +970,12 @@ public class Client implements Closeable {
         private long tenantId;
         private long offset;
         private String consumer;
-        private Consumer<Notify> callback;
-        private Consumer<List<Notify>> batchCallback;
+        private BiConsumer<Long, Notify> callback;
+        private BiConsumer<Long, List<Notify>> batchCallback;
         private ScheduledExecutorService schedulers;
 
-        FetchWorker(Client client, long tenantId, String consumer, Consumer<Notify> callback,
-            Consumer<List<Notify>> batchCallback,
+        FetchWorker(Client client, long tenantId, String consumer, BiConsumer<Long, Notify> callback,
+            BiConsumer<Long, List<Notify>> batchCallback,
             ScheduledExecutorService schedulers) {
             this.client = client;
             this.tenantId = tenantId;
@@ -1003,7 +1003,7 @@ public class Client implements Closeable {
                 } else {
                     List<ByteString> items = resp.getBytesSliceResp().getValuesList();
                     if (items.size() > 0) {
-                        long value = resp.getBytesSliceResp().getLastValue() - items.size();
+                        long value = resp.getBytesSliceResp().getLastValue() - items.size() + 1;
                         List<Notify> values = new ArrayList<>();
                         for (ByteString bs : items) {
                             values.add(Notify.parseFrom(bs));
@@ -1011,12 +1011,12 @@ public class Client implements Closeable {
 
                         if (callback != null) {
                             for (Notify nt : values) {
-                                callback.accept(nt);
-                                value++;
+                                callback.accept(value, nt);
                                 offset = value;
+                                value++;
                             }
                         } else {
-                            batchCallback.accept(values);
+                            batchCallback.accept(value, values);
                             offset = resp.getBytesSliceResp().getLastValue();
                         }
                         after = 0;
@@ -1274,7 +1274,6 @@ public class Client implements Closeable {
     public static void workflow(Client c) throws ExecutionException, InterruptedException {
         c.initTenant(1, 2).get().checkError();
         Thread.sleep(15000);
-        c.watchNotify(1, "c", nt -> System.out.println("*******************: " + nt));
         Workflow wf = Workflow.newBuilder()
             .setId(1000)
             .setName("test")
