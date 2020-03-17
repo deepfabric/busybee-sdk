@@ -77,6 +77,19 @@ private static final long serialVersionUID = 0L;
             kvs_.add(input.readBytes());
             break;
           }
+          case 34: {
+            cn.infinivision.dataforce.busybee.pb.rpc.Condition.Builder subBuilder = null;
+            if (condition_ != null) {
+              subBuilder = condition_.toBuilder();
+            }
+            condition_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.Condition.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(condition_);
+              condition_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -161,6 +174,27 @@ private static final long serialVersionUID = 0L;
     return kvs_.get(index);
   }
 
+  public static final int CONDITION_FIELD_NUMBER = 4;
+  private cn.infinivision.dataforce.busybee.pb.rpc.Condition condition_;
+  /**
+   * <code>.rpcpb.Condition condition = 4;</code>
+   */
+  public boolean hasCondition() {
+    return condition_ != null;
+  }
+  /**
+   * <code>.rpcpb.Condition condition = 4;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.Condition getCondition() {
+    return condition_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Condition.getDefaultInstance() : condition_;
+  }
+  /**
+   * <code>.rpcpb.Condition condition = 4;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder getConditionOrBuilder() {
+    return getCondition();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -181,6 +215,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < kvs_.size(); i++) {
       output.writeBytes(3, kvs_.get(i));
+    }
+    if (condition_ != null) {
+      output.writeMessage(4, getCondition());
     }
     unknownFields.writeTo(output);
   }
@@ -212,6 +249,10 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getKvsList().size();
     }
+    if (condition_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getCondition());
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -234,6 +275,11 @@ private static final long serialVersionUID = 0L;
         .equals(other.getItemsList());
     result = result && getKvsList()
         .equals(other.getKvsList());
+    result = result && (hasCondition() == other.hasCondition());
+    if (hasCondition()) {
+      result = result && getCondition()
+          .equals(other.getCondition());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -254,6 +300,10 @@ private static final long serialVersionUID = 0L;
     if (getKvsCount() > 0) {
       hash = (37 * hash) + KVS_FIELD_NUMBER;
       hash = (53 * hash) + getKvsList().hashCode();
+    }
+    if (hasCondition()) {
+      hash = (37 * hash) + CONDITION_FIELD_NUMBER;
+      hash = (53 * hash) + getCondition().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -394,6 +444,12 @@ private static final long serialVersionUID = 0L;
       bitField0_ = (bitField0_ & ~0x00000002);
       kvs_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000004);
+      if (conditionBuilder_ == null) {
+        condition_ = null;
+      } else {
+        condition_ = null;
+        conditionBuilder_ = null;
+      }
       return this;
     }
 
@@ -429,6 +485,11 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
       }
       result.kvs_ = kvs_;
+      if (conditionBuilder_ == null) {
+        result.condition_ = condition_;
+      } else {
+        result.condition_ = conditionBuilder_.build();
+      }
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -493,6 +554,9 @@ private static final long serialVersionUID = 0L;
           kvs_.addAll(other.kvs_);
         }
         onChanged();
+      }
+      if (other.hasCondition()) {
+        mergeCondition(other.getCondition());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -693,6 +757,123 @@ private static final long serialVersionUID = 0L;
       bitField0_ = (bitField0_ & ~0x00000004);
       onChanged();
       return this;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.Condition condition_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.Condition, cn.infinivision.dataforce.busybee.pb.rpc.Condition.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder> conditionBuilder_;
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public boolean hasCondition() {
+      return conditionBuilder_ != null || condition_ != null;
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Condition getCondition() {
+      if (conditionBuilder_ == null) {
+        return condition_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.Condition.getDefaultInstance() : condition_;
+      } else {
+        return conditionBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public Builder setCondition(cn.infinivision.dataforce.busybee.pb.rpc.Condition value) {
+      if (conditionBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        condition_ = value;
+        onChanged();
+      } else {
+        conditionBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public Builder setCondition(
+        cn.infinivision.dataforce.busybee.pb.rpc.Condition.Builder builderForValue) {
+      if (conditionBuilder_ == null) {
+        condition_ = builderForValue.build();
+        onChanged();
+      } else {
+        conditionBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public Builder mergeCondition(cn.infinivision.dataforce.busybee.pb.rpc.Condition value) {
+      if (conditionBuilder_ == null) {
+        if (condition_ != null) {
+          condition_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.Condition.newBuilder(condition_).mergeFrom(value).buildPartial();
+        } else {
+          condition_ = value;
+        }
+        onChanged();
+      } else {
+        conditionBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public Builder clearCondition() {
+      if (conditionBuilder_ == null) {
+        condition_ = null;
+        onChanged();
+      } else {
+        condition_ = null;
+        conditionBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.Condition.Builder getConditionBuilder() {
+      
+      onChanged();
+      return getConditionFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder getConditionOrBuilder() {
+      if (conditionBuilder_ != null) {
+        return conditionBuilder_.getMessageOrBuilder();
+      } else {
+        return condition_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.Condition.getDefaultInstance() : condition_;
+      }
+    }
+    /**
+     * <code>.rpcpb.Condition condition = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.Condition, cn.infinivision.dataforce.busybee.pb.rpc.Condition.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder> 
+        getConditionFieldBuilder() {
+      if (conditionBuilder_ == null) {
+        conditionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.Condition, cn.infinivision.dataforce.busybee.pb.rpc.Condition.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder>(
+                getCondition(),
+                getParentForChildren(),
+                isClean());
+        condition_ = null;
+      }
+      return conditionBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

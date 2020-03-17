@@ -37,4 +37,17 @@ public interface QueueAddRequestOrBuilder extends
    * <code>repeated bytes kvs = 3;</code>
    */
   com.google.protobuf.ByteString getKvs(int index);
+
+  /**
+   * <code>.rpcpb.Condition condition = 4;</code>
+   */
+  boolean hasCondition();
+  /**
+   * <code>.rpcpb.Condition condition = 4;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.Condition getCondition();
+  /**
+   * <code>.rpcpb.Condition condition = 4;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder getConditionOrBuilder();
 }
