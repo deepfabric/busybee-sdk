@@ -24,4 +24,17 @@ public interface QueueAddRequestOrBuilder extends
    * <code>repeated bytes items = 2;</code>
    */
   com.google.protobuf.ByteString getItems(int index);
+
+  /**
+   * <code>repeated bytes kvs = 3;</code>
+   */
+  java.util.List<com.google.protobuf.ByteString> getKvsList();
+  /**
+   * <code>repeated bytes kvs = 3;</code>
+   */
+  int getKvsCount();
+  /**
+   * <code>repeated bytes kvs = 3;</code>
+   */
+  com.google.protobuf.ByteString getKvs(int index);
 }

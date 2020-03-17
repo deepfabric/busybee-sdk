@@ -265,6 +265,7 @@ message InstanceCrowdStateRequest {
 message QueueAddRequest {
     bytes          key   = 1;
     repeated bytes items = 2;
+    repeated bytes kvs   = 3;
 }
 
 // QueueFetchResponse add items into a queue

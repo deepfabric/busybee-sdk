@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
   private QueueAddRequest() {
     key_ = com.google.protobuf.ByteString.EMPTY;
     items_ = java.util.Collections.emptyList();
+    kvs_ = java.util.Collections.emptyList();
   }
 
   @java.lang.Override
@@ -68,6 +69,14 @@ private static final long serialVersionUID = 0L;
             items_.add(input.readBytes());
             break;
           }
+          case 26: {
+            if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+              kvs_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+              mutable_bitField0_ |= 0x00000004;
+            }
+            kvs_.add(input.readBytes());
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -78,6 +87,9 @@ private static final long serialVersionUID = 0L;
     } finally {
       if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
         items_ = java.util.Collections.unmodifiableList(items_);
+      }
+      if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        kvs_ = java.util.Collections.unmodifiableList(kvs_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -127,6 +139,28 @@ private static final long serialVersionUID = 0L;
     return items_.get(index);
   }
 
+  public static final int KVS_FIELD_NUMBER = 3;
+  private java.util.List<com.google.protobuf.ByteString> kvs_;
+  /**
+   * <code>repeated bytes kvs = 3;</code>
+   */
+  public java.util.List<com.google.protobuf.ByteString>
+      getKvsList() {
+    return kvs_;
+  }
+  /**
+   * <code>repeated bytes kvs = 3;</code>
+   */
+  public int getKvsCount() {
+    return kvs_.size();
+  }
+  /**
+   * <code>repeated bytes kvs = 3;</code>
+   */
+  public com.google.protobuf.ByteString getKvs(int index) {
+    return kvs_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -144,6 +178,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < items_.size(); i++) {
       output.writeBytes(2, items_.get(i));
+    }
+    for (int i = 0; i < kvs_.size(); i++) {
+      output.writeBytes(3, kvs_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -166,6 +203,15 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getItemsList().size();
     }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < kvs_.size(); i++) {
+        dataSize += com.google.protobuf.CodedOutputStream
+          .computeBytesSizeNoTag(kvs_.get(i));
+      }
+      size += dataSize;
+      size += 1 * getKvsList().size();
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -186,6 +232,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getKey());
     result = result && getItemsList()
         .equals(other.getItemsList());
+    result = result && getKvsList()
+        .equals(other.getKvsList());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -202,6 +250,10 @@ private static final long serialVersionUID = 0L;
     if (getItemsCount() > 0) {
       hash = (37 * hash) + ITEMS_FIELD_NUMBER;
       hash = (53 * hash) + getItemsList().hashCode();
+    }
+    if (getKvsCount() > 0) {
+      hash = (37 * hash) + KVS_FIELD_NUMBER;
+      hash = (53 * hash) + getKvsList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -340,6 +392,8 @@ private static final long serialVersionUID = 0L;
 
       items_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000002);
+      kvs_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000004);
       return this;
     }
 
@@ -370,6 +424,11 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
       }
       result.items_ = items_;
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        kvs_ = java.util.Collections.unmodifiableList(kvs_);
+        bitField0_ = (bitField0_ & ~0x00000004);
+      }
+      result.kvs_ = kvs_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -422,6 +481,16 @@ private static final long serialVersionUID = 0L;
         } else {
           ensureItemsIsMutable();
           items_.addAll(other.items_);
+        }
+        onChanged();
+      }
+      if (!other.kvs_.isEmpty()) {
+        if (kvs_.isEmpty()) {
+          kvs_ = other.kvs_;
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          ensureKvsIsMutable();
+          kvs_.addAll(other.kvs_);
         }
         onChanged();
       }
@@ -550,6 +619,78 @@ private static final long serialVersionUID = 0L;
     public Builder clearItems() {
       items_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000002);
+      onChanged();
+      return this;
+    }
+
+    private java.util.List<com.google.protobuf.ByteString> kvs_ = java.util.Collections.emptyList();
+    private void ensureKvsIsMutable() {
+      if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        kvs_ = new java.util.ArrayList<com.google.protobuf.ByteString>(kvs_);
+        bitField0_ |= 0x00000004;
+       }
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public java.util.List<com.google.protobuf.ByteString>
+        getKvsList() {
+      return java.util.Collections.unmodifiableList(kvs_);
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public int getKvsCount() {
+      return kvs_.size();
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public com.google.protobuf.ByteString getKvs(int index) {
+      return kvs_.get(index);
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public Builder setKvs(
+        int index, com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKvsIsMutable();
+      kvs_.set(index, value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public Builder addKvs(com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKvsIsMutable();
+      kvs_.add(value);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public Builder addAllKvs(
+        java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
+      ensureKvsIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, kvs_);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated bytes kvs = 3;</code>
+     */
+    public Builder clearKvs() {
+      kvs_ = java.util.Collections.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000004);
       onChanged();
       return this;
     }
