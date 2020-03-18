@@ -16,6 +16,7 @@ import cn.infinivision.dataforce.busybee.pb.meta.Notify;
 import cn.infinivision.dataforce.busybee.pb.meta.ShardBitmapLoadMeta;
 import cn.infinivision.dataforce.busybee.pb.meta.Step;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
+import cn.infinivision.dataforce.busybee.pb.meta.TimerExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.UserEvent;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
@@ -1056,13 +1057,13 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
-        Client c = new Builder().rpcTimeout(5000).addServer("172.25.212.148:8091",
-            "172.25.212.148:8092",
-            "172.25.212.148:8093",
-            "172.25.212.148:8094").build();
+        Client c = new Builder().rpcTimeout(5000).addServer("172.19.0.106:8091",
+            "172.19.0.106:8092",
+            "172.19.0.106:8093",
+            "172.19.0.106:8094").build();
 
 //        c.initTenant(1, 2).get().checkError();
-        workflowWithBigBM(c);
+        timerWorkflow(c);
 
     }
 
@@ -1406,5 +1407,38 @@ public class Client implements Closeable {
         System.out.println(last);
         System.out.println(c.historyInstance(1000, last.getInstanceID()).get().historyInstanceResponse());
 
+    }
+
+    public static void timerWorkflow(Client c) throws ExecutionException, InterruptedException {
+//        c.initTenant(1, 2).get().checkError();
+//        Thread.sleep(15000);
+        Workflow wf = Workflow.newBuilder()
+            .setId(3000)
+            .setName("fagongzi_test1")
+            .setTenantID(1)
+            .addSteps(Step.newBuilder()
+                .setName("step-0")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Timer)
+                    .setTimer(TimerExecution.newBuilder()
+                        .setCron("* */1 * * * *")
+                        .setCondition(Expr.newBuilder()
+                            .setValue(ByteString.copyFrom("((${num: func.date} >= 20200203) && (${num: func.date} <= 20200808)) && ((${num: func.time} >= 014011) && (${num: func.time} <= 234011))".getBytes()))
+                            .build())
+                        .setNextStep("step_end")
+                        .setUseStepCrowdToDrive(true)
+                        .build())
+                    .build())
+                .build())
+            .addSteps(Step.newBuilder()
+                .setName("step_end")
+                .setExecution(Execution.newBuilder()
+                    .setType(ExectuionType.Direct)
+                    .setDirect(DirectExecution.newBuilder().build())
+                    .build()))
+            .build();
+        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3), 4).get().checkError();
+        Thread.sleep(3000);
+        System.out.println(c.countState(2000).get().countStateResponse());
     }
 }

@@ -39,4 +39,9 @@ public interface TimerExecutionOrBuilder extends
    */
   com.google.protobuf.ByteString
       getNextStepBytes();
+
+  /**
+   * <code>bool useStepCrowdToDrive = 4;</code>
+   */
+  boolean getUseStepCrowdToDrive();
 }
