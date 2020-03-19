@@ -1,6 +1,7 @@
 package cn.infinivision.dataforce.busybee;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Busybee client builder
@@ -66,9 +67,8 @@ public class Builder {
     }
 
     /**
-     * how many processor can concurrency consumer the notifies.
-     * If we fetch 100 notifies, and this value is 10, so 10 process
-     * can concurrent execute, and 10 notifies per process
+     * how many processor can concurrency consumer the notifies. If we fetch 100 notifies, and this value is 10, so 10
+     * process can concurrent execute, and 10 notifies per process
      *
      * @param value batch size
      * @return Builder
@@ -97,6 +97,17 @@ public class Builder {
      */
     public Builder defaultMappingType(String value) {
         this.opts.defaultMappingType = value;
+        return this;
+    }
+
+    /**
+     * set biz executor service
+     *
+     * @param bizService biz executor service
+     * @return Builder
+     */
+    public Builder bizService(ExecutorService bizService) {
+        this.opts.bizService = bizService;
         return this;
     }
 

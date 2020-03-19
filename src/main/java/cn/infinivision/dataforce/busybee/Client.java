@@ -994,40 +994,42 @@ public class Client implements Closeable {
             log.debug("tenant {} fetch result at offset {} is {}",
                 tenantId, offset, resp);
 
-            long after = 1;
-            try {
-                if (resp.hasError() &&
-                    null != resp.getError().getError() &&
-                    !resp.getError().getError().isEmpty()) {
-                    log.error("tenant {} fetch failed at offset {} with error {}",
-                        tenantId, offset, resp.getError().getError());
-                } else {
-                    List<ByteString> items = resp.getBytesSliceResp().getValuesList();
-                    if (items.size() > 0) {
-                        long value = resp.getBytesSliceResp().getLastValue() - items.size() + 1;
-                        List<Notify> values = new ArrayList<>();
-                        for (ByteString bs : items) {
-                            values.add(Notify.parseFrom(bs));
-                        }
-
-                        if (callback != null) {
-                            for (Notify nt : values) {
-                                callback.accept(value, nt);
-                                offset = value;
-                                value++;
+            client.opts.bizService.execute(() -> {
+                long after = 1;
+                try {
+                    if (resp.hasError() &&
+                        null != resp.getError().getError() &&
+                        !resp.getError().getError().isEmpty()) {
+                        log.error("tenant {} fetch failed at offset {} with error {}",
+                            tenantId, offset, resp.getError().getError());
+                    } else {
+                        List<ByteString> items = resp.getBytesSliceResp().getValuesList();
+                        if (items.size() > 0) {
+                            long value = resp.getBytesSliceResp().getLastValue() - items.size() + 1;
+                            List<Notify> values = new ArrayList<>();
+                            for (ByteString bs : items) {
+                                values.add(Notify.parseFrom(bs));
                             }
-                        } else {
-                            batchCallback.accept(value, values);
-                            offset = resp.getBytesSliceResp().getLastValue();
-                        }
-                        after = 0;
-                    }
-                }
 
-                schedulers.schedule(this::run, after, TimeUnit.SECONDS);
-            } catch (Throwable cause) {
-                log.error("tenant " + tenantId + " fetch failed at offset " + offset + " failed", cause);
-            }
+                            if (callback != null) {
+                                for (Notify nt : values) {
+                                    callback.accept(value, nt);
+                                    offset = value;
+                                    value++;
+                                }
+                            } else {
+                                batchCallback.accept(value, values);
+                                offset = resp.getBytesSliceResp().getLastValue();
+                            }
+                            after = 0;
+                        }
+                    }
+
+                    schedulers.schedule(this::run, after, TimeUnit.SECONDS);
+                } catch (Throwable cause) {
+                    log.error("tenant " + tenantId + " fetch failed at offset " + offset + " failed", cause);
+                }
+            });
         }
 
         void onError(Throwable cause) {
@@ -1057,14 +1059,64 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
-        Client c = new Builder().rpcTimeout(5000).addServer("172.19.0.106:8091",
-            "172.19.0.106:8092",
-            "172.19.0.106:8093",
-            "172.19.0.106:8094").build();
+        Client c = new Builder().rpcTimeout(5000).addServer("172.26.169.138:8081",
+            "172.26.169.138:8082",
+            "172.26.169.138:8083",
+            "172.26.169.138:8084").build();
 
 //        c.initTenant(1, 2).get().checkError();
-        timerWorkflow(c);
+//        timerWorkflow(c);
 
+//        long wid = 1000;
+//        Workflow wf = Workflow.newBuilder()
+//            .setId(wid)
+//            .setName("test")
+//            .setTenantID(1)
+//            .addSteps(Step.newBuilder()
+//                .setName("start")
+//                .setExecution(Execution.newBuilder()
+//                    .setType(ExectuionType.Branch)
+//                    .addBranches(ConditionExecution.newBuilder()
+//                        .setCondition(Expr.newBuilder()
+//                            .setValue(ByteString.copyFrom("{num: event.data} % 2 == 0".getBytes()))
+//                            .build())
+//                        .setNextStep("end1"))
+//                    .addBranches(ConditionExecution.newBuilder()
+//                        .setCondition(Expr.newBuilder()
+//                            .setType(ExprResultType.BoolResult)
+//                            .setValue(ByteString.copyFrom("{num: event.data} % 2 != 0".getBytes()))
+//                            .build())
+//                        .setNextStep("end2"))
+//                    .build())
+//                .build())
+//            .addSteps(Step.newBuilder()
+//                .setName("end1")
+//                .setExecution(Execution.newBuilder()
+//                    .setType(ExectuionType.Direct)
+//                    .setDirect(DirectExecution.newBuilder().build())
+//                    .build()))
+//            .addSteps(Step.newBuilder()
+//                .setName("end2")
+//                .setExecution(Execution.newBuilder()
+//                    .setType(ExectuionType.Direct)
+//                    .setDirect(DirectExecution.newBuilder().build())
+//                    .build()))
+//            .build();
+//
+//        RoaringBitmap bm = new RoaringBitmap();
+//        for (int i = 1; i <= 10000; i++) {
+//            bm.add(i);
+//        }
+//        c.startInstance(wf, bm, 1).get().checkError();
+
+//        c.addEvent(1, 1, "data".getBytes(), "1".getBytes()).get().checkError();
+//        c.watchNotify(1, "c1", (offset, nt) -> {
+//            try {
+//                c.addEvent(1, 2, "data".getBytes(), "2".getBytes()).get().checkError();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
     public static void keys(Client c) throws ExecutionException, InterruptedException {
