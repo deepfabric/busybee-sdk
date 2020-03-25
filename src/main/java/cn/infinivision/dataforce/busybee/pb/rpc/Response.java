@@ -183,6 +183,32 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 98: {
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.Builder subBuilder = null;
+            if (joinResp_ != null) {
+              subBuilder = joinResp_.toBuilder();
+            }
+            joinResp_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(joinResp_);
+              joinResp_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 106: {
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder subBuilder = null;
+            if (fetchResp_ != null) {
+              subBuilder = fetchResp_.toBuilder();
+            }
+            fetchResp_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(fetchResp_);
+              fetchResp_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -421,6 +447,48 @@ private static final long serialVersionUID = 0L;
     return getStringResp();
   }
 
+  public static final int JOINRESP_FIELD_NUMBER = 12;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse joinResp_;
+  /**
+   * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+   */
+  public boolean hasJoinResp() {
+    return joinResp_ != null;
+  }
+  /**
+   * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse getJoinResp() {
+    return joinResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.getDefaultInstance() : joinResp_;
+  }
+  /**
+   * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponseOrBuilder getJoinRespOrBuilder() {
+    return getJoinResp();
+  }
+
+  public static final int FETCHRESP_FIELD_NUMBER = 13;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse fetchResp_;
+  /**
+   * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+   */
+  public boolean hasFetchResp() {
+    return fetchResp_ != null;
+  }
+  /**
+   * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse getFetchResp() {
+    return fetchResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.getDefaultInstance() : fetchResp_;
+  }
+  /**
+   * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder getFetchRespOrBuilder() {
+    return getFetchResp();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -465,6 +533,12 @@ private static final long serialVersionUID = 0L;
     }
     if (stringResp_ != null) {
       output.writeMessage(11, getStringResp());
+    }
+    if (joinResp_ != null) {
+      output.writeMessage(12, getJoinResp());
+    }
+    if (fetchResp_ != null) {
+      output.writeMessage(13, getFetchResp());
     }
     unknownFields.writeTo(output);
   }
@@ -517,6 +591,14 @@ private static final long serialVersionUID = 0L;
     if (stringResp_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(11, getStringResp());
+    }
+    if (joinResp_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(12, getJoinResp());
+    }
+    if (fetchResp_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(13, getFetchResp());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -582,6 +664,16 @@ private static final long serialVersionUID = 0L;
       result = result && getStringResp()
           .equals(other.getStringResp());
     }
+    result = result && (hasJoinResp() == other.hasJoinResp());
+    if (hasJoinResp()) {
+      result = result && getJoinResp()
+          .equals(other.getJoinResp());
+    }
+    result = result && (hasFetchResp() == other.hasFetchResp());
+    if (hasFetchResp()) {
+      result = result && getFetchResp()
+          .equals(other.getFetchResp());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -633,6 +725,14 @@ private static final long serialVersionUID = 0L;
     if (hasStringResp()) {
       hash = (37 * hash) + STRINGRESP_FIELD_NUMBER;
       hash = (53 * hash) + getStringResp().hashCode();
+    }
+    if (hasJoinResp()) {
+      hash = (37 * hash) + JOINRESP_FIELD_NUMBER;
+      hash = (53 * hash) + getJoinResp().hashCode();
+    }
+    if (hasFetchResp()) {
+      hash = (37 * hash) + FETCHRESP_FIELD_NUMBER;
+      hash = (53 * hash) + getFetchResp().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -825,6 +925,18 @@ private static final long serialVersionUID = 0L;
         stringResp_ = null;
         stringRespBuilder_ = null;
       }
+      if (joinRespBuilder_ == null) {
+        joinResp_ = null;
+      } else {
+        joinResp_ = null;
+        joinRespBuilder_ = null;
+      }
+      if (fetchRespBuilder_ == null) {
+        fetchResp_ = null;
+      } else {
+        fetchResp_ = null;
+        fetchRespBuilder_ = null;
+      }
       return this;
     }
 
@@ -893,6 +1005,16 @@ private static final long serialVersionUID = 0L;
         result.stringResp_ = stringResp_;
       } else {
         result.stringResp_ = stringRespBuilder_.build();
+      }
+      if (joinRespBuilder_ == null) {
+        result.joinResp_ = joinResp_;
+      } else {
+        result.joinResp_ = joinRespBuilder_.build();
+      }
+      if (fetchRespBuilder_ == null) {
+        result.fetchResp_ = fetchResp_;
+      } else {
+        result.fetchResp_ = fetchRespBuilder_.build();
       }
       onBuilt();
       return result;
@@ -967,6 +1089,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasStringResp()) {
         mergeStringResp(other.getStringResp());
+      }
+      if (other.hasJoinResp()) {
+        mergeJoinResp(other.getJoinResp());
+      }
+      if (other.hasFetchResp()) {
+        mergeFetchResp(other.getFetchResp());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -2116,6 +2244,240 @@ private static final long serialVersionUID = 0L;
         stringResp_ = null;
       }
       return stringRespBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse joinResp_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponseOrBuilder> joinRespBuilder_;
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public boolean hasJoinResp() {
+      return joinRespBuilder_ != null || joinResp_ != null;
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse getJoinResp() {
+      if (joinRespBuilder_ == null) {
+        return joinResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.getDefaultInstance() : joinResp_;
+      } else {
+        return joinRespBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public Builder setJoinResp(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse value) {
+      if (joinRespBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        joinResp_ = value;
+        onChanged();
+      } else {
+        joinRespBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public Builder setJoinResp(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.Builder builderForValue) {
+      if (joinRespBuilder_ == null) {
+        joinResp_ = builderForValue.build();
+        onChanged();
+      } else {
+        joinRespBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public Builder mergeJoinResp(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse value) {
+      if (joinRespBuilder_ == null) {
+        if (joinResp_ != null) {
+          joinResp_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.newBuilder(joinResp_).mergeFrom(value).buildPartial();
+        } else {
+          joinResp_ = value;
+        }
+        onChanged();
+      } else {
+        joinRespBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public Builder clearJoinResp() {
+      if (joinRespBuilder_ == null) {
+        joinResp_ = null;
+        onChanged();
+      } else {
+        joinResp_ = null;
+        joinRespBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.Builder getJoinRespBuilder() {
+      
+      onChanged();
+      return getJoinRespFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponseOrBuilder getJoinRespOrBuilder() {
+      if (joinRespBuilder_ != null) {
+        return joinRespBuilder_.getMessageOrBuilder();
+      } else {
+        return joinResp_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.getDefaultInstance() : joinResp_;
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueJoinGroupResponse joinResp = 12;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponseOrBuilder> 
+        getJoinRespFieldBuilder() {
+      if (joinRespBuilder_ == null) {
+        joinRespBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponseOrBuilder>(
+                getJoinResp(),
+                getParentForChildren(),
+                isClean());
+        joinResp_ = null;
+      }
+      return joinRespBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse fetchResp_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder> fetchRespBuilder_;
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public boolean hasFetchResp() {
+      return fetchRespBuilder_ != null || fetchResp_ != null;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse getFetchResp() {
+      if (fetchRespBuilder_ == null) {
+        return fetchResp_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.getDefaultInstance() : fetchResp_;
+      } else {
+        return fetchRespBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public Builder setFetchResp(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse value) {
+      if (fetchRespBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        fetchResp_ = value;
+        onChanged();
+      } else {
+        fetchRespBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public Builder setFetchResp(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder builderForValue) {
+      if (fetchRespBuilder_ == null) {
+        fetchResp_ = builderForValue.build();
+        onChanged();
+      } else {
+        fetchRespBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public Builder mergeFetchResp(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse value) {
+      if (fetchRespBuilder_ == null) {
+        if (fetchResp_ != null) {
+          fetchResp_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.newBuilder(fetchResp_).mergeFrom(value).buildPartial();
+        } else {
+          fetchResp_ = value;
+        }
+        onChanged();
+      } else {
+        fetchRespBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public Builder clearFetchResp() {
+      if (fetchRespBuilder_ == null) {
+        fetchResp_ = null;
+        onChanged();
+      } else {
+        fetchResp_ = null;
+        fetchRespBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder getFetchRespBuilder() {
+      
+      onChanged();
+      return getFetchRespFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder getFetchRespOrBuilder() {
+      if (fetchRespBuilder_ != null) {
+        return fetchRespBuilder_.getMessageOrBuilder();
+      } else {
+        return fetchResp_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.getDefaultInstance() : fetchResp_;
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder> 
+        getFetchRespFieldBuilder() {
+      if (fetchRespBuilder_ == null) {
+        fetchRespBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder>(
+                getFetchResp(),
+                getParentForChildren(),
+                isClean());
+        fetchResp_ = null;
+      }
+      return fetchRespBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

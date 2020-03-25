@@ -16,6 +16,8 @@ import cn.infinivision.dataforce.busybee.pb.meta.Notify;
 import cn.infinivision.dataforce.busybee.pb.meta.ShardBitmapLoadMeta;
 import cn.infinivision.dataforce.busybee.pb.meta.Step;
 import cn.infinivision.dataforce.busybee.pb.meta.StepState;
+import cn.infinivision.dataforce.busybee.pb.meta.Tenant;
+import cn.infinivision.dataforce.busybee.pb.meta.TenantQueue;
 import cn.infinivision.dataforce.busybee.pb.meta.TimerExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.UserEvent;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
@@ -29,7 +31,6 @@ import cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.DeleteRequest;
-import cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetProfileRequest;
@@ -40,7 +41,6 @@ import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.LastInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Request;
 import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
-import cn.infinivision.dataforce.busybee.pb.rpc.Response;
 import cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.SetRequest;
@@ -58,18 +58,15 @@ import io.netty.buffer.ByteBufAllocator;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import lombok.extern.slf4j.Slf4j;
@@ -82,10 +79,10 @@ import org.roaringbitmap.RoaringBitmap;
  */
 @Slf4j(topic = "busybee")
 public class Client implements Closeable {
-    private AtomicLong id = new AtomicLong(0);
-    private Transport transport;
-    private Options opts;
-    private Map<Long, FetchWorker> fetchWorkers = new ConcurrentHashMap<>();
+    AtomicLong id = new AtomicLong(0);
+    Transport transport;
+    Options opts;
+    private Map<String, Consumer> fetchWorkers = new HashMap<>();
     private ScheduledExecutorService schedulers;
     private CtxHolder holder;
 
@@ -97,7 +94,7 @@ public class Client implements Closeable {
     }
 
     @Override
-    public void close() throws IOException {
+    public synchronized void close() throws IOException {
         fetchWorkers.values().stream().forEach(w -> w.stop());
         schedulers.shutdownNow();
         try {
@@ -538,17 +535,15 @@ public class Client implements Closeable {
     /**
      * init tenant, create the input and output queues
      *
-     * @param tenantId tenantId
-     * @param inputPartitions partition of the tenantId input queue
+     * @param metadata tenant metadata
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> initTenant(long tenantId, long inputPartitions) {
+    public Future<Result> initTenant(Tenant metadata) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.TenantInit)
             .setTenantInit(TenantInitRequest.newBuilder()
-                .setId(tenantId)
-                .setInputQueuePartitions(inputPartitions)
+                .setMetadata(metadata)
                 .build())
             .build();
 
@@ -850,45 +845,51 @@ public class Client implements Closeable {
      * watch the notifies of the giving tenantId
      *
      * @param tenantId tenant id
-     * @param consumer size
+     * @param group consumer group
      * @param callback callback
      */
-    public void watchNotify(long tenantId, String consumer, BiConsumer<Long, Notify> callback) {
-        if (fetchWorkers.containsKey(tenantId)) {
-            log.warn("tenant {} already in watching", tenantId);
-            return;
-        }
-
-        FetchWorker w = new FetchWorker(this, tenantId, consumer, callback, null, schedulers);
-        fetchWorkers.putIfAbsent(tenantId, w);
-        schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
+    public synchronized void watchNotify(long tenantId, String group,
+        BiConsumer<QueueID, Notify> callback) {
+        watchNotify(tenantId, group, callback, null);
     }
 
     /**
      * watch the notifies of the giving tenantId
      *
      * @param tenantId tenant id
-     * @param consumer size
+     * @param group consumer group
      * @param callback batch callback
      */
-    public void watchBatchNotify(long tenantId, String consumer, BiConsumer<Long, List<Notify>> callback) {
-        if (fetchWorkers.containsKey(tenantId)) {
-            log.warn("tenant {} already in watching", tenantId);
+    public synchronized void watchNotifyWithBatch(long tenantId, String group,
+        BiConsumer<QueueID, List<Notify>> callback) {
+        watchNotify(tenantId, group, null, callback);
+    }
+
+    private synchronized void watchNotify(long tenantId, String group,
+        BiConsumer<QueueID, Notify> callback,
+        BiConsumer<QueueID, List<Notify>> batchCallback) {
+        String key = tenantId + "/" + group;
+        if (fetchWorkers.containsKey(key)) {
+            log.warn("tenant {} already in watching", key);
             return;
         }
 
-        FetchWorker w = new FetchWorker(this, tenantId, consumer, null, callback, schedulers);
-        fetchWorkers.putIfAbsent(tenantId, w);
-        schedulers.schedule(fetchWorkers.get(tenantId)::run, 0, TimeUnit.SECONDS);
+        Consumer w = new Consumer(this, tenantId, group,
+            callback, batchCallback,
+            schedulers);
+        fetchWorkers.putIfAbsent(key, w);
+        w.start();
     }
 
     /**
      * stop watch the notifies
      *
      * @param tenantId tenant id
+     * @param group consumer group
      */
-    public void stopWatchNotify(long tenantId) {
-        FetchWorker w = fetchWorkers.remove(tenantId);
+    public synchronized void stopWatchNotify(long tenantId, String group) {
+        String key = tenantId + "/" + group;
+        Consumer w = fetchWorkers.remove(tenantId);
         if (w != null) {
             w.stop();
         }
@@ -963,99 +964,6 @@ public class Client implements Closeable {
             result.waitComplete();
             return result;
         });
-    }
-
-    private static class FetchWorker {
-        private AtomicBoolean stopped = new AtomicBoolean(false);
-        private Client client;
-        private long tenantId;
-        private long offset;
-        private String consumer;
-        private BiConsumer<Long, Notify> callback;
-        private BiConsumer<Long, List<Notify>> batchCallback;
-        private ScheduledExecutorService schedulers;
-
-        FetchWorker(Client client, long tenantId, String consumer, BiConsumer<Long, Notify> callback,
-            BiConsumer<Long, List<Notify>> batchCallback,
-            ScheduledExecutorService schedulers) {
-            this.client = client;
-            this.tenantId = tenantId;
-            this.consumer = consumer;
-            this.callback = callback;
-            this.batchCallback = batchCallback;
-            this.schedulers = schedulers;
-        }
-
-        void stop() {
-            stopped.compareAndSet(false, true);
-        }
-
-        void onResponse(Response resp) {
-            log.debug("tenant {} fetch result at offset {} is {}",
-                tenantId, offset, resp);
-
-            client.opts.bizService.execute(() -> {
-                long after = 1;
-                try {
-                    if (resp.hasError() &&
-                        null != resp.getError().getError() &&
-                        !resp.getError().getError().isEmpty()) {
-                        log.error("tenant {} fetch failed at offset {} with error {}",
-                            tenantId, offset, resp.getError().getError());
-                    } else {
-                        List<ByteString> items = resp.getBytesSliceResp().getValuesList();
-                        if (items.size() > 0) {
-                            long value = resp.getBytesSliceResp().getLastValue() - items.size() + 1;
-                            List<Notify> values = new ArrayList<>();
-                            for (ByteString bs : items) {
-                                values.add(Notify.parseFrom(bs));
-                            }
-
-                            if (callback != null) {
-                                for (Notify nt : values) {
-                                    callback.accept(value, nt);
-                                    offset = value;
-                                    value++;
-                                }
-                            } else {
-                                batchCallback.accept(value, values);
-                                offset = resp.getBytesSliceResp().getLastValue();
-                            }
-                            after = 0;
-                        }
-                    }
-
-                    schedulers.schedule(this::run, after, TimeUnit.SECONDS);
-                } catch (Throwable cause) {
-                    log.error("tenant " + tenantId + " fetch failed at offset " + offset + " failed", cause);
-                }
-            });
-        }
-
-        void onError(Throwable cause) {
-            log.error("tenant " + tenantId + " fetch failed at offset " + offset + " failed", cause);
-            schedulers.schedule(this::run, 1, TimeUnit.SECONDS);
-        }
-
-        void run() {
-            if (stopped.get()) {
-                log.debug("tenant {} fetch worker stopped at offset {}", tenantId, offset);
-                return;
-            }
-
-            log.debug("tenant {} fetch from offset {}", tenantId, offset);
-            client.transport.sent(Request.newBuilder()
-                .setId(client.id.incrementAndGet())
-                .setType(Type.FetchNotify)
-                .setFetchNotify(FetchNotifyRequest.newBuilder()
-                    .setId(tenantId)
-                    .setCompletedOffset(offset)
-                    .setConsumer(consumer)
-                    .setCount(client.opts.fetchCount)
-                    .setConcurrency(client.opts.consumerConcurrency)
-                    .build())
-                .build(), this::onResponse, this::onError);
-        }
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
@@ -1234,7 +1142,11 @@ public class Client implements Closeable {
                     .build()))
             .build();
 
-        c.initTenant(1, 2).get().checkError();
+        c.initTenant(Tenant.newBuilder()
+            .setId(1)
+            .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
+            .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
+            .build()).get().checkError();
         Thread.sleep(15000);
         c.startInstanceWithKV(wf, "bm1", 256).get().checkError();
         c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
@@ -1325,7 +1237,11 @@ public class Client implements Closeable {
     }
 
     public static void workflow(Client c) throws ExecutionException, InterruptedException {
-        c.initTenant(1, 2).get().checkError();
+        c.initTenant(Tenant.newBuilder()
+            .setId(1)
+            .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
+            .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
+            .build()).get().checkError();
         Thread.sleep(15000);
         Workflow wf = Workflow.newBuilder()
             .setId(1000)

@@ -26,9 +26,4 @@ public interface QueueFetchRequestOrBuilder extends
    * <code>uint64 count = 4;</code>
    */
   long getCount();
-
-  /**
-   * <code>uint64 concurrency = 5;</code>
-   */
-  long getConcurrency();
 }

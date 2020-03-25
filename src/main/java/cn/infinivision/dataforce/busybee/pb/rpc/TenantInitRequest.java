@@ -20,8 +20,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private TenantInitRequest() {
-    id_ = 0L;
-    inputQueuePartitions_ = 0L;
   }
 
   @java.lang.Override
@@ -55,14 +53,17 @@ private static final long serialVersionUID = 0L;
             }
             break;
           }
-          case 8: {
+          case 10: {
+            cn.infinivision.dataforce.busybee.pb.meta.Tenant.Builder subBuilder = null;
+            if (metadata_ != null) {
+              subBuilder = metadata_.toBuilder();
+            }
+            metadata_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.Tenant.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(metadata_);
+              metadata_ = subBuilder.buildPartial();
+            }
 
-            id_ = input.readUInt64();
-            break;
-          }
-          case 16: {
-
-            inputQueuePartitions_ = input.readUInt64();
             break;
           }
         }
@@ -89,22 +90,25 @@ private static final long serialVersionUID = 0L;
             cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.Builder.class);
   }
 
-  public static final int ID_FIELD_NUMBER = 1;
-  private long id_;
+  public static final int METADATA_FIELD_NUMBER = 1;
+  private cn.infinivision.dataforce.busybee.pb.meta.Tenant metadata_;
   /**
-   * <code>uint64 id = 1;</code>
+   * <code>.metapb.Tenant metadata = 1;</code>
    */
-  public long getId() {
-    return id_;
+  public boolean hasMetadata() {
+    return metadata_ != null;
   }
-
-  public static final int INPUTQUEUEPARTITIONS_FIELD_NUMBER = 2;
-  private long inputQueuePartitions_;
   /**
-   * <code>uint64 inputQueuePartitions = 2;</code>
+   * <code>.metapb.Tenant metadata = 1;</code>
    */
-  public long getInputQueuePartitions() {
-    return inputQueuePartitions_;
+  public cn.infinivision.dataforce.busybee.pb.meta.Tenant getMetadata() {
+    return metadata_ == null ? cn.infinivision.dataforce.busybee.pb.meta.Tenant.getDefaultInstance() : metadata_;
+  }
+  /**
+   * <code>.metapb.Tenant metadata = 1;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.meta.TenantOrBuilder getMetadataOrBuilder() {
+    return getMetadata();
   }
 
   private byte memoizedIsInitialized = -1;
@@ -119,11 +123,8 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (id_ != 0L) {
-      output.writeUInt64(1, id_);
-    }
-    if (inputQueuePartitions_ != 0L) {
-      output.writeUInt64(2, inputQueuePartitions_);
+    if (metadata_ != null) {
+      output.writeMessage(1, getMetadata());
     }
     unknownFields.writeTo(output);
   }
@@ -133,13 +134,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (id_ != 0L) {
+    if (metadata_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(1, id_);
-    }
-    if (inputQueuePartitions_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(2, inputQueuePartitions_);
+        .computeMessageSize(1, getMetadata());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -157,10 +154,11 @@ private static final long serialVersionUID = 0L;
     cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest) obj;
 
     boolean result = true;
-    result = result && (getId()
-        == other.getId());
-    result = result && (getInputQueuePartitions()
-        == other.getInputQueuePartitions());
+    result = result && (hasMetadata() == other.hasMetadata());
+    if (hasMetadata()) {
+      result = result && getMetadata()
+          .equals(other.getMetadata());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -172,12 +170,10 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + ID_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getId());
-    hash = (37 * hash) + INPUTQUEUEPARTITIONS_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getInputQueuePartitions());
+    if (hasMetadata()) {
+      hash = (37 * hash) + METADATA_FIELD_NUMBER;
+      hash = (53 * hash) + getMetadata().hashCode();
+    }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -311,10 +307,12 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      id_ = 0L;
-
-      inputQueuePartitions_ = 0L;
-
+      if (metadataBuilder_ == null) {
+        metadata_ = null;
+      } else {
+        metadata_ = null;
+        metadataBuilder_ = null;
+      }
       return this;
     }
 
@@ -337,8 +335,11 @@ private static final long serialVersionUID = 0L;
 
     public cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest buildPartial() {
       cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest(this);
-      result.id_ = id_;
-      result.inputQueuePartitions_ = inputQueuePartitions_;
+      if (metadataBuilder_ == null) {
+        result.metadata_ = metadata_;
+      } else {
+        result.metadata_ = metadataBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -380,11 +381,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest other) {
       if (other == cn.infinivision.dataforce.busybee.pb.rpc.TenantInitRequest.getDefaultInstance()) return this;
-      if (other.getId() != 0L) {
-        setId(other.getId());
-      }
-      if (other.getInputQueuePartitions() != 0L) {
-        setInputQueuePartitions(other.getInputQueuePartitions());
+      if (other.hasMetadata()) {
+        mergeMetadata(other.getMetadata());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -413,56 +411,121 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long id_ ;
+    private cn.infinivision.dataforce.busybee.pb.meta.Tenant metadata_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.Tenant, cn.infinivision.dataforce.busybee.pb.meta.Tenant.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantOrBuilder> metadataBuilder_;
     /**
-     * <code>uint64 id = 1;</code>
+     * <code>.metapb.Tenant metadata = 1;</code>
      */
-    public long getId() {
-      return id_;
+    public boolean hasMetadata() {
+      return metadataBuilder_ != null || metadata_ != null;
     }
     /**
-     * <code>uint64 id = 1;</code>
+     * <code>.metapb.Tenant metadata = 1;</code>
      */
-    public Builder setId(long value) {
-      
-      id_ = value;
-      onChanged();
-      return this;
+    public cn.infinivision.dataforce.busybee.pb.meta.Tenant getMetadata() {
+      if (metadataBuilder_ == null) {
+        return metadata_ == null ? cn.infinivision.dataforce.busybee.pb.meta.Tenant.getDefaultInstance() : metadata_;
+      } else {
+        return metadataBuilder_.getMessage();
+      }
     }
     /**
-     * <code>uint64 id = 1;</code>
+     * <code>.metapb.Tenant metadata = 1;</code>
      */
-    public Builder clearId() {
-      
-      id_ = 0L;
-      onChanged();
-      return this;
-    }
+    public Builder setMetadata(cn.infinivision.dataforce.busybee.pb.meta.Tenant value) {
+      if (metadataBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        metadata_ = value;
+        onChanged();
+      } else {
+        metadataBuilder_.setMessage(value);
+      }
 
-    private long inputQueuePartitions_ ;
-    /**
-     * <code>uint64 inputQueuePartitions = 2;</code>
-     */
-    public long getInputQueuePartitions() {
-      return inputQueuePartitions_;
-    }
-    /**
-     * <code>uint64 inputQueuePartitions = 2;</code>
-     */
-    public Builder setInputQueuePartitions(long value) {
-      
-      inputQueuePartitions_ = value;
-      onChanged();
       return this;
     }
     /**
-     * <code>uint64 inputQueuePartitions = 2;</code>
+     * <code>.metapb.Tenant metadata = 1;</code>
      */
-    public Builder clearInputQueuePartitions() {
-      
-      inputQueuePartitions_ = 0L;
-      onChanged();
+    public Builder setMetadata(
+        cn.infinivision.dataforce.busybee.pb.meta.Tenant.Builder builderForValue) {
+      if (metadataBuilder_ == null) {
+        metadata_ = builderForValue.build();
+        onChanged();
+      } else {
+        metadataBuilder_.setMessage(builderForValue.build());
+      }
+
       return this;
+    }
+    /**
+     * <code>.metapb.Tenant metadata = 1;</code>
+     */
+    public Builder mergeMetadata(cn.infinivision.dataforce.busybee.pb.meta.Tenant value) {
+      if (metadataBuilder_ == null) {
+        if (metadata_ != null) {
+          metadata_ =
+            cn.infinivision.dataforce.busybee.pb.meta.Tenant.newBuilder(metadata_).mergeFrom(value).buildPartial();
+        } else {
+          metadata_ = value;
+        }
+        onChanged();
+      } else {
+        metadataBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.Tenant metadata = 1;</code>
+     */
+    public Builder clearMetadata() {
+      if (metadataBuilder_ == null) {
+        metadata_ = null;
+        onChanged();
+      } else {
+        metadata_ = null;
+        metadataBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.metapb.Tenant metadata = 1;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.Tenant.Builder getMetadataBuilder() {
+      
+      onChanged();
+      return getMetadataFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.metapb.Tenant metadata = 1;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.meta.TenantOrBuilder getMetadataOrBuilder() {
+      if (metadataBuilder_ != null) {
+        return metadataBuilder_.getMessageOrBuilder();
+      } else {
+        return metadata_ == null ?
+            cn.infinivision.dataforce.busybee.pb.meta.Tenant.getDefaultInstance() : metadata_;
+      }
+    }
+    /**
+     * <code>.metapb.Tenant metadata = 1;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.meta.Tenant, cn.infinivision.dataforce.busybee.pb.meta.Tenant.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantOrBuilder> 
+        getMetadataFieldBuilder() {
+      if (metadataBuilder_ == null) {
+        metadataBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.meta.Tenant, cn.infinivision.dataforce.busybee.pb.meta.Tenant.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantOrBuilder>(
+                getMetadata(),
+                getParentForChildren(),
+                isClean());
+        metadata_ = null;
+      }
+      return metadataBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

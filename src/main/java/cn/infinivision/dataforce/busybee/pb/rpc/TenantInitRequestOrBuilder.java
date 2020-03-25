@@ -8,12 +8,15 @@ public interface TenantInitRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint64 id = 1;</code>
+   * <code>.metapb.Tenant metadata = 1;</code>
    */
-  long getId();
-
+  boolean hasMetadata();
   /**
-   * <code>uint64 inputQueuePartitions = 2;</code>
+   * <code>.metapb.Tenant metadata = 1;</code>
    */
-  long getInputQueuePartitions();
+  cn.infinivision.dataforce.busybee.pb.meta.Tenant getMetadata();
+  /**
+   * <code>.metapb.Tenant metadata = 1;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.TenantOrBuilder getMetadataOrBuilder();
 }

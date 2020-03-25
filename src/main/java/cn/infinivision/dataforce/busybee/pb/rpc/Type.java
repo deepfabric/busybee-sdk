@@ -113,6 +113,14 @@ public enum Type
    */
   QueueFetch(301),
   /**
+   * <code>QueueJoin = 302;</code>
+   */
+  QueueJoin(302),
+  /**
+   * <code>QueueConcurrencyFetch = 303;</code>
+   */
+  QueueConcurrencyFetch(303),
+  /**
    * <code>TenantInit = 400;</code>
    */
   TenantInit(400),
@@ -264,6 +272,14 @@ public enum Type
    */
   public static final int QueueFetch_VALUE = 301;
   /**
+   * <code>QueueJoin = 302;</code>
+   */
+  public static final int QueueJoin_VALUE = 302;
+  /**
+   * <code>QueueConcurrencyFetch = 303;</code>
+   */
+  public static final int QueueConcurrencyFetch_VALUE = 303;
+  /**
    * <code>TenantInit = 400;</code>
    */
   public static final int TenantInit_VALUE = 400;
@@ -353,6 +369,8 @@ public enum Type
       case 212: return InstanceCrowdState;
       case 300: return QueueAdd;
       case 301: return QueueFetch;
+      case 302: return QueueJoin;
+      case 303: return QueueConcurrencyFetch;
       case 400: return TenantInit;
       case 401: return UpdateMapping;
       case 402: return GetMapping;

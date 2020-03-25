@@ -1,0 +1,275 @@
+package cn.infinivision.dataforce.busybee;
+
+import cn.infinivision.dataforce.busybee.pb.meta.Notify;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse;
+import cn.infinivision.dataforce.busybee.pb.rpc.Request;
+import cn.infinivision.dataforce.busybee.pb.rpc.Response;
+import cn.infinivision.dataforce.busybee.pb.rpc.Type;
+import com.google.protobuf.ByteString;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiConsumer;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * queue consumer
+ * <pre>
+ * Date: 2020-03-25
+ * Time: 13:58
+ * </pre>
+ *
+ * @author fagongzi
+ */
+@Slf4j(topic = "busybee") class Consumer {
+    private AtomicBoolean stopped = new AtomicBoolean(false);
+    private Client client;
+    private long tenantId;
+    private String group;
+    private ScheduledExecutorService schedulers;
+    private BiConsumer<QueueID, Notify> callback;
+    private BiConsumer<QueueID, List<Notify>> batchCallback;
+    private Map<Integer, PartitionFetcher> fetches = new HashMap<>();
+
+    Consumer(Client client, long tenantId, String group,
+        BiConsumer<QueueID, Notify> callback,
+        BiConsumer<QueueID, List<Notify>> batchCallback,
+        ScheduledExecutorService schedulers) {
+        this.client = client;
+        this.tenantId = tenantId;
+        this.group = group;
+        this.schedulers = schedulers;
+        this.callback = callback;
+        this.batchCallback = batchCallback;
+    }
+
+    void start() {
+        doJoin();
+    }
+
+    void stop() {
+        stopped.set(true);
+    }
+
+    void doJoin() {
+        if (stopped.get()) {
+            return;
+        }
+
+        log.debug("tenant {} start join to {}",
+            tenantId,
+            group);
+
+        client.transport.sent(Request.newBuilder()
+            .setId(client.id.incrementAndGet())
+            .setType(Type.QueueJoin)
+            .setQueueJoin(QueueJoinGroupRequest.newBuilder()
+                .setId(tenantId)
+                .setGroup(ByteString.copyFromUtf8(group))
+                .build())
+            .build(), this::onJoinResponse, this::onJoinError);
+    }
+
+    void onJoinResponse(Response resp) {
+        log.debug("tenant {} join to {}, response",
+            tenantId,
+            group,
+            resp);
+
+        QueueJoinGroupResponse joinResp = resp.getJoinResp();
+        if (joinResp.getPartitionsCount() == 0) {
+            retryJoin();
+            return;
+        }
+
+        // start partition fetchers
+        for (int i = 0; i < joinResp.getPartitionsCount(); i++) {
+            int partition = joinResp.getPartitions(i);
+            long version = joinResp.getVersions(i);
+            fetches.put(partition, new PartitionFetcher(this,
+                joinResp.getIndex(), partition, version));
+        }
+
+        schedulers.execute(() -> fetches.values().forEach(f -> f.start()));
+    }
+
+    void onJoinError(Throwable cause) {
+        log.error("tenant " + tenantId + " join to " + group + " failed", cause);
+        retryJoin();
+    }
+
+    void retryJoin() {
+        schedulers.schedule(this::doJoin, 1, TimeUnit.SECONDS);
+    }
+
+    synchronized void partitionRemoved(int partition) {
+        PartitionFetcher fetcher = fetches.remove(partition);
+        if (fetcher == null) {
+            return;
+        }
+
+        fetcher.stop();
+
+        // all partition removed, re-join to group
+        if (fetches.size() == 0) {
+            log.info("tenant {} all partitions have been removed, re-join {}",
+                tenantId,
+                group);
+            retryJoin();
+            return;
+        }
+    }
+
+    private static class PartitionFetcher {
+        private Consumer consumer;
+        private AtomicBoolean stopped = new AtomicBoolean(false);
+        private int index;
+        private int partition;
+        private long version;
+        private long offset;
+
+        PartitionFetcher(Consumer consumer, int index, int partition, long version) {
+            this.consumer = consumer;
+            this.index = index;
+            this.partition = partition;
+            this.version = version;
+        }
+
+        void start() {
+            log.info("{}/{}/v{} start fetch from partition {} at {}, stopped",
+                consumer.tenantId,
+                consumer.group,
+                index,
+                partition,
+                offset);
+
+            doFetch();
+        }
+
+        void stop() {
+            stopped.set(true);
+        }
+
+        void doFetch() {
+            if (stopped.get()) {
+                log.info("{}/{}/v{} fetch from partition {} at {}, stopped",
+                    consumer.tenantId,
+                    consumer.group,
+                    index,
+                    partition,
+                    offset);
+                return;
+            }
+
+            log.debug("{}/{}/v{} start fetch from partition {} at {}",
+                consumer.tenantId,
+                consumer.group,
+                index,
+                partition,
+                offset);
+
+            consumer.client.transport.sent(Request.newBuilder()
+                .setId(consumer.client.id.incrementAndGet())
+                .setType(Type.FetchNotify)
+                .setQueueFetch(QueueConcurrencyFetchRequest.newBuilder()
+                    .setId(consumer.tenantId)
+                    .setGroup(ByteString.copyFromUtf8(consumer.group))
+                    .setConsumer(index)
+                    .setVersion(version)
+                    .setPartition(partition)
+                    .setCompletedOffset(offset)
+                    .setCount(consumer.client.opts.fetchCount)
+                    .build())
+                .build(), this::onResponse, this::onError);
+        }
+
+        void onResponse(Response resp) {
+            if (resp.hasError() &&
+                null != resp.getError().getError() &&
+                !resp.getError().getError().isEmpty()) {
+                log.error("{}/{}/v{} fetch from partition {} at {} failed",
+                    consumer.tenantId,
+                    consumer.group,
+                    index,
+                    partition,
+                    offset,
+                    resp.getError().getError());
+                retryFetch();
+                return;
+            }
+
+            QueueConcurrencyFetchResponse fetchResp = resp.getFetchResp();
+            if (fetchResp.getRemoved()) {
+                log.info("{}/{}/v{} fetch from partition {} at {}, removed",
+                    consumer.tenantId,
+                    consumer.group,
+                    index,
+                    partition,
+                    offset);
+                consumer.partitionRemoved(partition);
+                return;
+            }
+
+        }
+
+        void onError(Throwable cause) {
+            log.error("{}/{}/v{} fetch from partition {} at {} failed",
+                consumer.tenantId,
+                consumer.group,
+                index,
+                partition,
+                offset,
+                cause);
+            retryFetch();
+        }
+
+        void retryFetch() {
+            consumer.schedulers.schedule(this::doFetch, 1, TimeUnit.SECONDS);
+        }
+
+        void onFetch(QueueConcurrencyFetchResponse resp) {
+            consumer.client.opts.bizService.execute(() -> {
+                long after = 1;
+                try {
+                    List<ByteString> items = resp.getItemsList();
+                    if (items.size() > 0) {
+                        long value = resp.getLastOffset() - items.size() + 1;
+                        List<Notify> values = new ArrayList<>();
+                        for (ByteString bs : items) {
+                            values.add(Notify.parseFrom(bs));
+                        }
+
+                        if (consumer.callback != null) {
+                            for (Notify nt : values) {
+                                consumer.callback.accept(new QueueID(partition, value), nt);
+                                offset = value;
+                                value++;
+                            }
+                        } else {
+                            consumer.batchCallback.accept(new QueueID(partition, value), values);
+                            offset = resp.getLastOffset();
+                        }
+                        after = 0;
+                    }
+
+                    consumer.schedulers.schedule(this::doFetch, after, TimeUnit.SECONDS);
+                } catch (Throwable cause) {
+                    log.error("{}/{}/v{} fetch from partition {} at {} failed",
+                        consumer.tenantId,
+                        consumer.group,
+                        index,
+                        partition,
+                        offset,
+                        cause);
+                }
+            });
+        }
+    }
+}

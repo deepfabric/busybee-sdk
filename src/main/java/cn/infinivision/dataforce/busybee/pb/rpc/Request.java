@@ -38,6 +38,7 @@ private static final long serialVersionUID = 0L;
       throw new java.lang.NullPointerException();
     }
     int mutable_bitField0_ = 0;
+    int mutable_bitField1_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -392,19 +393,32 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 226: {
-            cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder subBuilder = null;
-            if (fetchNotify_ != null) {
-              subBuilder = fetchNotify_.toBuilder();
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder subBuilder = null;
+            if (queueJoin_ != null) {
+              subBuilder = queueJoin_.toBuilder();
             }
-            fetchNotify_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.parser(), extensionRegistry);
+            queueJoin_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.parser(), extensionRegistry);
             if (subBuilder != null) {
-              subBuilder.mergeFrom(fetchNotify_);
-              fetchNotify_ = subBuilder.buildPartial();
+              subBuilder.mergeFrom(queueJoin_);
+              queueJoin_ = subBuilder.buildPartial();
             }
 
             break;
           }
           case 234: {
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder subBuilder = null;
+            if (queueFetch_ != null) {
+              subBuilder = queueFetch_.toBuilder();
+            }
+            queueFetch_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(queueFetch_);
+              queueFetch_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 242: {
             cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder subBuilder = null;
             if (allocID_ != null) {
               subBuilder = allocID_.toBuilder();
@@ -417,7 +431,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 242: {
+          case 250: {
             cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder subBuilder = null;
             if (resetID_ != null) {
               subBuilder = resetID_.toBuilder();
@@ -430,7 +444,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 250: {
+          case 258: {
             cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder subBuilder = null;
             if (scanMapping_ != null) {
               subBuilder = scanMapping_.toBuilder();
@@ -443,7 +457,7 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
-          case 258: {
+          case 266: {
             cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder subBuilder = null;
             if (getIDSet_ != null) {
               subBuilder = getIDSet_.toBuilder();
@@ -1030,106 +1044,127 @@ private static final long serialVersionUID = 0L;
     return getAddEvent();
   }
 
-  public static final int FETCHNOTIFY_FIELD_NUMBER = 28;
-  private cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest fetchNotify_;
+  public static final int QUEUEJOIN_FIELD_NUMBER = 28;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest queueJoin_;
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+   * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
    */
-  public boolean hasFetchNotify() {
-    return fetchNotify_ != null;
+  public boolean hasQueueJoin() {
+    return queueJoin_ != null;
   }
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+   * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest getFetchNotify() {
-    return fetchNotify_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.getDefaultInstance() : fetchNotify_;
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest getQueueJoin() {
+    return queueJoin_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.getDefaultInstance() : queueJoin_;
   }
   /**
-   * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+   * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder getFetchNotifyOrBuilder() {
-    return getFetchNotify();
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder getQueueJoinOrBuilder() {
+    return getQueueJoin();
   }
 
-  public static final int ALLOCID_FIELD_NUMBER = 29;
+  public static final int QUEUEFETCH_FIELD_NUMBER = 29;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest queueFetch_;
+  /**
+   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   */
+  public boolean hasQueueFetch() {
+    return queueFetch_ != null;
+  }
+  /**
+   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest getQueueFetch() {
+    return queueFetch_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.getDefaultInstance() : queueFetch_;
+  }
+  /**
+   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder getQueueFetchOrBuilder() {
+    return getQueueFetch();
+  }
+
+  public static final int ALLOCID_FIELD_NUMBER = 30;
   private cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest allocID_;
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
    */
   public boolean hasAllocID() {
     return allocID_ != null;
   }
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID() {
     return allocID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.getDefaultInstance() : allocID_;
   }
   /**
-   * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+   * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder() {
     return getAllocID();
   }
 
-  public static final int RESETID_FIELD_NUMBER = 30;
+  public static final int RESETID_FIELD_NUMBER = 31;
   private cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest resetID_;
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
    */
   public boolean hasResetID() {
     return resetID_ != null;
   }
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID() {
     return resetID_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.getDefaultInstance() : resetID_;
   }
   /**
-   * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+   * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder() {
     return getResetID();
   }
 
-  public static final int SCANMAPPING_FIELD_NUMBER = 31;
+  public static final int SCANMAPPING_FIELD_NUMBER = 32;
   private cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest scanMapping_;
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
    */
   public boolean hasScanMapping() {
     return scanMapping_ != null;
   }
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping() {
     return scanMapping_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.getDefaultInstance() : scanMapping_;
   }
   /**
-   * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+   * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder() {
     return getScanMapping();
   }
 
-  public static final int GETIDSET_FIELD_NUMBER = 32;
+  public static final int GETIDSET_FIELD_NUMBER = 33;
   private cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getIDSet_;
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
    */
   public boolean hasGetIDSet() {
     return getIDSet_ != null;
   }
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet() {
     return getIDSet_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.getDefaultInstance() : getIDSet_;
   }
   /**
-   * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+   * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder() {
     return getGetIDSet();
@@ -1228,20 +1263,23 @@ private static final long serialVersionUID = 0L;
     if (addEvent_ != null) {
       output.writeMessage(27, getAddEvent());
     }
-    if (fetchNotify_ != null) {
-      output.writeMessage(28, getFetchNotify());
+    if (queueJoin_ != null) {
+      output.writeMessage(28, getQueueJoin());
+    }
+    if (queueFetch_ != null) {
+      output.writeMessage(29, getQueueFetch());
     }
     if (allocID_ != null) {
-      output.writeMessage(29, getAllocID());
+      output.writeMessage(30, getAllocID());
     }
     if (resetID_ != null) {
-      output.writeMessage(30, getResetID());
+      output.writeMessage(31, getResetID());
     }
     if (scanMapping_ != null) {
-      output.writeMessage(31, getScanMapping());
+      output.writeMessage(32, getScanMapping());
     }
     if (getIDSet_ != null) {
-      output.writeMessage(32, getGetIDSet());
+      output.writeMessage(33, getGetIDSet());
     }
     unknownFields.writeTo(output);
   }
@@ -1359,25 +1397,29 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(27, getAddEvent());
     }
-    if (fetchNotify_ != null) {
+    if (queueJoin_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(28, getFetchNotify());
+        .computeMessageSize(28, getQueueJoin());
+    }
+    if (queueFetch_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(29, getQueueFetch());
     }
     if (allocID_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(29, getAllocID());
+        .computeMessageSize(30, getAllocID());
     }
     if (resetID_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(30, getResetID());
+        .computeMessageSize(31, getResetID());
     }
     if (scanMapping_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(31, getScanMapping());
+        .computeMessageSize(32, getScanMapping());
     }
     if (getIDSet_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(32, getGetIDSet());
+        .computeMessageSize(33, getGetIDSet());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1523,10 +1565,15 @@ private static final long serialVersionUID = 0L;
       result = result && getAddEvent()
           .equals(other.getAddEvent());
     }
-    result = result && (hasFetchNotify() == other.hasFetchNotify());
-    if (hasFetchNotify()) {
-      result = result && getFetchNotify()
-          .equals(other.getFetchNotify());
+    result = result && (hasQueueJoin() == other.hasQueueJoin());
+    if (hasQueueJoin()) {
+      result = result && getQueueJoin()
+          .equals(other.getQueueJoin());
+    }
+    result = result && (hasQueueFetch() == other.hasQueueFetch());
+    if (hasQueueFetch()) {
+      result = result && getQueueFetch()
+          .equals(other.getQueueFetch());
     }
     result = result && (hasAllocID() == other.hasAllocID());
     if (hasAllocID()) {
@@ -1664,9 +1711,13 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + ADDEVENT_FIELD_NUMBER;
       hash = (53 * hash) + getAddEvent().hashCode();
     }
-    if (hasFetchNotify()) {
-      hash = (37 * hash) + FETCHNOTIFY_FIELD_NUMBER;
-      hash = (53 * hash) + getFetchNotify().hashCode();
+    if (hasQueueJoin()) {
+      hash = (37 * hash) + QUEUEJOIN_FIELD_NUMBER;
+      hash = (53 * hash) + getQueueJoin().hashCode();
+    }
+    if (hasQueueFetch()) {
+      hash = (37 * hash) + QUEUEFETCH_FIELD_NUMBER;
+      hash = (53 * hash) + getQueueFetch().hashCode();
     }
     if (hasAllocID()) {
       hash = (37 * hash) + ALLOCID_FIELD_NUMBER;
@@ -1971,11 +2022,17 @@ private static final long serialVersionUID = 0L;
         addEvent_ = null;
         addEventBuilder_ = null;
       }
-      if (fetchNotifyBuilder_ == null) {
-        fetchNotify_ = null;
+      if (queueJoinBuilder_ == null) {
+        queueJoin_ = null;
       } else {
-        fetchNotify_ = null;
-        fetchNotifyBuilder_ = null;
+        queueJoin_ = null;
+        queueJoinBuilder_ = null;
+      }
+      if (queueFetchBuilder_ == null) {
+        queueFetch_ = null;
+      } else {
+        queueFetch_ = null;
+        queueFetchBuilder_ = null;
       }
       if (allocIDBuilder_ == null) {
         allocID_ = null;
@@ -2150,10 +2207,15 @@ private static final long serialVersionUID = 0L;
       } else {
         result.addEvent_ = addEventBuilder_.build();
       }
-      if (fetchNotifyBuilder_ == null) {
-        result.fetchNotify_ = fetchNotify_;
+      if (queueJoinBuilder_ == null) {
+        result.queueJoin_ = queueJoin_;
       } else {
-        result.fetchNotify_ = fetchNotifyBuilder_.build();
+        result.queueJoin_ = queueJoinBuilder_.build();
+      }
+      if (queueFetchBuilder_ == null) {
+        result.queueFetch_ = queueFetch_;
+      } else {
+        result.queueFetch_ = queueFetchBuilder_.build();
       }
       if (allocIDBuilder_ == null) {
         result.allocID_ = allocID_;
@@ -2297,8 +2359,11 @@ private static final long serialVersionUID = 0L;
       if (other.hasAddEvent()) {
         mergeAddEvent(other.getAddEvent());
       }
-      if (other.hasFetchNotify()) {
-        mergeFetchNotify(other.getFetchNotify());
+      if (other.hasQueueJoin()) {
+        mergeQueueJoin(other.getQueueJoin());
+      }
+      if (other.hasQueueFetch()) {
+        mergeQueueFetch(other.getQueueFetch());
       }
       if (other.hasAllocID()) {
         mergeAllocID(other.getAllocID());
@@ -5334,134 +5399,251 @@ private static final long serialVersionUID = 0L;
       return addEventBuilder_;
     }
 
-    private cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest fetchNotify_ = null;
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest queueJoin_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder> fetchNotifyBuilder_;
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder> queueJoinBuilder_;
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public boolean hasFetchNotify() {
-      return fetchNotifyBuilder_ != null || fetchNotify_ != null;
+    public boolean hasQueueJoin() {
+      return queueJoinBuilder_ != null || queueJoin_ != null;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest getFetchNotify() {
-      if (fetchNotifyBuilder_ == null) {
-        return fetchNotify_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.getDefaultInstance() : fetchNotify_;
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest getQueueJoin() {
+      if (queueJoinBuilder_ == null) {
+        return queueJoin_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.getDefaultInstance() : queueJoin_;
       } else {
-        return fetchNotifyBuilder_.getMessage();
+        return queueJoinBuilder_.getMessage();
       }
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public Builder setFetchNotify(cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest value) {
-      if (fetchNotifyBuilder_ == null) {
+    public Builder setQueueJoin(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest value) {
+      if (queueJoinBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        fetchNotify_ = value;
+        queueJoin_ = value;
         onChanged();
       } else {
-        fetchNotifyBuilder_.setMessage(value);
+        queueJoinBuilder_.setMessage(value);
       }
 
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public Builder setFetchNotify(
-        cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder builderForValue) {
-      if (fetchNotifyBuilder_ == null) {
-        fetchNotify_ = builderForValue.build();
+    public Builder setQueueJoin(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder builderForValue) {
+      if (queueJoinBuilder_ == null) {
+        queueJoin_ = builderForValue.build();
         onChanged();
       } else {
-        fetchNotifyBuilder_.setMessage(builderForValue.build());
+        queueJoinBuilder_.setMessage(builderForValue.build());
       }
 
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public Builder mergeFetchNotify(cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest value) {
-      if (fetchNotifyBuilder_ == null) {
-        if (fetchNotify_ != null) {
-          fetchNotify_ =
-            cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.newBuilder(fetchNotify_).mergeFrom(value).buildPartial();
+    public Builder mergeQueueJoin(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest value) {
+      if (queueJoinBuilder_ == null) {
+        if (queueJoin_ != null) {
+          queueJoin_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.newBuilder(queueJoin_).mergeFrom(value).buildPartial();
         } else {
-          fetchNotify_ = value;
+          queueJoin_ = value;
         }
         onChanged();
       } else {
-        fetchNotifyBuilder_.mergeFrom(value);
+        queueJoinBuilder_.mergeFrom(value);
       }
 
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public Builder clearFetchNotify() {
-      if (fetchNotifyBuilder_ == null) {
-        fetchNotify_ = null;
+    public Builder clearQueueJoin() {
+      if (queueJoinBuilder_ == null) {
+        queueJoin_ = null;
         onChanged();
       } else {
-        fetchNotify_ = null;
-        fetchNotifyBuilder_ = null;
+        queueJoin_ = null;
+        queueJoinBuilder_ = null;
       }
 
       return this;
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder getFetchNotifyBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder getQueueJoinBuilder() {
       
       onChanged();
-      return getFetchNotifyFieldBuilder().getBuilder();
+      return getQueueJoinFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder getFetchNotifyOrBuilder() {
-      if (fetchNotifyBuilder_ != null) {
-        return fetchNotifyBuilder_.getMessageOrBuilder();
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder getQueueJoinOrBuilder() {
+      if (queueJoinBuilder_ != null) {
+        return queueJoinBuilder_.getMessageOrBuilder();
       } else {
-        return fetchNotify_ == null ?
-            cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.getDefaultInstance() : fetchNotify_;
+        return queueJoin_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.getDefaultInstance() : queueJoin_;
       }
     }
     /**
-     * <code>.rpcpb.FetchNotifyRequest fetchNotify = 28;</code>
+     * <code>.rpcpb.QueueJoinGroupRequest queueJoin = 28;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder> 
-        getFetchNotifyFieldBuilder() {
-      if (fetchNotifyBuilder_ == null) {
-        fetchNotifyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.FetchNotifyRequestOrBuilder>(
-                getFetchNotify(),
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder> 
+        getQueueJoinFieldBuilder() {
+      if (queueJoinBuilder_ == null) {
+        queueJoinBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder>(
+                getQueueJoin(),
                 getParentForChildren(),
                 isClean());
-        fetchNotify_ = null;
+        queueJoin_ = null;
       }
-      return fetchNotifyBuilder_;
+      return queueJoinBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest queueFetch_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder> queueFetchBuilder_;
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public boolean hasQueueFetch() {
+      return queueFetchBuilder_ != null || queueFetch_ != null;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest getQueueFetch() {
+      if (queueFetchBuilder_ == null) {
+        return queueFetch_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.getDefaultInstance() : queueFetch_;
+      } else {
+        return queueFetchBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public Builder setQueueFetch(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest value) {
+      if (queueFetchBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        queueFetch_ = value;
+        onChanged();
+      } else {
+        queueFetchBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public Builder setQueueFetch(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder builderForValue) {
+      if (queueFetchBuilder_ == null) {
+        queueFetch_ = builderForValue.build();
+        onChanged();
+      } else {
+        queueFetchBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public Builder mergeQueueFetch(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest value) {
+      if (queueFetchBuilder_ == null) {
+        if (queueFetch_ != null) {
+          queueFetch_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.newBuilder(queueFetch_).mergeFrom(value).buildPartial();
+        } else {
+          queueFetch_ = value;
+        }
+        onChanged();
+      } else {
+        queueFetchBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public Builder clearQueueFetch() {
+      if (queueFetchBuilder_ == null) {
+        queueFetch_ = null;
+        onChanged();
+      } else {
+        queueFetch_ = null;
+        queueFetchBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder getQueueFetchBuilder() {
+      
+      onChanged();
+      return getQueueFetchFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder getQueueFetchOrBuilder() {
+      if (queueFetchBuilder_ != null) {
+        return queueFetchBuilder_.getMessageOrBuilder();
+      } else {
+        return queueFetch_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.getDefaultInstance() : queueFetch_;
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder> 
+        getQueueFetchFieldBuilder() {
+      if (queueFetchBuilder_ == null) {
+        queueFetchBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder>(
+                getQueueFetch(),
+                getParentForChildren(),
+                isClean());
+        queueFetch_ = null;
+      }
+      return queueFetchBuilder_;
     }
 
     private cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest allocID_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder> allocIDBuilder_;
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public boolean hasAllocID() {
       return allocIDBuilder_ != null || allocID_ != null;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest getAllocID() {
       if (allocIDBuilder_ == null) {
@@ -5471,7 +5653,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public Builder setAllocID(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest value) {
       if (allocIDBuilder_ == null) {
@@ -5487,7 +5669,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public Builder setAllocID(
         cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder builderForValue) {
@@ -5501,7 +5683,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public Builder mergeAllocID(cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest value) {
       if (allocIDBuilder_ == null) {
@@ -5519,7 +5701,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public Builder clearAllocID() {
       if (allocIDBuilder_ == null) {
@@ -5533,7 +5715,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder getAllocIDBuilder() {
       
@@ -5541,7 +5723,7 @@ private static final long serialVersionUID = 0L;
       return getAllocIDFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder getAllocIDOrBuilder() {
       if (allocIDBuilder_ != null) {
@@ -5552,7 +5734,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.AllocIDRequest allocID = 29;</code>
+     * <code>.rpcpb.AllocIDRequest allocID = 30;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequestOrBuilder> 
@@ -5572,13 +5754,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder> resetIDBuilder_;
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public boolean hasResetID() {
       return resetIDBuilder_ != null || resetID_ != null;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest getResetID() {
       if (resetIDBuilder_ == null) {
@@ -5588,7 +5770,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public Builder setResetID(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest value) {
       if (resetIDBuilder_ == null) {
@@ -5604,7 +5786,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public Builder setResetID(
         cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder builderForValue) {
@@ -5618,7 +5800,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public Builder mergeResetID(cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest value) {
       if (resetIDBuilder_ == null) {
@@ -5636,7 +5818,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public Builder clearResetID() {
       if (resetIDBuilder_ == null) {
@@ -5650,7 +5832,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder getResetIDBuilder() {
       
@@ -5658,7 +5840,7 @@ private static final long serialVersionUID = 0L;
       return getResetIDFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder getResetIDOrBuilder() {
       if (resetIDBuilder_ != null) {
@@ -5669,7 +5851,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ResetIDRequest resetID = 30;</code>
+     * <code>.rpcpb.ResetIDRequest resetID = 31;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequestOrBuilder> 
@@ -5689,13 +5871,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder> scanMappingBuilder_;
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public boolean hasScanMapping() {
       return scanMappingBuilder_ != null || scanMapping_ != null;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest getScanMapping() {
       if (scanMappingBuilder_ == null) {
@@ -5705,7 +5887,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public Builder setScanMapping(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest value) {
       if (scanMappingBuilder_ == null) {
@@ -5721,7 +5903,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public Builder setScanMapping(
         cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder builderForValue) {
@@ -5735,7 +5917,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public Builder mergeScanMapping(cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest value) {
       if (scanMappingBuilder_ == null) {
@@ -5753,7 +5935,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public Builder clearScanMapping() {
       if (scanMappingBuilder_ == null) {
@@ -5767,7 +5949,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder getScanMappingBuilder() {
       
@@ -5775,7 +5957,7 @@ private static final long serialVersionUID = 0L;
       return getScanMappingFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder getScanMappingOrBuilder() {
       if (scanMappingBuilder_ != null) {
@@ -5786,7 +5968,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.ScanMappingRequest scanMapping = 31;</code>
+     * <code>.rpcpb.ScanMappingRequest scanMapping = 32;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequestOrBuilder> 
@@ -5806,13 +5988,13 @@ private static final long serialVersionUID = 0L;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder> getIDSetBuilder_;
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public boolean hasGetIDSet() {
       return getIDSetBuilder_ != null || getIDSet_ != null;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest getGetIDSet() {
       if (getIDSetBuilder_ == null) {
@@ -5822,7 +6004,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public Builder setGetIDSet(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest value) {
       if (getIDSetBuilder_ == null) {
@@ -5838,7 +6020,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public Builder setGetIDSet(
         cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder builderForValue) {
@@ -5852,7 +6034,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public Builder mergeGetIDSet(cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest value) {
       if (getIDSetBuilder_ == null) {
@@ -5870,7 +6052,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public Builder clearGetIDSet() {
       if (getIDSetBuilder_ == null) {
@@ -5884,7 +6066,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder getGetIDSetBuilder() {
       
@@ -5892,7 +6074,7 @@ private static final long serialVersionUID = 0L;
       return getGetIDSetFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder() {
       if (getIDSetBuilder_ != null) {
@@ -5903,7 +6085,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.rpcpb.GetIDSetRequest getIDSet = 32;</code>
+     * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder> 
