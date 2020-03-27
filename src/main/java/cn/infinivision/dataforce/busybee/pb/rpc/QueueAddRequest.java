@@ -23,6 +23,7 @@ private static final long serialVersionUID = 0L;
     key_ = com.google.protobuf.ByteString.EMPTY;
     items_ = java.util.Collections.emptyList();
     kvs_ = java.util.Collections.emptyList();
+    allocPartition_ = false;
   }
 
   @java.lang.Override
@@ -88,6 +89,11 @@ private static final long serialVersionUID = 0L;
               condition_ = subBuilder.buildPartial();
             }
 
+            break;
+          }
+          case 40: {
+
+            allocPartition_ = input.readBool();
             break;
           }
         }
@@ -195,6 +201,15 @@ private static final long serialVersionUID = 0L;
     return getCondition();
   }
 
+  public static final int ALLOCPARTITION_FIELD_NUMBER = 5;
+  private boolean allocPartition_;
+  /**
+   * <code>bool allocPartition = 5;</code>
+   */
+  public boolean getAllocPartition() {
+    return allocPartition_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -218,6 +233,9 @@ private static final long serialVersionUID = 0L;
     }
     if (condition_ != null) {
       output.writeMessage(4, getCondition());
+    }
+    if (allocPartition_ != false) {
+      output.writeBool(5, allocPartition_);
     }
     unknownFields.writeTo(output);
   }
@@ -253,6 +271,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(4, getCondition());
     }
+    if (allocPartition_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(5, allocPartition_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -280,6 +302,8 @@ private static final long serialVersionUID = 0L;
       result = result && getCondition()
           .equals(other.getCondition());
     }
+    result = result && (getAllocPartition()
+        == other.getAllocPartition());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -305,6 +329,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + CONDITION_FIELD_NUMBER;
       hash = (53 * hash) + getCondition().hashCode();
     }
+    hash = (37 * hash) + ALLOCPARTITION_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getAllocPartition());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -450,6 +477,8 @@ private static final long serialVersionUID = 0L;
         condition_ = null;
         conditionBuilder_ = null;
       }
+      allocPartition_ = false;
+
       return this;
     }
 
@@ -490,6 +519,7 @@ private static final long serialVersionUID = 0L;
       } else {
         result.condition_ = conditionBuilder_.build();
       }
+      result.allocPartition_ = allocPartition_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -557,6 +587,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasCondition()) {
         mergeCondition(other.getCondition());
+      }
+      if (other.getAllocPartition() != false) {
+        setAllocPartition(other.getAllocPartition());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -874,6 +907,32 @@ private static final long serialVersionUID = 0L;
         condition_ = null;
       }
       return conditionBuilder_;
+    }
+
+    private boolean allocPartition_ ;
+    /**
+     * <code>bool allocPartition = 5;</code>
+     */
+    public boolean getAllocPartition() {
+      return allocPartition_;
+    }
+    /**
+     * <code>bool allocPartition = 5;</code>
+     */
+    public Builder setAllocPartition(boolean value) {
+      
+      allocPartition_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool allocPartition = 5;</code>
+     */
+    public Builder clearAllocPartition() {
+      
+      allocPartition_ = false;
+      onChanged();
+      return this;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

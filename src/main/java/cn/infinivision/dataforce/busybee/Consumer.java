@@ -78,7 +78,7 @@ import lombok.extern.slf4j.Slf4j;
     }
 
     void onJoinResponse(Response resp) {
-        log.debug("tenant {} join to {}, response",
+        log.debug("tenant {} join to {}, response {}",
             tenantId,
             group,
             resp);
@@ -116,6 +116,10 @@ import lombok.extern.slf4j.Slf4j;
         }
 
         fetcher.stop();
+        log.info("{}/{}/{} partition removed",
+            tenantId,
+            group,
+            partition);
 
         // all partition removed, re-join to group
         if (fetches.size() == 0) {

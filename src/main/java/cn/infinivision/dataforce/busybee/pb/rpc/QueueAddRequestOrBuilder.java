@@ -50,4 +50,9 @@ public interface QueueAddRequestOrBuilder extends
    * <code>.rpcpb.Condition condition = 4;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.ConditionOrBuilder getConditionOrBuilder();
+
+  /**
+   * <code>bool allocPartition = 5;</code>
+   */
+  boolean getAllocPartition();
 }
