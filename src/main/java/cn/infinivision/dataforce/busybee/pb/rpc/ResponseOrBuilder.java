@@ -152,15 +152,15 @@ public interface ResponseOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponseOrBuilder getJoinRespOrBuilder();
 
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+   * <code>.rpcpb.QueueFetchResponse fetchResp = 13;</code>
    */
   boolean hasFetchResp();
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+   * <code>.rpcpb.QueueFetchResponse fetchResp = 13;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse getFetchResp();
+  cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse getFetchResp();
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchResponse fetchResp = 13;</code>
+   * <code>.rpcpb.QueueFetchResponse fetchResp = 13;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder getFetchRespOrBuilder();
+  cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponseOrBuilder getFetchRespOrBuilder();
 }

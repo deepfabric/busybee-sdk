@@ -360,17 +360,17 @@ public interface RequestOrBuilder extends
   cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder getQueueJoinOrBuilder();
 
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
    */
   boolean hasQueueFetch();
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest getQueueFetch();
+  cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest getQueueFetch();
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
    */
-  cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder getQueueFetchOrBuilder();
+  cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequestOrBuilder getQueueFetchOrBuilder();
 
   /**
    * <code>.rpcpb.AllocIDRequest allocID = 30;</code>

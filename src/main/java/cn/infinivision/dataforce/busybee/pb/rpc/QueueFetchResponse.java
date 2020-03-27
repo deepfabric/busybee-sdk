@@ -5,21 +5,21 @@ package cn.infinivision.dataforce.busybee.pb.rpc;
 
 /**
  * <pre>
- * QueueConcurrencyFetchResponse fetch response
+ * QueueFetchResponse fetch response
  * </pre>
  *
- * Protobuf type {@code rpcpb.QueueConcurrencyFetchResponse}
+ * Protobuf type {@code rpcpb.QueueFetchResponse}
  */
-public  final class QueueConcurrencyFetchResponse extends
+public  final class QueueFetchResponse extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rpcpb.QueueConcurrencyFetchResponse)
-    QueueConcurrencyFetchResponseOrBuilder {
+    // @@protoc_insertion_point(message_implements:rpcpb.QueueFetchResponse)
+    QueueFetchResponseOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use QueueConcurrencyFetchResponse.newBuilder() to construct.
-  private QueueConcurrencyFetchResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use QueueFetchResponse.newBuilder() to construct.
+  private QueueFetchResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private QueueConcurrencyFetchResponse() {
+  private QueueFetchResponse() {
     removed_ = false;
     items_ = java.util.Collections.emptyList();
     lastOffset_ = 0L;
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private QueueConcurrencyFetchResponse(
+  private QueueFetchResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -91,14 +91,14 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueConcurrencyFetchResponse_descriptor;
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueFetchResponse_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueConcurrencyFetchResponse_fieldAccessorTable
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueFetchResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder.class);
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.Builder.class);
   }
 
   private int bitField0_;
@@ -198,10 +198,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse)) {
+    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse)) {
       return super.equals(obj);
     }
-    cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse other = (cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse) obj;
+    cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse other = (cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse) obj;
 
     boolean result = true;
     result = result && (getRemoved()
@@ -236,69 +236,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(byte[] data)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseDelimitedFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseDelimitedFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -310,7 +310,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse prototype) {
+  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -326,28 +326,28 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * QueueConcurrencyFetchResponse fetch response
+   * QueueFetchResponse fetch response
    * </pre>
    *
-   * Protobuf type {@code rpcpb.QueueConcurrencyFetchResponse}
+   * Protobuf type {@code rpcpb.QueueFetchResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rpcpb.QueueConcurrencyFetchResponse)
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponseOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rpcpb.QueueFetchResponse)
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueConcurrencyFetchResponse_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueFetchResponse_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueConcurrencyFetchResponse_fieldAccessorTable
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueFetchResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.Builder.class);
+              cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.Builder.class);
     }
 
-    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.newBuilder()
+    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -375,23 +375,23 @@ private static final long serialVersionUID = 0L;
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueConcurrencyFetchResponse_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueFetchResponse_descriptor;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse getDefaultInstanceForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.getDefaultInstance();
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse getDefaultInstanceForType() {
+      return cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.getDefaultInstance();
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse build() {
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse result = buildPartial();
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse build() {
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse buildPartial() {
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse result = new cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse(this);
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse buildPartial() {
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse result = new cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse(this);
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
       result.removed_ = removed_;
@@ -433,16 +433,16 @@ private static final long serialVersionUID = 0L;
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse) {
-        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse)other);
+      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse) {
+        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse other) {
-      if (other == cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse.getDefaultInstance()) return this;
+    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse other) {
+      if (other == cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse.getDefaultInstance()) return this;
       if (other.getRemoved() != false) {
         setRemoved(other.getRemoved());
       }
@@ -472,11 +472,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse parsedMessage = null;
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse) e.getUnfinishedMessage();
+        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -621,39 +621,39 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rpcpb.QueueConcurrencyFetchResponse)
+    // @@protoc_insertion_point(builder_scope:rpcpb.QueueFetchResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:rpcpb.QueueConcurrencyFetchResponse)
-  private static final cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rpcpb.QueueFetchResponse)
+  private static final cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse();
+    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse();
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse getDefaultInstance() {
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<QueueConcurrencyFetchResponse>
-      PARSER = new com.google.protobuf.AbstractParser<QueueConcurrencyFetchResponse>() {
-    public QueueConcurrencyFetchResponse parsePartialFrom(
+  private static final com.google.protobuf.Parser<QueueFetchResponse>
+      PARSER = new com.google.protobuf.AbstractParser<QueueFetchResponse>() {
+    public QueueFetchResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new QueueConcurrencyFetchResponse(input, extensionRegistry);
+      return new QueueFetchResponse(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<QueueConcurrencyFetchResponse> parser() {
+  public static com.google.protobuf.Parser<QueueFetchResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<QueueConcurrencyFetchResponse> getParserForType() {
+  public com.google.protobuf.Parser<QueueFetchResponse> getParserForType() {
     return PARSER;
   }
 
-  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse getDefaultInstanceForType() {
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

@@ -3,8 +3,8 @@
 
 package cn.infinivision.dataforce.busybee.pb.rpc;
 
-public interface QueueConcurrencyFetchResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:rpcpb.QueueConcurrencyFetchResponse)
+public interface QueueFetchResponseOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:rpcpb.QueueFetchResponse)
     com.google.protobuf.MessageOrBuilder {
 
   /**

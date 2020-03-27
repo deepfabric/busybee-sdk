@@ -41,7 +41,6 @@ enum Type {
     QueueAdd              = 300;
     QueueFetch            = 301;
     QueueJoin             = 302;
-    QueueConcurrencyFetch = 303;
 
     TenantInit    = 400;
     UpdateMapping = 401;
@@ -113,7 +112,7 @@ message Request {
     GetProfileRequest            getProfile      = 26 ;
     AddEventRequest              addEvent        = 27 ;
     QueueJoinGroupRequest        queueJoin       = 28 ;
-    QueueConcurrencyFetchRequest queueFetch      = 29 ;
+    QueueFetchRequest            queueFetch      = 29 ;
     AllocIDRequest               allocID         = 30 ;
     ResetIDRequest               resetID         = 31 ;
     ScanMappingRequest           scanMapping     = 32 ;
@@ -135,7 +134,7 @@ message Response {
     BytesSliceResponse            bytesSliceResp  = 10 ;
     StringResponse                stringResp      = 11 ;
     QueueJoinGroupResponse        joinResp        = 12;
-    QueueConcurrencyFetchResponse fetchResp       = 13;
+    QueueFetchResponse            fetchResp       = 13;
 }
 
 // SetRequest set a key value pair
@@ -292,13 +291,6 @@ message Condition {
     bytes value = 3;
 }
 
-// QueueFetchResponse fetch items from a queue
-message QueueFetchRequest {
-    bytes  key             = 1;
-    bytes  consumer        = 2;
-    uint64 completedOffset = 3;
-    uint64 count           = 4;
-}
 
 // QueueJoinGroupRequest join a group
 message QueueJoinGroupRequest {
@@ -314,8 +306,8 @@ message QueueJoinGroupResponse {
     repeated uint64 versions   = 3;
 }
 
-// QueueConcurrencyFetchRequest concurrency fetch items from a queue
-message QueueConcurrencyFetchRequest {
+// QueueFetchRequest fetch items from a queue
+message QueueFetchRequest {
     uint64 id              = 1;
     bytes  key             = 2;
     bytes  group           = 3;
@@ -326,8 +318,8 @@ message QueueConcurrencyFetchRequest {
     uint64 count           = 8;
 }
 
-// QueueConcurrencyFetchResponse fetch response
-message QueueConcurrencyFetchResponse {
+// QueueFetchResponse fetch response
+message QueueFetchResponse {
     bool            removed    = 1;
     repeated bytes  items      = 2;
     uint64          lastOffset = 3;

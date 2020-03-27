@@ -8,22 +8,42 @@ public interface QueueFetchRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bytes key = 1;</code>
+   * <code>uint64 id = 1;</code>
+   */
+  long getId();
+
+  /**
+   * <code>bytes key = 2;</code>
    */
   com.google.protobuf.ByteString getKey();
 
   /**
-   * <code>bytes consumer = 2;</code>
+   * <code>bytes group = 3;</code>
    */
-  com.google.protobuf.ByteString getConsumer();
+  com.google.protobuf.ByteString getGroup();
 
   /**
-   * <code>uint64 completedOffset = 3;</code>
+   * <code>uint32 partition = 4;</code>
+   */
+  int getPartition();
+
+  /**
+   * <code>uint32 consumer = 5;</code>
+   */
+  int getConsumer();
+
+  /**
+   * <code>uint64 version = 6;</code>
+   */
+  long getVersion();
+
+  /**
+   * <code>uint64 completedOffset = 7;</code>
    */
   long getCompletedOffset();
 
   /**
-   * <code>uint64 count = 4;</code>
+   * <code>uint64 count = 8;</code>
    */
   long getCount();
 }

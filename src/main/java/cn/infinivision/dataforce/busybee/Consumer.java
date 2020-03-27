@@ -1,8 +1,8 @@
 package cn.infinivision.dataforce.busybee;
 
 import cn.infinivision.dataforce.busybee.pb.meta.Notify;
-import cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest;
-import cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchResponse;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchResponse;
 import cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupResponse;
 import cn.infinivision.dataforce.busybee.pb.rpc.Request;
@@ -178,7 +178,7 @@ import lombok.extern.slf4j.Slf4j;
             consumer.client.transport.sent(Request.newBuilder()
                 .setId(consumer.client.id.incrementAndGet())
                 .setType(Type.FetchNotify)
-                .setQueueFetch(QueueConcurrencyFetchRequest.newBuilder()
+                .setQueueFetch(QueueFetchRequest.newBuilder()
                     .setId(consumer.tenantId)
                     .setGroup(ByteString.copyFromUtf8(consumer.group))
                     .setConsumer(index)
@@ -205,7 +205,7 @@ import lombok.extern.slf4j.Slf4j;
                 return;
             }
 
-            QueueConcurrencyFetchResponse fetchResp = resp.getFetchResp();
+            QueueFetchResponse fetchResp = resp.getFetchResp();
             if (fetchResp.getRemoved()) {
                 log.info("{}/{}/v{} fetch from partition {} at {}, removed",
                     consumer.tenantId,
@@ -217,6 +217,7 @@ import lombok.extern.slf4j.Slf4j;
                 return;
             }
 
+            onFetch(fetchResp);
         }
 
         void onError(Throwable cause) {
@@ -234,7 +235,7 @@ import lombok.extern.slf4j.Slf4j;
             consumer.schedulers.schedule(this::doFetch, 1, TimeUnit.SECONDS);
         }
 
-        void onFetch(QueueConcurrencyFetchResponse resp) {
+        void onFetch(QueueFetchResponse resp) {
             consumer.client.opts.bizService.execute(() -> {
                 long after = 1;
                 try {

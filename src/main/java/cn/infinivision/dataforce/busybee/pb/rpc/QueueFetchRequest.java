@@ -5,7 +5,7 @@ package cn.infinivision.dataforce.busybee.pb.rpc;
 
 /**
  * <pre>
- * QueueFetchResponse fetch items from a queue
+ * QueueFetchRequest fetch items from a queue
  * </pre>
  *
  * Protobuf type {@code rpcpb.QueueFetchRequest}
@@ -20,8 +20,12 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private QueueFetchRequest() {
+    id_ = 0L;
     key_ = com.google.protobuf.ByteString.EMPTY;
-    consumer_ = com.google.protobuf.ByteString.EMPTY;
+    group_ = com.google.protobuf.ByteString.EMPTY;
+    partition_ = 0;
+    consumer_ = 0;
+    version_ = 0L;
     completedOffset_ = 0L;
     count_ = 0L;
   }
@@ -57,22 +61,42 @@ private static final long serialVersionUID = 0L;
             }
             break;
           }
-          case 10: {
+          case 8: {
 
-            key_ = input.readBytes();
+            id_ = input.readUInt64();
             break;
           }
           case 18: {
 
-            consumer_ = input.readBytes();
+            key_ = input.readBytes();
             break;
           }
-          case 24: {
+          case 26: {
+
+            group_ = input.readBytes();
+            break;
+          }
+          case 32: {
+
+            partition_ = input.readUInt32();
+            break;
+          }
+          case 40: {
+
+            consumer_ = input.readUInt32();
+            break;
+          }
+          case 48: {
+
+            version_ = input.readUInt64();
+            break;
+          }
+          case 56: {
 
             completedOffset_ = input.readUInt64();
             break;
           }
-          case 32: {
+          case 64: {
 
             count_ = input.readUInt64();
             break;
@@ -101,37 +125,73 @@ private static final long serialVersionUID = 0L;
             cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder.class);
   }
 
-  public static final int KEY_FIELD_NUMBER = 1;
+  public static final int ID_FIELD_NUMBER = 1;
+  private long id_;
+  /**
+   * <code>uint64 id = 1;</code>
+   */
+  public long getId() {
+    return id_;
+  }
+
+  public static final int KEY_FIELD_NUMBER = 2;
   private com.google.protobuf.ByteString key_;
   /**
-   * <code>bytes key = 1;</code>
+   * <code>bytes key = 2;</code>
    */
   public com.google.protobuf.ByteString getKey() {
     return key_;
   }
 
-  public static final int CONSUMER_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString consumer_;
+  public static final int GROUP_FIELD_NUMBER = 3;
+  private com.google.protobuf.ByteString group_;
   /**
-   * <code>bytes consumer = 2;</code>
+   * <code>bytes group = 3;</code>
    */
-  public com.google.protobuf.ByteString getConsumer() {
+  public com.google.protobuf.ByteString getGroup() {
+    return group_;
+  }
+
+  public static final int PARTITION_FIELD_NUMBER = 4;
+  private int partition_;
+  /**
+   * <code>uint32 partition = 4;</code>
+   */
+  public int getPartition() {
+    return partition_;
+  }
+
+  public static final int CONSUMER_FIELD_NUMBER = 5;
+  private int consumer_;
+  /**
+   * <code>uint32 consumer = 5;</code>
+   */
+  public int getConsumer() {
     return consumer_;
   }
 
-  public static final int COMPLETEDOFFSET_FIELD_NUMBER = 3;
+  public static final int VERSION_FIELD_NUMBER = 6;
+  private long version_;
+  /**
+   * <code>uint64 version = 6;</code>
+   */
+  public long getVersion() {
+    return version_;
+  }
+
+  public static final int COMPLETEDOFFSET_FIELD_NUMBER = 7;
   private long completedOffset_;
   /**
-   * <code>uint64 completedOffset = 3;</code>
+   * <code>uint64 completedOffset = 7;</code>
    */
   public long getCompletedOffset() {
     return completedOffset_;
   }
 
-  public static final int COUNT_FIELD_NUMBER = 4;
+  public static final int COUNT_FIELD_NUMBER = 8;
   private long count_;
   /**
-   * <code>uint64 count = 4;</code>
+   * <code>uint64 count = 8;</code>
    */
   public long getCount() {
     return count_;
@@ -149,17 +209,29 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!key_.isEmpty()) {
-      output.writeBytes(1, key_);
+    if (id_ != 0L) {
+      output.writeUInt64(1, id_);
     }
-    if (!consumer_.isEmpty()) {
-      output.writeBytes(2, consumer_);
+    if (!key_.isEmpty()) {
+      output.writeBytes(2, key_);
+    }
+    if (!group_.isEmpty()) {
+      output.writeBytes(3, group_);
+    }
+    if (partition_ != 0) {
+      output.writeUInt32(4, partition_);
+    }
+    if (consumer_ != 0) {
+      output.writeUInt32(5, consumer_);
+    }
+    if (version_ != 0L) {
+      output.writeUInt64(6, version_);
     }
     if (completedOffset_ != 0L) {
-      output.writeUInt64(3, completedOffset_);
+      output.writeUInt64(7, completedOffset_);
     }
     if (count_ != 0L) {
-      output.writeUInt64(4, count_);
+      output.writeUInt64(8, count_);
     }
     unknownFields.writeTo(output);
   }
@@ -169,21 +241,37 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (id_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(1, id_);
+    }
     if (!key_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(1, key_);
+        .computeBytesSize(2, key_);
     }
-    if (!consumer_.isEmpty()) {
+    if (!group_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(2, consumer_);
+        .computeBytesSize(3, group_);
+    }
+    if (partition_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(4, partition_);
+    }
+    if (consumer_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(5, consumer_);
+    }
+    if (version_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(6, version_);
     }
     if (completedOffset_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(3, completedOffset_);
+        .computeUInt64Size(7, completedOffset_);
     }
     if (count_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(4, count_);
+        .computeUInt64Size(8, count_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -201,10 +289,18 @@ private static final long serialVersionUID = 0L;
     cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest) obj;
 
     boolean result = true;
+    result = result && (getId()
+        == other.getId());
     result = result && getKey()
         .equals(other.getKey());
-    result = result && getConsumer()
-        .equals(other.getConsumer());
+    result = result && getGroup()
+        .equals(other.getGroup());
+    result = result && (getPartition()
+        == other.getPartition());
+    result = result && (getConsumer()
+        == other.getConsumer());
+    result = result && (getVersion()
+        == other.getVersion());
     result = result && (getCompletedOffset()
         == other.getCompletedOffset());
     result = result && (getCount()
@@ -220,10 +316,20 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getId());
     hash = (37 * hash) + KEY_FIELD_NUMBER;
     hash = (53 * hash) + getKey().hashCode();
+    hash = (37 * hash) + GROUP_FIELD_NUMBER;
+    hash = (53 * hash) + getGroup().hashCode();
+    hash = (37 * hash) + PARTITION_FIELD_NUMBER;
+    hash = (53 * hash) + getPartition();
     hash = (37 * hash) + CONSUMER_FIELD_NUMBER;
-    hash = (53 * hash) + getConsumer().hashCode();
+    hash = (53 * hash) + getConsumer();
+    hash = (37 * hash) + VERSION_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getVersion());
     hash = (37 * hash) + COMPLETEDOFFSET_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getCompletedOffset());
@@ -325,7 +431,7 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * QueueFetchResponse fetch items from a queue
+   * QueueFetchRequest fetch items from a queue
    * </pre>
    *
    * Protobuf type {@code rpcpb.QueueFetchRequest}
@@ -363,9 +469,17 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
+      id_ = 0L;
+
       key_ = com.google.protobuf.ByteString.EMPTY;
 
-      consumer_ = com.google.protobuf.ByteString.EMPTY;
+      group_ = com.google.protobuf.ByteString.EMPTY;
+
+      partition_ = 0;
+
+      consumer_ = 0;
+
+      version_ = 0L;
 
       completedOffset_ = 0L;
 
@@ -393,8 +507,12 @@ private static final long serialVersionUID = 0L;
 
     public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest buildPartial() {
       cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest(this);
+      result.id_ = id_;
       result.key_ = key_;
+      result.group_ = group_;
+      result.partition_ = partition_;
       result.consumer_ = consumer_;
+      result.version_ = version_;
       result.completedOffset_ = completedOffset_;
       result.count_ = count_;
       onBuilt();
@@ -438,11 +556,23 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest other) {
       if (other == cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.getDefaultInstance()) return this;
+      if (other.getId() != 0L) {
+        setId(other.getId());
+      }
       if (other.getKey() != com.google.protobuf.ByteString.EMPTY) {
         setKey(other.getKey());
       }
-      if (other.getConsumer() != com.google.protobuf.ByteString.EMPTY) {
+      if (other.getGroup() != com.google.protobuf.ByteString.EMPTY) {
+        setGroup(other.getGroup());
+      }
+      if (other.getPartition() != 0) {
+        setPartition(other.getPartition());
+      }
+      if (other.getConsumer() != 0) {
         setConsumer(other.getConsumer());
+      }
+      if (other.getVersion() != 0L) {
+        setVersion(other.getVersion());
       }
       if (other.getCompletedOffset() != 0L) {
         setCompletedOffset(other.getCompletedOffset());
@@ -477,15 +607,41 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private long id_ ;
+    /**
+     * <code>uint64 id = 1;</code>
+     */
+    public long getId() {
+      return id_;
+    }
+    /**
+     * <code>uint64 id = 1;</code>
+     */
+    public Builder setId(long value) {
+      
+      id_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 id = 1;</code>
+     */
+    public Builder clearId() {
+      
+      id_ = 0L;
+      onChanged();
+      return this;
+    }
+
     private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes key = 1;</code>
+     * <code>bytes key = 2;</code>
      */
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
     /**
-     * <code>bytes key = 1;</code>
+     * <code>bytes key = 2;</code>
      */
     public Builder setKey(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -497,7 +653,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bytes key = 1;</code>
+     * <code>bytes key = 2;</code>
      */
     public Builder clearKey() {
       
@@ -506,44 +662,122 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.ByteString consumer_ = com.google.protobuf.ByteString.EMPTY;
+    private com.google.protobuf.ByteString group_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes consumer = 2;</code>
+     * <code>bytes group = 3;</code>
      */
-    public com.google.protobuf.ByteString getConsumer() {
-      return consumer_;
+    public com.google.protobuf.ByteString getGroup() {
+      return group_;
     }
     /**
-     * <code>bytes consumer = 2;</code>
+     * <code>bytes group = 3;</code>
      */
-    public Builder setConsumer(com.google.protobuf.ByteString value) {
+    public Builder setGroup(com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
+      group_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bytes group = 3;</code>
+     */
+    public Builder clearGroup() {
+      
+      group_ = getDefaultInstance().getGroup();
+      onChanged();
+      return this;
+    }
+
+    private int partition_ ;
+    /**
+     * <code>uint32 partition = 4;</code>
+     */
+    public int getPartition() {
+      return partition_;
+    }
+    /**
+     * <code>uint32 partition = 4;</code>
+     */
+    public Builder setPartition(int value) {
+      
+      partition_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint32 partition = 4;</code>
+     */
+    public Builder clearPartition() {
+      
+      partition_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int consumer_ ;
+    /**
+     * <code>uint32 consumer = 5;</code>
+     */
+    public int getConsumer() {
+      return consumer_;
+    }
+    /**
+     * <code>uint32 consumer = 5;</code>
+     */
+    public Builder setConsumer(int value) {
+      
       consumer_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bytes consumer = 2;</code>
+     * <code>uint32 consumer = 5;</code>
      */
     public Builder clearConsumer() {
       
-      consumer_ = getDefaultInstance().getConsumer();
+      consumer_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private long version_ ;
+    /**
+     * <code>uint64 version = 6;</code>
+     */
+    public long getVersion() {
+      return version_;
+    }
+    /**
+     * <code>uint64 version = 6;</code>
+     */
+    public Builder setVersion(long value) {
+      
+      version_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 version = 6;</code>
+     */
+    public Builder clearVersion() {
+      
+      version_ = 0L;
       onChanged();
       return this;
     }
 
     private long completedOffset_ ;
     /**
-     * <code>uint64 completedOffset = 3;</code>
+     * <code>uint64 completedOffset = 7;</code>
      */
     public long getCompletedOffset() {
       return completedOffset_;
     }
     /**
-     * <code>uint64 completedOffset = 3;</code>
+     * <code>uint64 completedOffset = 7;</code>
      */
     public Builder setCompletedOffset(long value) {
       
@@ -552,7 +786,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint64 completedOffset = 3;</code>
+     * <code>uint64 completedOffset = 7;</code>
      */
     public Builder clearCompletedOffset() {
       
@@ -563,13 +797,13 @@ private static final long serialVersionUID = 0L;
 
     private long count_ ;
     /**
-     * <code>uint64 count = 4;</code>
+     * <code>uint64 count = 8;</code>
      */
     public long getCount() {
       return count_;
     }
     /**
-     * <code>uint64 count = 4;</code>
+     * <code>uint64 count = 8;</code>
      */
     public Builder setCount(long value) {
       
@@ -578,7 +812,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint64 count = 4;</code>
+     * <code>uint64 count = 8;</code>
      */
     public Builder clearCount() {
       

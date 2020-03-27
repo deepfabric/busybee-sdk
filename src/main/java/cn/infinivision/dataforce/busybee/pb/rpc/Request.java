@@ -406,11 +406,11 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 234: {
-            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder subBuilder = null;
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder subBuilder = null;
             if (queueFetch_ != null) {
               subBuilder = queueFetch_.toBuilder();
             }
-            queueFetch_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.parser(), extensionRegistry);
+            queueFetch_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(queueFetch_);
               queueFetch_ = subBuilder.buildPartial();
@@ -1066,23 +1066,23 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int QUEUEFETCH_FIELD_NUMBER = 29;
-  private cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest queueFetch_;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest queueFetch_;
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
    */
   public boolean hasQueueFetch() {
     return queueFetch_ != null;
   }
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest getQueueFetch() {
-    return queueFetch_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.getDefaultInstance() : queueFetch_;
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest getQueueFetch() {
+    return queueFetch_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.getDefaultInstance() : queueFetch_;
   }
   /**
-   * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+   * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
    */
-  public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder getQueueFetchOrBuilder() {
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequestOrBuilder getQueueFetchOrBuilder() {
     return getQueueFetch();
   }
 
@@ -5516,29 +5516,29 @@ private static final long serialVersionUID = 0L;
       return queueJoinBuilder_;
     }
 
-    private cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest queueFetch_ = null;
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest queueFetch_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder> queueFetchBuilder_;
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequestOrBuilder> queueFetchBuilder_;
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
     public boolean hasQueueFetch() {
       return queueFetchBuilder_ != null || queueFetch_ != null;
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest getQueueFetch() {
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest getQueueFetch() {
       if (queueFetchBuilder_ == null) {
-        return queueFetch_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.getDefaultInstance() : queueFetch_;
+        return queueFetch_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.getDefaultInstance() : queueFetch_;
       } else {
         return queueFetchBuilder_.getMessage();
       }
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
-    public Builder setQueueFetch(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest value) {
+    public Builder setQueueFetch(cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest value) {
       if (queueFetchBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -5552,10 +5552,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
     public Builder setQueueFetch(
-        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder builderForValue) {
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder builderForValue) {
       if (queueFetchBuilder_ == null) {
         queueFetch_ = builderForValue.build();
         onChanged();
@@ -5566,13 +5566,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
-    public Builder mergeQueueFetch(cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest value) {
+    public Builder mergeQueueFetch(cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest value) {
       if (queueFetchBuilder_ == null) {
         if (queueFetch_ != null) {
           queueFetch_ =
-            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.newBuilder(queueFetch_).mergeFrom(value).buildPartial();
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.newBuilder(queueFetch_).mergeFrom(value).buildPartial();
         } else {
           queueFetch_ = value;
         }
@@ -5584,7 +5584,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
     public Builder clearQueueFetch() {
       if (queueFetchBuilder_ == null) {
@@ -5598,33 +5598,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder getQueueFetchBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder getQueueFetchBuilder() {
       
       onChanged();
       return getQueueFetchFieldBuilder().getBuilder();
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder getQueueFetchOrBuilder() {
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequestOrBuilder getQueueFetchOrBuilder() {
       if (queueFetchBuilder_ != null) {
         return queueFetchBuilder_.getMessageOrBuilder();
       } else {
         return queueFetch_ == null ?
-            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.getDefaultInstance() : queueFetch_;
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.getDefaultInstance() : queueFetch_;
       }
     }
     /**
-     * <code>.rpcpb.QueueConcurrencyFetchRequest queueFetch = 29;</code>
+     * <code>.rpcpb.QueueFetchRequest queueFetch = 29;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder> 
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequestOrBuilder> 
         getQueueFetchFieldBuilder() {
       if (queueFetchBuilder_ == null) {
         queueFetchBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueConcurrencyFetchRequestOrBuilder>(
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueFetchRequestOrBuilder>(
                 getQueueFetch(),
                 getParentForChildren(),
                 isClean());
