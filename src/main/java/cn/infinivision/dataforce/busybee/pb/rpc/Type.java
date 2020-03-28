@@ -25,6 +25,14 @@ public enum Type
    */
   Scan(3),
   /**
+   * <code>SetIf = 4;</code>
+   */
+  SetIf(4),
+  /**
+   * <code>DeleteIf = 5;</code>
+   */
+  DeleteIf(5),
+  /**
    * <code>BMCreate = 100;</code>
    */
   BMCreate(100),
@@ -179,6 +187,14 @@ public enum Type
    * <code>Scan = 3;</code>
    */
   public static final int Scan_VALUE = 3;
+  /**
+   * <code>SetIf = 4;</code>
+   */
+  public static final int SetIf_VALUE = 4;
+  /**
+   * <code>DeleteIf = 5;</code>
+   */
+  public static final int DeleteIf_VALUE = 5;
   /**
    * <code>BMCreate = 100;</code>
    */
@@ -339,6 +355,8 @@ public enum Type
       case 1: return Get;
       case 2: return Delete;
       case 3: return Scan;
+      case 4: return SetIf;
+      case 5: return DeleteIf;
       case 100: return BMCreate;
       case 101: return BMAdd;
       case 102: return BMRemove;

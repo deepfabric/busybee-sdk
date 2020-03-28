@@ -423,4 +423,30 @@ public interface RequestOrBuilder extends
    * <code>.rpcpb.GetIDSetRequest getIDSet = 33;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequestOrBuilder getGetIDSetOrBuilder();
+
+  /**
+   * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+   */
+  boolean hasSetIf();
+  /**
+   * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest getSetIf();
+  /**
+   * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequestOrBuilder getSetIfOrBuilder();
+
+  /**
+   * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+   */
+  boolean hasDeleteIf();
+  /**
+   * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest getDeleteIf();
+  /**
+   * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequestOrBuilder getDeleteIfOrBuilder();
 }

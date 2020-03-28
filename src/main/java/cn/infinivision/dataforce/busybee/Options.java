@@ -2,8 +2,8 @@ package cn.infinivision.dataforce.busybee;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Description:
@@ -23,7 +23,7 @@ class Options {
     int fetchSchedulers;
     String defaultMappingType;
     List<String> servers = new ArrayList<>();
-    ExecutorService bizService;
+    ScheduledExecutorService bizService;
 
     void adjust() {
         if (rpcTimeoutMS == 0) {
@@ -55,7 +55,7 @@ class Options {
         }
 
         if (bizService == null) {
-            bizService = Executors.newFixedThreadPool(1);
+            bizService = Executors.newScheduledThreadPool(1);
         }
     }
 }

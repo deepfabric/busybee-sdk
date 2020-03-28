@@ -1,7 +1,7 @@
 package cn.infinivision.dataforce.busybee;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Busybee client builder
@@ -106,7 +106,7 @@ public class Builder {
      * @param bizService biz executor service
      * @return Builder
      */
-    public Builder bizService(ExecutorService bizService) {
+    public Builder bizService(ScheduledExecutorService bizService) {
         this.opts.bizService = bizService;
         return this;
     }

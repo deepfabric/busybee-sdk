@@ -15,6 +15,8 @@ enum Type {
     Get           = 1;
     Delete        = 2;
     Scan          = 3;
+    SetIf         = 4;
+    DeleteIf      = 5;
 
     BMCreate      = 100;
     BMAdd         = 101;
@@ -117,7 +119,8 @@ message Request {
     ResetIDRequest               resetID         = 31 ;
     ScanMappingRequest           scanMapping     = 32 ;
     GetIDSetRequest              getIDSet        = 33 ;
-
+    SetIfRequest                 setIf           = 34 ;
+    DeleteIfRequest              deleteIf        = 35 ;
 }
 
 // Response the busybee response
@@ -137,12 +140,34 @@ message Response {
     QueueFetchResponse            fetchResp       = 13;
 }
 
+// ConditionGroup condition groups
+message ConditionGroup {
+    repeated Condition conditions = 1;
+}
+
+
 // SetRequest set a key value pair
 message SetRequest {
     bytes  key   = 1;
     bytes  value = 2;
     int64  ttl   = 3;
 }
+
+// SetIfRequest set with condition
+message SetIfRequest {
+    bytes     key                       = 1;
+    bytes     value                     = 2;
+    int64     ttl                       = 3;
+    repeated  ConditionGroup conditions = 4;
+}
+
+// DeleteIfRequest delete with condition
+message DeleteIfRequest {
+    bytes     key                       = 1;
+    repeated  ConditionGroup conditions = 2;
+}
+
+
 
 // GetRequest get value by key
 message GetRequest {
@@ -269,7 +294,7 @@ message InstanceCrowdStateRequest {
 message QueueAddRequest {
     bytes          key            = 1;
     repeated bytes items          = 2;
-    repeated bytes kvs            = 3 ;
+    repeated bytes kvs            = 3;
     Condition      condition      = 4;
     bool           allocPartition = 5;
 }
@@ -279,10 +304,11 @@ enum Cmp {
     Exists    = 0;
     NotExists = 1;
     Equal     = 2;
-    GE        = 3;
-    GT        = 4;
-    LE        = 5;
-    LT        = 6;
+    NotEqual  = 3;
+    GE        = 4;
+    GT        = 5;
+    LE        = 6;
+    LT        = 7;
 }
 
 // Condition condition

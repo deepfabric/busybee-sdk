@@ -470,6 +470,32 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 274: {
+            cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.Builder subBuilder = null;
+            if (setIf_ != null) {
+              subBuilder = setIf_.toBuilder();
+            }
+            setIf_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(setIf_);
+              setIf_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 282: {
+            cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.Builder subBuilder = null;
+            if (deleteIf_ != null) {
+              subBuilder = deleteIf_.toBuilder();
+            }
+            deleteIf_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(deleteIf_);
+              deleteIf_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1170,6 +1196,48 @@ private static final long serialVersionUID = 0L;
     return getGetIDSet();
   }
 
+  public static final int SETIF_FIELD_NUMBER = 34;
+  private cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest setIf_;
+  /**
+   * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+   */
+  public boolean hasSetIf() {
+    return setIf_ != null;
+  }
+  /**
+   * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest getSetIf() {
+    return setIf_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.getDefaultInstance() : setIf_;
+  }
+  /**
+   * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequestOrBuilder getSetIfOrBuilder() {
+    return getSetIf();
+  }
+
+  public static final int DELETEIF_FIELD_NUMBER = 35;
+  private cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest deleteIf_;
+  /**
+   * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+   */
+  public boolean hasDeleteIf() {
+    return deleteIf_ != null;
+  }
+  /**
+   * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest getDeleteIf() {
+    return deleteIf_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.getDefaultInstance() : deleteIf_;
+  }
+  /**
+   * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequestOrBuilder getDeleteIfOrBuilder() {
+    return getDeleteIf();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -1280,6 +1348,12 @@ private static final long serialVersionUID = 0L;
     }
     if (getIDSet_ != null) {
       output.writeMessage(33, getGetIDSet());
+    }
+    if (setIf_ != null) {
+      output.writeMessage(34, getSetIf());
+    }
+    if (deleteIf_ != null) {
+      output.writeMessage(35, getDeleteIf());
     }
     unknownFields.writeTo(output);
   }
@@ -1420,6 +1494,14 @@ private static final long serialVersionUID = 0L;
     if (getIDSet_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(33, getGetIDSet());
+    }
+    if (setIf_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(34, getSetIf());
+    }
+    if (deleteIf_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(35, getDeleteIf());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1595,6 +1677,16 @@ private static final long serialVersionUID = 0L;
       result = result && getGetIDSet()
           .equals(other.getGetIDSet());
     }
+    result = result && (hasSetIf() == other.hasSetIf());
+    if (hasSetIf()) {
+      result = result && getSetIf()
+          .equals(other.getSetIf());
+    }
+    result = result && (hasDeleteIf() == other.hasDeleteIf());
+    if (hasDeleteIf()) {
+      result = result && getDeleteIf()
+          .equals(other.getDeleteIf());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -1734,6 +1826,14 @@ private static final long serialVersionUID = 0L;
     if (hasGetIDSet()) {
       hash = (37 * hash) + GETIDSET_FIELD_NUMBER;
       hash = (53 * hash) + getGetIDSet().hashCode();
+    }
+    if (hasSetIf()) {
+      hash = (37 * hash) + SETIF_FIELD_NUMBER;
+      hash = (53 * hash) + getSetIf().hashCode();
+    }
+    if (hasDeleteIf()) {
+      hash = (37 * hash) + DELETEIF_FIELD_NUMBER;
+      hash = (53 * hash) + getDeleteIf().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -2058,6 +2158,18 @@ private static final long serialVersionUID = 0L;
         getIDSet_ = null;
         getIDSetBuilder_ = null;
       }
+      if (setIfBuilder_ == null) {
+        setIf_ = null;
+      } else {
+        setIf_ = null;
+        setIfBuilder_ = null;
+      }
+      if (deleteIfBuilder_ == null) {
+        deleteIf_ = null;
+      } else {
+        deleteIf_ = null;
+        deleteIfBuilder_ = null;
+      }
       return this;
     }
 
@@ -2237,6 +2349,16 @@ private static final long serialVersionUID = 0L;
       } else {
         result.getIDSet_ = getIDSetBuilder_.build();
       }
+      if (setIfBuilder_ == null) {
+        result.setIf_ = setIf_;
+      } else {
+        result.setIf_ = setIfBuilder_.build();
+      }
+      if (deleteIfBuilder_ == null) {
+        result.deleteIf_ = deleteIf_;
+      } else {
+        result.deleteIf_ = deleteIfBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -2376,6 +2498,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasGetIDSet()) {
         mergeGetIDSet(other.getGetIDSet());
+      }
+      if (other.hasSetIf()) {
+        mergeSetIf(other.getSetIf());
+      }
+      if (other.hasDeleteIf()) {
+        mergeDeleteIf(other.getDeleteIf());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -6099,6 +6227,240 @@ private static final long serialVersionUID = 0L;
         getIDSet_ = null;
       }
       return getIDSetBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest setIf_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest, cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequestOrBuilder> setIfBuilder_;
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public boolean hasSetIf() {
+      return setIfBuilder_ != null || setIf_ != null;
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest getSetIf() {
+      if (setIfBuilder_ == null) {
+        return setIf_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.getDefaultInstance() : setIf_;
+      } else {
+        return setIfBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public Builder setSetIf(cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest value) {
+      if (setIfBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        setIf_ = value;
+        onChanged();
+      } else {
+        setIfBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public Builder setSetIf(
+        cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.Builder builderForValue) {
+      if (setIfBuilder_ == null) {
+        setIf_ = builderForValue.build();
+        onChanged();
+      } else {
+        setIfBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public Builder mergeSetIf(cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest value) {
+      if (setIfBuilder_ == null) {
+        if (setIf_ != null) {
+          setIf_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.newBuilder(setIf_).mergeFrom(value).buildPartial();
+        } else {
+          setIf_ = value;
+        }
+        onChanged();
+      } else {
+        setIfBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public Builder clearSetIf() {
+      if (setIfBuilder_ == null) {
+        setIf_ = null;
+        onChanged();
+      } else {
+        setIf_ = null;
+        setIfBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.Builder getSetIfBuilder() {
+      
+      onChanged();
+      return getSetIfFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequestOrBuilder getSetIfOrBuilder() {
+      if (setIfBuilder_ != null) {
+        return setIfBuilder_.getMessageOrBuilder();
+      } else {
+        return setIf_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.getDefaultInstance() : setIf_;
+      }
+    }
+    /**
+     * <code>.rpcpb.SetIfRequest setIf = 34;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest, cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequestOrBuilder> 
+        getSetIfFieldBuilder() {
+      if (setIfBuilder_ == null) {
+        setIfBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest, cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequestOrBuilder>(
+                getSetIf(),
+                getParentForChildren(),
+                isClean());
+        setIf_ = null;
+      }
+      return setIfBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest deleteIf_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest, cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequestOrBuilder> deleteIfBuilder_;
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public boolean hasDeleteIf() {
+      return deleteIfBuilder_ != null || deleteIf_ != null;
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest getDeleteIf() {
+      if (deleteIfBuilder_ == null) {
+        return deleteIf_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.getDefaultInstance() : deleteIf_;
+      } else {
+        return deleteIfBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public Builder setDeleteIf(cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest value) {
+      if (deleteIfBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        deleteIf_ = value;
+        onChanged();
+      } else {
+        deleteIfBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public Builder setDeleteIf(
+        cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.Builder builderForValue) {
+      if (deleteIfBuilder_ == null) {
+        deleteIf_ = builderForValue.build();
+        onChanged();
+      } else {
+        deleteIfBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public Builder mergeDeleteIf(cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest value) {
+      if (deleteIfBuilder_ == null) {
+        if (deleteIf_ != null) {
+          deleteIf_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.newBuilder(deleteIf_).mergeFrom(value).buildPartial();
+        } else {
+          deleteIf_ = value;
+        }
+        onChanged();
+      } else {
+        deleteIfBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public Builder clearDeleteIf() {
+      if (deleteIfBuilder_ == null) {
+        deleteIf_ = null;
+        onChanged();
+      } else {
+        deleteIf_ = null;
+        deleteIfBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.Builder getDeleteIfBuilder() {
+      
+      onChanged();
+      return getDeleteIfFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequestOrBuilder getDeleteIfOrBuilder() {
+      if (deleteIfBuilder_ != null) {
+        return deleteIfBuilder_.getMessageOrBuilder();
+      } else {
+        return deleteIf_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.getDefaultInstance() : deleteIf_;
+      }
+    }
+    /**
+     * <code>.rpcpb.DeleteIfRequest deleteIf = 35;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest, cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequestOrBuilder> 
+        getDeleteIfFieldBuilder() {
+      if (deleteIfBuilder_ == null) {
+        deleteIfBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest, cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequestOrBuilder>(
+                getDeleteIf(),
+                getParentForChildren(),
+                isClean());
+        deleteIf_ = null;
+      }
+      return deleteIfBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

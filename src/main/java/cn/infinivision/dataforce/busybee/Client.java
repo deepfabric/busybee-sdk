@@ -30,6 +30,8 @@ import cn.infinivision.dataforce.busybee.pb.rpc.BMContainsRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMCountRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMCreateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMRemoveRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.ConditionGroup;
+import cn.infinivision.dataforce.busybee.pb.rpc.DeleteIfRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.DeleteRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetIDSetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.GetMappingRequest;
@@ -43,6 +45,7 @@ import cn.infinivision.dataforce.busybee.pb.rpc.Request;
 import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.ScanRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.SetIfRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.SetRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StartingInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.StopInstanceRequest;
@@ -64,10 +67,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.Lock;
 import java.util.function.BiConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.roaringbitmap.RoaringBitmap;
@@ -105,6 +110,17 @@ public class Client implements Closeable {
 
         holder.stop();
         log.info("client closed");
+    }
+
+    /**
+     * get a distributed lock to protect resource
+     *
+     * @param resource target resource
+     * @param lease lease seconds
+     * @return lock
+     */
+    public Lock getResourceLock(String resource, int lease) {
+        return new Locker(resource, this, lease);
     }
 
     /**
@@ -208,6 +224,29 @@ public class Client implements Closeable {
     }
 
     /**
+     * set the key-value with a ttl in seconds if the condition matched
+     *
+     * @param key key
+     * @param value value
+     * @param ttl ttl in seconds
+     * @param groups conditions
+     * @return Future Result, use {@link Result#booleanResponse()} to check the operation succeed
+     */
+    public Future<Result> setIf(byte[] key, byte[] value, long ttl, List<ConditionGroup> groups) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.SetIf)
+            .setSetIf(SetIfRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .setValue(ByteString.copyFrom(value))
+                .setTtl(ttl)
+                .addAllConditions(groups)
+                .build())
+            .build();
+        return doRequest(req);
+    }
+
+    /**
      * get value
      *
      * @param key key
@@ -229,7 +268,7 @@ public class Client implements Closeable {
      * delete the key-value
      *
      * @param key key
-     * @return Future Result, use {@link Result#checkError} to check has a error
+     * @return Future Result, use {@link Result#booleanResponse()} to check has a error
      */
     public Future<Result> delete(byte[] key) {
         Request req = Request.newBuilder()
@@ -237,6 +276,26 @@ public class Client implements Closeable {
             .setType(Type.Delete)
             .setDelete(DeleteRequest.newBuilder()
                 .setKey(ByteString.copyFrom(key))
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * delete the key if the conditions matches
+     *
+     * @param key key
+     * @param groups conditions
+     * @return Future Result, use {@link Result#checkError} to check the operation succeed
+     */
+    public Future<Result> deleteIf(byte[] key, List<ConditionGroup> groups) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.DeleteIf)
+            .setDeleteIf(DeleteIfRequest.newBuilder()
+                .setKey(ByteString.copyFrom(key))
+                .addAllConditions(groups)
                 .build())
             .build();
 
@@ -966,7 +1025,44 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
+    public static void main(String[] args) {
+        Client c1 = new Builder().rpcTimeout(5000).addServer("172.26.69.79:8081",
+            "172.26.69.79:8082",
+            "172.26.69.79:8083",
+            "172.26.69.79:8084").build();
+
+        Lock lock1 =  c1.getResourceLock("res1",5);
+        Lock lock2 =  c1.getResourceLock("res1",5);
+
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(() -> {
+            for (;;) {
+                lock1.lock();
+                log.info("###################### lock1 get lock");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                lock1.unlock();
+            }
+        });
+
+        executorService.execute(() -> {
+            for (;;) {
+                lock2.lock();
+                log.info("###################### lock2 get lock");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                lock2.unlock();
+            }
+        });
+    }
+
+    public static void main2(String[] args) throws ExecutionException, InterruptedException, IOException {
         Client c1 = new Builder().rpcTimeout(5000).addServer("172.26.69.79:8081",
             "172.26.69.79:8082",
             "172.26.69.79:8083",

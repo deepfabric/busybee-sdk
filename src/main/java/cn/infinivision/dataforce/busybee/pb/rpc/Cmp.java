@@ -25,21 +25,25 @@ public enum Cmp
    */
   Equal(2),
   /**
-   * <code>GE = 3;</code>
+   * <code>NotEqual = 3;</code>
    */
-  GE(3),
+  NotEqual(3),
   /**
-   * <code>GT = 4;</code>
+   * <code>GE = 4;</code>
    */
-  GT(4),
+  GE(4),
   /**
-   * <code>LE = 5;</code>
+   * <code>GT = 5;</code>
    */
-  LE(5),
+  GT(5),
   /**
-   * <code>LT = 6;</code>
+   * <code>LE = 6;</code>
    */
-  LT(6),
+  LE(6),
+  /**
+   * <code>LT = 7;</code>
+   */
+  LT(7),
   UNRECOGNIZED(-1),
   ;
 
@@ -56,21 +60,25 @@ public enum Cmp
    */
   public static final int Equal_VALUE = 2;
   /**
-   * <code>GE = 3;</code>
+   * <code>NotEqual = 3;</code>
    */
-  public static final int GE_VALUE = 3;
+  public static final int NotEqual_VALUE = 3;
   /**
-   * <code>GT = 4;</code>
+   * <code>GE = 4;</code>
    */
-  public static final int GT_VALUE = 4;
+  public static final int GE_VALUE = 4;
   /**
-   * <code>LE = 5;</code>
+   * <code>GT = 5;</code>
    */
-  public static final int LE_VALUE = 5;
+  public static final int GT_VALUE = 5;
   /**
-   * <code>LT = 6;</code>
+   * <code>LE = 6;</code>
    */
-  public static final int LT_VALUE = 6;
+  public static final int LE_VALUE = 6;
+  /**
+   * <code>LT = 7;</code>
+   */
+  public static final int LT_VALUE = 7;
 
 
   public final int getNumber() {
@@ -94,10 +102,11 @@ public enum Cmp
       case 0: return Exists;
       case 1: return NotExists;
       case 2: return Equal;
-      case 3: return GE;
-      case 4: return GT;
-      case 5: return LE;
-      case 6: return LT;
+      case 3: return NotEqual;
+      case 4: return GE;
+      case 5: return GT;
+      case 6: return LE;
+      case 7: return LT;
       default: return null;
     }
   }
