@@ -1025,18 +1025,18 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Client c1 = new Builder().rpcTimeout(5000).addServer("172.26.69.79:8081",
             "172.26.69.79:8082",
             "172.26.69.79:8083",
             "172.26.69.79:8084").build();
 
-        Lock lock1 =  c1.getResourceLock("res1",5);
-        Lock lock2 =  c1.getResourceLock("res1",5);
+        Lock lock1 = c1.getResourceLock("res1", 5);
+        Lock lock2 = c1.getResourceLock("res1", 5);
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(() -> {
-            for (;;) {
+            for (; ; ) {
                 lock1.lock();
                 log.info("###################### lock1 get lock");
                 try {
@@ -1049,7 +1049,7 @@ public class Client implements Closeable {
         });
 
         executorService.execute(() -> {
-            for (;;) {
+            for (; ; ) {
                 lock2.lock();
                 log.info("###################### lock2 get lock");
                 try {
@@ -1062,100 +1062,69 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main2(String[] args) throws ExecutionException, InterruptedException, IOException {
-        Client c1 = new Builder().rpcTimeout(5000).addServer("172.26.69.79:8081",
-            "172.26.69.79:8082",
-            "172.26.69.79:8083",
-            "172.26.69.79:8084").build();
-        Client c2 = new Builder().rpcTimeout(5000).addServer("172.26.69.79:8081",
-            "172.26.69.79:8082",
-            "172.26.69.79:8083",
-            "172.26.69.79:8084").build();
-
-        c1.watchNotify(1, "g3", (id, nt) -> {
-            if (nt.getUserID() > 0) {
-                log.info("c1 ********** {}/{}: user {}", id.getPartition(), id.getOffset(), nt.getUserID());
-                return;
-            }
+    public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
+        Client c = new Builder().rpcTimeout(5000).addServer("172.18.85.9:8081").build();
+        int n = 2;
+        if (n == 1) {
+            c.initTenant(Tenant.newBuilder()
+                .setId(1)
+                .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
+                .build()).get().checkError();
+            Thread.sleep(20000);
+            long wid = 1001;
+            Workflow wf = Workflow.newBuilder()
+                .setId(wid)
+                .setName("test")
+                .setTenantID(1)
+                .addSteps(Step.newBuilder()
+                    .setName("start")
+                    .setExecution(Execution.newBuilder()
+                        .setType(ExectuionType.Branch)
+                        .addBranches(ConditionExecution.newBuilder()
+                            .setCondition(Expr.newBuilder()
+                                .setValue(ByteString.copyFrom("{num: event.data} % 2 == 0".getBytes()))
+                                .build())
+                            .setNextStep("end1"))
+                        .addBranches(ConditionExecution.newBuilder()
+                            .setCondition(Expr.newBuilder()
+                                .setType(ExprResultType.BoolResult)
+                                .setValue(ByteString.copyFrom("{num: event.data} % 2 != 0".getBytes()))
+                                .build())
+                            .setNextStep("end2"))
+                        .build())
+                    .build())
+                .addSteps(Step.newBuilder()
+                    .setName("end1")
+                    .setExecution(Execution.newBuilder()
+                        .setType(ExectuionType.Direct)
+                        .setDirect(DirectExecution.newBuilder().build())
+                        .build()))
+                .addSteps(Step.newBuilder()
+                    .setName("end2")
+                    .setExecution(Execution.newBuilder()
+                        .setType(ExectuionType.Direct)
+                        .setDirect(DirectExecution.newBuilder().build())
+                        .build()))
+                .build();
 
             RoaringBitmap bm = new RoaringBitmap();
-            try {
-                bm.deserialize(ByteBuffer.wrap(nt.getCrowd().toByteArray()));
-                Arrays.stream(bm.toArray()).forEach(uid -> log.info("c1 ********** {}/{}: user {}", id.getPartition(), id.getOffset(), uid));
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (int i = 1; i <= 10000; i++) {
+                bm.add(i);
             }
-        });
+            c.startInstance(wf, bm, 1).get().checkError();
 
-        c2.watchNotify(1, "g3", (id, nt) -> {
-            if (nt.getUserID() > 0) {
-                log.info("c2 ********** {}/{}: user {}", id.getPartition(), id.getOffset(), nt.getUserID());
-                return;
+            for (int i = 1; i < 100; i++) {
+                c.addEvent(1, i, "data".getBytes(), String.valueOf(i).getBytes()).get().checkError();
             }
+        }
 
-            RoaringBitmap bm = new RoaringBitmap();
-            try {
-                bm.deserialize(ByteBuffer.wrap(nt.getCrowd().toByteArray()));
-                Arrays.stream(bm.toArray()).forEach(uid -> log.info("c2 ********** {}/{}: user {}", id.getPartition(), id.getOffset(), uid));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-//        c.initTenant(Tenant.newBuilder()
-//            .setId(1)
-//            .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
-//            .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
-//            .build()).get().checkError();
-//
-//        Thread.sleep(15000);
-//
-//        long wid = 1000;
-//        Workflow wf = Workflow.newBuilder()
-//            .setId(wid)
-//            .setName("test")
-//            .setTenantID(1)
-//            .addSteps(Step.newBuilder()
-//                .setName("start")
-//                .setExecution(Execution.newBuilder()
-//                    .setType(ExectuionType.Branch)
-//                    .addBranches(ConditionExecution.newBuilder()
-//                        .setCondition(Expr.newBuilder()
-//                            .setValue(ByteString.copyFrom("{num: event.data} % 2 == 0".getBytes()))
-//                            .build())
-//                        .setNextStep("end1"))
-//                    .addBranches(ConditionExecution.newBuilder()
-//                        .setCondition(Expr.newBuilder()
-//                            .setType(ExprResultType.BoolResult)
-//                            .setValue(ByteString.copyFrom("{num: event.data} % 2 != 0".getBytes()))
-//                            .build())
-//                        .setNextStep("end2"))
-//                    .build())
-//                .build())
-//            .addSteps(Step.newBuilder()
-//                .setName("end1")
-//                .setExecution(Execution.newBuilder()
-//                    .setType(ExectuionType.Direct)
-//                    .setDirect(DirectExecution.newBuilder().build())
-//                    .build()))
-//            .addSteps(Step.newBuilder()
-//                .setName("end2")
-//                .setExecution(Execution.newBuilder()
-//                    .setType(ExectuionType.Direct)
-//                    .setDirect(DirectExecution.newBuilder().build())
-//                    .build()))
-//            .build();
-//
-//        RoaringBitmap bm = new RoaringBitmap();
-//        for (int i = 1; i <= 10000; i++) {
-//            bm.add(i);
-//        }
-//        c.startInstance(wf, bm, 1).get().checkError();
-//
-//        for (int i = 1; i < 100; i++) {
-//            c.addEvent(1, i, "data".getBytes(), String.valueOf(i).getBytes()).get().checkError();
-//        }
-
+        if (n == 2) {
+            c.watchNotify(1, "g1", (id, nt) -> {
+                log.info("*********** received  {}/{}", id.getPartition(), id.getOffset());
+                throw new RuntimeException("aaaaaaaaaaaaaaaaa");
+            });
+        }
     }
 
     public static void keys(Client c) throws ExecutionException, InterruptedException {

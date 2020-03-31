@@ -106,7 +106,7 @@ import lombok.extern.slf4j.Slf4j;
     }
 
     void retryJoin() {
-        schedulers.schedule(this::doJoin, 1, TimeUnit.SECONDS);
+        schedulers.schedule(this::doJoin, 5, TimeUnit.SECONDS);
     }
 
     synchronized void partitionRemoved(int partition) {
@@ -150,7 +150,7 @@ import lombok.extern.slf4j.Slf4j;
             log.info("{}/{}/v{} start fetch from partition {} at {}, stopped",
                 consumer.tenantId,
                 consumer.group,
-                index,
+                version,
                 partition,
                 offset);
 
@@ -166,7 +166,7 @@ import lombok.extern.slf4j.Slf4j;
                 log.info("{}/{}/v{} fetch from partition {} at {}, stopped",
                     consumer.tenantId,
                     consumer.group,
-                    index,
+                    version,
                     partition,
                     offset);
                 return;
@@ -175,7 +175,7 @@ import lombok.extern.slf4j.Slf4j;
             log.debug("{}/{}/v{} start fetch from partition {} at {}",
                 consumer.tenantId,
                 consumer.group,
-                index,
+                version,
                 partition,
                 offset);
 
@@ -201,7 +201,7 @@ import lombok.extern.slf4j.Slf4j;
                 log.error("{}/{}/v{} fetch from partition {} at {} failed",
                     consumer.tenantId,
                     consumer.group,
-                    index,
+                    version,
                     partition,
                     offset,
                     resp.getError().getError());
@@ -214,7 +214,7 @@ import lombok.extern.slf4j.Slf4j;
                 log.info("{}/{}/v{} fetch from partition {} at {}, removed",
                     consumer.tenantId,
                     consumer.group,
-                    index,
+                    version,
                     partition,
                     offset);
                 consumer.partitionRemoved(partition);
@@ -228,7 +228,7 @@ import lombok.extern.slf4j.Slf4j;
             log.error("{}/{}/v{} fetch from partition {} at {} failed",
                 consumer.tenantId,
                 consumer.group,
-                index,
+                version,
                 partition,
                 offset,
                 cause);
@@ -263,17 +263,12 @@ import lombok.extern.slf4j.Slf4j;
                         }
                         after = 0;
                     }
-
-                    consumer.schedulers.schedule(this::doFetch, after, TimeUnit.SECONDS);
                 } catch (Throwable cause) {
-                    log.error("{}/{}/v{} fetch from partition {} at {} failed",
-                        consumer.tenantId,
-                        consumer.group,
-                        index,
-                        partition,
-                        offset,
+                    log.error(consumer.tenantId + "/" + consumer.group + "/v" + version + " fetch from partition " + partition + " at " + offset + " failed",
                         cause);
                 }
+
+                consumer.schedulers.schedule(this::doFetch, after, TimeUnit.SECONDS);
             });
         }
     }
