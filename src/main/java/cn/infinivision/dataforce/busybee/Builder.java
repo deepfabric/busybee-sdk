@@ -56,13 +56,25 @@ public class Builder {
     }
 
     /**
-     * batch size that fetch the notify from busybee
+     * set fetch size  that fetch the notify from busybee
      *
-     * @param value batch size
+     * @param count count
      * @return Builder
      */
-    public Builder notifyFetchBatchSize(long value) {
-        this.opts.fetchCount = value;
+    public Builder fetchSize(long count) {
+        return fetchSize(count, 1024 * 1024);
+    }
+
+    /**
+     * set fetch size and max bytes that fetch the notify from busybee
+     *
+     * @param count count
+     * @param maxBytes max bytes
+     * @return Builder
+     */
+    public Builder fetchSize(long count, long maxBytes) {
+        this.opts.fetchCount = count;
+        this.opts.fetchBytes = maxBytes;
         return this;
     }
 

@@ -190,6 +190,7 @@ import lombok.extern.slf4j.Slf4j;
                     .setPartition(partition)
                     .setCompletedOffset(offset)
                     .setCount(consumer.client.opts.fetchCount)
+                    .setMaxBytes(consumer.client.opts.fetchBytes)
                     .build())
                 .build(), this::onResponse, this::onError);
         }

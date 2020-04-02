@@ -28,6 +28,7 @@ private static final long serialVersionUID = 0L;
     version_ = 0L;
     completedOffset_ = 0L;
     count_ = 0L;
+    maxBytes_ = 0L;
   }
 
   @java.lang.Override
@@ -99,6 +100,11 @@ private static final long serialVersionUID = 0L;
           case 64: {
 
             count_ = input.readUInt64();
+            break;
+          }
+          case 72: {
+
+            maxBytes_ = input.readUInt64();
             break;
           }
         }
@@ -197,6 +203,15 @@ private static final long serialVersionUID = 0L;
     return count_;
   }
 
+  public static final int MAXBYTES_FIELD_NUMBER = 9;
+  private long maxBytes_;
+  /**
+   * <code>uint64 maxBytes = 9;</code>
+   */
+  public long getMaxBytes() {
+    return maxBytes_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -232,6 +247,9 @@ private static final long serialVersionUID = 0L;
     }
     if (count_ != 0L) {
       output.writeUInt64(8, count_);
+    }
+    if (maxBytes_ != 0L) {
+      output.writeUInt64(9, maxBytes_);
     }
     unknownFields.writeTo(output);
   }
@@ -273,6 +291,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(8, count_);
     }
+    if (maxBytes_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(9, maxBytes_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -305,6 +327,8 @@ private static final long serialVersionUID = 0L;
         == other.getCompletedOffset());
     result = result && (getCount()
         == other.getCount());
+    result = result && (getMaxBytes()
+        == other.getMaxBytes());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -336,6 +360,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + COUNT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getCount());
+    hash = (37 * hash) + MAXBYTES_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getMaxBytes());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -485,6 +512,8 @@ private static final long serialVersionUID = 0L;
 
       count_ = 0L;
 
+      maxBytes_ = 0L;
+
       return this;
     }
 
@@ -515,6 +544,7 @@ private static final long serialVersionUID = 0L;
       result.version_ = version_;
       result.completedOffset_ = completedOffset_;
       result.count_ = count_;
+      result.maxBytes_ = maxBytes_;
       onBuilt();
       return result;
     }
@@ -579,6 +609,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getCount() != 0L) {
         setCount(other.getCount());
+      }
+      if (other.getMaxBytes() != 0L) {
+        setMaxBytes(other.getMaxBytes());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -817,6 +850,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearCount() {
       
       count_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long maxBytes_ ;
+    /**
+     * <code>uint64 maxBytes = 9;</code>
+     */
+    public long getMaxBytes() {
+      return maxBytes_;
+    }
+    /**
+     * <code>uint64 maxBytes = 9;</code>
+     */
+    public Builder setMaxBytes(long value) {
+      
+      maxBytes_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 maxBytes = 9;</code>
+     */
+    public Builder clearMaxBytes() {
+      
+      maxBytes_ = 0L;
       onChanged();
       return this;
     }

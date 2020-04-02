@@ -46,4 +46,9 @@ public interface QueueFetchRequestOrBuilder extends
    * <code>uint64 count = 8;</code>
    */
   long getCount();
+
+  /**
+   * <code>uint64 maxBytes = 9;</code>
+   */
+  long getMaxBytes();
 }

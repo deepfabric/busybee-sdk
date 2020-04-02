@@ -1,6 +1,7 @@
 package cn.infinivision.dataforce.busybee;
 
 import io.netty.util.internal.ConcurrentSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -25,6 +26,7 @@ class Locker implements Lock {
     private Set<String> keeps = new ConcurrentSet<>();
     private Client client;
     private String resource;
+    private Random random = new Random(System.currentTimeMillis());
 
     Locker(String resource, Client client, int lease) {
         this.resource = resource;
@@ -106,7 +108,7 @@ class Locker implements Lock {
                     break;
                 }
 
-                Thread.sleep(1000);
+                Thread.sleep(random.nextInt(500) + 500);
                 if (timeout > 0) {
                     long now = System.nanoTime();
                     if (now - start >= timeout) {
@@ -153,7 +155,7 @@ class Locker implements Lock {
     private void keep(String id, int interval) {
         client.opts.bizService.schedule(() -> {
             if (!keeps.contains(id)) {
-                log.debug("{} keep exits", resource);
+                log.debug("{} keep stopped", resource);
                 return;
             }
 

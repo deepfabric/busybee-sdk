@@ -16,6 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 class Options {
     long fetchCount;
+    long fetchBytes;
     long consumerConcurrency;
     int ioWorkers;
     int workers;

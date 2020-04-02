@@ -62,6 +62,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.function.BiConsumer;
+import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.roaringbitmap.RoaringBitmap;
 
@@ -1025,11 +1027,10 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main2(String[] args) {
-        Client c1 = new Builder().rpcTimeout(5000).addServer("172.26.69.79:8081",
-            "172.26.69.79:8082",
-            "172.26.69.79:8083",
-            "172.26.69.79:8084").build();
+    public static void main(String[] args) {
+        Client c1 = new Builder().rpcTimeout(5000).addServer("172.18.80.9:8081",
+            "172.18.80.9:8082",
+            "172.18.80.9:8083").build();
 
         Lock lock1 = c1.getResourceLock("res1", 5);
         Lock lock2 = c1.getResourceLock("res1", 5);
@@ -1040,7 +1041,7 @@ public class Client implements Closeable {
                 lock1.lock();
                 log.info("###################### lock1 get lock");
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -1053,7 +1054,7 @@ public class Client implements Closeable {
                 lock2.lock();
                 log.info("###################### lock2 get lock");
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -1062,7 +1063,103 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
+    public static void main5(String[] args) {
+        Client c = new Builder().rpcTimeout(5000).fetchSize(500).addServer("172.18.80.9:8081",
+            "172.18.80.9:8082",
+            "172.18.80.9:8083",
+            "172.18.80.9:8084").build();
+
+        c.watchNotifyWithBatch(1, "a3", (id, nt) -> log.info("{}/{}:  {}",
+            id.getPartition(), id.getOffset(), nt.size()));
+    }
+
+    public static void main4(String[] args) throws ExecutionException, InterruptedException {
+        Client c = new Builder().rpcTimeout(30000).addServer("172.18.80.9:8081").build();
+        int n = 2;
+        if (n == 1) {
+            c.initTenant(Tenant.newBuilder()
+                .setId(1)
+                .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
+                .build()).get().checkError();
+            Thread.sleep(20000);
+
+            Workflow.Builder workflowBuilder = Workflow
+                .newBuilder()
+                .setId(1)
+                .setTenantID(1)
+                .setName("测试")
+                .addSteps(
+                    Step.newBuilder()
+                        .setName("开始")
+                        .setExecution(
+                            Execution.newBuilder()
+                                .setType(ExectuionType.Timer)
+                                .setTimer(TimerExecution.newBuilder()
+                                    .setUseStepCrowdToDrive(true)
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("1==1"))
+                                        .build())
+                                    .setCron("0 */1 * * * *")
+                                    .setNextStep("优惠券")
+                                    .build())
+                        )
+                )
+                .addSteps(
+                    Step.newBuilder()
+                        .setName("优惠券")
+                        .setExecution(
+                            Execution.newBuilder()
+                                .setType(ExectuionType.Branch)
+                                .addBranches(ConditionExecution.newBuilder()
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("{str: event.__stepName__} == \"优惠券\""))
+                                        .build())
+                                    .setNextStep("是否领取优惠券")
+                                    .build())
+                                .addBranches(ConditionExecution.newBuilder()
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("1!=1"))
+                                        .build())
+                                    .build())
+                        )
+                )
+                .addSteps(
+                    Step.newBuilder()
+                        .setName("是否领取优惠券")
+                        .setExecution(
+                            Execution.newBuilder()
+                                .setType(ExectuionType.Branch)
+                                .addBranches(ConditionExecution.newBuilder()
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("{str: event.eventName} == \"领取优惠券\""))
+                                        .build())
+                                    .build())
+                                .addBranches(ConditionExecution.newBuilder()
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("1!=1"))
+                                        .build())
+                                    .build())
+                        )
+                );  // 省略后续的流程步骤
+            workflowBuilder.setStopAt(new Date().getTime() + 10 * 60 * 60);
+            final RoaringBitmap bitmap = new RoaringBitmap();
+            IntStream.range(1, 10001).forEach(e -> bitmap.add(e));
+            c.startInstance(workflowBuilder.build(), bitmap, 2).get().checkError();
+        } else {
+            for (int i = 0; i < 5000; i++) {
+                System.out.println(i);
+                c.addEvent(1, i, "__stepName__".getBytes(), "优惠券".getBytes()).get().checkError();
+            }
+        }
+    }
+
+    public static void main3(String[] args) throws ExecutionException, InterruptedException, IOException {
         Client c = new Builder().rpcTimeout(5000).addServer("172.18.85.9:8081").build();
         int n = 2;
         if (n == 1) {

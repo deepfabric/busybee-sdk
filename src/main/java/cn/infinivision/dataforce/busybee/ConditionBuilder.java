@@ -21,7 +21,6 @@ public class ConditionBuilder {
     private ConditionGroup.Builder builder = ConditionGroup.newBuilder();
 
     private ConditionBuilder() {
-
     }
 
     /**
@@ -163,6 +162,7 @@ public class ConditionBuilder {
      * @return condition groups
      */
     public List<ConditionGroup> build() {
+        groups.add(builder.build());
         return groups;
     }
 }
