@@ -132,12 +132,12 @@ public class Client implements Closeable {
      * @param batch value
      * @return Future Result, use {@link Result#unsignedIntRangeResponse()} to get a unsigned int range response
      */
-    public Future<Result> allocId(byte[] key, long batch) {
+    public Future<Result> allocId(String key, long batch) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.AllocID)
             .setAllocID(AllocIDRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .setBatch(batch)
                 .build())
             .build();
@@ -151,12 +151,12 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> resetId(byte[] key) {
+    public Future<Result> resetId(String key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.ResetID)
             .setResetID(ResetIDRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .build())
             .build();
 
@@ -169,7 +169,7 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#unsignedIntResponse()} to get a unsigned int response
      */
-    public Future<Result> currentId(byte[] key) {
+    public Future<Result> currentId(String key) {
         return get(key);
     }
 
@@ -180,12 +180,12 @@ public class Client implements Closeable {
      * @param startWith start value
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> resetId(byte[] key, long startWith) {
+    public Future<Result> resetId(String key, long startWith) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.ResetID)
             .setResetID(ResetIDRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .setStartWith(startWith)
                 .build())
             .build();
@@ -200,7 +200,7 @@ public class Client implements Closeable {
      * @param value value
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> set(byte[] key, byte[] value) {
+    public Future<Result> set(String key, byte[] value) {
         return set(key, value, 0);
     }
 
@@ -212,12 +212,12 @@ public class Client implements Closeable {
      * @param ttl ttl in seconds
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> set(byte[] key, byte[] value, long ttl) {
+    public Future<Result> set(String key, byte[] value, long ttl) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.Set)
             .setSet(SetRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .setValue(ByteString.copyFrom(value))
                 .setTtl(ttl)
                 .build())
@@ -234,12 +234,12 @@ public class Client implements Closeable {
      * @param groups conditions
      * @return Future Result, use {@link Result#booleanResponse()} to check the operation succeed
      */
-    public Future<Result> setIf(byte[] key, byte[] value, long ttl, List<ConditionGroup> groups) {
+    public Future<Result> setIf(String key, byte[] value, long ttl, List<ConditionGroup> groups) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.SetIf)
             .setSetIf(SetIfRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .setValue(ByteString.copyFrom(value))
                 .setTtl(ttl)
                 .addAllConditions(groups)
@@ -254,7 +254,19 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#bytesResponse()} to get []byte result
      */
-    public Future<Result> get(byte[] key) {
+    public Future<Result> get(String key) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.Get)
+            .setGet(GetRequest.newBuilder()
+                .setKey(ByteString.copyFromUtf8(key))
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    private Future<Result> get(byte[] key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.Get)
@@ -272,12 +284,12 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#booleanResponse()} to check has a error
      */
-    public Future<Result> delete(byte[] key) {
+    public Future<Result> delete(String key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.Delete)
             .setDelete(DeleteRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .build())
             .build();
 
@@ -291,12 +303,12 @@ public class Client implements Closeable {
      * @param groups conditions
      * @return Future Result, use {@link Result#checkError} to check the operation succeed
      */
-    public Future<Result> deleteIf(byte[] key, List<ConditionGroup> groups) {
+    public Future<Result> deleteIf(String key, List<ConditionGroup> groups) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.DeleteIf)
             .setDeleteIf(DeleteIfRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .addAllConditions(groups)
                 .build())
             .build();
@@ -481,7 +493,7 @@ public class Client implements Closeable {
      * @param bm bitmap
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> setBitmap(byte[] key, RoaringBitmap bm) {
+    public Future<Result> setBitmap(String key, RoaringBitmap bm) {
         byte[] value = new byte[bm.serializedSizeInBytes()];
         bm.serialize(ByteBuffer.wrap(value));
         return set(key, value);
@@ -493,7 +505,7 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#bitmapResponse()} to get bitmap result
      */
-    public Future<Result> getBitmap(byte[] key) {
+    public Future<Result> getBitmap(String key) {
         return get(key);
     }
 
@@ -504,12 +516,12 @@ public class Client implements Closeable {
      * @param values uint32 array
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> addToBitmap(byte[] key, Long... values) {
+    public Future<Result> addToBitmap(String key, Long... values) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.BMCreate)
             .setBmCreate(BMCreateRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .addAllValue(Arrays.asList(values))
                 .build())
             .build();
@@ -524,12 +536,12 @@ public class Client implements Closeable {
      * @param values int array
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> removeFromBitmap(byte[] key, Long... values) {
+    public Future<Result> removeFromBitmap(String key, Long... values) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.BMRemove)
             .setBmRemove(BMRemoveRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .addAllValue(Arrays.asList(values))
                 .build())
             .build();
@@ -543,12 +555,12 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> clearBitmap(byte[] key) {
+    public Future<Result> clearBitmap(String key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.BMClear)
             .setBmClear(BMClearRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .build())
             .build();
 
@@ -561,12 +573,12 @@ public class Client implements Closeable {
      * @param key key
      * @return Future Result, use {@link Result#longResponse} to get long result
      */
-    public Future<Result> countOfBitmap(byte[] key) {
+    public Future<Result> countOfBitmap(String key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.BMCount)
             .setBmCount(BMCountRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .build())
             .build();
 
@@ -580,12 +592,12 @@ public class Client implements Closeable {
      * @param values value
      * @return Future Result, use {@link Result#booleanResponse()} to get boolean result
      */
-    public Future<Result> inBitmap(byte[] key, Long... values) {
+    public Future<Result> inBitmap(String key, Long... values) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.BMContains)
             .setBmContains(BMContainsRequest.newBuilder()
-                .setKey(ByteString.copyFrom(key))
+                .setKey(ByteString.copyFromUtf8(key))
                 .addAllValue(Arrays.asList(values))
                 .build())
             .build();
@@ -1226,14 +1238,14 @@ public class Client implements Closeable {
 
     public static void keys(Client c) throws ExecutionException, InterruptedException {
         for (int i = 0; i < 10; i++) {
-            c.set(("key0" + i).getBytes(), ("value" + i).getBytes()).get().checkError();
+            c.set(("key0" + i), ("value" + i).getBytes()).get().checkError();
         }
 
         System.out.println(c.scanKeys("key0".getBytes(), "key1".getBytes(), 10).get().bytesListResponse());
     }
 
     public static void alloc(Client c) throws ExecutionException, InterruptedException {
-        byte[] key = "key-id".getBytes();
+        String key = "key-id";
 
         System.out.println(c.currentId(key).get().unsignedIntResponse());
         c.allocId(key, 10).get().checkError();
@@ -1253,14 +1265,14 @@ public class Client implements Closeable {
     }
 
     public static void bitmap(Client c) throws ExecutionException, InterruptedException {
-        byte[] key = "key1".getBytes();
+        String key = "key1";
 
         c.addToBitmap(key, 1L, 2L, 3L, 4L, 5L).get().checkError();
         System.out.println(c.getBitmap(key).get().bitmapResponse().getCardinality());
     }
 
     public static void workflowWithBigBM(Client c) throws ExecutionException, InterruptedException {
-        byte[] key = "bm1".getBytes();
+        String key = "bm1";
         Long[] values = new Long[40000];
         int index = 0;
         for (long i = 0; i < 400000000L; i++) {

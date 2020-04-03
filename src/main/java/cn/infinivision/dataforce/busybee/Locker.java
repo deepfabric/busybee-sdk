@@ -84,7 +84,7 @@ class Locker implements Lock {
         stop(id);
 
         try {
-            if (client.deleteIf(resource.getBytes(),
+            if (client.deleteIf(resource,
                 ConditionBuilder.newBuilder()
                     .exist()
                     .equal(id.getBytes())
@@ -130,7 +130,7 @@ class Locker implements Lock {
     }
 
     private boolean doLock(String id) throws ExecutionException, InterruptedException {
-        return client.setIf(resource.getBytes(), id.getBytes(), lease,
+        return client.setIf(resource, id.getBytes(), lease,
             ConditionBuilder.newBuilder()
                 .notExist()
                 .or()
