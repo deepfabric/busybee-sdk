@@ -17,10 +17,10 @@ import java.util.concurrent.ScheduledExecutorService;
 class Options {
     long fetchCount;
     long fetchBytes;
-    long consumerConcurrency;
     int ioWorkers;
     int workers;
     long rpcTimeoutMS;
+    int fetchHeartbeat;
     int fetchSchedulers;
     String defaultMappingType;
     List<String> servers = new ArrayList<>();
@@ -43,8 +43,12 @@ class Options {
             fetchCount = 16L;
         }
 
-        if (consumerConcurrency == 0) {
-            consumerConcurrency = 4;
+        if (fetchBytes == 0) {
+            fetchBytes = 1024 * 1024;
+        }
+
+        if (fetchHeartbeat == 0) {
+            fetchHeartbeat = 5;
         }
 
         if (fetchSchedulers == 0) {

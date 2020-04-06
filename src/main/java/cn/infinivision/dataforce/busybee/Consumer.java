@@ -28,7 +28,8 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author fagongzi
  */
-@Slf4j(topic = "busybee") class Consumer {
+@Slf4j(topic = "busybee")
+class Consumer {
     private AtomicBoolean stopped = new AtomicBoolean(false);
     private Client client;
     private long tenantId;
@@ -138,6 +139,7 @@ import lombok.extern.slf4j.Slf4j;
         private int partition;
         private long version;
         private long offset;
+        private boolean doHB;
 
         PartitionFetcher(Consumer consumer, int index, int partition, long version) {
             this.consumer = consumer;
@@ -195,6 +197,28 @@ import lombok.extern.slf4j.Slf4j;
                 .build(), this::onResponse, this::onError);
         }
 
+        void doHeartbeat() {
+            if (stopped.get()) {
+                return;
+            }
+
+            if (doHB) {
+                consumer.client.transport.sent(Request.newBuilder()
+                    .setId(consumer.client.id.incrementAndGet())
+                    .setType(Type.FetchNotify)
+                    .setQueueFetch(QueueFetchRequest.newBuilder()
+                        .setId(consumer.tenantId)
+                        .setGroup(ByteString.copyFromUtf8(consumer.group))
+                        .setConsumer(index)
+                        .setVersion(version)
+                        .setPartition(partition)
+                        .setCompletedOffset(offset)
+                        .setCount(0)
+                        .build())
+                    .build(), resp -> retryHB(), cause -> retryHB());
+            }
+        }
+
         void onResponse(Response resp) {
             if (resp.hasError() &&
                 null != resp.getError().getError() &&
@@ -206,7 +230,7 @@ import lombok.extern.slf4j.Slf4j;
                     partition,
                     offset,
                     resp.getError().getError());
-                retryFetch();
+                retryFetch(consumer.client.opts.fetchHeartbeat);
                 return;
             }
 
@@ -233,16 +257,28 @@ import lombok.extern.slf4j.Slf4j;
                 partition,
                 offset,
                 cause);
-            retryFetch();
+            retryFetch(consumer.client.opts.fetchHeartbeat);
         }
 
-        void retryFetch() {
-            consumer.schedulers.schedule(this::doFetch, 1, TimeUnit.SECONDS);
+        void retryFetch(long after) {
+            consumer.schedulers.schedule(this::doFetch,
+                after, TimeUnit.SECONDS);
+        }
+
+        void retryHB() {
+            consumer.schedulers.schedule(this::doHeartbeat,
+                consumer.client.opts.fetchHeartbeat, TimeUnit.SECONDS);
         }
 
         void onFetch(QueueFetchResponse resp) {
+            if (resp.getItemsCount() == 0) {
+                retryFetch(consumer.client.opts.fetchHeartbeat);
+                return;
+            }
+
+            startHB();
             consumer.client.opts.bizService.execute(() -> {
-                long after = 1;
+                long after = consumer.client.opts.fetchHeartbeat;
                 try {
                     List<ByteString> items = resp.getItemsList();
                     if (items.size() > 0) {
@@ -267,10 +303,21 @@ import lombok.extern.slf4j.Slf4j;
                 } catch (Throwable cause) {
                     log.error(consumer.tenantId + "/" + consumer.group + "/v" + version + " fetch from partition " + partition + " at " + offset + " failed",
                         cause);
+                } finally {
+                    stopHB();
                 }
 
-                consumer.schedulers.schedule(this::doFetch, after, TimeUnit.SECONDS);
+                retryFetch(after);
             });
+        }
+
+        void startHB() {
+            doHB = true;
+            retryHB();
+        }
+
+        void stopHB() {
+            doHB = false;
         }
     }
 }

@@ -79,18 +79,6 @@ public class Builder {
     }
 
     /**
-     * how many processor can concurrency consumer the notifies. If we fetch 100 notifies, and this value is 10, so 10
-     * process can concurrent execute, and 10 notifies per process
-     *
-     * @param value batch size
-     * @return Builder
-     */
-    public Builder consumerConcurrency(long value) {
-        this.opts.consumerConcurrency = value;
-        return this;
-    }
-
-    /**
      * tenant notify queue fetch scheduler threads, default is 1
      *
      * @param value value
@@ -98,6 +86,17 @@ public class Builder {
      */
     public Builder fetchSchedulers(int value) {
         this.opts.fetchSchedulers = value;
+        return this;
+    }
+
+    /**
+     * tenant notify queue fetch heartbeat interval seconds, default is 5
+     *
+     * @param value value
+     * @return Builder
+     */
+    public Builder fetchHeartbeat(int value) {
+        this.opts.fetchHeartbeat = value;
         return this;
     }
 
