@@ -24,4 +24,9 @@ public interface BMCreateRequestOrBuilder extends
    * <code>repeated uint64 value = 2;</code>
    */
   long getValue(int index);
+
+  /**
+   * <code>uint64 mod = 3;</code>
+   */
+  long getMod();
 }

@@ -68,7 +68,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -523,6 +522,30 @@ public class Client implements Closeable {
             .setBmCreate(BMCreateRequest.newBuilder()
                 .setKey(ByteString.copyFromUtf8(key))
                 .addAllValue(Arrays.asList(values))
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * add ints to a bitmap
+     *
+     * @param key key
+     * @param mod [from, to] which mod this == 0
+     * @param from from, include
+     * @param to to, include
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> addToBitmap(String key, long mod, long from, long to) {
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.BMCreate)
+            .setBmCreate(BMCreateRequest.newBuilder()
+                .setKey(ByteString.copyFromUtf8(key))
+                .setMod(mod)
+                .addValue(from)
+                .addValue(to)
                 .build())
             .build();
 
@@ -1039,50 +1062,135 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main(String[] args) {
-        Client c1 = new Builder().rpcTimeout(5000).addServer("172.18.80.9:8081",
-            "172.18.80.9:8082",
-            "172.18.80.9:8083").build();
+    public static void main6(String[] args) throws ExecutionException, InterruptedException {
+        Client c = new Builder().rpcTimeout(5000).addServer("172.19.0.106:8091").build();
 
-        Lock lock1 = c1.getResourceLock("res1", 5);
-        Lock lock2 = c1.getResourceLock("res1", 5);
-
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.execute(() -> {
-            for (; ; ) {
-                lock1.lock();
-                log.info("###################### lock1 get lock");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        RoaringBitmap bm = new RoaringBitmap();
+        c.watchNotify(1, "ccccc1", (id, nt) -> {
+            if (nt.getToStep().startsWith("2515196f-aa8e-46d6-ade2-5b59862649f0")) {
+                if (nt.getUserID() > 0) {
+                    bm.add((int) nt.getUserID());
+                } else {
+                    RoaringBitmap bm2 = new RoaringBitmap();
+                    try {
+                        bm2.deserialize(nt.getCrowd().asReadOnlyByteBuffer());
+                        bm.or(bm2);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-                lock1.unlock();
-            }
-        });
 
-        executorService.execute(() -> {
-            for (; ; ) {
-                lock2.lock();
-                log.info("###################### lock2 get lock");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                lock2.unlock();
+                System.out.println("############################# count: " + bm.getCardinality());
             }
         });
     }
 
-    public static void main5(String[] args) {
-        Client c = new Builder().rpcTimeout(5000).fetchSize(500).addServer("172.18.80.9:8081",
-            "172.18.80.9:8082",
-            "172.18.80.9:8083",
-            "172.18.80.9:8084").build();
+    public static void main11(String[] args) {
+        final RoaringBitmap bm = new RoaringBitmap();
+        for (int i = 0; i < 400000000L; i++) {
+            if (i % 3 == 0) {
+                bm.add(i);
+            }
+        }
 
-        c.watchNotifyWithBatch(1, "a3", (id, nt) -> log.info("{}/{}:  {}",
-            id.getPartition(), id.getOffset(), nt.size()));
+        System.out.println(bm.getCardinality());
+        System.out.println(bm.serializedSizeInBytes());
+    }
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        Client c = new Builder().rpcTimeout(15000).fetchSize(1).addServer("172.31.163.34:8081").build();
+        int n = 2;
+        if (n == 1) {
+            c.initTenant(Tenant.newBuilder()
+                .setId(1)
+                .setInput(TenantQueue.newBuilder().setPartitions(50).setConsumerTimeout(15).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(50).setConsumerTimeout(15).build())
+                .build()).get().checkError();
+            System.exit(0);
+        } else if (n == 2) {
+            String key = "bm1";
+            c.addToBitmap(key, 7, 0,400000000 ).get().checkError();
+            Workflow value = Workflow
+                .newBuilder()
+                .setId(1)
+                .setTenantID(1)
+                .setName("test")
+                .addSteps(
+                    Step.newBuilder()
+                        .setName("step_start")
+                        .setExecution(
+                            Execution.newBuilder()
+                                .setType(ExectuionType.Timer)
+                                .setTimer(TimerExecution.newBuilder()
+                                    .setUseStepCrowdToDrive(true)
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("1==1"))
+                                        .build())
+                                    .setCron("0 */1 * * * *")
+                                    .setNextStep("step_end")
+                                    .build())))
+                .addSteps(Step.newBuilder()
+                    .setName("step_end")
+                    .setExecution(
+                        Execution.newBuilder()
+                            .setType(ExectuionType.Direct)
+                            .setDirect(DirectExecution.newBuilder().build())
+                            .build())
+                    .build())
+                .build();
+
+            c.startInstanceWithKV(value, key, 256).get().checkError();
+            System.exit(0);
+        } else {
+            c.stopInstance(1).get().checkError();
+            Thread.sleep(10000);
+
+            Workflow value = Workflow
+                .newBuilder()
+                .setId(2)
+                .setTenantID(1)
+                .setName("test")
+                .addSteps(
+                    Step.newBuilder()
+                        .setName("step_start")
+                        .setExecution(
+                            Execution.newBuilder()
+                                .setType(ExectuionType.Timer)
+                                .setTimer(TimerExecution.newBuilder()
+                                    .setUseStepCrowdToDrive(true)
+                                    .setCondition(Expr.newBuilder()
+                                        .setType(ExprResultType.BoolResult)
+                                        .setValue(ByteString.copyFromUtf8("1==1"))
+                                        .build())
+                                    .setCron("0 */1 * * * *")
+                                    .setNextStep("step_end")
+                                    .build())))
+                .addSteps(Step.newBuilder()
+                    .setName("step_end")
+                    .setExecution(
+                        Execution.newBuilder()
+                            .setType(ExectuionType.Direct)
+                            .setDirect(DirectExecution.newBuilder().build())
+                            .build())
+                    .build())
+                .build();
+
+            final RoaringBitmap bitmap = new RoaringBitmap();
+            IntStream.range(1, 10001).forEach(e -> bitmap.add(e));
+            c.startInstance(value, bitmap, 16).get().checkError();
+            System.exit(0);
+        }
+
+//        c.watchNotify(1, "g1", (id, nt) -> {
+//            log.info("{}/{}: {}",
+//                id.getPartition(), id.getOffset(), nt.toString());
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
     public static void main4(String[] args) throws ExecutionException, InterruptedException {
@@ -1091,8 +1199,8 @@ public class Client implements Closeable {
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
-                .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
+                .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(5).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(5).build())
                 .build()).get().checkError();
             Thread.sleep(20000);
 

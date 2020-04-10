@@ -183,12 +183,14 @@ message DeleteRequest {
 message BMCreateRequest {
     bytes           key   = 1;
     repeated uint64 value = 2;
+    uint64          mod   = 3;
 }
 
 // BMAddRequest add some uint64 to a bitmap
 message BMAddRequest {
     bytes           key   = 1;
     repeated uint64 value = 2;
+     uint64          mod   = 3;
 }
 
 // BMRemoveRequest remove some uint64 from a bitmap

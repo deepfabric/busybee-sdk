@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
   private BMCreateRequest() {
     key_ = com.google.protobuf.ByteString.EMPTY;
     value_ = java.util.Collections.emptyList();
+    mod_ = 0L;
   }
 
   @java.lang.Override
@@ -79,6 +80,11 @@ private static final long serialVersionUID = 0L;
               value_.add(input.readUInt64());
             }
             input.popLimit(limit);
+            break;
+          }
+          case 24: {
+
+            mod_ = input.readUInt64();
             break;
           }
         }
@@ -141,6 +147,15 @@ private static final long serialVersionUID = 0L;
   }
   private int valueMemoizedSerializedSize = -1;
 
+  public static final int MOD_FIELD_NUMBER = 3;
+  private long mod_;
+  /**
+   * <code>uint64 mod = 3;</code>
+   */
+  public long getMod() {
+    return mod_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -163,6 +178,9 @@ private static final long serialVersionUID = 0L;
     }
     for (int i = 0; i < value_.size(); i++) {
       output.writeUInt64NoTag(value_.get(i));
+    }
+    if (mod_ != 0L) {
+      output.writeUInt64(3, mod_);
     }
     unknownFields.writeTo(output);
   }
@@ -190,6 +208,10 @@ private static final long serialVersionUID = 0L;
       }
       valueMemoizedSerializedSize = dataSize;
     }
+    if (mod_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(3, mod_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -210,6 +232,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getKey());
     result = result && getValueList()
         .equals(other.getValueList());
+    result = result && (getMod()
+        == other.getMod());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -227,6 +251,9 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + VALUE_FIELD_NUMBER;
       hash = (53 * hash) + getValueList().hashCode();
     }
+    hash = (37 * hash) + MOD_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getMod());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -364,6 +391,8 @@ private static final long serialVersionUID = 0L;
 
       value_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000002);
+      mod_ = 0L;
+
       return this;
     }
 
@@ -394,6 +423,7 @@ private static final long serialVersionUID = 0L;
         bitField0_ = (bitField0_ & ~0x00000002);
       }
       result.value_ = value_;
+      result.mod_ = mod_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -448,6 +478,9 @@ private static final long serialVersionUID = 0L;
           value_.addAll(other.value_);
         }
         onChanged();
+      }
+      if (other.getMod() != 0L) {
+        setMod(other.getMod());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -568,6 +601,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearValue() {
       value_ = java.util.Collections.emptyList();
       bitField0_ = (bitField0_ & ~0x00000002);
+      onChanged();
+      return this;
+    }
+
+    private long mod_ ;
+    /**
+     * <code>uint64 mod = 3;</code>
+     */
+    public long getMod() {
+      return mod_;
+    }
+    /**
+     * <code>uint64 mod = 3;</code>
+     */
+    public Builder setMod(long value) {
+      
+      mod_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 mod = 3;</code>
+     */
+    public Builder clearMod() {
+      
+      mod_ = 0L;
       onChanged();
       return this;
     }
