@@ -1098,18 +1098,17 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(15000).fetchSize(1).addServer("172.31.163.34:8081").build();
+        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.31.162.52:8081").build();
         int n = 2;
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setInput(TenantQueue.newBuilder().setPartitions(50).setConsumerTimeout(15).build())
-                .setOutput(TenantQueue.newBuilder().setPartitions(50).setConsumerTimeout(15).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(50).setConsumerTimeout(60).build())
                 .build()).get().checkError();
             System.exit(0);
         } else if (n == 2) {
             String key = "bm1";
-            c.addToBitmap(key, 7, 0,400000000 ).get().checkError();
+            c.addToBitmap(key, 7, 0, 400000000).get().checkError();
             Workflow value = Workflow
                 .newBuilder()
                 .setId(1)
@@ -1199,7 +1198,6 @@ public class Client implements Closeable {
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(5).build())
                 .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(5).build())
                 .build()).get().checkError();
             Thread.sleep(20000);
@@ -1285,7 +1283,6 @@ public class Client implements Closeable {
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
                 .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
                 .build()).get().checkError();
             Thread.sleep(20000);
@@ -1461,7 +1458,6 @@ public class Client implements Closeable {
 
         c.initTenant(Tenant.newBuilder()
             .setId(1)
-            .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .build()).get().checkError();
         Thread.sleep(15000);
@@ -1556,7 +1552,6 @@ public class Client implements Closeable {
     public static void workflow(Client c) throws ExecutionException, InterruptedException {
         c.initTenant(Tenant.newBuilder()
             .setId(1)
-            .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .build()).get().checkError();
         Thread.sleep(15000);
@@ -1697,7 +1692,6 @@ public class Client implements Closeable {
     public static void timerWorkflow(Client c) throws ExecutionException, InterruptedException {
         c.initTenant(Tenant.newBuilder()
             .setId(1)
-            .setInput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .build()).get().checkError();
         Thread.sleep(15000);

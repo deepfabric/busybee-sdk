@@ -23,8 +23,7 @@ message TenantQueue {
 // Tenant tenant metadata
 message Tenant {
     uint64      id                = 1;
-    TenantQueue input    = 2;
-    TenantQueue output  = 3;
+    TenantQueue output  = 2;
 }
 
 // WorkflowInstanceState workflow instance state
