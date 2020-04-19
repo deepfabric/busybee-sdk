@@ -61,19 +61,6 @@ private static final long serialVersionUID = 0L;
           }
           case 18: {
             cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder subBuilder = null;
-            if (input_ != null) {
-              subBuilder = input_.toBuilder();
-            }
-            input_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(input_);
-              input_ = subBuilder.buildPartial();
-            }
-
-            break;
-          }
-          case 26: {
-            cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder subBuilder = null;
             if (output_ != null) {
               subBuilder = output_.toBuilder();
             }
@@ -118,43 +105,22 @@ private static final long serialVersionUID = 0L;
     return id_;
   }
 
-  public static final int INPUT_FIELD_NUMBER = 2;
-  private cn.infinivision.dataforce.busybee.pb.meta.TenantQueue input_;
-  /**
-   * <code>.metapb.TenantQueue input = 2;</code>
-   */
-  public boolean hasInput() {
-    return input_ != null;
-  }
-  /**
-   * <code>.metapb.TenantQueue input = 2;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.TenantQueue getInput() {
-    return input_ == null ? cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.getDefaultInstance() : input_;
-  }
-  /**
-   * <code>.metapb.TenantQueue input = 2;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder getInputOrBuilder() {
-    return getInput();
-  }
-
-  public static final int OUTPUT_FIELD_NUMBER = 3;
+  public static final int OUTPUT_FIELD_NUMBER = 2;
   private cn.infinivision.dataforce.busybee.pb.meta.TenantQueue output_;
   /**
-   * <code>.metapb.TenantQueue output = 3;</code>
+   * <code>.metapb.TenantQueue output = 2;</code>
    */
   public boolean hasOutput() {
     return output_ != null;
   }
   /**
-   * <code>.metapb.TenantQueue output = 3;</code>
+   * <code>.metapb.TenantQueue output = 2;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.meta.TenantQueue getOutput() {
     return output_ == null ? cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.getDefaultInstance() : output_;
   }
   /**
-   * <code>.metapb.TenantQueue output = 3;</code>
+   * <code>.metapb.TenantQueue output = 2;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder getOutputOrBuilder() {
     return getOutput();
@@ -175,11 +141,8 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0L) {
       output.writeUInt64(1, id_);
     }
-    if (input_ != null) {
-      output.writeMessage(2, getInput());
-    }
     if (output_ != null) {
-      output.writeMessage(3, getOutput());
+      output.writeMessage(2, getOutput());
     }
     unknownFields.writeTo(output);
   }
@@ -193,13 +156,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(1, id_);
     }
-    if (input_ != null) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(2, getInput());
-    }
     if (output_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(3, getOutput());
+        .computeMessageSize(2, getOutput());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -219,11 +178,6 @@ private static final long serialVersionUID = 0L;
     boolean result = true;
     result = result && (getId()
         == other.getId());
-    result = result && (hasInput() == other.hasInput());
-    if (hasInput()) {
-      result = result && getInput()
-          .equals(other.getInput());
-    }
     result = result && (hasOutput() == other.hasOutput());
     if (hasOutput()) {
       result = result && getOutput()
@@ -243,10 +197,6 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getId());
-    if (hasInput()) {
-      hash = (37 * hash) + INPUT_FIELD_NUMBER;
-      hash = (53 * hash) + getInput().hashCode();
-    }
     if (hasOutput()) {
       hash = (37 * hash) + OUTPUT_FIELD_NUMBER;
       hash = (53 * hash) + getOutput().hashCode();
@@ -386,12 +336,6 @@ private static final long serialVersionUID = 0L;
       super.clear();
       id_ = 0L;
 
-      if (inputBuilder_ == null) {
-        input_ = null;
-      } else {
-        input_ = null;
-        inputBuilder_ = null;
-      }
       if (outputBuilder_ == null) {
         output_ = null;
       } else {
@@ -421,11 +365,6 @@ private static final long serialVersionUID = 0L;
     public cn.infinivision.dataforce.busybee.pb.meta.Tenant buildPartial() {
       cn.infinivision.dataforce.busybee.pb.meta.Tenant result = new cn.infinivision.dataforce.busybee.pb.meta.Tenant(this);
       result.id_ = id_;
-      if (inputBuilder_ == null) {
-        result.input_ = input_;
-      } else {
-        result.input_ = inputBuilder_.build();
-      }
       if (outputBuilder_ == null) {
         result.output_ = output_;
       } else {
@@ -474,9 +413,6 @@ private static final long serialVersionUID = 0L;
       if (other == cn.infinivision.dataforce.busybee.pb.meta.Tenant.getDefaultInstance()) return this;
       if (other.getId() != 0L) {
         setId(other.getId());
-      }
-      if (other.hasInput()) {
-        mergeInput(other.getInput());
       }
       if (other.hasOutput()) {
         mergeOutput(other.getOutput());
@@ -534,134 +470,17 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private cn.infinivision.dataforce.busybee.pb.meta.TenantQueue input_ = null;
-    private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.TenantQueue, cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder> inputBuilder_;
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public boolean hasInput() {
-      return inputBuilder_ != null || input_ != null;
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.TenantQueue getInput() {
-      if (inputBuilder_ == null) {
-        return input_ == null ? cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.getDefaultInstance() : input_;
-      } else {
-        return inputBuilder_.getMessage();
-      }
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public Builder setInput(cn.infinivision.dataforce.busybee.pb.meta.TenantQueue value) {
-      if (inputBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        input_ = value;
-        onChanged();
-      } else {
-        inputBuilder_.setMessage(value);
-      }
-
-      return this;
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public Builder setInput(
-        cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder builderForValue) {
-      if (inputBuilder_ == null) {
-        input_ = builderForValue.build();
-        onChanged();
-      } else {
-        inputBuilder_.setMessage(builderForValue.build());
-      }
-
-      return this;
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public Builder mergeInput(cn.infinivision.dataforce.busybee.pb.meta.TenantQueue value) {
-      if (inputBuilder_ == null) {
-        if (input_ != null) {
-          input_ =
-            cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.newBuilder(input_).mergeFrom(value).buildPartial();
-        } else {
-          input_ = value;
-        }
-        onChanged();
-      } else {
-        inputBuilder_.mergeFrom(value);
-      }
-
-      return this;
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public Builder clearInput() {
-      if (inputBuilder_ == null) {
-        input_ = null;
-        onChanged();
-      } else {
-        input_ = null;
-        inputBuilder_ = null;
-      }
-
-      return this;
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder getInputBuilder() {
-      
-      onChanged();
-      return getInputFieldBuilder().getBuilder();
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder getInputOrBuilder() {
-      if (inputBuilder_ != null) {
-        return inputBuilder_.getMessageOrBuilder();
-      } else {
-        return input_ == null ?
-            cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.getDefaultInstance() : input_;
-      }
-    }
-    /**
-     * <code>.metapb.TenantQueue input = 2;</code>
-     */
-    private com.google.protobuf.SingleFieldBuilderV3<
-        cn.infinivision.dataforce.busybee.pb.meta.TenantQueue, cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder> 
-        getInputFieldBuilder() {
-      if (inputBuilder_ == null) {
-        inputBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            cn.infinivision.dataforce.busybee.pb.meta.TenantQueue, cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder>(
-                getInput(),
-                getParentForChildren(),
-                isClean());
-        input_ = null;
-      }
-      return inputBuilder_;
-    }
-
     private cn.infinivision.dataforce.busybee.pb.meta.TenantQueue output_ = null;
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.meta.TenantQueue, cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder> outputBuilder_;
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public boolean hasOutput() {
       return outputBuilder_ != null || output_ != null;
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.TenantQueue getOutput() {
       if (outputBuilder_ == null) {
@@ -671,7 +490,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public Builder setOutput(cn.infinivision.dataforce.busybee.pb.meta.TenantQueue value) {
       if (outputBuilder_ == null) {
@@ -687,7 +506,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public Builder setOutput(
         cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder builderForValue) {
@@ -701,7 +520,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public Builder mergeOutput(cn.infinivision.dataforce.busybee.pb.meta.TenantQueue value) {
       if (outputBuilder_ == null) {
@@ -719,7 +538,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public Builder clearOutput() {
       if (outputBuilder_ == null) {
@@ -733,7 +552,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder getOutputBuilder() {
       
@@ -741,7 +560,7 @@ private static final long serialVersionUID = 0L;
       return getOutputFieldBuilder().getBuilder();
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder getOutputOrBuilder() {
       if (outputBuilder_ != null) {
@@ -752,7 +571,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>.metapb.TenantQueue output = 3;</code>
+     * <code>.metapb.TenantQueue output = 2;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         cn.infinivision.dataforce.busybee.pb.meta.TenantQueue, cn.infinivision.dataforce.busybee.pb.meta.TenantQueue.Builder, cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder> 

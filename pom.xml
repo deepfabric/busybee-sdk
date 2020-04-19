@@ -58,7 +58,7 @@
             <dependency>
                 <groupId>ai-cloud.io</groupId>
                 <artifactId>tool-netty</artifactId>
-                <version>0.1.0-SNAPSHOT</version>
+                <version>0.1.0</version>
             </dependency>
 
             <dependency>

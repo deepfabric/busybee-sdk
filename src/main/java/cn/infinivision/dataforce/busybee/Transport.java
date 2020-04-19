@@ -85,7 +85,7 @@ import org.apache.commons.pool2.ObjectPool;
 
     void addConnector(String address) {
         Connector<MessageLite> conn = new ConnectorBuilder<MessageLite>(address)
-            .allowReconnect(true, 5)
+            .allowReconnect(true, 15)
             .channelAware(this)
             .codec(RPCCodec.DEFAULT)
             .executor(sharedExecutor)
@@ -149,6 +149,11 @@ import org.apache.commons.pool2.ObjectPool;
                             break;
                         }
                         log.error("{} not connected", conn);
+
+                        if (idx > 0 && idx % size == 0) {
+                            log.error("all servers not connected, retry later after 30s");
+                            Thread.sleep(30000);
+                        }
                     }
 
                     boolean failed = false;

@@ -1098,7 +1098,15 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.31.162.52:8081").build();
+        System.out.println("************************");
+        Client c = new Builder().rpcTimeout(5000).addServer("172.21.250.216:8081","172.21.250.216:8082").build();
+        long s = System.currentTimeMillis();
+        c.set("test", "value".getBytes()).get().checkError();
+        System.out.println(System.currentTimeMillis() - s);
+    }
+
+    public static void main13(String[] args) throws ExecutionException, InterruptedException {
+        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.31.163.17:8081").build();
         int n = 2;
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
@@ -1108,7 +1116,7 @@ public class Client implements Closeable {
             System.exit(0);
         } else if (n == 2) {
             String key = "bm1";
-            c.addToBitmap(key, 7, 0, 400000000).get().checkError();
+            c.addToBitmap(key, 1, 1, 100000000).get().checkError();
             Workflow value = Workflow
                 .newBuilder()
                 .setId(1)
@@ -1139,7 +1147,7 @@ public class Client implements Closeable {
                     .build())
                 .build();
 
-            c.startInstanceWithKV(value, key, 256).get().checkError();
+            c.startInstanceWithKV(value, key, 128).get().checkError();
             System.exit(0);
         } else {
             c.stopInstance(1).get().checkError();
