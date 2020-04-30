@@ -79,7 +79,7 @@ public enum ExprResultType
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(5);
+    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(6);
   }
 
   private static final ExprResultType[] VALUES = values();

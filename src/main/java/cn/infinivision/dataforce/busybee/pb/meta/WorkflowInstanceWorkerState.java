@@ -27,6 +27,7 @@ private static final long serialVersionUID = 0L;
     states_ = java.util.Collections.emptyList();
     version_ = 0L;
     stopAt_ = 0L;
+    runner_ = 0L;
   }
 
   @java.lang.Override
@@ -97,6 +98,11 @@ private static final long serialVersionUID = 0L;
           case 56: {
 
             stopAt_ = input.readInt64();
+            break;
+          }
+          case 64: {
+
+            runner_ = input.readUInt64();
             break;
           }
         }
@@ -216,6 +222,15 @@ private static final long serialVersionUID = 0L;
     return stopAt_;
   }
 
+  public static final int RUNNER_FIELD_NUMBER = 8;
+  private long runner_;
+  /**
+   * <code>uint64 runner = 8;</code>
+   */
+  public long getRunner() {
+    return runner_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -248,6 +263,9 @@ private static final long serialVersionUID = 0L;
     }
     if (stopAt_ != 0L) {
       output.writeInt64(7, stopAt_);
+    }
+    if (runner_ != 0L) {
+      output.writeUInt64(8, runner_);
     }
     unknownFields.writeTo(output);
   }
@@ -285,6 +303,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(7, stopAt_);
     }
+    if (runner_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(8, runner_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -315,6 +337,8 @@ private static final long serialVersionUID = 0L;
         == other.getVersion());
     result = result && (getStopAt()
         == other.getStopAt());
+    result = result && (getRunner()
+        == other.getRunner());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -347,6 +371,9 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + STOPAT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getStopAt());
+    hash = (37 * hash) + RUNNER_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getRunner());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -499,6 +526,8 @@ private static final long serialVersionUID = 0L;
 
       stopAt_ = 0L;
 
+      runner_ = 0L;
+
       return this;
     }
 
@@ -538,6 +567,7 @@ private static final long serialVersionUID = 0L;
       }
       result.version_ = version_;
       result.stopAt_ = stopAt_;
+      result.runner_ = runner_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -623,6 +653,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getStopAt() != 0L) {
         setStopAt(other.getStopAt());
+      }
+      if (other.getRunner() != 0L) {
+        setRunner(other.getRunner());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1044,6 +1077,32 @@ private static final long serialVersionUID = 0L;
     public Builder clearStopAt() {
       
       stopAt_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long runner_ ;
+    /**
+     * <code>uint64 runner = 8;</code>
+     */
+    public long getRunner() {
+      return runner_;
+    }
+    /**
+     * <code>uint64 runner = 8;</code>
+     */
+    public Builder setRunner(long value) {
+      
+      runner_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 runner = 8;</code>
+     */
+    public Builder clearRunner() {
+      
+      runner_ = 0L;
       onChanged();
       return this;
     }

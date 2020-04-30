@@ -3,8 +3,8 @@
 
 package cn.infinivision.dataforce.busybee.pb.rpc;
 
-public interface QueueJoinGroupRequestOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:rpcpb.QueueJoinGroupRequest)
+public interface QueueCommitRequestOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:rpcpb.QueueCommitRequest)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -18,17 +18,17 @@ public interface QueueJoinGroupRequestOrBuilder extends
   com.google.protobuf.ByteString getKey();
 
   /**
-   * <code>bytes group = 3;</code>
+   * <code>uint32 partition = 3;</code>
    */
-  com.google.protobuf.ByteString getGroup();
+  int getPartition();
 
   /**
-   * <code>bool rejoin = 4;</code>
+   * <code>bytes consumer = 4;</code>
    */
-  boolean getRejoin();
+  com.google.protobuf.ByteString getConsumer();
 
   /**
-   * <code>uint32 consumer = 5;</code>
+   * <code>uint64 completedOffset = 5;</code>
    */
-  int getConsumer();
+  long getCompletedOffset();
 }

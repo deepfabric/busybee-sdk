@@ -43,6 +43,8 @@ enum Type {
     QueueAdd              = 300;
     QueueFetch            = 301;
     QueueJoin             = 302;
+    QueueScan             = 303;
+    QueueCommit           = 304;
 
     TenantInit    = 400;
     UpdateMapping = 401;
@@ -121,6 +123,8 @@ message Request {
     GetIDSetRequest              getIDSet        = 33 ;
     SetIfRequest                 setIf           = 34 ;
     DeleteIfRequest              deleteIf        = 35 ;
+       QueueScanRequest             queueScan       = 36;
+        QueueCommitRequest           queueCommit     = 37;
 }
 
 // Response the busybee response
@@ -277,8 +281,11 @@ message UpdateInstanceStateShardRequest {
 
 // RemoveInstanceStateShardRequest remove a instance state
 message RemoveInstanceStateShardRequest {
-    uint64 workflowID = 1;
-    uint32 index      = 2;
+    uint64 tenantID   = 1;
+    uint64 workflowID = 2;
+    uint64 instanceID = 3;
+    uint32 index      = 4;
+    uint64 runner     = 5;
 }
 
 // InstanceCountStateRequest instance count state
@@ -326,6 +333,8 @@ message QueueJoinGroupRequest {
     uint64 id    = 1;
     bytes  key   = 2;
     bytes  group = 3;
+    bool   rejoin   = 4;
+    uint32 consumer = 5;
 }
 
 // QueueJoinGroupResponse queue join group response
@@ -347,6 +356,27 @@ message QueueFetchRequest {
     uint64 count           = 8;
     uint64 maxBytes        = 9;
 }
+
+// QueueScanRequest queue scan request
+message QueueScanRequest {
+    uint64 id              = 1;
+    bytes  key             = 2;
+    uint32 partition       = 3;
+    bytes  consumer        = 4;
+    uint64 completedOffset = 5;
+    uint64 count           = 6;
+    uint64 maxBytes        = 7;
+}
+
+// QueueCommitRequest queue commit completed offset
+message QueueCommitRequest {
+    uint64 id              = 1;
+    bytes  key             = 2;
+    uint32 partition       = 3;
+    bytes  consumer        = 4;
+    uint64 completedOffset = 5;
+}
+
 
 // QueueFetchResponse fetch response
 message QueueFetchResponse {

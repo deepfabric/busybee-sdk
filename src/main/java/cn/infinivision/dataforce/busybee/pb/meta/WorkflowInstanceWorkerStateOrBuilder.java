@@ -60,4 +60,9 @@ public interface WorkflowInstanceWorkerStateOrBuilder extends
    * <code>int64 stopAt = 7;</code>
    */
   long getStopAt();
+
+  /**
+   * <code>uint64 runner = 8;</code>
+   */
+  long getRunner();
 }

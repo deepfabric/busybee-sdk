@@ -24,6 +24,10 @@ public enum Group
    * <code>TenantOutputGroup = 2;</code>
    */
   TenantOutputGroup(2),
+  /**
+   * <code>TenantRunnerGroup = 3;</code>
+   */
+  TenantRunnerGroup(3),
   UNRECOGNIZED(-1),
   ;
 
@@ -39,6 +43,10 @@ public enum Group
    * <code>TenantOutputGroup = 2;</code>
    */
   public static final int TenantOutputGroup_VALUE = 2;
+  /**
+   * <code>TenantRunnerGroup = 3;</code>
+   */
+  public static final int TenantRunnerGroup_VALUE = 3;
 
 
   public final int getNumber() {
@@ -62,6 +70,7 @@ public enum Group
       case 0: return DefaultGroup;
       case 1: return TenantInputGroup;
       case 2: return TenantOutputGroup;
+      case 3: return TenantRunnerGroup;
       default: return null;
     }
   }
@@ -88,7 +97,7 @@ public enum Group
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(3);
+    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(4);
   }
 
   private static final Group[] VALUES = values();

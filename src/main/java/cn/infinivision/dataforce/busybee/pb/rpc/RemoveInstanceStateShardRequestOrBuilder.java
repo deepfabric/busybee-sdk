@@ -8,12 +8,27 @@ public interface RemoveInstanceStateShardRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>uint64 workflowID = 1;</code>
+   * <code>uint64 tenantID = 1;</code>
+   */
+  long getTenantID();
+
+  /**
+   * <code>uint64 workflowID = 2;</code>
    */
   long getWorkflowID();
 
   /**
-   * <code>uint32 index = 2;</code>
+   * <code>uint64 instanceID = 3;</code>
+   */
+  long getInstanceID();
+
+  /**
+   * <code>uint32 index = 4;</code>
    */
   int getIndex();
+
+  /**
+   * <code>uint64 runner = 5;</code>
+   */
+  long getRunner();
 }

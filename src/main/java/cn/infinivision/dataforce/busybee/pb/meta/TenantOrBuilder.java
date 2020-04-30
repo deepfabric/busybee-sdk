@@ -13,15 +13,33 @@ public interface TenantOrBuilder extends
   long getId();
 
   /**
-   * <code>.metapb.TenantQueue output = 2;</code>
+   * <code>.metapb.TenantQueue input = 2;</code>
+   */
+  boolean hasInput();
+  /**
+   * <code>.metapb.TenantQueue input = 2;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.TenantQueue getInput();
+  /**
+   * <code>.metapb.TenantQueue input = 2;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder getInputOrBuilder();
+
+  /**
+   * <code>.metapb.TenantQueue output = 3;</code>
    */
   boolean hasOutput();
   /**
-   * <code>.metapb.TenantQueue output = 2;</code>
+   * <code>.metapb.TenantQueue output = 3;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.TenantQueue getOutput();
   /**
-   * <code>.metapb.TenantQueue output = 2;</code>
+   * <code>.metapb.TenantQueue output = 3;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.TenantQueueOrBuilder getOutputOrBuilder();
+
+  /**
+   * <code>uint64 runners = 4;</code>
+   */
+  long getRunners();
 }

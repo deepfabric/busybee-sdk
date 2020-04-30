@@ -1097,26 +1097,27 @@ public class Client implements Closeable {
         System.out.println(bm.serializedSizeInBytes());
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        System.out.println("************************");
-        Client c = new Builder().rpcTimeout(5000).addServer("172.21.250.216:8081","172.21.250.216:8082").build();
-        long s = System.currentTimeMillis();
-        c.set("test", "value".getBytes()).get().checkError();
-        System.out.println(System.currentTimeMillis() - s);
+    public static void main13(String[] args) {
+        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.21.246.250:8081").build();
+        for (int i = 1; i <= 1000000; i++) {
+            c.addEvent(1, i);
+        }
     }
 
-    public static void main13(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.31.163.17:8081").build();
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.24.51.176:8081").build();
         int n = 2;
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setOutput(TenantQueue.newBuilder().setPartitions(50).setConsumerTimeout(60).build())
+                .setRunners(4)
+                .setInput(TenantQueue.newBuilder().setPartitions(4).setConsumerTimeout(60).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(1).setConsumerTimeout(60).build())
                 .build()).get().checkError();
             System.exit(0);
         } else if (n == 2) {
             String key = "bm1";
-            c.addToBitmap(key, 1, 1, 100000000).get().checkError();
+            c.addToBitmap(key, 1, 1, 10000000).get().checkError();
             Workflow value = Workflow
                 .newBuilder()
                 .setId(1)
@@ -1127,14 +1128,13 @@ public class Client implements Closeable {
                         .setName("step_start")
                         .setExecution(
                             Execution.newBuilder()
-                                .setType(ExectuionType.Timer)
-                                .setTimer(TimerExecution.newBuilder()
-                                    .setUseStepCrowdToDrive(true)
-                                    .setCondition(Expr.newBuilder()
-                                        .setType(ExprResultType.BoolResult)
-                                        .setValue(ByteString.copyFromUtf8("1==1"))
-                                        .build())
-                                    .setCron("0 */1 * * * *")
+                                .setType(ExectuionType.Branch)
+                                .addBranches(ConditionExecution.newBuilder()
+                                    .setCondition(Expr.newBuilder().setValue(ByteString.copyFromUtf8("{num: dyna.kv_%s.event.uid} == 1")).build())
+                                    .setNextStep("step_end")
+                                    .build())
+                                .addBranches(ConditionExecution.newBuilder()
+                                    .setCondition(Expr.newBuilder().setValue(ByteString.copyFromUtf8("1 == 1")).build())
                                     .setNextStep("step_end")
                                     .build())))
                 .addSteps(Step.newBuilder()
@@ -1147,8 +1147,16 @@ public class Client implements Closeable {
                     .build())
                 .build();
 
-            c.startInstanceWithKV(value, key, 128).get().checkError();
+//            c.updateWorkflow(value).get().checkError();
+            c.startInstanceWithKV(value, key, 4).get().checkError();
             System.exit(0);
+        } else if (n == 3) {
+            for (int i = 1; i <= 40000; i++) {
+                c.addEvent(1, i);
+                if (i > 0 && i % 20000 == 0) {
+                    Thread.sleep(2000);
+                }
+            }
         } else {
             c.stopInstance(1).get().checkError();
             Thread.sleep(10000);

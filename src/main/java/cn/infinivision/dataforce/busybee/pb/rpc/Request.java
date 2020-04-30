@@ -496,6 +496,32 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 290: {
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.Builder subBuilder = null;
+            if (queueScan_ != null) {
+              subBuilder = queueScan_.toBuilder();
+            }
+            queueScan_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(queueScan_);
+              queueScan_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
+          case 298: {
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.Builder subBuilder = null;
+            if (queueCommit_ != null) {
+              subBuilder = queueCommit_.toBuilder();
+            }
+            queueCommit_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(queueCommit_);
+              queueCommit_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1238,6 +1264,48 @@ private static final long serialVersionUID = 0L;
     return getDeleteIf();
   }
 
+  public static final int QUEUESCAN_FIELD_NUMBER = 36;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest queueScan_;
+  /**
+   * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+   */
+  public boolean hasQueueScan() {
+    return queueScan_ != null;
+  }
+  /**
+   * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest getQueueScan() {
+    return queueScan_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.getDefaultInstance() : queueScan_;
+  }
+  /**
+   * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequestOrBuilder getQueueScanOrBuilder() {
+    return getQueueScan();
+  }
+
+  public static final int QUEUECOMMIT_FIELD_NUMBER = 37;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest queueCommit_;
+  /**
+   * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+   */
+  public boolean hasQueueCommit() {
+    return queueCommit_ != null;
+  }
+  /**
+   * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest getQueueCommit() {
+    return queueCommit_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.getDefaultInstance() : queueCommit_;
+  }
+  /**
+   * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequestOrBuilder getQueueCommitOrBuilder() {
+    return getQueueCommit();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -1354,6 +1422,12 @@ private static final long serialVersionUID = 0L;
     }
     if (deleteIf_ != null) {
       output.writeMessage(35, getDeleteIf());
+    }
+    if (queueScan_ != null) {
+      output.writeMessage(36, getQueueScan());
+    }
+    if (queueCommit_ != null) {
+      output.writeMessage(37, getQueueCommit());
     }
     unknownFields.writeTo(output);
   }
@@ -1502,6 +1576,14 @@ private static final long serialVersionUID = 0L;
     if (deleteIf_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(35, getDeleteIf());
+    }
+    if (queueScan_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(36, getQueueScan());
+    }
+    if (queueCommit_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(37, getQueueCommit());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1687,6 +1769,16 @@ private static final long serialVersionUID = 0L;
       result = result && getDeleteIf()
           .equals(other.getDeleteIf());
     }
+    result = result && (hasQueueScan() == other.hasQueueScan());
+    if (hasQueueScan()) {
+      result = result && getQueueScan()
+          .equals(other.getQueueScan());
+    }
+    result = result && (hasQueueCommit() == other.hasQueueCommit());
+    if (hasQueueCommit()) {
+      result = result && getQueueCommit()
+          .equals(other.getQueueCommit());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -1834,6 +1926,14 @@ private static final long serialVersionUID = 0L;
     if (hasDeleteIf()) {
       hash = (37 * hash) + DELETEIF_FIELD_NUMBER;
       hash = (53 * hash) + getDeleteIf().hashCode();
+    }
+    if (hasQueueScan()) {
+      hash = (37 * hash) + QUEUESCAN_FIELD_NUMBER;
+      hash = (53 * hash) + getQueueScan().hashCode();
+    }
+    if (hasQueueCommit()) {
+      hash = (37 * hash) + QUEUECOMMIT_FIELD_NUMBER;
+      hash = (53 * hash) + getQueueCommit().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -2170,6 +2270,18 @@ private static final long serialVersionUID = 0L;
         deleteIf_ = null;
         deleteIfBuilder_ = null;
       }
+      if (queueScanBuilder_ == null) {
+        queueScan_ = null;
+      } else {
+        queueScan_ = null;
+        queueScanBuilder_ = null;
+      }
+      if (queueCommitBuilder_ == null) {
+        queueCommit_ = null;
+      } else {
+        queueCommit_ = null;
+        queueCommitBuilder_ = null;
+      }
       return this;
     }
 
@@ -2359,6 +2471,16 @@ private static final long serialVersionUID = 0L;
       } else {
         result.deleteIf_ = deleteIfBuilder_.build();
       }
+      if (queueScanBuilder_ == null) {
+        result.queueScan_ = queueScan_;
+      } else {
+        result.queueScan_ = queueScanBuilder_.build();
+      }
+      if (queueCommitBuilder_ == null) {
+        result.queueCommit_ = queueCommit_;
+      } else {
+        result.queueCommit_ = queueCommitBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -2504,6 +2626,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasDeleteIf()) {
         mergeDeleteIf(other.getDeleteIf());
+      }
+      if (other.hasQueueScan()) {
+        mergeQueueScan(other.getQueueScan());
+      }
+      if (other.hasQueueCommit()) {
+        mergeQueueCommit(other.getQueueCommit());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -6461,6 +6589,240 @@ private static final long serialVersionUID = 0L;
         deleteIf_ = null;
       }
       return deleteIfBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest queueScan_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequestOrBuilder> queueScanBuilder_;
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public boolean hasQueueScan() {
+      return queueScanBuilder_ != null || queueScan_ != null;
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest getQueueScan() {
+      if (queueScanBuilder_ == null) {
+        return queueScan_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.getDefaultInstance() : queueScan_;
+      } else {
+        return queueScanBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public Builder setQueueScan(cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest value) {
+      if (queueScanBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        queueScan_ = value;
+        onChanged();
+      } else {
+        queueScanBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public Builder setQueueScan(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.Builder builderForValue) {
+      if (queueScanBuilder_ == null) {
+        queueScan_ = builderForValue.build();
+        onChanged();
+      } else {
+        queueScanBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public Builder mergeQueueScan(cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest value) {
+      if (queueScanBuilder_ == null) {
+        if (queueScan_ != null) {
+          queueScan_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.newBuilder(queueScan_).mergeFrom(value).buildPartial();
+        } else {
+          queueScan_ = value;
+        }
+        onChanged();
+      } else {
+        queueScanBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public Builder clearQueueScan() {
+      if (queueScanBuilder_ == null) {
+        queueScan_ = null;
+        onChanged();
+      } else {
+        queueScan_ = null;
+        queueScanBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.Builder getQueueScanBuilder() {
+      
+      onChanged();
+      return getQueueScanFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequestOrBuilder getQueueScanOrBuilder() {
+      if (queueScanBuilder_ != null) {
+        return queueScanBuilder_.getMessageOrBuilder();
+      } else {
+        return queueScan_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.getDefaultInstance() : queueScan_;
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueScanRequest queueScan = 36;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequestOrBuilder> 
+        getQueueScanFieldBuilder() {
+      if (queueScanBuilder_ == null) {
+        queueScanBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueScanRequestOrBuilder>(
+                getQueueScan(),
+                getParentForChildren(),
+                isClean());
+        queueScan_ = null;
+      }
+      return queueScanBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest queueCommit_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequestOrBuilder> queueCommitBuilder_;
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public boolean hasQueueCommit() {
+      return queueCommitBuilder_ != null || queueCommit_ != null;
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest getQueueCommit() {
+      if (queueCommitBuilder_ == null) {
+        return queueCommit_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.getDefaultInstance() : queueCommit_;
+      } else {
+        return queueCommitBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public Builder setQueueCommit(cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest value) {
+      if (queueCommitBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        queueCommit_ = value;
+        onChanged();
+      } else {
+        queueCommitBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public Builder setQueueCommit(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.Builder builderForValue) {
+      if (queueCommitBuilder_ == null) {
+        queueCommit_ = builderForValue.build();
+        onChanged();
+      } else {
+        queueCommitBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public Builder mergeQueueCommit(cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest value) {
+      if (queueCommitBuilder_ == null) {
+        if (queueCommit_ != null) {
+          queueCommit_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.newBuilder(queueCommit_).mergeFrom(value).buildPartial();
+        } else {
+          queueCommit_ = value;
+        }
+        onChanged();
+      } else {
+        queueCommitBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public Builder clearQueueCommit() {
+      if (queueCommitBuilder_ == null) {
+        queueCommit_ = null;
+        onChanged();
+      } else {
+        queueCommit_ = null;
+        queueCommitBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.Builder getQueueCommitBuilder() {
+      
+      onChanged();
+      return getQueueCommitFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequestOrBuilder getQueueCommitOrBuilder() {
+      if (queueCommitBuilder_ != null) {
+        return queueCommitBuilder_.getMessageOrBuilder();
+      } else {
+        return queueCommit_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.getDefaultInstance() : queueCommit_;
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequestOrBuilder> 
+        getQueueCommitFieldBuilder() {
+      if (queueCommitBuilder_ == null) {
+        queueCommitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequestOrBuilder>(
+                getQueueCommit(),
+                getParentForChildren(),
+                isClean());
+        queueCommit_ = null;
+      }
+      return queueCommitBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

@@ -5,48 +5,32 @@ package cn.infinivision.dataforce.busybee.pb.meta;
 
 /**
  * <pre>
- * WorkflowInstanceState workflow instance state
+ * WorkerRunnerState runner state
  * </pre>
  *
- * Protobuf enum {@code metapb.WorkflowInstanceState}
+ * Protobuf enum {@code metapb.WorkerRunnerState}
  */
-public enum WorkflowInstanceState
+public enum WorkerRunnerState
     implements com.google.protobuf.ProtocolMessageEnum {
   /**
-   * <code>Starting = 0;</code>
+   * <code>WRRunning = 0;</code>
    */
-  Starting(0),
+  WRRunning(0),
   /**
-   * <code>Running = 1;</code>
+   * <code>WRStopped = 1;</code>
    */
-  Running(1),
-  /**
-   * <code>Stopping = 2;</code>
-   */
-  Stopping(2),
-  /**
-   * <code>Stopped = 3;</code>
-   */
-  Stopped(3),
+  WRStopped(1),
   UNRECOGNIZED(-1),
   ;
 
   /**
-   * <code>Starting = 0;</code>
+   * <code>WRRunning = 0;</code>
    */
-  public static final int Starting_VALUE = 0;
+  public static final int WRRunning_VALUE = 0;
   /**
-   * <code>Running = 1;</code>
+   * <code>WRStopped = 1;</code>
    */
-  public static final int Running_VALUE = 1;
-  /**
-   * <code>Stopping = 2;</code>
-   */
-  public static final int Stopping_VALUE = 2;
-  /**
-   * <code>Stopped = 3;</code>
-   */
-  public static final int Stopped_VALUE = 3;
+  public static final int WRStopped_VALUE = 1;
 
 
   public final int getNumber() {
@@ -61,29 +45,27 @@ public enum WorkflowInstanceState
    * @deprecated Use {@link #forNumber(int)} instead.
    */
   @java.lang.Deprecated
-  public static WorkflowInstanceState valueOf(int value) {
+  public static WorkerRunnerState valueOf(int value) {
     return forNumber(value);
   }
 
-  public static WorkflowInstanceState forNumber(int value) {
+  public static WorkerRunnerState forNumber(int value) {
     switch (value) {
-      case 0: return Starting;
-      case 1: return Running;
-      case 2: return Stopping;
-      case 3: return Stopped;
+      case 0: return WRRunning;
+      case 1: return WRStopped;
       default: return null;
     }
   }
 
-  public static com.google.protobuf.Internal.EnumLiteMap<WorkflowInstanceState>
+  public static com.google.protobuf.Internal.EnumLiteMap<WorkerRunnerState>
       internalGetValueMap() {
     return internalValueMap;
   }
   private static final com.google.protobuf.Internal.EnumLiteMap<
-      WorkflowInstanceState> internalValueMap =
-        new com.google.protobuf.Internal.EnumLiteMap<WorkflowInstanceState>() {
-          public WorkflowInstanceState findValueByNumber(int number) {
-            return WorkflowInstanceState.forNumber(number);
+      WorkerRunnerState> internalValueMap =
+        new com.google.protobuf.Internal.EnumLiteMap<WorkerRunnerState>() {
+          public WorkerRunnerState findValueByNumber(int number) {
+            return WorkerRunnerState.forNumber(number);
           }
         };
 
@@ -97,12 +79,12 @@ public enum WorkflowInstanceState
   }
   public static final com.google.protobuf.Descriptors.EnumDescriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(2);
+    return cn.infinivision.dataforce.busybee.pb.meta.PB.getDescriptor().getEnumTypes().get(1);
   }
 
-  private static final WorkflowInstanceState[] VALUES = values();
+  private static final WorkerRunnerState[] VALUES = values();
 
-  public static WorkflowInstanceState valueOf(
+  public static WorkerRunnerState valueOf(
       com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
     if (desc.getType() != getDescriptor()) {
       throw new java.lang.IllegalArgumentException(
@@ -116,10 +98,10 @@ public enum WorkflowInstanceState
 
   private final int value;
 
-  private WorkflowInstanceState(int value) {
+  private WorkerRunnerState(int value) {
     this.value = value;
   }
 
-  // @@protoc_insertion_point(enum_scope:metapb.WorkflowInstanceState)
+  // @@protoc_insertion_point(enum_scope:metapb.WorkerRunnerState)
 }
 
