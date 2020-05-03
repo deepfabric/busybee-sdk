@@ -45,4 +45,14 @@ public interface QueueStateOrBuilder extends
    * <code>int64 timeout = 4;</code>
    */
   long getTimeout();
+
+  /**
+   * <code>int64 maxAlive = 5;</code>
+   */
+  long getMaxAlive();
+
+  /**
+   * <code>uint64 cleanBatch = 6;</code>
+   */
+  long getCleanBatch();
 }

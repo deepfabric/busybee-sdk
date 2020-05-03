@@ -24,6 +24,8 @@ private static final long serialVersionUID = 0L;
     consumers_ = 0;
     states_ = java.util.Collections.emptyList();
     timeout_ = 0L;
+    maxAlive_ = 0L;
+    cleanBatch_ = 0L;
   }
 
   @java.lang.Override
@@ -79,6 +81,16 @@ private static final long serialVersionUID = 0L;
           case 32: {
 
             timeout_ = input.readInt64();
+            break;
+          }
+          case 40: {
+
+            maxAlive_ = input.readInt64();
+            break;
+          }
+          case 48: {
+
+            cleanBatch_ = input.readUInt64();
             break;
           }
         }
@@ -171,6 +183,24 @@ private static final long serialVersionUID = 0L;
     return timeout_;
   }
 
+  public static final int MAXALIVE_FIELD_NUMBER = 5;
+  private long maxAlive_;
+  /**
+   * <code>int64 maxAlive = 5;</code>
+   */
+  public long getMaxAlive() {
+    return maxAlive_;
+  }
+
+  public static final int CLEANBATCH_FIELD_NUMBER = 6;
+  private long cleanBatch_;
+  /**
+   * <code>uint64 cleanBatch = 6;</code>
+   */
+  public long getCleanBatch() {
+    return cleanBatch_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -194,6 +224,12 @@ private static final long serialVersionUID = 0L;
     }
     if (timeout_ != 0L) {
       output.writeInt64(4, timeout_);
+    }
+    if (maxAlive_ != 0L) {
+      output.writeInt64(5, maxAlive_);
+    }
+    if (cleanBatch_ != 0L) {
+      output.writeUInt64(6, cleanBatch_);
     }
     unknownFields.writeTo(output);
   }
@@ -219,6 +255,14 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(4, timeout_);
     }
+    if (maxAlive_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(5, maxAlive_);
+    }
+    if (cleanBatch_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(6, cleanBatch_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -243,6 +287,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getStatesList());
     result = result && (getTimeout()
         == other.getTimeout());
+    result = result && (getMaxAlive()
+        == other.getMaxAlive());
+    result = result && (getCleanBatch()
+        == other.getCleanBatch());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -265,6 +313,12 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TIMEOUT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTimeout());
+    hash = (37 * hash) + MAXALIVE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getMaxAlive());
+    hash = (37 * hash) + CLEANBATCH_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getCleanBatch());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -411,6 +465,10 @@ private static final long serialVersionUID = 0L;
       }
       timeout_ = 0L;
 
+      maxAlive_ = 0L;
+
+      cleanBatch_ = 0L;
+
       return this;
     }
 
@@ -447,6 +505,8 @@ private static final long serialVersionUID = 0L;
         result.states_ = statesBuilder_.build();
       }
       result.timeout_ = timeout_;
+      result.maxAlive_ = maxAlive_;
+      result.cleanBatch_ = cleanBatch_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -523,6 +583,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getTimeout() != 0L) {
         setTimeout(other.getTimeout());
+      }
+      if (other.getMaxAlive() != 0L) {
+        setMaxAlive(other.getMaxAlive());
+      }
+      if (other.getCleanBatch() != 0L) {
+        setCleanBatch(other.getCleanBatch());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -866,6 +932,58 @@ private static final long serialVersionUID = 0L;
     public Builder clearTimeout() {
       
       timeout_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long maxAlive_ ;
+    /**
+     * <code>int64 maxAlive = 5;</code>
+     */
+    public long getMaxAlive() {
+      return maxAlive_;
+    }
+    /**
+     * <code>int64 maxAlive = 5;</code>
+     */
+    public Builder setMaxAlive(long value) {
+      
+      maxAlive_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 maxAlive = 5;</code>
+     */
+    public Builder clearMaxAlive() {
+      
+      maxAlive_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long cleanBatch_ ;
+    /**
+     * <code>uint64 cleanBatch = 6;</code>
+     */
+    public long getCleanBatch() {
+      return cleanBatch_;
+    }
+    /**
+     * <code>uint64 cleanBatch = 6;</code>
+     */
+    public Builder setCleanBatch(long value) {
+      
+      cleanBatch_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 cleanBatch = 6;</code>
+     */
+    public Builder clearCleanBatch() {
+      
+      cleanBatch_ = 0L;
       onChanged();
       return this;
     }

@@ -16,4 +16,14 @@ public interface TenantQueueOrBuilder extends
    * <code>int64 consumerTimeout = 2;</code>
    */
   long getConsumerTimeout();
+
+  /**
+   * <code>int64 maxAlive = 3;</code>
+   */
+  long getMaxAlive();
+
+  /**
+   * <code>uint64 cleanBatch = 4;</code>
+   */
+  long getCleanBatch();
 }

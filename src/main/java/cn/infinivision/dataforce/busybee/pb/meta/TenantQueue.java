@@ -22,6 +22,8 @@ private static final long serialVersionUID = 0L;
   private TenantQueue() {
     partitions_ = 0;
     consumerTimeout_ = 0L;
+    maxAlive_ = 0L;
+    cleanBatch_ = 0L;
   }
 
   @java.lang.Override
@@ -63,6 +65,16 @@ private static final long serialVersionUID = 0L;
           case 16: {
 
             consumerTimeout_ = input.readInt64();
+            break;
+          }
+          case 24: {
+
+            maxAlive_ = input.readInt64();
+            break;
+          }
+          case 32: {
+
+            cleanBatch_ = input.readUInt64();
             break;
           }
         }
@@ -107,6 +119,24 @@ private static final long serialVersionUID = 0L;
     return consumerTimeout_;
   }
 
+  public static final int MAXALIVE_FIELD_NUMBER = 3;
+  private long maxAlive_;
+  /**
+   * <code>int64 maxAlive = 3;</code>
+   */
+  public long getMaxAlive() {
+    return maxAlive_;
+  }
+
+  public static final int CLEANBATCH_FIELD_NUMBER = 4;
+  private long cleanBatch_;
+  /**
+   * <code>uint64 cleanBatch = 4;</code>
+   */
+  public long getCleanBatch() {
+    return cleanBatch_;
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -125,6 +155,12 @@ private static final long serialVersionUID = 0L;
     if (consumerTimeout_ != 0L) {
       output.writeInt64(2, consumerTimeout_);
     }
+    if (maxAlive_ != 0L) {
+      output.writeInt64(3, maxAlive_);
+    }
+    if (cleanBatch_ != 0L) {
+      output.writeUInt64(4, cleanBatch_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -140,6 +176,14 @@ private static final long serialVersionUID = 0L;
     if (consumerTimeout_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(2, consumerTimeout_);
+    }
+    if (maxAlive_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, maxAlive_);
+    }
+    if (cleanBatch_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(4, cleanBatch_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -161,6 +205,10 @@ private static final long serialVersionUID = 0L;
         == other.getPartitions());
     result = result && (getConsumerTimeout()
         == other.getConsumerTimeout());
+    result = result && (getMaxAlive()
+        == other.getMaxAlive());
+    result = result && (getCleanBatch()
+        == other.getCleanBatch());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -177,6 +225,12 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + CONSUMERTIMEOUT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getConsumerTimeout());
+    hash = (37 * hash) + MAXALIVE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getMaxAlive());
+    hash = (37 * hash) + CLEANBATCH_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getCleanBatch());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -314,6 +368,10 @@ private static final long serialVersionUID = 0L;
 
       consumerTimeout_ = 0L;
 
+      maxAlive_ = 0L;
+
+      cleanBatch_ = 0L;
+
       return this;
     }
 
@@ -338,6 +396,8 @@ private static final long serialVersionUID = 0L;
       cn.infinivision.dataforce.busybee.pb.meta.TenantQueue result = new cn.infinivision.dataforce.busybee.pb.meta.TenantQueue(this);
       result.partitions_ = partitions_;
       result.consumerTimeout_ = consumerTimeout_;
+      result.maxAlive_ = maxAlive_;
+      result.cleanBatch_ = cleanBatch_;
       onBuilt();
       return result;
     }
@@ -384,6 +444,12 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getConsumerTimeout() != 0L) {
         setConsumerTimeout(other.getConsumerTimeout());
+      }
+      if (other.getMaxAlive() != 0L) {
+        setMaxAlive(other.getMaxAlive());
+      }
+      if (other.getCleanBatch() != 0L) {
+        setCleanBatch(other.getCleanBatch());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -460,6 +526,58 @@ private static final long serialVersionUID = 0L;
     public Builder clearConsumerTimeout() {
       
       consumerTimeout_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long maxAlive_ ;
+    /**
+     * <code>int64 maxAlive = 3;</code>
+     */
+    public long getMaxAlive() {
+      return maxAlive_;
+    }
+    /**
+     * <code>int64 maxAlive = 3;</code>
+     */
+    public Builder setMaxAlive(long value) {
+      
+      maxAlive_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 maxAlive = 3;</code>
+     */
+    public Builder clearMaxAlive() {
+      
+      maxAlive_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long cleanBatch_ ;
+    /**
+     * <code>uint64 cleanBatch = 4;</code>
+     */
+    public long getCleanBatch() {
+      return cleanBatch_;
+    }
+    /**
+     * <code>uint64 cleanBatch = 4;</code>
+     */
+    public Builder setCleanBatch(long value) {
+      
+      cleanBatch_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 cleanBatch = 4;</code>
+     */
+    public Builder clearCleanBatch() {
+      
+      cleanBatch_ = 0L;
       onChanged();
       return this;
     }
