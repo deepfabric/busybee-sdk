@@ -45,31 +45,26 @@ public interface WorkflowInstanceOrBuilder extends
   long getTotalCrowd();
 
   /**
-   * <code>uint64 workers = 6;</code>
-   */
-  long getWorkers();
-
-  /**
-   * <code>int64 startedAt = 7;</code>
+   * <code>int64 startedAt = 6;</code>
    */
   long getStartedAt();
 
   /**
-   * <code>int64 stoppedAt = 8;</code>
+   * <code>int64 stoppedAt = 7;</code>
    */
   long getStoppedAt();
 
   /**
-   * <code>uint64 version = 9;</code>
+   * <code>uint64 version = 8;</code>
    */
   long getVersion();
 
   /**
-   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   * <code>.metapb.WorkflowInstanceState state = 9;</code>
    */
   int getStateValue();
   /**
-   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   * <code>.metapb.WorkflowInstanceState state = 9;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState();
 }

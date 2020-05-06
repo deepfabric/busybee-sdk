@@ -24,7 +24,6 @@ private static final long serialVersionUID = 0L;
     loaderMeta_ = com.google.protobuf.ByteString.EMPTY;
     loader_ = 0;
     totalCrowd_ = 0L;
-    workers_ = 0L;
     startedAt_ = 0L;
     stoppedAt_ = 0L;
     version_ = 0L;
@@ -98,25 +97,20 @@ private static final long serialVersionUID = 0L;
           }
           case 48: {
 
-            workers_ = input.readUInt64();
+            startedAt_ = input.readInt64();
             break;
           }
           case 56: {
 
-            startedAt_ = input.readInt64();
+            stoppedAt_ = input.readInt64();
             break;
           }
           case 64: {
 
-            stoppedAt_ = input.readInt64();
-            break;
-          }
-          case 72: {
-
             version_ = input.readUInt64();
             break;
           }
-          case 80: {
+          case 72: {
             int rawValue = input.readEnum();
 
             state_ = rawValue;
@@ -210,52 +204,43 @@ private static final long serialVersionUID = 0L;
     return totalCrowd_;
   }
 
-  public static final int WORKERS_FIELD_NUMBER = 6;
-  private long workers_;
-  /**
-   * <code>uint64 workers = 6;</code>
-   */
-  public long getWorkers() {
-    return workers_;
-  }
-
-  public static final int STARTEDAT_FIELD_NUMBER = 7;
+  public static final int STARTEDAT_FIELD_NUMBER = 6;
   private long startedAt_;
   /**
-   * <code>int64 startedAt = 7;</code>
+   * <code>int64 startedAt = 6;</code>
    */
   public long getStartedAt() {
     return startedAt_;
   }
 
-  public static final int STOPPEDAT_FIELD_NUMBER = 8;
+  public static final int STOPPEDAT_FIELD_NUMBER = 7;
   private long stoppedAt_;
   /**
-   * <code>int64 stoppedAt = 8;</code>
+   * <code>int64 stoppedAt = 7;</code>
    */
   public long getStoppedAt() {
     return stoppedAt_;
   }
 
-  public static final int VERSION_FIELD_NUMBER = 9;
+  public static final int VERSION_FIELD_NUMBER = 8;
   private long version_;
   /**
-   * <code>uint64 version = 9;</code>
+   * <code>uint64 version = 8;</code>
    */
   public long getVersion() {
     return version_;
   }
 
-  public static final int STATE_FIELD_NUMBER = 10;
+  public static final int STATE_FIELD_NUMBER = 9;
   private int state_;
   /**
-   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   * <code>.metapb.WorkflowInstanceState state = 9;</code>
    */
   public int getStateValue() {
     return state_;
   }
   /**
-   * <code>.metapb.WorkflowInstanceState state = 10;</code>
+   * <code>.metapb.WorkflowInstanceState state = 9;</code>
    */
   public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState() {
     cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState result = cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.valueOf(state_);
@@ -289,20 +274,17 @@ private static final long serialVersionUID = 0L;
     if (totalCrowd_ != 0L) {
       output.writeUInt64(5, totalCrowd_);
     }
-    if (workers_ != 0L) {
-      output.writeUInt64(6, workers_);
-    }
     if (startedAt_ != 0L) {
-      output.writeInt64(7, startedAt_);
+      output.writeInt64(6, startedAt_);
     }
     if (stoppedAt_ != 0L) {
-      output.writeInt64(8, stoppedAt_);
+      output.writeInt64(7, stoppedAt_);
     }
     if (version_ != 0L) {
-      output.writeUInt64(9, version_);
+      output.writeUInt64(8, version_);
     }
     if (state_ != cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Starting.getNumber()) {
-      output.writeEnum(10, state_);
+      output.writeEnum(9, state_);
     }
     unknownFields.writeTo(output);
   }
@@ -332,25 +314,21 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(5, totalCrowd_);
     }
-    if (workers_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(6, workers_);
-    }
     if (startedAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(7, startedAt_);
+        .computeInt64Size(6, startedAt_);
     }
     if (stoppedAt_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(8, stoppedAt_);
+        .computeInt64Size(7, stoppedAt_);
     }
     if (version_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(9, version_);
+        .computeUInt64Size(8, version_);
     }
     if (state_ != cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.Starting.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(10, state_);
+        .computeEnumSize(9, state_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -380,8 +358,6 @@ private static final long serialVersionUID = 0L;
     result = result && loader_ == other.loader_;
     result = result && (getTotalCrowd()
         == other.getTotalCrowd());
-    result = result && (getWorkers()
-        == other.getWorkers());
     result = result && (getStartedAt()
         == other.getStartedAt());
     result = result && (getStoppedAt()
@@ -414,9 +390,6 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TOTALCROWD_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTotalCrowd());
-    hash = (37 * hash) + WORKERS_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getWorkers());
     hash = (37 * hash) + STARTEDAT_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getStartedAt());
@@ -575,8 +548,6 @@ private static final long serialVersionUID = 0L;
 
       totalCrowd_ = 0L;
 
-      workers_ = 0L;
-
       startedAt_ = 0L;
 
       stoppedAt_ = 0L;
@@ -616,7 +587,6 @@ private static final long serialVersionUID = 0L;
       result.loaderMeta_ = loaderMeta_;
       result.loader_ = loader_;
       result.totalCrowd_ = totalCrowd_;
-      result.workers_ = workers_;
       result.startedAt_ = startedAt_;
       result.stoppedAt_ = stoppedAt_;
       result.version_ = version_;
@@ -676,9 +646,6 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getTotalCrowd() != 0L) {
         setTotalCrowd(other.getTotalCrowd());
-      }
-      if (other.getWorkers() != 0L) {
-        setWorkers(other.getWorkers());
       }
       if (other.getStartedAt() != 0L) {
         setStartedAt(other.getStartedAt());
@@ -961,41 +928,15 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long workers_ ;
-    /**
-     * <code>uint64 workers = 6;</code>
-     */
-    public long getWorkers() {
-      return workers_;
-    }
-    /**
-     * <code>uint64 workers = 6;</code>
-     */
-    public Builder setWorkers(long value) {
-      
-      workers_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>uint64 workers = 6;</code>
-     */
-    public Builder clearWorkers() {
-      
-      workers_ = 0L;
-      onChanged();
-      return this;
-    }
-
     private long startedAt_ ;
     /**
-     * <code>int64 startedAt = 7;</code>
+     * <code>int64 startedAt = 6;</code>
      */
     public long getStartedAt() {
       return startedAt_;
     }
     /**
-     * <code>int64 startedAt = 7;</code>
+     * <code>int64 startedAt = 6;</code>
      */
     public Builder setStartedAt(long value) {
       
@@ -1004,7 +945,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 startedAt = 7;</code>
+     * <code>int64 startedAt = 6;</code>
      */
     public Builder clearStartedAt() {
       
@@ -1015,13 +956,13 @@ private static final long serialVersionUID = 0L;
 
     private long stoppedAt_ ;
     /**
-     * <code>int64 stoppedAt = 8;</code>
+     * <code>int64 stoppedAt = 7;</code>
      */
     public long getStoppedAt() {
       return stoppedAt_;
     }
     /**
-     * <code>int64 stoppedAt = 8;</code>
+     * <code>int64 stoppedAt = 7;</code>
      */
     public Builder setStoppedAt(long value) {
       
@@ -1030,7 +971,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 stoppedAt = 8;</code>
+     * <code>int64 stoppedAt = 7;</code>
      */
     public Builder clearStoppedAt() {
       
@@ -1041,13 +982,13 @@ private static final long serialVersionUID = 0L;
 
     private long version_ ;
     /**
-     * <code>uint64 version = 9;</code>
+     * <code>uint64 version = 8;</code>
      */
     public long getVersion() {
       return version_;
     }
     /**
-     * <code>uint64 version = 9;</code>
+     * <code>uint64 version = 8;</code>
      */
     public Builder setVersion(long value) {
       
@@ -1056,7 +997,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>uint64 version = 9;</code>
+     * <code>uint64 version = 8;</code>
      */
     public Builder clearVersion() {
       
@@ -1067,13 +1008,13 @@ private static final long serialVersionUID = 0L;
 
     private int state_ = 0;
     /**
-     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     * <code>.metapb.WorkflowInstanceState state = 9;</code>
      */
     public int getStateValue() {
       return state_;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     * <code>.metapb.WorkflowInstanceState state = 9;</code>
      */
     public Builder setStateValue(int value) {
       state_ = value;
@@ -1081,14 +1022,14 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     * <code>.metapb.WorkflowInstanceState state = 9;</code>
      */
     public cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState getState() {
       cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState result = cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.valueOf(state_);
       return result == null ? cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState.UNRECOGNIZED : result;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     * <code>.metapb.WorkflowInstanceState state = 9;</code>
      */
     public Builder setState(cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState value) {
       if (value == null) {
@@ -1100,7 +1041,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.metapb.WorkflowInstanceState state = 10;</code>
+     * <code>.metapb.WorkflowInstanceState state = 9;</code>
      */
     public Builder clearState() {
       

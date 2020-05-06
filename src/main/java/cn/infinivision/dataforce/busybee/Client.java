@@ -651,10 +651,9 @@ public class Client implements Closeable {
      *
      * @param wf workflow
      * @param bm crowd bitmap
-     * @param workers number of workers to run this workflow
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> startInstance(Workflow wf, RoaringBitmap bm, long workers) {
+    public Future<Result> startInstance(Workflow wf, RoaringBitmap bm) {
         byte[] value = new byte[bm.serializedSizeInBytes()];
         bm.serialize(ByteBuffer.wrap(value));
 
@@ -663,7 +662,6 @@ public class Client implements Closeable {
             .setType(Type.StartingInstance)
             .setStartInstance(StartingInstanceRequest.newBuilder()
                 .setInstance(WorkflowInstance.newBuilder()
-                    .setWorkers(workers)
                     .setSnapshot(wf)
                     .setLoader(BMLoader.RawLoader)
                     .setLoaderMeta(ByteString.copyFrom(value))
@@ -679,16 +677,14 @@ public class Client implements Closeable {
      *
      * @param wf workflow
      * @param sql load bitmap from ck sql
-     * @param workers number of workers to run this workflow
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> startInstanceWithCK(Workflow wf, String sql, long workers) {
+    public Future<Result> startInstanceWithCK(Workflow wf, String sql) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.StartingInstance)
             .setStartInstance(StartingInstanceRequest.newBuilder()
                 .setInstance(WorkflowInstance.newBuilder()
-                    .setWorkers(workers)
                     .setSnapshot(wf)
                     .setLoader(BMLoader.ClickhouseLoader)
                     .setLoaderMeta(ByteString.copyFrom(sql.getBytes()))
@@ -704,16 +700,14 @@ public class Client implements Closeable {
      *
      * @param wf workflow
      * @param key load bitmap from kv
-     * @param workers number of workers to run this workflow
      * @return Future Result, use {@link Result#checkError} to check has a error
      */
-    public Future<Result> startInstanceWithKV(Workflow wf, String key, long workers) {
+    public Future<Result> startInstanceWithKV(Workflow wf, String key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.StartingInstance)
             .setStartInstance(StartingInstanceRequest.newBuilder()
                 .setInstance(WorkflowInstance.newBuilder()
-                    .setWorkers(workers)
                     .setSnapshot(wf)
                     .setLoader(BMLoader.KVLoader)
                     .setLoaderMeta(ByteString.copyFrom(key.getBytes()))
@@ -1111,8 +1105,8 @@ public class Client implements Closeable {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
                 .setRunners(4)
-                .setInput(TenantQueue.newBuilder().setPartitions(4).setConsumerTimeout(60).build())
-                .setOutput(TenantQueue.newBuilder().setPartitions(1).setConsumerTimeout(60).build())
+                .setInput(TenantQueue.newBuilder().setPartitions(4).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(1).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
                 .build()).get().checkError();
             System.exit(0);
         } else if (n == 2) {
@@ -1148,7 +1142,7 @@ public class Client implements Closeable {
                 .build();
 
 //            c.updateWorkflow(value).get().checkError();
-            c.startInstanceWithKV(value, key, 4).get().checkError();
+            c.startInstanceWithKV(value, key).get().checkError();
             System.exit(0);
         } else if (n == 3) {
             for (int i = 1; i <= 40000; i++) {
@@ -1193,7 +1187,7 @@ public class Client implements Closeable {
 
             final RoaringBitmap bitmap = new RoaringBitmap();
             IntStream.range(1, 10001).forEach(e -> bitmap.add(e));
-            c.startInstance(value, bitmap, 16).get().checkError();
+            c.startInstance(value, bitmap).get().checkError();
             System.exit(0);
         }
 
@@ -1284,7 +1278,7 @@ public class Client implements Closeable {
             workflowBuilder.setStopAt(new Date().getTime() + 10 * 60 * 60);
             final RoaringBitmap bitmap = new RoaringBitmap();
             IntStream.range(1, 10001).forEach(e -> bitmap.add(e));
-            c.startInstance(workflowBuilder.build(), bitmap, 2).get().checkError();
+            c.startInstance(workflowBuilder.build(), bitmap).get().checkError();
         } else {
             for (int i = 0; i < 5000; i++) {
                 System.out.println(i);
@@ -1342,7 +1336,7 @@ public class Client implements Closeable {
             for (int i = 1; i <= 10000; i++) {
                 bm.add(i);
             }
-            c.startInstance(wf, bm, 1).get().checkError();
+            c.startInstance(wf, bm).get().checkError();
 
             for (int i = 1; i < 100; i++) {
                 c.addEvent(1, i, "data".getBytes(), String.valueOf(i).getBytes()).get().checkError();
@@ -1477,7 +1471,7 @@ public class Client implements Closeable {
             .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
             .build()).get().checkError();
         Thread.sleep(15000);
-        c.startInstanceWithKV(wf, "bm1", 256).get().checkError();
+        c.startInstanceWithKV(wf, "bm1").get().checkError();
         c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
         c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
         c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
@@ -1630,7 +1624,7 @@ public class Client implements Closeable {
                     .setDirect(DirectExecution.newBuilder().build())
                     .build()))
             .build();
-        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3), 4).get().checkError();
+        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3)).get().checkError();
         c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
         c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
         c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
@@ -1742,6 +1736,6 @@ public class Client implements Closeable {
             bm.add(i);
         }
 
-        c.startInstance(wf, bm, 4).get().checkError();
+        c.startInstance(wf, bm).get().checkError();
     }
 }
