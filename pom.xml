@@ -20,7 +20,6 @@
         <proto.version>3.5.1</proto.version>
         <netty.version>4.1.22.Final</netty.version>
         <fastjson.version>1.2.32</fastjson.version>
-        <common.pool.version>2.6.0</common.pool.version>
         <lombok.version>1.16.18</lombok.version>
         <logback.version>1.2.3</logback.version>
         <common.codec.version>1.11</common.codec.version>
@@ -72,12 +71,6 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${common.pool.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -117,11 +110,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
         </dependency>
 
         <!-- bitmap -->

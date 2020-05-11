@@ -7,7 +7,6 @@ import io.netty.util.TimerTask;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.pool2.ObjectPool;
 
 /**
  * ctx holder, manager async ctx
@@ -15,7 +14,6 @@ import org.apache.commons.pool2.ObjectPool;
  * @author fagongzi
  */
 class CtxHolder {
-    private static final ObjectPool<TimeoutTask> pool = SimpleBeanPoolFactory.create(TimeoutTask::new);
     private static final TimeUnit TIMEOUT_UNIT = TimeUnit.MILLISECONDS;
     private final Timer wheelTimer = new HashedWheelTimer(10, TIMEOUT_UNIT);
     private final Map<Long, Transport.Ctx> contents = new ConcurrentHashMap<>();
@@ -31,8 +29,8 @@ class CtxHolder {
      * @param timeout
      */
     public void add(long id, Transport.Ctx ctx, long timeout) {
+        ctx.timeout = wheelTimer.newTimeout(getTimeoutTask(id, ctx, this), timeout, TIMEOUT_UNIT);
         contents.put(id, ctx);
-        wheelTimer.newTimeout(getTimeoutTask(id, ctx, this), timeout, TIMEOUT_UNIT);
     }
 
     /**
@@ -74,14 +72,7 @@ class CtxHolder {
     }
 
     private static TimeoutTask getTimeoutTask(long id, TimerTask timerTask, CtxHolder holder) {
-        TimeoutTask task;
-
-        try {
-            task = pool.borrowObject();
-        } catch (Exception e) {
-            task = new TimeoutTask();
-        }
-
+        TimeoutTask task = new TimeoutTask();
         task.id = id;
         task.delegate = timerTask;
         task.holder = holder;

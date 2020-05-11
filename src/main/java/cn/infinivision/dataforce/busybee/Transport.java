@@ -27,7 +27,6 @@ import java.util.function.Consumer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.pool2.ObjectPool;
 
 /**
  * Transport
@@ -46,7 +45,6 @@ import org.apache.commons.pool2.ObjectPool;
     private long timeoutMS;
     private List<BlockingQueue<Ctx>> queues = new ArrayList<>();
     private Ctx stopFlag = new Ctx();
-    private ObjectPool<Ctx> pool = SimpleBeanPoolFactory.create(Ctx::new);
     private CountDownLatch counter;
 
     Transport(int workers, int ioExecutors, long timeoutMS, CtxHolder holder) {
@@ -97,13 +95,7 @@ import org.apache.commons.pool2.ObjectPool;
     }
 
     void sent(Request request, Consumer<Response> cb, Consumer<Throwable> errCB) {
-        Ctx ctx;
-        try {
-            ctx = pool.borrowObject();
-        } catch (Exception e) {
-            ctx = new Ctx();
-        }
-
+        Ctx ctx = new Ctx();
         ctx.request = request;
         ctx.cb = cb;
         ctx.errCB = errCB;
@@ -188,11 +180,6 @@ import org.apache.commons.pool2.ObjectPool;
             Ctx ctx = holder.remove(resp.getId());
             if (ctx != null) {
                 ctx.done(resp);
-                try {
-                    pool.returnObject(ctx);
-                } catch (Exception e) {
-                    // ignore
-                }
             }
         } else {
             log.warn("not support message {}", message.getClass().getCanonicalName());
@@ -220,13 +207,18 @@ import org.apache.commons.pool2.ObjectPool;
         private Consumer<Response> cb;
         private Consumer<Throwable> errCB;
         private Request request;
+        Timeout timeout;
 
         @Override
         public void run(Timeout timeout) throws Exception {
+            timeout.cancel();
             errCB.accept(new TimeoutException("" + request.getId()));
         }
 
         void done(Response resp) {
+            if (timeout != null) {
+                timeout.cancel();
+            }
             cb.accept(resp);
         }
     }
