@@ -937,10 +937,11 @@ public class Client implements Closeable {
      * @param tenantId tenant id
      * @param group consumer group
      * @param callback callback
+     * @param asyncCommit async commit offset
      */
     public synchronized void watchNotify(long tenantId, String group,
-        BiConsumer<QueueID, Notify> callback) {
-        watchNotify(tenantId, group, callback, null);
+        BiConsumer<QueueID, Notify> callback, boolean asyncCommit) {
+        watchNotify(tenantId, group, callback, null, asyncCommit);
     }
 
     /**
@@ -949,15 +950,16 @@ public class Client implements Closeable {
      * @param tenantId tenant id
      * @param group consumer group
      * @param callback batch callback
+     * @param asyncCommit async commit offset
      */
     public synchronized void watchNotifyWithBatch(long tenantId, String group,
-        BiConsumer<QueueID, List<Notify>> callback) {
-        watchNotify(tenantId, group, null, callback);
+        BiConsumer<QueueID, List<Notify>> callback, boolean asyncCommit) {
+        watchNotify(tenantId, group, null, callback, asyncCommit);
     }
 
     private synchronized void watchNotify(long tenantId, String group,
         BiConsumer<QueueID, Notify> callback,
-        BiConsumer<QueueID, List<Notify>> batchCallback) {
+        BiConsumer<QueueID, List<Notify>> batchCallback, boolean asyncCommit) {
         String key = tenantId + "/" + group;
         if (fetchWorkers.containsKey(key)) {
             log.warn("tenant {} already in watching", key);
@@ -966,7 +968,7 @@ public class Client implements Closeable {
 
         Consumer w = new Consumer(this, tenantId, group,
             callback, batchCallback,
-            schedulers);
+            schedulers, asyncCommit);
         fetchWorkers.putIfAbsent(key, w);
         w.start();
     }
@@ -1076,7 +1078,7 @@ public class Client implements Closeable {
 
                 System.out.println("############################# count: " + bm.getCardinality());
             }
-        });
+        }, false);
     }
 
     public static void main11(String[] args) {
@@ -1099,19 +1101,20 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.24.51.176:8081").build();
-        int n = 2;
+        Client c = new Builder().rpcTimeout(5000).fetchSize(1).addServer("172.18.211.95:8081").build();
+
+        int n = 3;
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setRunners(4)
-                .setInput(TenantQueue.newBuilder().setPartitions(4).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
-                .setOutput(TenantQueue.newBuilder().setPartitions(1).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
+                .setRunners(16)
+                .setInput(TenantQueue.newBuilder().setPartitions(5).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(5).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
                 .build()).get().checkError();
             System.exit(0);
         } else if (n == 2) {
             String key = "bm1";
-            c.addToBitmap(key, 1, 1, 10000000).get().checkError();
+            c.addToBitmap(key, 1, 1, 100000000).get().checkError();
             Workflow value = Workflow
                 .newBuilder()
                 .setId(1)
@@ -1145,10 +1148,18 @@ public class Client implements Closeable {
             c.startInstanceWithKV(value, key).get().checkError();
             System.exit(0);
         } else if (n == 3) {
-            for (int i = 1; i <= 40000; i++) {
+            for (int i = 1; i <= 100000000; i++) {
                 c.addEvent(1, i);
                 if (i > 0 && i % 20000 == 0) {
                     Thread.sleep(2000);
+                }
+            }
+        } else if (n == 4) {
+            for (int i = 1; i <= 1000; i++) {
+                String s = i + "";
+                c.set(s, s.getBytes());
+                if (i > 0 && i % 1000 == 0) {
+                    Thread.sleep(1000);
                 }
             }
         } else {
@@ -1347,7 +1358,7 @@ public class Client implements Closeable {
             c.watchNotify(1, "g1", (id, nt) -> {
                 log.info("*********** received  {}/{}", id.getPartition(), id.getOffset());
                 throw new RuntimeException("aaaaaaaaaaaaaaaaa");
-            });
+            }, false);
         }
     }
 

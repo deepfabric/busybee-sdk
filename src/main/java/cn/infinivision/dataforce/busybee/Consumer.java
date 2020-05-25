@@ -38,17 +38,20 @@ class Consumer {
     private BiConsumer<QueueID, Notify> callback;
     private BiConsumer<QueueID, List<Notify>> batchCallback;
     private Map<Integer, PartitionFetcher> fetches = new HashMap<>();
+    private boolean asyncCommit;
 
     Consumer(Client client, long tenantId, String group,
         BiConsumer<QueueID, Notify> callback,
         BiConsumer<QueueID, List<Notify>> batchCallback,
-        ScheduledExecutorService schedulers) {
+        ScheduledExecutorService schedulers,
+        boolean asyncCommit) {
         this.client = client;
         this.tenantId = tenantId;
         this.group = group;
         this.schedulers = schedulers;
         this.callback = callback;
         this.batchCallback = batchCallback;
+        this.asyncCommit = asyncCommit;
     }
 
     void start() {
@@ -95,7 +98,7 @@ class Consumer {
             int partition = joinResp.getPartitions(i);
             long version = joinResp.getVersions(i);
             fetches.put(partition, new PartitionFetcher(this,
-                joinResp.getIndex(), partition, version));
+                joinResp.getIndex(), partition, version, asyncCommit));
         }
 
         schedulers.execute(() -> fetches.values().forEach(f -> f.start()));
@@ -132,7 +135,7 @@ class Consumer {
         }
     }
 
-    private static class PartitionFetcher {
+    static class PartitionFetcher {
         private Consumer consumer;
         private AtomicBoolean stopped = new AtomicBoolean(false);
         private int index;
@@ -140,12 +143,14 @@ class Consumer {
         private long version;
         private long offset;
         private boolean doHB;
+        private boolean asyncCommit;
 
-        PartitionFetcher(Consumer consumer, int index, int partition, long version) {
+        PartitionFetcher(Consumer consumer, int index, int partition, long version, boolean asyncCommit) {
             this.consumer = consumer;
             this.index = index;
             this.partition = partition;
             this.version = version;
+            this.asyncCommit = asyncCommit;
         }
 
         void start() {
@@ -278,6 +283,7 @@ class Consumer {
 
             startHB();
             consumer.client.opts.bizService.execute(() -> {
+                boolean doFetch = true;
                 long after = consumer.client.opts.fetchHeartbeat;
                 try {
                     List<ByteString> items = resp.getItemsList();
@@ -290,13 +296,23 @@ class Consumer {
 
                         if (consumer.callback != null) {
                             for (Notify nt : values) {
-                                consumer.callback.accept(new QueueID(partition, value), nt);
-                                offset = value;
-                                value++;
+                                consumer.callback.accept(new QueueID(partition, value, this), nt);
+
+                                if (!asyncCommit) {
+                                    offset = value;
+                                    value++;
+                                } else {
+                                    doFetch = false; // stop fetch if async commit
+                                }
                             }
                         } else {
-                            consumer.batchCallback.accept(new QueueID(partition, value), values);
-                            offset = resp.getLastOffset();
+                            consumer.batchCallback.accept(new QueueID(partition, value, this), values);
+
+                            if (!asyncCommit) {
+                                offset = resp.getLastOffset();
+                            } else {
+                                doFetch = false; // stop fetch if async commit
+                            }
                         }
                         after = 0;
                     }
@@ -304,10 +320,14 @@ class Consumer {
                     log.error(consumer.tenantId + "/" + consumer.group + "/v" + version + " fetch from partition " + partition + " at " + offset + " failed",
                         cause);
                 } finally {
-                    stopHB();
+                    if (doFetch) {
+                        stopHB();
+                    }
                 }
 
-                retryFetch(after);
+                if (doFetch) {
+                    retryFetch(after);
+                }
             });
         }
 
@@ -318,6 +338,16 @@ class Consumer {
 
         void stopHB() {
             doHB = false;
+        }
+
+        void doAsyncCommit(long offset) {
+            if (stopped.get()) {
+                return;
+            }
+
+            stopHB();
+            this.offset = offset;
+            retryFetch(0);
         }
     }
 }

@@ -17,6 +17,7 @@ import lombok.Setter;
 public class QueueID {
     private int partition;
     private long offset;
+    private Consumer.PartitionFetcher fetcher;
 
     public QueueID() {
     }
@@ -24,5 +25,22 @@ public class QueueID {
     public QueueID(int partition, long offset) {
         this.partition = partition;
         this.offset = offset;
+    }
+
+    public QueueID(int partition, long offset, Consumer.PartitionFetcher fetcher) {
+        this.partition = partition;
+        this.offset = offset;
+        this.fetcher = fetcher;
+    }
+
+    /**
+     * commit this offset
+     */
+    public void commit() {
+        if (fetcher == null) {
+            throw new IllegalStateException("not async commit  callback");
+        }
+
+        fetcher.doAsyncCommit(offset);
     }
 }

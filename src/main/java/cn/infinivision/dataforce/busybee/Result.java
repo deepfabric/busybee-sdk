@@ -127,6 +127,23 @@ public class Result {
     }
 
     /**
+     * byte array slice response, and throw a {@link RuntimeException} if has en error
+     *
+     * @return byte string array
+     */
+    public List<byte[]> bytesKeyListResponse() {
+        checkError();
+
+        if (resp.hasBytesSliceResp()) {
+            return resp.getBytesSliceResp().getKeysList().stream()
+                .map(e -> e.toByteArray())
+                .collect(Collectors.toList());
+        }
+
+        throw new IllegalAccessError("the response is not bytes slice response");
+    }
+
+    /**
      * unsigned int response, and throw a {@link RuntimeException} if has en error
      *
      * @return unsigned int
