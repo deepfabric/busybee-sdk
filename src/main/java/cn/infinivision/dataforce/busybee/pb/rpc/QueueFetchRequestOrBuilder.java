@@ -51,4 +51,9 @@ public interface QueueFetchRequestOrBuilder extends
    * <code>uint64 maxBytes = 9;</code>
    */
   long getMaxBytes();
+
+  /**
+   * <code>bool noCommit = 10;</code>
+   */
+  boolean getNoCommit();
 }

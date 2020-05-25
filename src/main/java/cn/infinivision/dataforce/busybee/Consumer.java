@@ -198,6 +198,7 @@ class Consumer {
                     .setCompletedOffset(offset)
                     .setCount(consumer.client.opts.fetchCount)
                     .setMaxBytes(consumer.client.opts.fetchBytes)
+                    .setNoCommit(asyncCommit)
                     .build())
                 .build(), this::onResponse, this::onError);
         }
@@ -283,7 +284,6 @@ class Consumer {
 
             startHB();
             consumer.client.opts.bizService.execute(() -> {
-                boolean doFetch = true;
                 long after = consumer.client.opts.fetchHeartbeat;
                 try {
                     List<ByteString> items = resp.getItemsList();
@@ -297,37 +297,24 @@ class Consumer {
                         if (consumer.callback != null) {
                             for (Notify nt : values) {
                                 consumer.callback.accept(new QueueID(partition, value, this), nt);
-
-                                if (!asyncCommit) {
-                                    offset = value;
-                                    value++;
-                                } else {
-                                    doFetch = false; // stop fetch if async commit
-                                }
+                                offset = value;
+                                value++;
                             }
                         } else {
                             consumer.batchCallback.accept(new QueueID(partition, value, this), values);
-
-                            if (!asyncCommit) {
-                                offset = resp.getLastOffset();
-                            } else {
-                                doFetch = false; // stop fetch if async commit
-                            }
+                            offset = resp.getLastOffset();
                         }
+
                         after = 0;
                     }
                 } catch (Throwable cause) {
                     log.error(consumer.tenantId + "/" + consumer.group + "/v" + version + " fetch from partition " + partition + " at " + offset + " failed",
                         cause);
                 } finally {
-                    if (doFetch) {
-                        stopHB();
-                    }
+                    stopHB();
                 }
 
-                if (doFetch) {
-                    retryFetch(after);
-                }
+                retryFetch(after);
             });
         }
 
@@ -340,14 +327,42 @@ class Consumer {
             doHB = false;
         }
 
-        void doAsyncCommit(long offset) {
+        void doAsyncCommit(long completed) {
             if (stopped.get()) {
                 return;
             }
 
-            stopHB();
-            this.offset = offset;
-            retryFetch(0);
+            consumer.client.transport.sent(Request.newBuilder()
+                    .setId(consumer.client.id.incrementAndGet())
+                    .setType(Type.FetchNotify)
+                    .setQueueFetch(QueueFetchRequest.newBuilder()
+                        .setId(consumer.tenantId)
+                        .setGroup(ByteString.copyFromUtf8(consumer.group))
+                        .setConsumer(index)
+                        .setVersion(version)
+                        .setPartition(partition)
+                        .setCompletedOffset(completed)
+                        .setCount(0)
+                        .setNoCommit(false)
+                        .build())
+                    .build(),
+                resp -> log.info("{}/{}/v{} commit partition {} to {}",
+                    consumer.tenantId,
+                    consumer.group,
+                    version,
+                    partition,
+                    completed),
+                cause -> {
+                    log.error(consumer.tenantId + "/" + consumer.group + "/v" + version + " commit partition " + partition
+                            + " to " + completed + " failed, retry later",
+                        cause);
+                    retryDoAsyncCommit(completed);
+                });
+        }
+
+        void retryDoAsyncCommit(long completed) {
+            consumer.schedulers.schedule(() -> doAsyncCommit(completed),
+                1, TimeUnit.SECONDS);
         }
     }
 }
