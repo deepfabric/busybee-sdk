@@ -268,6 +268,14 @@ class Consumer {
         }
 
         void onFetch(QueueFetchResponse resp) {
+            log.debug("{}/{}/v{} fetch{} items from partition {} at {}",
+                consumer.tenantId,
+                consumer.group,
+                version,
+                resp.getItemsCount(),
+                partition,
+                offset);
+
             if (resp.getItemsCount() == 0) {
                 retryFetch(consumer.client.opts.fetchHeartbeat);
                 return;
