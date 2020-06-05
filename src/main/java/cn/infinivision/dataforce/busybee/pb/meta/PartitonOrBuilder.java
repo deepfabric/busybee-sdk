@@ -18,26 +18,7 @@ public interface PartitonOrBuilder extends
   long getVersion();
 
   /**
-   * <code>.metapb.PartitonState state = 3;</code>
-   */
-  int getStateValue();
-  /**
-   * <code>.metapb.PartitonState state = 3;</code>
-   */
-  cn.infinivision.dataforce.busybee.pb.meta.PartitonState getState();
-
-  /**
-   * <code>uint64 completed = 4;</code>
-   */
-  long getCompleted();
-
-  /**
-   * <code>uint64 lastFetchCount = 5;</code>
-   */
-  long getLastFetchCount();
-
-  /**
-   * <code>int64 lastFetchTS = 6;</code>
+   * <code>int64 lastFetchTS = 3;</code>
    */
   long getLastFetchTS();
 }

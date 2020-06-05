@@ -251,25 +251,22 @@ public final class PB {
       "itions\030\001 \001(\r\022\021\n\tconsumers\030\002 \001(\r\022 \n\006state" +
       "s\030\003 \003(\0132\020.metapb.Partiton\022\017\n\007timeout\030\004 \001" +
       "(\003\022\020\n\010maxAlive\030\005 \001(\003\022\022\n\ncleanBatch\030\006 \001(\004" +
-      "\"\223\001\n\010Partiton\022\020\n\010consumer\030\001 \001(\r\022\017\n\007versi" +
-      "on\030\002 \001(\004\022$\n\005state\030\003 \001(\0162\025.metapb.Partito" +
-      "nState\022\021\n\tcompleted\030\004 \001(\004\022\026\n\016lastFetchCo" +
-      "unt\030\005 \001(\004\022\023\n\013lastFetchTS\030\006 \001(\003*P\n\010BMLoad" +
-      "er\022\r\n\tRawLoader\020\000\022\014\n\010KVLoader\020\001\022\021\n\rKVSha" +
-      "rdLoader\020\002\022\024\n\020ClickhouseLoader\020\003*1\n\021Work" +
-      "erRunnerState\022\r\n\tWRRunning\020\000\022\r\n\tWRStoppe" +
-      "d\020\001*M\n\025WorkflowInstanceState\022\014\n\010Starting" +
-      "\020\000\022\013\n\007Running\020\001\022\014\n\010Stopping\020\002\022\013\n\007Stopped" +
-      "\020\003*F\n\tEventType\022\014\n\010UserType\020\000\022\023\n\017UpdateC" +
-      "rowdType\020\001\022\026\n\022UpdateWorkflowType\020\002*]\n\005Gr" +
-      "oup\022\020\n\014DefaultGroup\020\000\022\024\n\020TenantInputGrou" +
-      "p\020\001\022\025\n\021TenantOutputGroup\020\002\022\025\n\021TenantRunn" +
-      "erGroup\020\003*@\n\rExectuionType\022\n\n\006Direct\020\000\022\t" +
-      "\n\005Timer\020\001\022\n\n\006Branch\020\002\022\014\n\010Parallel\020\003*.\n\016E" +
-      "xprResultType\022\016\n\nBoolResult\020\000\022\014\n\010BMResul" +
-      "t\020\001*1\n\rPartitonState\022\021\n\rPSRebalancing\020\000\022" +
-      "\r\n\tPSRunning\020\001B7\n)cn.infinivision.datafo" +
-      "rce.busybee.pb.metaB\002PBP\001\242\002\003HLWb\006proto3"
+      "\"B\n\010Partiton\022\020\n\010consumer\030\001 \001(\r\022\017\n\007versio" +
+      "n\030\002 \001(\004\022\023\n\013lastFetchTS\030\003 \001(\003*P\n\010BMLoader" +
+      "\022\r\n\tRawLoader\020\000\022\014\n\010KVLoader\020\001\022\021\n\rKVShard" +
+      "Loader\020\002\022\024\n\020ClickhouseLoader\020\003*1\n\021Worker" +
+      "RunnerState\022\r\n\tWRRunning\020\000\022\r\n\tWRStopped\020" +
+      "\001*M\n\025WorkflowInstanceState\022\014\n\010Starting\020\000" +
+      "\022\013\n\007Running\020\001\022\014\n\010Stopping\020\002\022\013\n\007Stopped\020\003" +
+      "*F\n\tEventType\022\014\n\010UserType\020\000\022\023\n\017UpdateCro" +
+      "wdType\020\001\022\026\n\022UpdateWorkflowType\020\002*]\n\005Grou" +
+      "p\022\020\n\014DefaultGroup\020\000\022\024\n\020TenantInputGroup\020" +
+      "\001\022\025\n\021TenantOutputGroup\020\002\022\025\n\021TenantRunner" +
+      "Group\020\003*@\n\rExectuionType\022\n\n\006Direct\020\000\022\t\n\005" +
+      "Timer\020\001\022\n\n\006Branch\020\002\022\014\n\010Parallel\020\003*.\n\016Exp" +
+      "rResultType\022\016\n\nBoolResult\020\000\022\014\n\010BMResult\020" +
+      "\001B7\n)cn.infinivision.dataforce.busybee.p" +
+      "b.metaB\002PBP\001\242\002\003HLWb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -462,7 +459,7 @@ public final class PB {
     internal_static_metapb_Partiton_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_Partiton_descriptor,
-        new java.lang.String[] { "Consumer", "Version", "State", "Completed", "LastFetchCount", "LastFetchTS", });
+        new java.lang.String[] { "Consumer", "Version", "LastFetchTS", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

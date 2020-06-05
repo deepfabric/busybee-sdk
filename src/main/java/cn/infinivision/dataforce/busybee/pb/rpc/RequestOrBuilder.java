@@ -475,4 +475,17 @@ public interface RequestOrBuilder extends
    * <code>.rpcpb.QueueCommitRequest queueCommit = 37;</code>
    */
   cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequestOrBuilder getQueueCommitOrBuilder();
+
+  /**
+   * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+   */
+  boolean hasQueueDelete();
+  /**
+   * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest getQueueDelete();
+  /**
+   * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+   */
+  cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder getQueueDeleteOrBuilder();
 }

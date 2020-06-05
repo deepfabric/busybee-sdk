@@ -22,9 +22,6 @@ private static final long serialVersionUID = 0L;
   private Partiton() {
     consumer_ = 0;
     version_ = 0L;
-    state_ = 0;
-    completed_ = 0L;
-    lastFetchCount_ = 0L;
     lastFetchTS_ = 0L;
   }
 
@@ -70,22 +67,6 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 24: {
-            int rawValue = input.readEnum();
-
-            state_ = rawValue;
-            break;
-          }
-          case 32: {
-
-            completed_ = input.readUInt64();
-            break;
-          }
-          case 40: {
-
-            lastFetchCount_ = input.readUInt64();
-            break;
-          }
-          case 48: {
 
             lastFetchTS_ = input.readInt64();
             break;
@@ -132,44 +113,10 @@ private static final long serialVersionUID = 0L;
     return version_;
   }
 
-  public static final int STATE_FIELD_NUMBER = 3;
-  private int state_;
-  /**
-   * <code>.metapb.PartitonState state = 3;</code>
-   */
-  public int getStateValue() {
-    return state_;
-  }
-  /**
-   * <code>.metapb.PartitonState state = 3;</code>
-   */
-  public cn.infinivision.dataforce.busybee.pb.meta.PartitonState getState() {
-    cn.infinivision.dataforce.busybee.pb.meta.PartitonState result = cn.infinivision.dataforce.busybee.pb.meta.PartitonState.valueOf(state_);
-    return result == null ? cn.infinivision.dataforce.busybee.pb.meta.PartitonState.UNRECOGNIZED : result;
-  }
-
-  public static final int COMPLETED_FIELD_NUMBER = 4;
-  private long completed_;
-  /**
-   * <code>uint64 completed = 4;</code>
-   */
-  public long getCompleted() {
-    return completed_;
-  }
-
-  public static final int LASTFETCHCOUNT_FIELD_NUMBER = 5;
-  private long lastFetchCount_;
-  /**
-   * <code>uint64 lastFetchCount = 5;</code>
-   */
-  public long getLastFetchCount() {
-    return lastFetchCount_;
-  }
-
-  public static final int LASTFETCHTS_FIELD_NUMBER = 6;
+  public static final int LASTFETCHTS_FIELD_NUMBER = 3;
   private long lastFetchTS_;
   /**
-   * <code>int64 lastFetchTS = 6;</code>
+   * <code>int64 lastFetchTS = 3;</code>
    */
   public long getLastFetchTS() {
     return lastFetchTS_;
@@ -193,17 +140,8 @@ private static final long serialVersionUID = 0L;
     if (version_ != 0L) {
       output.writeUInt64(2, version_);
     }
-    if (state_ != cn.infinivision.dataforce.busybee.pb.meta.PartitonState.PSRebalancing.getNumber()) {
-      output.writeEnum(3, state_);
-    }
-    if (completed_ != 0L) {
-      output.writeUInt64(4, completed_);
-    }
-    if (lastFetchCount_ != 0L) {
-      output.writeUInt64(5, lastFetchCount_);
-    }
     if (lastFetchTS_ != 0L) {
-      output.writeInt64(6, lastFetchTS_);
+      output.writeInt64(3, lastFetchTS_);
     }
     unknownFields.writeTo(output);
   }
@@ -221,21 +159,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(2, version_);
     }
-    if (state_ != cn.infinivision.dataforce.busybee.pb.meta.PartitonState.PSRebalancing.getNumber()) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(3, state_);
-    }
-    if (completed_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(4, completed_);
-    }
-    if (lastFetchCount_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(5, lastFetchCount_);
-    }
     if (lastFetchTS_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(6, lastFetchTS_);
+        .computeInt64Size(3, lastFetchTS_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -257,11 +183,6 @@ private static final long serialVersionUID = 0L;
         == other.getConsumer());
     result = result && (getVersion()
         == other.getVersion());
-    result = result && state_ == other.state_;
-    result = result && (getCompleted()
-        == other.getCompleted());
-    result = result && (getLastFetchCount()
-        == other.getLastFetchCount());
     result = result && (getLastFetchTS()
         == other.getLastFetchTS());
     result = result && unknownFields.equals(other.unknownFields);
@@ -280,14 +201,6 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + VERSION_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getVersion());
-    hash = (37 * hash) + STATE_FIELD_NUMBER;
-    hash = (53 * hash) + state_;
-    hash = (37 * hash) + COMPLETED_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getCompleted());
-    hash = (37 * hash) + LASTFETCHCOUNT_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-        getLastFetchCount());
     hash = (37 * hash) + LASTFETCHTS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getLastFetchTS());
@@ -428,12 +341,6 @@ private static final long serialVersionUID = 0L;
 
       version_ = 0L;
 
-      state_ = 0;
-
-      completed_ = 0L;
-
-      lastFetchCount_ = 0L;
-
       lastFetchTS_ = 0L;
 
       return this;
@@ -460,9 +367,6 @@ private static final long serialVersionUID = 0L;
       cn.infinivision.dataforce.busybee.pb.meta.Partiton result = new cn.infinivision.dataforce.busybee.pb.meta.Partiton(this);
       result.consumer_ = consumer_;
       result.version_ = version_;
-      result.state_ = state_;
-      result.completed_ = completed_;
-      result.lastFetchCount_ = lastFetchCount_;
       result.lastFetchTS_ = lastFetchTS_;
       onBuilt();
       return result;
@@ -510,15 +414,6 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getVersion() != 0L) {
         setVersion(other.getVersion());
-      }
-      if (other.state_ != 0) {
-        setStateValue(other.getStateValue());
-      }
-      if (other.getCompleted() != 0L) {
-        setCompleted(other.getCompleted());
-      }
-      if (other.getLastFetchCount() != 0L) {
-        setLastFetchCount(other.getLastFetchCount());
       }
       if (other.getLastFetchTS() != 0L) {
         setLastFetchTS(other.getLastFetchTS());
@@ -602,111 +497,15 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int state_ = 0;
-    /**
-     * <code>.metapb.PartitonState state = 3;</code>
-     */
-    public int getStateValue() {
-      return state_;
-    }
-    /**
-     * <code>.metapb.PartitonState state = 3;</code>
-     */
-    public Builder setStateValue(int value) {
-      state_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>.metapb.PartitonState state = 3;</code>
-     */
-    public cn.infinivision.dataforce.busybee.pb.meta.PartitonState getState() {
-      cn.infinivision.dataforce.busybee.pb.meta.PartitonState result = cn.infinivision.dataforce.busybee.pb.meta.PartitonState.valueOf(state_);
-      return result == null ? cn.infinivision.dataforce.busybee.pb.meta.PartitonState.UNRECOGNIZED : result;
-    }
-    /**
-     * <code>.metapb.PartitonState state = 3;</code>
-     */
-    public Builder setState(cn.infinivision.dataforce.busybee.pb.meta.PartitonState value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      
-      state_ = value.getNumber();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>.metapb.PartitonState state = 3;</code>
-     */
-    public Builder clearState() {
-      
-      state_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private long completed_ ;
-    /**
-     * <code>uint64 completed = 4;</code>
-     */
-    public long getCompleted() {
-      return completed_;
-    }
-    /**
-     * <code>uint64 completed = 4;</code>
-     */
-    public Builder setCompleted(long value) {
-      
-      completed_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>uint64 completed = 4;</code>
-     */
-    public Builder clearCompleted() {
-      
-      completed_ = 0L;
-      onChanged();
-      return this;
-    }
-
-    private long lastFetchCount_ ;
-    /**
-     * <code>uint64 lastFetchCount = 5;</code>
-     */
-    public long getLastFetchCount() {
-      return lastFetchCount_;
-    }
-    /**
-     * <code>uint64 lastFetchCount = 5;</code>
-     */
-    public Builder setLastFetchCount(long value) {
-      
-      lastFetchCount_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>uint64 lastFetchCount = 5;</code>
-     */
-    public Builder clearLastFetchCount() {
-      
-      lastFetchCount_ = 0L;
-      onChanged();
-      return this;
-    }
-
     private long lastFetchTS_ ;
     /**
-     * <code>int64 lastFetchTS = 6;</code>
+     * <code>int64 lastFetchTS = 3;</code>
      */
     public long getLastFetchTS() {
       return lastFetchTS_;
     }
     /**
-     * <code>int64 lastFetchTS = 6;</code>
+     * <code>int64 lastFetchTS = 3;</code>
      */
     public Builder setLastFetchTS(long value) {
       
@@ -715,7 +514,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int64 lastFetchTS = 6;</code>
+     * <code>int64 lastFetchTS = 3;</code>
      */
     public Builder clearLastFetchTS() {
       

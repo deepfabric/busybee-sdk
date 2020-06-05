@@ -5,24 +5,26 @@ package cn.infinivision.dataforce.busybee.pb.rpc;
 
 /**
  * <pre>
- * QueueJoinGroupRequest join a group
+ * QueueDeleteRequest queue delete range
  * </pre>
  *
- * Protobuf type {@code rpcpb.QueueJoinGroupRequest}
+ * Protobuf type {@code rpcpb.QueueDeleteRequest}
  */
-public  final class QueueJoinGroupRequest extends
+public  final class QueueDeleteRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:rpcpb.QueueJoinGroupRequest)
-    QueueJoinGroupRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:rpcpb.QueueDeleteRequest)
+    QueueDeleteRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use QueueJoinGroupRequest.newBuilder() to construct.
-  private QueueJoinGroupRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use QueueDeleteRequest.newBuilder() to construct.
+  private QueueDeleteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private QueueJoinGroupRequest() {
-    id_ = 0L;
+  private QueueDeleteRequest() {
     key_ = com.google.protobuf.ByteString.EMPTY;
-    group_ = com.google.protobuf.ByteString.EMPTY;
+    id_ = 0L;
+    partition_ = 0;
+    from_ = 0L;
+    to_ = 0L;
   }
 
   @java.lang.Override
@@ -30,7 +32,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private QueueJoinGroupRequest(
+  private QueueDeleteRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -56,19 +58,29 @@ private static final long serialVersionUID = 0L;
             }
             break;
           }
-          case 8: {
-
-            id_ = input.readUInt64();
-            break;
-          }
-          case 18: {
+          case 10: {
 
             key_ = input.readBytes();
             break;
           }
-          case 26: {
+          case 16: {
 
-            group_ = input.readBytes();
+            id_ = input.readUInt64();
+            break;
+          }
+          case 24: {
+
+            partition_ = input.readUInt32();
+            break;
+          }
+          case 32: {
+
+            from_ = input.readUInt64();
+            break;
+          }
+          case 40: {
+
+            to_ = input.readUInt64();
             break;
           }
         }
@@ -85,41 +97,59 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueJoinGroupRequest_descriptor;
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueDeleteRequest_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueJoinGroupRequest_fieldAccessorTable
+    return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueDeleteRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder.class);
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder.class);
   }
 
-  public static final int ID_FIELD_NUMBER = 1;
-  private long id_;
-  /**
-   * <code>uint64 id = 1;</code>
-   */
-  public long getId() {
-    return id_;
-  }
-
-  public static final int KEY_FIELD_NUMBER = 2;
+  public static final int KEY_FIELD_NUMBER = 1;
   private com.google.protobuf.ByteString key_;
   /**
-   * <code>bytes key = 2;</code>
+   * <code>bytes key = 1;</code>
    */
   public com.google.protobuf.ByteString getKey() {
     return key_;
   }
 
-  public static final int GROUP_FIELD_NUMBER = 3;
-  private com.google.protobuf.ByteString group_;
+  public static final int ID_FIELD_NUMBER = 2;
+  private long id_;
   /**
-   * <code>bytes group = 3;</code>
+   * <code>uint64 id = 2;</code>
    */
-  public com.google.protobuf.ByteString getGroup() {
-    return group_;
+  public long getId() {
+    return id_;
+  }
+
+  public static final int PARTITION_FIELD_NUMBER = 3;
+  private int partition_;
+  /**
+   * <code>uint32 partition = 3;</code>
+   */
+  public int getPartition() {
+    return partition_;
+  }
+
+  public static final int FROM_FIELD_NUMBER = 4;
+  private long from_;
+  /**
+   * <code>uint64 from = 4;</code>
+   */
+  public long getFrom() {
+    return from_;
+  }
+
+  public static final int TO_FIELD_NUMBER = 5;
+  private long to_;
+  /**
+   * <code>uint64 to = 5;</code>
+   */
+  public long getTo() {
+    return to_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -134,14 +164,20 @@ private static final long serialVersionUID = 0L;
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (id_ != 0L) {
-      output.writeUInt64(1, id_);
-    }
     if (!key_.isEmpty()) {
-      output.writeBytes(2, key_);
+      output.writeBytes(1, key_);
     }
-    if (!group_.isEmpty()) {
-      output.writeBytes(3, group_);
+    if (id_ != 0L) {
+      output.writeUInt64(2, id_);
+    }
+    if (partition_ != 0) {
+      output.writeUInt32(3, partition_);
+    }
+    if (from_ != 0L) {
+      output.writeUInt64(4, from_);
+    }
+    if (to_ != 0L) {
+      output.writeUInt64(5, to_);
     }
     unknownFields.writeTo(output);
   }
@@ -151,17 +187,25 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (id_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeUInt64Size(1, id_);
-    }
     if (!key_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(2, key_);
+        .computeBytesSize(1, key_);
     }
-    if (!group_.isEmpty()) {
+    if (id_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBytesSize(3, group_);
+        .computeUInt64Size(2, id_);
+    }
+    if (partition_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(3, partition_);
+    }
+    if (from_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(4, from_);
+    }
+    if (to_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt64Size(5, to_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -173,18 +217,22 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest)) {
+    if (!(obj instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest)) {
       return super.equals(obj);
     }
-    cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest) obj;
+    cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest other = (cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest) obj;
 
     boolean result = true;
-    result = result && (getId()
-        == other.getId());
     result = result && getKey()
         .equals(other.getKey());
-    result = result && getGroup()
-        .equals(other.getGroup());
+    result = result && (getId()
+        == other.getId());
+    result = result && (getPartition()
+        == other.getPartition());
+    result = result && (getFrom()
+        == other.getFrom());
+    result = result && (getTo()
+        == other.getTo());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -196,81 +244,87 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + KEY_FIELD_NUMBER;
+    hash = (53 * hash) + getKey().hashCode();
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getId());
-    hash = (37 * hash) + KEY_FIELD_NUMBER;
-    hash = (53 * hash) + getKey().hashCode();
-    hash = (37 * hash) + GROUP_FIELD_NUMBER;
-    hash = (53 * hash) + getGroup().hashCode();
+    hash = (37 * hash) + PARTITION_FIELD_NUMBER;
+    hash = (53 * hash) + getPartition();
+    hash = (37 * hash) + FROM_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getFrom());
+    hash = (37 * hash) + TO_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTo());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(byte[] data)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseDelimitedFrom(java.io.InputStream input)
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseDelimitedFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parseFrom(
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -282,7 +336,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest prototype) {
+  public static Builder newBuilder(cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -298,28 +352,28 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * QueueJoinGroupRequest join a group
+   * QueueDeleteRequest queue delete range
    * </pre>
    *
-   * Protobuf type {@code rpcpb.QueueJoinGroupRequest}
+   * Protobuf type {@code rpcpb.QueueDeleteRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:rpcpb.QueueJoinGroupRequest)
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:rpcpb.QueueDeleteRequest)
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueJoinGroupRequest_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueDeleteRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueJoinGroupRequest_fieldAccessorTable
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueDeleteRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.Builder.class);
+              cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.class, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder.class);
     }
 
-    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.newBuilder()
+    // Construct using cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -336,37 +390,43 @@ private static final long serialVersionUID = 0L;
     }
     public Builder clear() {
       super.clear();
-      id_ = 0L;
-
       key_ = com.google.protobuf.ByteString.EMPTY;
 
-      group_ = com.google.protobuf.ByteString.EMPTY;
+      id_ = 0L;
+
+      partition_ = 0;
+
+      from_ = 0L;
+
+      to_ = 0L;
 
       return this;
     }
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueJoinGroupRequest_descriptor;
+      return cn.infinivision.dataforce.busybee.pb.rpc.PB.internal_static_rpcpb_QueueDeleteRequest_descriptor;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest getDefaultInstanceForType() {
-      return cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.getDefaultInstance();
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest getDefaultInstanceForType() {
+      return cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.getDefaultInstance();
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest build() {
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest result = buildPartial();
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest build() {
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest buildPartial() {
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest(this);
-      result.id_ = id_;
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest buildPartial() {
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest result = new cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest(this);
       result.key_ = key_;
-      result.group_ = group_;
+      result.id_ = id_;
+      result.partition_ = partition_;
+      result.from_ = from_;
+      result.to_ = to_;
       onBuilt();
       return result;
     }
@@ -398,24 +458,30 @@ private static final long serialVersionUID = 0L;
       return (Builder) super.addRepeatedField(field, value);
     }
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest) {
-        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest)other);
+      if (other instanceof cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest) {
+        return mergeFrom((cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest other) {
-      if (other == cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest.getDefaultInstance()) return this;
-      if (other.getId() != 0L) {
-        setId(other.getId());
-      }
+    public Builder mergeFrom(cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest other) {
+      if (other == cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.getDefaultInstance()) return this;
       if (other.getKey() != com.google.protobuf.ByteString.EMPTY) {
         setKey(other.getKey());
       }
-      if (other.getGroup() != com.google.protobuf.ByteString.EMPTY) {
-        setGroup(other.getGroup());
+      if (other.getId() != 0L) {
+        setId(other.getId());
+      }
+      if (other.getPartition() != 0) {
+        setPartition(other.getPartition());
+      }
+      if (other.getFrom() != 0L) {
+        setFrom(other.getFrom());
+      }
+      if (other.getTo() != 0L) {
+        setTo(other.getTo());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -430,11 +496,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest parsedMessage = null;
+      cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest) e.getUnfinishedMessage();
+        parsedMessage = (cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -444,41 +510,15 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private long id_ ;
-    /**
-     * <code>uint64 id = 1;</code>
-     */
-    public long getId() {
-      return id_;
-    }
-    /**
-     * <code>uint64 id = 1;</code>
-     */
-    public Builder setId(long value) {
-      
-      id_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>uint64 id = 1;</code>
-     */
-    public Builder clearId() {
-      
-      id_ = 0L;
-      onChanged();
-      return this;
-    }
-
     private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes key = 2;</code>
+     * <code>bytes key = 1;</code>
      */
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
     /**
-     * <code>bytes key = 2;</code>
+     * <code>bytes key = 1;</code>
      */
     public Builder setKey(com.google.protobuf.ByteString value) {
       if (value == null) {
@@ -490,7 +530,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bytes key = 2;</code>
+     * <code>bytes key = 1;</code>
      */
     public Builder clearKey() {
       
@@ -499,31 +539,106 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private com.google.protobuf.ByteString group_ = com.google.protobuf.ByteString.EMPTY;
+    private long id_ ;
     /**
-     * <code>bytes group = 3;</code>
+     * <code>uint64 id = 2;</code>
      */
-    public com.google.protobuf.ByteString getGroup() {
-      return group_;
+    public long getId() {
+      return id_;
     }
     /**
-     * <code>bytes group = 3;</code>
+     * <code>uint64 id = 2;</code>
      */
-    public Builder setGroup(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      group_ = value;
+    public Builder setId(long value) {
+      
+      id_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>bytes group = 3;</code>
+     * <code>uint64 id = 2;</code>
      */
-    public Builder clearGroup() {
+    public Builder clearId() {
       
-      group_ = getDefaultInstance().getGroup();
+      id_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private int partition_ ;
+    /**
+     * <code>uint32 partition = 3;</code>
+     */
+    public int getPartition() {
+      return partition_;
+    }
+    /**
+     * <code>uint32 partition = 3;</code>
+     */
+    public Builder setPartition(int value) {
+      
+      partition_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint32 partition = 3;</code>
+     */
+    public Builder clearPartition() {
+      
+      partition_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private long from_ ;
+    /**
+     * <code>uint64 from = 4;</code>
+     */
+    public long getFrom() {
+      return from_;
+    }
+    /**
+     * <code>uint64 from = 4;</code>
+     */
+    public Builder setFrom(long value) {
+      
+      from_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 from = 4;</code>
+     */
+    public Builder clearFrom() {
+      
+      from_ = 0L;
+      onChanged();
+      return this;
+    }
+
+    private long to_ ;
+    /**
+     * <code>uint64 to = 5;</code>
+     */
+    public long getTo() {
+      return to_;
+    }
+    /**
+     * <code>uint64 to = 5;</code>
+     */
+    public Builder setTo(long value) {
+      
+      to_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>uint64 to = 5;</code>
+     */
+    public Builder clearTo() {
+      
+      to_ = 0L;
       onChanged();
       return this;
     }
@@ -538,39 +653,39 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:rpcpb.QueueJoinGroupRequest)
+    // @@protoc_insertion_point(builder_scope:rpcpb.QueueDeleteRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:rpcpb.QueueJoinGroupRequest)
-  private static final cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:rpcpb.QueueDeleteRequest)
+  private static final cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest();
+    DEFAULT_INSTANCE = new cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest();
   }
 
-  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest getDefaultInstance() {
+  public static cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<QueueJoinGroupRequest>
-      PARSER = new com.google.protobuf.AbstractParser<QueueJoinGroupRequest>() {
-    public QueueJoinGroupRequest parsePartialFrom(
+  private static final com.google.protobuf.Parser<QueueDeleteRequest>
+      PARSER = new com.google.protobuf.AbstractParser<QueueDeleteRequest>() {
+    public QueueDeleteRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new QueueJoinGroupRequest(input, extensionRegistry);
+      return new QueueDeleteRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<QueueJoinGroupRequest> parser() {
+  public static com.google.protobuf.Parser<QueueDeleteRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<QueueJoinGroupRequest> getParserForType() {
+  public com.google.protobuf.Parser<QueueDeleteRequest> getParserForType() {
     return PARSER;
   }
 
-  public cn.infinivision.dataforce.busybee.pb.rpc.QueueJoinGroupRequest getDefaultInstanceForType() {
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

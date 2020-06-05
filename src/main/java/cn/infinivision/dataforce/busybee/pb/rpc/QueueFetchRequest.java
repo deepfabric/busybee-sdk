@@ -29,7 +29,6 @@ private static final long serialVersionUID = 0L;
     completedOffset_ = 0L;
     count_ = 0L;
     maxBytes_ = 0L;
-    noCommit_ = false;
   }
 
   @java.lang.Override
@@ -106,11 +105,6 @@ private static final long serialVersionUID = 0L;
           case 72: {
 
             maxBytes_ = input.readUInt64();
-            break;
-          }
-          case 80: {
-
-            noCommit_ = input.readBool();
             break;
           }
         }
@@ -218,15 +212,6 @@ private static final long serialVersionUID = 0L;
     return maxBytes_;
   }
 
-  public static final int NOCOMMIT_FIELD_NUMBER = 10;
-  private boolean noCommit_;
-  /**
-   * <code>bool noCommit = 10;</code>
-   */
-  public boolean getNoCommit() {
-    return noCommit_;
-  }
-
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -265,9 +250,6 @@ private static final long serialVersionUID = 0L;
     }
     if (maxBytes_ != 0L) {
       output.writeUInt64(9, maxBytes_);
-    }
-    if (noCommit_ != false) {
-      output.writeBool(10, noCommit_);
     }
     unknownFields.writeTo(output);
   }
@@ -313,10 +295,6 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeUInt64Size(9, maxBytes_);
     }
-    if (noCommit_ != false) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(10, noCommit_);
-    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -351,8 +329,6 @@ private static final long serialVersionUID = 0L;
         == other.getCount());
     result = result && (getMaxBytes()
         == other.getMaxBytes());
-    result = result && (getNoCommit()
-        == other.getNoCommit());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -387,9 +363,6 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + MAXBYTES_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getMaxBytes());
-    hash = (37 * hash) + NOCOMMIT_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getNoCommit());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -541,8 +514,6 @@ private static final long serialVersionUID = 0L;
 
       maxBytes_ = 0L;
 
-      noCommit_ = false;
-
       return this;
     }
 
@@ -574,7 +545,6 @@ private static final long serialVersionUID = 0L;
       result.completedOffset_ = completedOffset_;
       result.count_ = count_;
       result.maxBytes_ = maxBytes_;
-      result.noCommit_ = noCommit_;
       onBuilt();
       return result;
     }
@@ -642,9 +612,6 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getMaxBytes() != 0L) {
         setMaxBytes(other.getMaxBytes());
-      }
-      if (other.getNoCommit() != false) {
-        setNoCommit(other.getNoCommit());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -909,32 +876,6 @@ private static final long serialVersionUID = 0L;
     public Builder clearMaxBytes() {
       
       maxBytes_ = 0L;
-      onChanged();
-      return this;
-    }
-
-    private boolean noCommit_ ;
-    /**
-     * <code>bool noCommit = 10;</code>
-     */
-    public boolean getNoCommit() {
-      return noCommit_;
-    }
-    /**
-     * <code>bool noCommit = 10;</code>
-     */
-    public Builder setNoCommit(boolean value) {
-      
-      noCommit_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>bool noCommit = 10;</code>
-     */
-    public Builder clearNoCommit() {
-      
-      noCommit_ = false;
       onChanged();
       return this;
     }

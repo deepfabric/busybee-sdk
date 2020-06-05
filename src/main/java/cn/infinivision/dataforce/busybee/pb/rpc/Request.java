@@ -522,6 +522,19 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 306: {
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder subBuilder = null;
+            if (queueDelete_ != null) {
+              subBuilder = queueDelete_.toBuilder();
+            }
+            queueDelete_ = input.readMessage(cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(queueDelete_);
+              queueDelete_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1306,6 +1319,27 @@ private static final long serialVersionUID = 0L;
     return getQueueCommit();
   }
 
+  public static final int QUEUEDELETE_FIELD_NUMBER = 38;
+  private cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest queueDelete_;
+  /**
+   * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+   */
+  public boolean hasQueueDelete() {
+    return queueDelete_ != null;
+  }
+  /**
+   * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest getQueueDelete() {
+    return queueDelete_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.getDefaultInstance() : queueDelete_;
+  }
+  /**
+   * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+   */
+  public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder getQueueDeleteOrBuilder() {
+    return getQueueDelete();
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -1428,6 +1462,9 @@ private static final long serialVersionUID = 0L;
     }
     if (queueCommit_ != null) {
       output.writeMessage(37, getQueueCommit());
+    }
+    if (queueDelete_ != null) {
+      output.writeMessage(38, getQueueDelete());
     }
     unknownFields.writeTo(output);
   }
@@ -1584,6 +1621,10 @@ private static final long serialVersionUID = 0L;
     if (queueCommit_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(37, getQueueCommit());
+    }
+    if (queueDelete_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(38, getQueueDelete());
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1779,6 +1820,11 @@ private static final long serialVersionUID = 0L;
       result = result && getQueueCommit()
           .equals(other.getQueueCommit());
     }
+    result = result && (hasQueueDelete() == other.hasQueueDelete());
+    if (hasQueueDelete()) {
+      result = result && getQueueDelete()
+          .equals(other.getQueueDelete());
+    }
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -1934,6 +1980,10 @@ private static final long serialVersionUID = 0L;
     if (hasQueueCommit()) {
       hash = (37 * hash) + QUEUECOMMIT_FIELD_NUMBER;
       hash = (53 * hash) + getQueueCommit().hashCode();
+    }
+    if (hasQueueDelete()) {
+      hash = (37 * hash) + QUEUEDELETE_FIELD_NUMBER;
+      hash = (53 * hash) + getQueueDelete().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -2282,6 +2332,12 @@ private static final long serialVersionUID = 0L;
         queueCommit_ = null;
         queueCommitBuilder_ = null;
       }
+      if (queueDeleteBuilder_ == null) {
+        queueDelete_ = null;
+      } else {
+        queueDelete_ = null;
+        queueDeleteBuilder_ = null;
+      }
       return this;
     }
 
@@ -2481,6 +2537,11 @@ private static final long serialVersionUID = 0L;
       } else {
         result.queueCommit_ = queueCommitBuilder_.build();
       }
+      if (queueDeleteBuilder_ == null) {
+        result.queueDelete_ = queueDelete_;
+      } else {
+        result.queueDelete_ = queueDeleteBuilder_.build();
+      }
       onBuilt();
       return result;
     }
@@ -2632,6 +2693,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasQueueCommit()) {
         mergeQueueCommit(other.getQueueCommit());
+      }
+      if (other.hasQueueDelete()) {
+        mergeQueueDelete(other.getQueueDelete());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -6823,6 +6887,123 @@ private static final long serialVersionUID = 0L;
         queueCommit_ = null;
       }
       return queueCommitBuilder_;
+    }
+
+    private cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest queueDelete_ = null;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder> queueDeleteBuilder_;
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public boolean hasQueueDelete() {
+      return queueDeleteBuilder_ != null || queueDelete_ != null;
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest getQueueDelete() {
+      if (queueDeleteBuilder_ == null) {
+        return queueDelete_ == null ? cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.getDefaultInstance() : queueDelete_;
+      } else {
+        return queueDeleteBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public Builder setQueueDelete(cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest value) {
+      if (queueDeleteBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        queueDelete_ = value;
+        onChanged();
+      } else {
+        queueDeleteBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public Builder setQueueDelete(
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder builderForValue) {
+      if (queueDeleteBuilder_ == null) {
+        queueDelete_ = builderForValue.build();
+        onChanged();
+      } else {
+        queueDeleteBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public Builder mergeQueueDelete(cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest value) {
+      if (queueDeleteBuilder_ == null) {
+        if (queueDelete_ != null) {
+          queueDelete_ =
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.newBuilder(queueDelete_).mergeFrom(value).buildPartial();
+        } else {
+          queueDelete_ = value;
+        }
+        onChanged();
+      } else {
+        queueDeleteBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public Builder clearQueueDelete() {
+      if (queueDeleteBuilder_ == null) {
+        queueDelete_ = null;
+        onChanged();
+      } else {
+        queueDelete_ = null;
+        queueDeleteBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder getQueueDeleteBuilder() {
+      
+      onChanged();
+      return getQueueDeleteFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    public cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder getQueueDeleteOrBuilder() {
+      if (queueDeleteBuilder_ != null) {
+        return queueDeleteBuilder_.getMessageOrBuilder();
+      } else {
+        return queueDelete_ == null ?
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.getDefaultInstance() : queueDelete_;
+      }
+    }
+    /**
+     * <code>.rpcpb.QueueDeleteRequest queueDelete = 38;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder> 
+        getQueueDeleteFieldBuilder() {
+      if (queueDeleteBuilder_ == null) {
+        queueDeleteBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequest.Builder, cn.infinivision.dataforce.busybee.pb.rpc.QueueDeleteRequestOrBuilder>(
+                getQueueDelete(),
+                getParentForChildren(),
+                isClean());
+        queueDelete_ = null;
+      }
+      return queueDeleteBuilder_;
     }
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {

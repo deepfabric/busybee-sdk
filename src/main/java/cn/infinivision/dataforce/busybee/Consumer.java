@@ -36,22 +36,16 @@ class Consumer {
     private String group;
     private ScheduledExecutorService schedulers;
     private BiConsumer<QueueID, Notify> callback;
-    private BiConsumer<QueueID, List<Notify>> batchCallback;
     private Map<Integer, PartitionFetcher> fetches = new HashMap<>();
-    private boolean asyncCommit;
 
     Consumer(Client client, long tenantId, String group,
         BiConsumer<QueueID, Notify> callback,
-        BiConsumer<QueueID, List<Notify>> batchCallback,
-        ScheduledExecutorService schedulers,
-        boolean asyncCommit) {
+        ScheduledExecutorService schedulers) {
         this.client = client;
         this.tenantId = tenantId;
         this.group = group;
         this.schedulers = schedulers;
         this.callback = callback;
-        this.batchCallback = batchCallback;
-        this.asyncCommit = asyncCommit;
     }
 
     void start() {
@@ -98,7 +92,7 @@ class Consumer {
             int partition = joinResp.getPartitions(i);
             long version = joinResp.getVersions(i);
             fetches.put(partition, new PartitionFetcher(this,
-                joinResp.getIndex(), partition, version, asyncCommit));
+                joinResp.getIndex(), partition, version));
         }
 
         schedulers.execute(() -> fetches.values().forEach(f -> f.start()));
@@ -143,14 +137,12 @@ class Consumer {
         private long version;
         private long offset;
         private boolean doHB;
-        private boolean asyncCommit;
 
-        PartitionFetcher(Consumer consumer, int index, int partition, long version, boolean asyncCommit) {
+        PartitionFetcher(Consumer consumer, int index, int partition, long version) {
             this.consumer = consumer;
             this.index = index;
             this.partition = partition;
             this.version = version;
-            this.asyncCommit = asyncCommit;
         }
 
         void start() {
@@ -198,7 +190,6 @@ class Consumer {
                     .setCompletedOffset(offset)
                     .setCount(consumer.client.opts.fetchCount)
                     .setMaxBytes(consumer.client.opts.fetchBytes)
-                    .setNoCommit(asyncCommit)
                     .build())
                 .build(), this::onResponse, this::onError);
         }
@@ -294,15 +285,10 @@ class Consumer {
                             values.add(Notify.parseFrom(bs));
                         }
 
-                        if (consumer.callback != null) {
-                            for (Notify nt : values) {
-                                consumer.callback.accept(new QueueID(partition, value, this), nt);
-                                offset = value;
-                                value++;
-                            }
-                        } else {
-                            consumer.batchCallback.accept(new QueueID(partition, value, this), values);
-                            offset = resp.getLastOffset();
+                        for (Notify nt : values) {
+                            consumer.callback.accept(new QueueID(consumer.tenantId, consumer.group, partition, value), nt);
+                            offset = value;
+                            value++;
                         }
 
                         after = 0;
@@ -325,44 +311,6 @@ class Consumer {
 
         void stopHB() {
             doHB = false;
-        }
-
-        void doAsyncCommit(long completed) {
-            if (stopped.get()) {
-                return;
-            }
-
-            consumer.client.transport.sent(Request.newBuilder()
-                    .setId(consumer.client.id.incrementAndGet())
-                    .setType(Type.FetchNotify)
-                    .setQueueFetch(QueueFetchRequest.newBuilder()
-                        .setId(consumer.tenantId)
-                        .setGroup(ByteString.copyFromUtf8(consumer.group))
-                        .setConsumer(index)
-                        .setVersion(version)
-                        .setPartition(partition)
-                        .setCompletedOffset(completed)
-                        .setCount(0)
-                        .setNoCommit(false)
-                        .build())
-                    .build(),
-                resp -> log.info("{}/{}/v{} commit partition {} to {}",
-                    consumer.tenantId,
-                    consumer.group,
-                    version,
-                    partition,
-                    completed),
-                cause -> {
-                    log.error(consumer.tenantId + "/" + consumer.group + "/v" + version + " commit partition " + partition
-                            + " to " + completed + " failed, retry later",
-                        cause);
-                    retryDoAsyncCommit(completed);
-                });
-        }
-
-        void retryDoAsyncCommit(long completed) {
-            consumer.schedulers.schedule(() -> doAsyncCommit(completed),
-                1, TimeUnit.SECONDS);
         }
     }
 }

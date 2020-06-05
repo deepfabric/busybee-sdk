@@ -22,7 +22,6 @@ import cn.infinivision.dataforce.busybee.pb.meta.TimerExecution;
 import cn.infinivision.dataforce.busybee.pb.meta.UserEvent;
 import cn.infinivision.dataforce.busybee.pb.meta.Workflow;
 import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstance;
-import cn.infinivision.dataforce.busybee.pb.meta.WorkflowInstanceState;
 import cn.infinivision.dataforce.busybee.pb.rpc.AddEventRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.AllocIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.BMClearRequest;
@@ -41,6 +40,7 @@ import cn.infinivision.dataforce.busybee.pb.rpc.HistoryInstanceRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCountStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.InstanceCrowdStateRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.LastInstanceRequest;
+import cn.infinivision.dataforce.busybee.pb.rpc.QueueCommitRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.Request;
 import cn.infinivision.dataforce.busybee.pb.rpc.ResetIDRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.ScanMappingRequest;
@@ -62,7 +62,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -937,38 +936,16 @@ public class Client implements Closeable {
      * @param tenantId tenant id
      * @param group consumer group
      * @param callback callback
-     * @param asyncCommit async commit offset
      */
     public synchronized void watchNotify(long tenantId, String group,
-        BiConsumer<QueueID, Notify> callback, boolean asyncCommit) {
-        watchNotify(tenantId, group, callback, null, asyncCommit);
-    }
-
-    /**
-     * watch the notifies of the giving tenantId
-     *
-     * @param tenantId tenant id
-     * @param group consumer group
-     * @param callback batch callback
-     * @param asyncCommit async commit offset
-     */
-    public synchronized void watchNotifyWithBatch(long tenantId, String group,
-        BiConsumer<QueueID, List<Notify>> callback, boolean asyncCommit) {
-        watchNotify(tenantId, group, null, callback, asyncCommit);
-    }
-
-    private synchronized void watchNotify(long tenantId, String group,
-        BiConsumer<QueueID, Notify> callback,
-        BiConsumer<QueueID, List<Notify>> batchCallback, boolean asyncCommit) {
+        BiConsumer<QueueID, Notify> callback) {
         String key = tenantId + "/" + group;
         if (fetchWorkers.containsKey(key)) {
             log.warn("tenant {} already in watching", key);
             return;
         }
 
-        Consumer w = new Consumer(this, tenantId, group,
-            callback, batchCallback,
-            schedulers, asyncCommit);
+        Consumer w = new Consumer(this, tenantId, group, callback, schedulers);
         fetchWorkers.putIfAbsent(key, w);
         w.start();
     }
@@ -985,6 +962,26 @@ public class Client implements Closeable {
         if (w != null) {
             w.stop();
         }
+    }
+
+    /**
+     * commit the queue id
+     *
+     * @param id queue id
+     * @return Future Result, use {@link Result#checkError} to check has a error
+     */
+    public Future<Result> commitQueueID(QueueID id) {
+        Request req = Request.newBuilder()
+            .setId(this.id.incrementAndGet())
+            .setType(Type.QueueCommit)
+            .setQueueCommit(QueueCommitRequest.newBuilder()
+                .setId(id.getTenantId())
+                .setConsumer(ByteString.copyFromUtf8(id.getGroup()))
+                .setCompletedOffset(id.getOffset())
+                .setPartition(id.getPartition())
+                .build())
+            .build();
+        return doRequest(req);
     }
 
     /**
@@ -1049,55 +1046,13 @@ public class Client implements Closeable {
         return doRequest(req);
     }
 
-    private Future<Result> doRequest(Request req) {
+    Future<Result> doRequest(Request req) {
         Result result = new Result();
         transport.sent(req, result::done, result::done);
         return CompletableFuture.supplyAsync(() -> {
             result.waitComplete();
             return result;
         });
-    }
-
-    public static void main6(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(5000).addServer("172.19.0.106:8091").build();
-
-        RoaringBitmap bm = new RoaringBitmap();
-        c.watchNotify(1, "ccccc1", (id, nt) -> {
-            if (nt.getToStep().startsWith("2515196f-aa8e-46d6-ade2-5b59862649f0")) {
-                if (nt.getUserID() > 0) {
-                    bm.add((int) nt.getUserID());
-                } else {
-                    RoaringBitmap bm2 = new RoaringBitmap();
-                    try {
-                        bm2.deserialize(nt.getCrowd().asReadOnlyByteBuffer());
-                        bm.or(bm2);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                System.out.println("############################# count: " + bm.getCardinality());
-            }
-        }, false);
-    }
-
-    public static void main11(String[] args) {
-        final RoaringBitmap bm = new RoaringBitmap();
-        for (int i = 0; i < 400000000L; i++) {
-            if (i % 3 == 0) {
-                bm.add(i);
-            }
-        }
-
-        System.out.println(bm.getCardinality());
-        System.out.println(bm.serializedSizeInBytes());
-    }
-
-    public static void main13(String[] args) {
-        Client c = new Builder().rpcTimeout(100000).fetchSize(1).addServer("172.21.246.250:8081").build();
-        for (int i = 1; i <= 1000000; i++) {
-            c.addEvent(1, i);
-        }
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -1211,542 +1166,5 @@ public class Client implements Closeable {
 //                e.printStackTrace();
 //            }
 //        });
-    }
-
-    public static void main4(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(30000).addServer("172.18.80.9:8081").build();
-        int n = 2;
-        if (n == 1) {
-            c.initTenant(Tenant.newBuilder()
-                .setId(1)
-                .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(5).build())
-                .build()).get().checkError();
-            Thread.sleep(20000);
-
-            Workflow.Builder workflowBuilder = Workflow
-                .newBuilder()
-                .setId(1)
-                .setTenantID(1)
-                .setName("测试")
-                .addSteps(
-                    Step.newBuilder()
-                        .setName("开始")
-                        .setExecution(
-                            Execution.newBuilder()
-                                .setType(ExectuionType.Timer)
-                                .setTimer(TimerExecution.newBuilder()
-                                    .setUseStepCrowdToDrive(true)
-                                    .setCondition(Expr.newBuilder()
-                                        .setType(ExprResultType.BoolResult)
-                                        .setValue(ByteString.copyFromUtf8("1==1"))
-                                        .build())
-                                    .setCron("0 */1 * * * *")
-                                    .setNextStep("优惠券")
-                                    .build())
-                        )
-                )
-                .addSteps(
-                    Step.newBuilder()
-                        .setName("优惠券")
-                        .setExecution(
-                            Execution.newBuilder()
-                                .setType(ExectuionType.Branch)
-                                .addBranches(ConditionExecution.newBuilder()
-                                    .setCondition(Expr.newBuilder()
-                                        .setType(ExprResultType.BoolResult)
-                                        .setValue(ByteString.copyFromUtf8("{str: event.__stepName__} == \"优惠券\""))
-                                        .build())
-                                    .setNextStep("是否领取优惠券")
-                                    .build())
-                                .addBranches(ConditionExecution.newBuilder()
-                                    .setCondition(Expr.newBuilder()
-                                        .setType(ExprResultType.BoolResult)
-                                        .setValue(ByteString.copyFromUtf8("1!=1"))
-                                        .build())
-                                    .build())
-                        )
-                )
-                .addSteps(
-                    Step.newBuilder()
-                        .setName("是否领取优惠券")
-                        .setExecution(
-                            Execution.newBuilder()
-                                .setType(ExectuionType.Branch)
-                                .addBranches(ConditionExecution.newBuilder()
-                                    .setCondition(Expr.newBuilder()
-                                        .setType(ExprResultType.BoolResult)
-                                        .setValue(ByteString.copyFromUtf8("{str: event.eventName} == \"领取优惠券\""))
-                                        .build())
-                                    .build())
-                                .addBranches(ConditionExecution.newBuilder()
-                                    .setCondition(Expr.newBuilder()
-                                        .setType(ExprResultType.BoolResult)
-                                        .setValue(ByteString.copyFromUtf8("1!=1"))
-                                        .build())
-                                    .build())
-                        )
-                );  // 省略后续的流程步骤
-            workflowBuilder.setStopAt(new Date().getTime() + 10 * 60 * 60);
-            final RoaringBitmap bitmap = new RoaringBitmap();
-            IntStream.range(1, 10001).forEach(e -> bitmap.add(e));
-            c.startInstance(workflowBuilder.build(), bitmap).get().checkError();
-        } else {
-            for (int i = 0; i < 5000; i++) {
-                System.out.println(i);
-                c.addEvent(1, i, "__stepName__".getBytes(), "优惠券".getBytes()).get().checkError();
-            }
-        }
-    }
-
-    public static void main3(String[] args) throws ExecutionException, InterruptedException, IOException {
-        Client c = new Builder().rpcTimeout(5000).addServer("172.18.85.9:8081").build();
-        int n = 2;
-        if (n == 1) {
-            c.initTenant(Tenant.newBuilder()
-                .setId(1)
-                .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(15).build())
-                .build()).get().checkError();
-            Thread.sleep(20000);
-            long wid = 1001;
-            Workflow wf = Workflow.newBuilder()
-                .setId(wid)
-                .setName("test")
-                .setTenantID(1)
-                .addSteps(Step.newBuilder()
-                    .setName("start")
-                    .setExecution(Execution.newBuilder()
-                        .setType(ExectuionType.Branch)
-                        .addBranches(ConditionExecution.newBuilder()
-                            .setCondition(Expr.newBuilder()
-                                .setValue(ByteString.copyFrom("{num: event.data} % 2 == 0".getBytes()))
-                                .build())
-                            .setNextStep("end1"))
-                        .addBranches(ConditionExecution.newBuilder()
-                            .setCondition(Expr.newBuilder()
-                                .setType(ExprResultType.BoolResult)
-                                .setValue(ByteString.copyFrom("{num: event.data} % 2 != 0".getBytes()))
-                                .build())
-                            .setNextStep("end2"))
-                        .build())
-                    .build())
-                .addSteps(Step.newBuilder()
-                    .setName("end1")
-                    .setExecution(Execution.newBuilder()
-                        .setType(ExectuionType.Direct)
-                        .setDirect(DirectExecution.newBuilder().build())
-                        .build()))
-                .addSteps(Step.newBuilder()
-                    .setName("end2")
-                    .setExecution(Execution.newBuilder()
-                        .setType(ExectuionType.Direct)
-                        .setDirect(DirectExecution.newBuilder().build())
-                        .build()))
-                .build();
-
-            RoaringBitmap bm = new RoaringBitmap();
-            for (int i = 1; i <= 10000; i++) {
-                bm.add(i);
-            }
-            c.startInstance(wf, bm).get().checkError();
-
-            for (int i = 1; i < 100; i++) {
-                c.addEvent(1, i, "data".getBytes(), String.valueOf(i).getBytes()).get().checkError();
-            }
-        }
-
-        if (n == 2) {
-            c.watchNotify(1, "g1", (id, nt) -> {
-                log.info("*********** received  {}/{}", id.getPartition(), id.getOffset());
-                throw new RuntimeException("aaaaaaaaaaaaaaaaa");
-            }, false);
-        }
-    }
-
-    public static void keys(Client c) throws ExecutionException, InterruptedException {
-        for (int i = 0; i < 10; i++) {
-            c.set(("key0" + i), ("value" + i).getBytes()).get().checkError();
-        }
-
-        System.out.println(c.scanKeys("key0".getBytes(), "key1".getBytes(), 10).get().bytesListResponse());
-    }
-
-    public static void alloc(Client c) throws ExecutionException, InterruptedException {
-        String key = "key-id";
-
-        System.out.println(c.currentId(key).get().unsignedIntResponse());
-        c.allocId(key, 10).get().checkError();
-        System.out.println(c.currentId(key).get().unsignedIntResponse());
-        c.resetId(key, 5).get().checkError();
-        System.out.println(c.currentId(key).get().unsignedIntResponse());
-    }
-
-    public static void mapping(Client c) throws ExecutionException, InterruptedException {
-        long tid = 10000;
-        c.updateIDMapping(tid, 1, IDValue.newBuilder().setType("1").setValue("u1-1").build()).get().checkError();
-        c.updateIDMapping(tid, 2, IDValue.newBuilder().setType("1").setValue("u2-1").build()).get().checkError();
-
-        System.out.println(c.scanIDMapping(tid, 1, 3, 4).get().idSetListResponse());
-        System.out.println(c.getIDSet(tid, 1).get().idSetResponse());
-        System.out.println(c.getIDSet(tid, 2).get().idSetResponse());
-    }
-
-    public static void bitmap(Client c) throws ExecutionException, InterruptedException {
-        String key = "key1";
-
-        c.addToBitmap(key, 1L, 2L, 3L, 4L, 5L).get().checkError();
-        System.out.println(c.getBitmap(key).get().bitmapResponse().getCardinality());
-    }
-
-    public static void workflowWithBigBM(Client c) throws ExecutionException, InterruptedException {
-        String key = "bm1";
-        Long[] values = new Long[40000];
-        int index = 0;
-        for (long i = 0; i < 400000000L; i++) {
-            if (i % 333 == 0) {
-                values[index] = i;
-                index++;
-
-                if (index == 40000) {
-                    c.addToBitmap(key, values).get().checkError();
-                    index = 0;
-                }
-            }
-        }
-
-        if (index > 0) {
-            c.addToBitmap(key, values).get().checkError();
-        }
-
-        Workflow wf = Workflow.newBuilder()
-            .setId(1000)
-            .setName("test")
-            .setTenantID(1)
-            .addSteps(Step.newBuilder()
-                .setName("step-0")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Branch)
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
-                            .build())
-                        .setNextStep("step_end_1"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
-                            .build())
-                        .setNextStep("step_end_2"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
-                            .build())
-                        .setNextStep("step_end_3"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
-                            .build())
-                        .setNextStep("step_end_4"))
-                    .build())
-                .build())
-            .addSteps(Step.newBuilder()
-                .setName("step_end_1")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_2")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_3")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_4")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .build();
-
-        c.initTenant(Tenant.newBuilder()
-            .setId(1)
-            .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
-            .build()).get().checkError();
-        Thread.sleep(15000);
-        c.startInstanceWithKV(wf, "bm1").get().checkError();
-        c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
-        c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
-        c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
-
-        for (; ; ) {
-            System.out.println("************************** send last instance");
-            WorkflowInstance last = c.lastInstance(1000).get().lastInstanceResponse();
-            if (last.getState() == WorkflowInstanceState.Running) {
-                break;
-            }
-
-            Thread.sleep(1000);
-        }
-
-        System.out.println("countState: " + c.countState(1000).get().countStateResponse());
-        System.out.println("updateWorkflowCrowd*********** ");
-        c.updateWorkflowCrowd(1000, RoaringBitmap.bitmapOf(1, 2, 3, 4)).get().checkError();
-        Thread.sleep(2000);
-        c.addEvent(1, 4, "uid".getBytes(), "4".getBytes()).get().checkError();
-        Thread.sleep(2000);
-        System.out.println(c.countState(1000).get().countStateResponse());
-
-        c.updateWorkflow(Workflow.newBuilder()
-            .setId(1000)
-            .setName("test")
-            .setTenantID(1)
-            .addSteps(Step.newBuilder()
-                .setName("step-0")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Branch)
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
-                            .build())
-                        .setNextStep("step_end_1"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
-                            .build())
-                        .setNextStep("step_end_2"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
-                            .build())
-                        .setNextStep("step_end_3"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
-                            .build())
-                        .setNextStep("step_end_4"))
-                    .build())
-                .build())
-            .addSteps(Step.newBuilder()
-                .setName("step_end_1")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_4")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .build()).get().checkError();
-
-        Thread.sleep(2000);
-        System.out.println(c.countState(1000).get().countStateResponse());
-
-        StepState state = c.stepCrowdState(1000, "step-0").get().stepCrowdStateResponse();
-        System.out.println("************************* state: " + state);
-        RoaringBitmap bm = c.loadBitmap(state.getLoader(), state.getLoaderMeta());
-        System.out.println("####************************* state: " + state + ", " + bm.getLongCardinality());
-
-        c.stopInstance(1000).get();
-
-        Thread.sleep(1000);
-        WorkflowInstance last = c.lastInstance(1000).get().lastInstanceResponse();
-        System.out.println(last);
-        System.out.println(c.historyInstance(1000, last.getInstanceID()).get().historyInstanceResponse());
-
-    }
-
-    public static void workflow(Client c) throws ExecutionException, InterruptedException {
-        c.initTenant(Tenant.newBuilder()
-            .setId(1)
-            .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
-            .build()).get().checkError();
-        Thread.sleep(15000);
-        Workflow wf = Workflow.newBuilder()
-            .setId(1000)
-            .setName("test")
-            .setTenantID(1)
-            .addSteps(Step.newBuilder()
-                .setName("step-0")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Branch)
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
-                            .build())
-                        .setNextStep("step_end_1"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
-                            .build())
-                        .setNextStep("step_end_2"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
-                            .build())
-                        .setNextStep("step_end_3"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
-                            .build())
-                        .setNextStep("step_end_4"))
-                    .build())
-                .build())
-            .addSteps(Step.newBuilder()
-                .setName("step_end_1")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_2")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_3")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_4")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .build();
-        c.startInstance(wf, RoaringBitmap.bitmapOf(1, 2, 3)).get().checkError();
-        c.addEvent(1, 1, "uid".getBytes(), "1".getBytes()).get().checkError();
-        c.addEvent(1, 2, "uid".getBytes(), "2".getBytes()).get().checkError();
-        c.addEvent(1, 3, "uid".getBytes(), "3".getBytes()).get().checkError();
-
-        Thread.sleep(2000);
-        System.out.println(c.lastInstance(1000).get().lastInstanceResponse());
-        System.out.println(c.countState(1000).get().countStateResponse());
-
-        c.updateWorkflowCrowd(1000, RoaringBitmap.bitmapOf(1, 2, 3, 4)).get().checkError();
-        Thread.sleep(2000);
-        c.addEvent(1, 4, "uid".getBytes(), "4".getBytes()).get().checkError();
-        Thread.sleep(2000);
-        System.out.println(c.countState(1000).get().countStateResponse());
-
-        c.updateWorkflow(Workflow.newBuilder()
-            .setId(1000)
-            .setName("test")
-            .setTenantID(1)
-            .addSteps(Step.newBuilder()
-                .setName("step-0")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Branch)
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 1".getBytes()))
-                            .build())
-                        .setNextStep("step_end_1"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 2".getBytes()))
-                            .build())
-                        .setNextStep("step_end_2"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 3".getBytes()))
-                            .build())
-                        .setNextStep("step_end_3"))
-                    .addBranches(ConditionExecution.newBuilder()
-                        .setCondition(Expr.newBuilder()
-                            .setType(ExprResultType.BoolResult)
-                            .setValue(ByteString.copyFrom("{num: event.uid} == 4".getBytes()))
-                            .build())
-                        .setNextStep("step_end_4"))
-                    .build())
-                .build())
-            .addSteps(Step.newBuilder()
-                .setName("step_end_1")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .addSteps(Step.newBuilder()
-                .setName("step_end_4")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .build()).get().checkError();
-
-        Thread.sleep(2000);
-        System.out.println(c.countState(1000).get().countStateResponse());
-
-        c.stopInstance(1000).get();
-
-        Thread.sleep(1000);
-        WorkflowInstance last = c.lastInstance(1000).get().lastInstanceResponse();
-        System.out.println(last);
-        System.out.println(c.historyInstance(1000, last.getInstanceID()).get().historyInstanceResponse());
-
-    }
-
-    public static void timerWorkflow(Client c) throws ExecutionException, InterruptedException {
-        c.initTenant(Tenant.newBuilder()
-            .setId(1)
-            .setOutput(TenantQueue.newBuilder().setPartitions(2).setConsumerTimeout(60).build())
-            .build()).get().checkError();
-        Thread.sleep(15000);
-        Workflow wf = Workflow.newBuilder()
-            .setId(3000)
-            .setName("fagongzi_test1")
-            .setTenantID(1)
-            .addSteps(Step.newBuilder()
-                .setName("step-0")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Timer)
-                    .setTimer(TimerExecution.newBuilder()
-                        .setCron("* */1 * * * *")
-                        .setCondition(Expr.newBuilder()
-                            .setValue(ByteString.copyFrom("((${num: func.date} >= 20200203) && (${num: func.date} <= 20200808)) && ((${num: func.time} >= 014011) && (${num: func.time} <= 234011))".getBytes()))
-                            .build())
-                        .setNextStep("step_end")
-                        .setUseStepCrowdToDrive(true)
-                        .build())
-                    .build())
-                .build())
-            .addSteps(Step.newBuilder()
-                .setName("step_end")
-                .setExecution(Execution.newBuilder()
-                    .setType(ExectuionType.Direct)
-                    .setDirect(DirectExecution.newBuilder().build())
-                    .build()))
-            .build();
-
-        RoaringBitmap bm = RoaringBitmap.bitmapOf();
-        for (int i = 1; i <= 10000; i++) {
-            bm.add(i);
-        }
-
-        c.startInstance(wf, bm).get().checkError();
     }
 }

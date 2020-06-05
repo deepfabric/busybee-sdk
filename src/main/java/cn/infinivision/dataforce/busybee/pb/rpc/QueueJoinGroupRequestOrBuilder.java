@@ -21,14 +21,4 @@ public interface QueueJoinGroupRequestOrBuilder extends
    * <code>bytes group = 3;</code>
    */
   com.google.protobuf.ByteString getGroup();
-
-  /**
-   * <code>bool rejoin = 4;</code>
-   */
-  boolean getRejoin();
-
-  /**
-   * <code>uint32 consumer = 5;</code>
-   */
-  int getConsumer();
 }

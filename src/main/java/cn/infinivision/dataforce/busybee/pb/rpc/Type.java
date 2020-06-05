@@ -133,6 +133,10 @@ public enum Type
    */
   QueueCommit(304),
   /**
+   * <code>QueueDelete = 305;</code>
+   */
+  QueueDelete(305),
+  /**
    * <code>TenantInit = 400;</code>
    */
   TenantInit(400),
@@ -304,6 +308,10 @@ public enum Type
    */
   public static final int QueueCommit_VALUE = 304;
   /**
+   * <code>QueueDelete = 305;</code>
+   */
+  public static final int QueueDelete_VALUE = 305;
+  /**
    * <code>TenantInit = 400;</code>
    */
   public static final int TenantInit_VALUE = 400;
@@ -398,6 +406,7 @@ public enum Type
       case 302: return QueueJoin;
       case 303: return QueueScan;
       case 304: return QueueCommit;
+      case 305: return QueueDelete;
       case 400: return TenantInit;
       case 401: return UpdateMapping;
       case 402: return GetMapping;
