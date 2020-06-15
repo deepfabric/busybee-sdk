@@ -253,11 +253,21 @@ public class Client implements Closeable {
      * @return Future Result, use {@link Result#bytesResponse()} to get []byte result
      */
     public Future<Result> get(String key) {
+        return get(ByteString.copyFromUtf8(key));
+    }
+
+    /**
+     * get value
+     *
+     * @param key key
+     * @return Future Result, use {@link Result#bytesResponse()} to get []byte result
+     */
+    public Future<Result> get(ByteString key) {
         Request req = Request.newBuilder()
             .setId(id.incrementAndGet())
             .setType(Type.Get)
             .setGet(GetRequest.newBuilder()
-                .setKey(ByteString.copyFromUtf8(key))
+                .setKey(key)
                 .build())
             .build();
 
@@ -1056,15 +1066,20 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(5000).fetchSize(1).addServer("172.18.211.95:8081").build();
+        Client c = new Builder().rpcTimeout(5000).fetchSize(1).addServer("172.20.36.64:8081").build();
+        c.watchNotify(1, "g1", (id, nt) -> {
+            log.info("p{}/{} notify {}", id.getPartition(), id.getOffset(), nt.getToStep());
+        });
+
+        Thread.sleep(10000000L);
 
         int n = 3;
         if (n == 1) {
             c.initTenant(Tenant.newBuilder()
                 .setId(1)
-                .setRunners(16)
-                .setInput(TenantQueue.newBuilder().setPartitions(5).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
-                .setOutput(TenantQueue.newBuilder().setPartitions(5).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
+                .setRunners(2)
+                .setInput(TenantQueue.newBuilder().setPartitions(4).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
+                .setOutput(TenantQueue.newBuilder().setPartitions(4).setConsumerTimeout(60).setMaxAlive(100).setCleanBatch(4096).build())
                 .build()).get().checkError();
             System.exit(0);
         } else if (n == 2) {
@@ -1105,8 +1120,8 @@ public class Client implements Closeable {
         } else if (n == 3) {
             for (int i = 1; i <= 100000000; i++) {
                 c.addEvent(1, i);
-                if (i > 0 && i % 20000 == 0) {
-                    Thread.sleep(2000);
+                if (i > 0 && i % 10000 == 0) {
+                    Thread.sleep(1000);
                 }
             }
         } else if (n == 4) {

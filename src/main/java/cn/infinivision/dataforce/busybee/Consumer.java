@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -288,12 +289,14 @@ class Consumer {
                     List<ByteString> items = resp.getItemsList();
                     if (items.size() > 0) {
                         long value = resp.getLastOffset() - items.size() + 1;
-                        List<Notify> values = new ArrayList<>();
+                        List<Future<Result>> results = new ArrayList<>();
+
                         for (ByteString bs : items) {
-                            values.add(Notify.parseFrom(bs));
+                            results.add(consumer.client.get(bs));
                         }
 
-                        for (Notify nt : values) {
+                        for (Future<Result> result : results) {
+                            Notify nt = Notify.parseFrom(result.get().bytesResponse());
                             consumer.callback.accept(new QueueID(consumer.tenantId, consumer.group, partition, value), nt);
                             offset = value;
                             value++;
