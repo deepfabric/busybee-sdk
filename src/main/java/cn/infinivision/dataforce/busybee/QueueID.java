@@ -19,14 +19,16 @@ public class QueueID {
     private long offset;
     private long tenantId;
     private String group;
+    private byte[] uuid;
 
     public QueueID() {
     }
 
-    public QueueID(long tenantId, String group, int partition, long offset) {
+    public QueueID(long tenantId, String group, int partition, long offset, byte[] uuid) {
         this.tenantId = tenantId;
         this.group = group;
         this.partition = partition;
         this.offset = offset;
+        this.uuid = uuid;
     }
 }

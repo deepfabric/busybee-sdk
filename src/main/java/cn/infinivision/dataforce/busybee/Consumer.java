@@ -296,8 +296,9 @@ class Consumer {
                         }
 
                         for (Future<Result> result : results) {
-                            Notify nt = Notify.parseFrom(result.get().bytesResponse());
-                            consumer.callback.accept(new QueueID(consumer.tenantId, consumer.group, partition, value), nt);
+                            byte[] uuid = result.get().bytesResponse();
+                            Notify nt = Notify.parseFrom(uuid);
+                            consumer.callback.accept(new QueueID(consumer.tenantId, consumer.group, partition, value, uuid), nt);
                             offset = value;
                             value++;
                         }

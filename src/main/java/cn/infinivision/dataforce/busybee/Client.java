@@ -1066,12 +1066,9 @@ public class Client implements Closeable {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Client c = new Builder().rpcTimeout(5000).fetchSize(1).addServer("172.20.36.64:8081").build();
-        c.watchNotify(1, "g1", (id, nt) -> {
-            log.info("p{}/{} notify {}", id.getPartition(), id.getOffset(), nt.getToStep());
-        });
-
-        Thread.sleep(10000000L);
+        Client c = new Builder().rpcTimeout(5000).fetchSize(1).addServer("172.19.0.106:8091").build();
+        System.out.println(c.countState(5633).get().countStateResponse());
+        System.exit(0);
 
         int n = 3;
         if (n == 1) {
