@@ -295,9 +295,10 @@ class Consumer {
                             results.add(consumer.client.get(bs));
                         }
 
-                        for (Future<Result> result : results) {
-                            byte[] uuid = result.get().bytesResponse();
-                            Notify nt = Notify.parseFrom(uuid);
+                        for (int i = 0; i < results.size(); i++) {
+                            Future<Result> result = results.get(i);
+                            byte[] uuid = items.get(i).toByteArray();
+                            Notify nt = Notify.parseFrom(result.get().bytesResponse());
                             consumer.callback.accept(new QueueID(consumer.tenantId, consumer.group, partition, value, uuid), nt);
                             offset = value;
                             value++;

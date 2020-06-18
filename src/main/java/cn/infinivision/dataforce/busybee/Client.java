@@ -56,6 +56,7 @@ import cn.infinivision.dataforce.busybee.pb.rpc.UpdateMappingRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateProfileRequest;
 import cn.infinivision.dataforce.busybee.pb.rpc.UpdateWorkflowRequest;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import java.io.Closeable;
@@ -402,6 +403,47 @@ public class Client implements Closeable {
                 .setFrom(fromInclude)
                 .setTo(toExclude)
                 .setLimit(limit)
+                .build())
+            .build();
+
+        return doRequest(req);
+    }
+
+    /**
+     * scan notify contents directly
+     *
+     * @param tenantId tenant id
+     * @param partition partition
+     * @param fromOffset from offset
+     * @param count fetch count
+     * @return Future Result, use {@link Result#bytesListResponse} to get bytes list response
+     */
+    public Future<Result> scanNotify(long tenantId, int partition, long fromOffset, long count) {
+        ByteBuf buf = ByteBufAllocator.DEFAULT.buffer();
+
+        buf.writeLong(tenantId);
+        buf.writeInt(partition);
+        buf.writeByte(2);
+        buf.writeLong(fromOffset);
+        byte[] start = new byte[buf.readableBytes()];
+        buf.readBytes(start);
+
+        buf.clear();
+        buf.writeLong(tenantId);
+        buf.writeInt(partition);
+        buf.writeByte(2);
+        buf.writeLong(fromOffset + count);
+        byte[] end = new byte[buf.readableBytes()];
+        buf.readBytes(end);
+
+        Request req = Request.newBuilder()
+            .setId(id.incrementAndGet())
+            .setType(Type.Scan)
+            .setScan(ScanRequest.newBuilder()
+                .setGroup(Group.TenantOutputGroup)
+                .setStart(ByteString.copyFrom(start))
+                .setEnd(ByteString.copyFrom(end))
+                .setLimit(count)
                 .build())
             .build();
 
@@ -1065,9 +1107,19 @@ public class Client implements Closeable {
         });
     }
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(
+        String[] args) throws ExecutionException, InterruptedException, InvalidProtocolBufferException {
+        String v = "18, 36, 58, 48, 0, 0, 1, 0, 0, 0, 50, 6, 9, 0, 16, 0, 0, 0, 4, -22, 36, -22, 44, -22, 68, -22, 84, -22, 92, -22, 108, -22, 116, -22, 124, -22, -124, -22, 24, 1, 32, -127, 44, 40, 113, 50, 41, 99, 56, 99, 53, 53, 98, 56, 52, 45, 50, 56, 100, 100, 45, 52, 99, 101, 97, 45, 56, 54, 100, 48, 45, 52, 54, 99, 48, 49, 99, 57, 51, 50, 49, 57, 98, 64, 48, 48, 48, 49, 66, 41, 51, 48, 57, 52, 52, 101, 49, 50, 45, 48, 97, 100, 52, 45, 52, 98, 102, 50, 45, 98, 54, 55, 101, 45, 98, 55, 101, 48, 53, 56, 99, 102, 49, 53, 48, 51, 64, 48, 48, 48, 49, 80, -128, -93, 5";
+        String[] vv = v.split(",");
+        final byte[] data = new byte[vv.length];
+        for (int i = 0; i < vv.length; i++) {
+            data[i] = Byte.parseByte(vv[i].trim());
+        }
+
+        System.out.println(Notify.parseFrom(data));
+
         Client c = new Builder().rpcTimeout(5000).fetchSize(1).addServer("172.19.0.106:8091").build();
-        System.out.println(c.countState(5633).get().countStateResponse());
+        System.out.println("11111111111111: " + Notify.parseFrom(c.get(data).get().bytesResponse()));
         System.exit(0);
 
         int n = 3;
