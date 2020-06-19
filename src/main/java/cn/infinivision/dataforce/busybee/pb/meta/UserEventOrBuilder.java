@@ -18,35 +18,25 @@ public interface UserEventOrBuilder extends
   long getTenantID();
 
   /**
-   * <code>uint64 workflowID = 3;</code>
-   */
-  long getWorkflowID();
-
-  /**
-   * <code>uint64 instanceID = 4;</code>
-   */
-  long getInstanceID();
-
-  /**
-   * <code>repeated .metapb.KV data = 5;</code>
+   * <code>repeated .metapb.KV data = 3;</code>
    */
   java.util.List<cn.infinivision.dataforce.busybee.pb.meta.KV> 
       getDataList();
   /**
-   * <code>repeated .metapb.KV data = 5;</code>
+   * <code>repeated .metapb.KV data = 3;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.KV getData(int index);
   /**
-   * <code>repeated .metapb.KV data = 5;</code>
+   * <code>repeated .metapb.KV data = 3;</code>
    */
   int getDataCount();
   /**
-   * <code>repeated .metapb.KV data = 5;</code>
+   * <code>repeated .metapb.KV data = 3;</code>
    */
   java.util.List<? extends cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder> 
       getDataOrBuilderList();
   /**
-   * <code>repeated .metapb.KV data = 5;</code>
+   * <code>repeated .metapb.KV data = 3;</code>
    */
   cn.infinivision.dataforce.busybee.pb.meta.KVOrBuilder getDataOrBuilder(
       int index);

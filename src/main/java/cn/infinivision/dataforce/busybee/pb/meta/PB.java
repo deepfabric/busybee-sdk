@@ -195,9 +195,8 @@ public final class PB {
       "vent\"D\n\020UpdateCrowdEvent\022\022\n\nworkflowID\030\001" +
       " \001(\004\022\r\n\005index\030\002 \001(\r\022\r\n\005crowd\030\003 \001(\014\"9\n\023Up" +
       "dateWorkflowEvent\022\"\n\010workflow\030\001 \001(\0132\020.me" +
-      "tapb.Workflow\"o\n\tUserEvent\022\016\n\006userID\030\001 \001" +
-      "(\003\022\020\n\010tenantID\030\002 \001(\004\022\022\n\nworkflowID\030\003 \001(\004" +
-      "\022\022\n\ninstanceID\030\004 \001(\004\022\030\n\004data\030\005 \003(\0132\n.met" +
+      "tapb.Workflow\"G\n\tUserEvent\022\016\n\006userID\030\001 \001" +
+      "(\003\022\020\n\010tenantID\030\002 \001(\004\022\030\n\004data\030\003 \003(\0132\n.met" +
       "apb.KV\" \n\002KV\022\013\n\003key\030\001 \001(\014\022\r\n\005value\030\002 \001(\014" +
       "\"\266\001\n\006Notify\022\016\n\006userID\030\001 \001(\003\022\r\n\005crowd\030\002 \001" +
       "(\014\022\020\n\010tenantID\030\003 \001(\004\022\022\n\nworkflowID\030\004 \001(\004" +
@@ -339,7 +338,7 @@ public final class PB {
     internal_static_metapb_UserEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_metapb_UserEvent_descriptor,
-        new java.lang.String[] { "UserID", "TenantID", "WorkflowID", "InstanceID", "Data", });
+        new java.lang.String[] { "UserID", "TenantID", "Data", });
     internal_static_metapb_KV_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_metapb_KV_fieldAccessorTable = new

@@ -106,9 +106,7 @@ message UpdateWorkflowEvent {
 message UserEvent {
     int64  userID     = 1;
     uint64 tenantID   = 2;
-    uint64 workflowID = 3;
-    uint64 instanceID = 4;
-    repeated KV data  = 5;
+    repeated KV data  = 3;
 }
 
 // KV custom KV data
